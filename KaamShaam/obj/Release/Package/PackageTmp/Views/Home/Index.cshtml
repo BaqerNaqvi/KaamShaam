@@ -1,0 +1,1093 @@
+﻿<!--************************************
+Header End
+*************************************-->
+@model List<string>
+@{
+    string baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority +
+                            Request.ApplicationPath.TrimEnd('/');
+
+}
+<head>
+    <title>Home</title>
+    <link rel="stylesheet" href="~/Scripts/masterslider/style/masterslider.css" />
+    <style>
+        #masterslider {
+            display: table !important;
+        }
+    </style>
+</head>
+<!--************************-->
+<!-- masterslider -->
+<div class="master-slider ms-skin-default" id="masterslider" style="display:table;">
+
+   @{
+       foreach (var img in Model)
+       {
+            <!-- slide 1 -->
+        <div class="ms-slide slide-1" data-delay="9">
+        <img src="@baseUrl/Images/Banners/@img" alt="" />
+        </div>
+    <!-- end slide 1 -->
+       }
+}
+   
+</div>
+<!-- end of masterslider -->
+<!--******************************-->
+<!--************************************
+            Home Slider Start
+    *************************************-->
+<div class="tg-homebannerandslider">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="row  ">
+                    <div class="tg-accordionandcategorysearch hidden-xs">
+                        <div class="tg-categoreyaccordion">
+                            <div class="tg-themescrollbar">
+                                <div id="tg-accordion" class="tg-accordion" role="tablist" aria-multiselectable="true">
+                                    <div class="tg-panel">
+                                        <div class="tg-accordionheading tg-automotive tg-radio">
+                                            <input type="radio" id="tg-radioautomotive" name="tg-categories" value="automovice" checked>
+                                            <label for="tg-radioautomotive">
+                                                <span class="lnr lnr-car tg-categoryicon"></span>
+                                                <span class="tg-catenameandtypes">
+                                                    <span class="tg-categoryname">Plumber</span>
+                                                    <span class="tg-typesandjobs">3215 Providers</span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="tg-panel">
+                                        <div class="tg-accordionheading tg-beautypersonalcare tg-radio">
+                                            <input type="radio" id="tg-radiobeautypersonalcare" name="tg-categories" value="Beauty &amp; Personal Care">
+                                            <label for="tg-radiobeautypersonalcare">
+                                                <span class="lnr lnr-heart tg-categoryicon"></span>
+                                                <span class="tg-catenameandtypes">
+                                                    <span class="tg-categoryname">Electrician</span>
+                                                    <span class="tg-typesandjobs">3045 Providers</span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="tg-panel">
+                                        <div class="tg-accordionheading tg-business tg-radio">
+                                            <input type="radio" id="tg-radiobusiness" name="tg-categories" value="Business">
+                                            <label for="tg-radiobusiness">
+                                                <span class="lnr lnr-apartment tg-categoryicon"></span>
+                                                <span class="tg-catenameandtypes">
+                                                    <span class="tg-categoryname">Carpenters</span>
+                                                    <span class="tg-typesandjobs">2478 Providers</span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="tg-panel">
+                                        <div class="tg-accordionheading tg-childcare tg-radio">
+                                            <input type="radio" id="tg-radiochildcare" name="tg-categories" value="Child Care">
+                                            <label for="tg-radiochildcare">
+                                                <span class="lnr lnr-smile tg-categoryicon"></span>
+                                                <span class="tg-catenameandtypes">
+                                                    <span class="tg-categoryname">General Contractor</span>
+                                                    <span class="tg-typesandjobs">2655 Providers</span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="tg-panel">
+                                        <div class="tg-accordionheading tg-cleaning tg-radio">
+                                            <input type="radio" id="tg-radiocleaning" name="tg-categories" value="Cleaning">
+                                            <label for="tg-radiocleaning">
+                                                <span class="lnr lnr-magic-wand tg-categoryicon"></span>
+                                                <span class="tg-catenameandtypes">
+                                                    <span class="tg-categoryname">Handyman</span>
+                                                    <span class="tg-typesandjobs">4515 Providers</span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                        <div class="tg-panelcontent">
+                                            <div class="tg-subcategoryradio tg-radio">
+                                                <input type="radio" id="tg-radiohomecleaning" name="tg-categories" value="Home Cleaning">
+                                                <label for="tg-radiohomecleaning">
+                                                    <span class="tg-categoryname">Home Cleaning</span>
+                                                    <span class="tg-typesandjobs">609 Providers</span>
+                                                </label>
+                                            </div>
+                                            <div class="tg-subcategoryradio tg-radio">
+                                                <input type="radio" id="tg-radiocommecialcleaning" name="tg-categories" value="Commercial Cleaning">
+                                                <label for="tg-radiocommecialcleaning">
+                                                    <span class="tg-categoryname">Commercial Cleaning</span>
+                                                    <span class="tg-typesandjobs">225 Providers</span>
+                                                </label>
+                                            </div>
+                                            <div class="tg-subcategoryradio tg-radio">
+                                                <input type="radio" id="tg-radiolaundry" name="tg-categories" value="Laundry">
+                                                <label for="tg-radiolaundry">
+                                                    <span class="tg-categoryname">Laundry</span>
+                                                    <span class="tg-typesandjobs">490 Providers</span>
+                                                </label>
+                                            </div>
+                                            <div class="tg-subcategoryradio tg-radio">
+                                                <input type="radio" id="tg-radiocarpetcleaning" name="tg-categories" value="Carpet Cleaning">
+                                                <label for="tg-radiocarpetcleaning">
+                                                    <span class="tg-categoryname">Carpet Cleaning</span>
+                                                    <span class="tg-typesandjobs">1180 Providers</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tg-panel">
+                                        <div class="tg-accordionheading tg-computermobile tg-radio">
+                                            <input type="radio" id="tg-radiocomputermobile" name="tg-categories" value="Computer &amp; Mobile Service">
+                                            <label for="tg-radiocomputermobile">
+                                                <span class="lnr lnr-laptop tg-categoryicon"></span>
+                                                <span class="tg-catenameandtypes">
+                                                    <span class="tg-categoryname">Computer &amp; Mobile Service</span>
+                                                    <span class="tg-typesandjobs">1015 Providers</span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                        <div class="tg-panelcontent">
+                                            <div class="tg-subcategoryradio tg-radio">
+                                                <input type="radio" id="tg-radiomobilerepair" name="tg-categories" value="Mobile Repair">
+                                                <label for="tg-radiomobilerepair">
+                                                    <span class="tg-categoryname">Mobile Repair</span>
+                                                    <span class="tg-typesandjobs">609 Providers</span>
+                                                </label>
+                                            </div>
+                                            <div class="tg-subcategoryradio tg-radio">
+                                                <input type="radio" id="tg-radiocomputerlaptoprepair" name="tg-categories" value="Computer &amp; Laptop Repair">
+                                                <label for="tg-radiocomputerlaptoprepair">
+                                                    <span class="tg-categoryname">Computer &amp; Laptop Repair</span>
+                                                    <span class="tg-typesandjobs">225 Providers</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tg-panel">
+                                        <div class="tg-accordionheading tg-traningeducation tg-radio">
+                                            <input type="radio" id="tg-radiotraningeducation" name="tg-categories" value="Traning &amp; Education">
+                                            <label for="tg-radiotraningeducation">
+                                                <span class="lnr lnr-book tg-categoryicon"></span>
+                                                <span class="tg-catenameandtypes">
+                                                    <span class="tg-categoryname">Traning &amp; Education</span>
+                                                    <span class="tg-typesandjobs">1208 Providers</span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                        <div class="tg-panelcontent">
+                                            <div class="tg-subcategoryradio tg-radio">
+                                                <input type="radio" id="tg-radiocardriving" name="tg-categories" value="Car Driving">
+                                                <label for="tg-radiocardriving">
+                                                    <span class="tg-categoryname">Car Driving</span>
+                                                    <span class="tg-typesandjobs">609 Providers</span>
+                                                </label>
+                                            </div>
+                                            <div class="tg-subcategoryradio tg-radio">
+                                                <input type="radio" id="tg-radioselfmotivationcenter" name="tg-categories" value="Self Motivation Center">
+                                                <label for="tg-radioselfmotivationcenter">
+                                                    <span class="tg-categoryname">Self Motivation Center</span>
+                                                    <span class="tg-typesandjobs">225 Providers</span>
+                                                </label>
+                                            </div>
+                                            <div class="tg-subcategoryradio tg-radio">
+                                                <input type="radio" id="tg-radioeducationinstitute" name="tg-categories" value="Education Institute">
+                                                <label for="tg-radioeducationinstitute">
+                                                    <span class="tg-categoryname">Education Institute</span>
+                                                    <span class="tg-typesandjobs">490 Providers</span>
+                                                </label>
+                                            </div>
+                                            <div class="tg-subcategoryradio tg-radio">
+                                                <input type="radio" id="tg-radioanimaltrainingcenter" name="tg-categories" value="Animal Training Center">
+                                                <label for="tg-radioanimaltrainingcenter">
+                                                    <span class="tg-categoryname">Animal Training Center</span>
+                                                    <span class="tg-typesandjobs">1180 Providers</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tg-panel">
+                                        <div class="tg-accordionheading tg-transportationtravel tg-radio">
+                                            <input type="radio" id="tg-radiotransportationtravel" name="tg-categories" value="Transportation &amp; Travel">
+                                            <label for="tg-radiotransportationtravel">
+                                                <span class="lnr lnr-train tg-categoryicon"></span>
+                                                <span class="tg-catenameandtypes">
+                                                    <span class="tg-categoryname">Transportation &amp; Travel</span>
+                                                    <span class="tg-typesandjobs">1715 Providers</span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                        <div class="tg-panelcontent">
+                                            <div class="tg-subcategoryradio tg-radio">
+                                                <input type="radio" id="tg-radiopacker&amp;movers" name="tg-categories" value="Packer &amp; Movers">
+                                                <label for="tg-radiopacker&amp;movers">
+                                                    <span class="tg-categoryname">Packer &amp; Movers</span>
+                                                    <span class="tg-typesandjobs">609 Providers</span>
+                                                </label>
+                                            </div>
+                                            <div class="tg-subcategoryradio tg-radio">
+                                                <input type="radio" id="tg-radiotourtravelservice" name="tg-categories" value="Tour &amp; Travel Service">
+                                                <label for="tg-radiotourtravelservice">
+                                                    <span class="tg-categoryname">Tour &amp; Travel Service</span>
+                                                    <span class="tg-typesandjobs">225 Providers</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tg-categorysearch">
+                            <form class="tg-formtheme tg-formcategorysearch">
+                                <fieldset>
+                                    <input type="search" name="search" class="form-control" placeholder="Search Category">
+                                    <button class="tg-btnsearch" type="submit"><i class="lnr lnr-magnifier"></i></button>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="tg-searchbox ">
+                        <form class="tg-formtheme tg-formsearch">
+                            <fieldset>
+                                <legend>Search Thousands of Qualified Professionals</legend>
+                                <div class="form-group">
+                                    <input type="text" name="keyword" class="form-control" placeholder="Keyword">
+                                </div>
+                                <div class="form-group hidden-sm hidden-md hidden-lg">
+                                    <input type="text" name="category" class="form-control" placeholder="Select Category">
+                                </div>
+                                <div class="form-group tg-inputwithicon">
+                                    <div class="locate-me-wrap">
+                                        <div id="location-pickr-map" class="elm-display-none"></div>
+                                        <input type="text" autocomplete="on" id="location-address" value="" name="geo_location" placeholder="Geo location" class="form-control">
+                                        <a href="javascript:;" class="geolocate"><i class="fa fa-crosshairs"></i></a>
+                                        <a href="javascript:;" class="geodistance"><i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                                        <div class="geodistance_range elm-display-none">
+                                            <div class="distance-ml">Distance in&nbsp;( Miles )<span> 50</span></div>
+                                            <input type="hidden" name="geo_distance" value="50" class="geo_distance" />
+                                            <div class="geo_distance" id="geo_distance"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group tg-select">
+                                    <select>
+                                        <option value="">Select Location</option>
+                                        <option value="aberdeen">Lahore</option>
+                                        <option value="aldershot">Karachi</option>
+                                        <option value="altrincham">Islamabad</option>
+                                        <option value="aylesbury">Bahawalpur</option>
+                                        <option value="bamber">Bamber</option>
+                                        <option value="bangor">Bangor</option>
+                                        <option value="batley">Batley</option>
+                                        <option value="bebingto">Bebingto</option>
+                                        <option value="bedford">Bedford</option>
+                                        <option value="birmingham">Birmingham</option>
+                                        <option value="blackpool">Blackpool</option>
+                                        <option value="brentwood">Brentwood</option>
+                                        <option value="bristol">Bristol</option>
+                                        <option value="cardiff">Cardiff</option>
+                                        <option value="carlisle">Carlisle</option>
+                                        <option value="crawley">Crawley</option>
+                                        <option value="darlington">Darlington</option>
+                                        <option value="eastleigh">Eastleigh</option>
+                                        <option value="edinburg">Edinburg</option>
+                                        <option value="esher">Esher</option>
+                                        <option value="glasgow-sco">Glasgow SCO</option>
+                                        <option value="guildford">Guildford</option>
+                                        <option value="halesowen">Halesowen</option>
+                                        <option value="halifax">Halifax</option>
+                                        <option value="hamilton">Hamilton</option>
+                                        <option value="leeds">Leeds</option>
+                                        <option value="leicester">Leicester</option>
+                                        <option value="liverpool">Liverpool</option>
+                                        <option value="london">London</option>
+                                        <option value="louisville">Louisville</option>
+                                        <option value="manchester">Manchester</option>
+                                        <option value="sheffield">Sheffield</option>
+                                    </select>
+                                </div>
+                                <div class="form-group tg-select">
+                                    <select>
+                                        <option>States</option>
+                                        <option>Manchester</option>
+                                        <option>Birmingham</option>
+                                        <option>Bradford</option>
+                                    </select>
+                                </div>
+                                <div class="form-group tg-select">
+                                    <select>
+                                        <option value="city">City</option>
+                                        <option>Manchester</option>
+                                        <option>Birmingham</option>
+                                        <option>Bradford</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="zipcode" class="form-control" placeholder="zip code">
+                                </div>
+                                <div class="form-group">
+                                    <div class="tg-checkbox">
+                                        <input type="checkbox" id="tg-onlywithphoto" name="findonlywithprofilephoto" value="Find Only With Profile Photo">
+                                        <label for="tg-onlywithphoto">Find Only With Profile Photo</label>
+                                    </div>
+                                </div>
+                                <div class="tg-btns">
+                                    <button class="tg-btn green-color" type="submit">Search Now</button>
+                                    <button class="tg-btn blue-color" type="reset">Reset All</button>
+                                    <button class="tg-btn pink-color" type="reset"><a href="contractors.php">Advanced</a></button>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" style="display:none">
+                <div class="row">
+                    <div class="tg-featuredprofiles">
+                        <h1><span>Top Rated</span><span>Electrician</span></h1>
+                        <div id="tg-featuredprofileslider" class="tg-featuredprofileslider owl-carousel">
+                            <div class="item tg-profile tg-featuredprofile">
+                                <figure>
+                                    <img src="~/Images/slider/img-01.jpg" alt="image description">
+                                    <figcaption>
+                                        <div class="tg-featuredprofilecontent">
+                                            <div class="tg-contentbox">
+                                                <div class="tg-companylogo"><a href="#"><img src="Images/logos/img-01.png" alt="image description"></a></div>
+                                                <div class="tg-companycontent">
+                                                    <ul class="tg-tags">
+                                                        <li><a class="tg-tag tg-featuredtag" href="#">featured</a></li>
+                                                        <li><a class="tg-tag tg-verifiedtag" href="#">verified</a></li>
+                                                    </ul>
+                                                    <div class="tg-title">
+                                                        <h3><a href="#">Walton Area Lahore</a></h3>
+                                                    </div>
+                                                    <ul class="tg-matadata">
+                                                        <li><span class="tg-stars"><span></span></span></li>
+                                                        <li>
+                                                            <i class="fa fa-thumbs-o-up"></i>
+                                                            <em>99% (1009 votes)</em>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <a class="tg-btn" href="contractor-profile.php">View Profile</a>
+                                        </div>
+                                    </figcaption>
+                                </figure>
+                            </div>
+                            <div class="item tg-profile tg-featuredprofile">
+                                <figure>
+                                    <img src="~/Images/slider/slider-img.jpg" alt="image description">
+                                    <figcaption>
+                                        <div class="tg-featuredprofilecontent">
+                                            <div class="tg-contentbox">
+                                                <div class="tg-companylogo"><a href="#"><img src="Images/logos/img-01.png" alt="image description"></a></div>
+                                                <div class="tg-companycontent">
+                                                    <ul class="tg-tags">
+                                                        <li><a class="tg-tag tg-featuredtag" href="#">featured</a></li>
+                                                        <li><a class="tg-tag tg-verifiedtag" href="#">verified</a></li>
+                                                    </ul>
+                                                    <div class="tg-title">
+                                                        <h3><a href="#">Bright Future Group &amp; Company</a></h3>
+                                                    </div>
+                                                    <ul class="tg-matadata">
+                                                        <li><span class="tg-stars"><span></span></span></li>
+                                                        <li>
+                                                            <i class="fa fa-thumbs-o-up"></i>
+                                                            <em>99% (1009 votes)</em>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <a class="tg-btn" href="contractor-profile.php">View Profile</a>
+                                        </div>
+                                    </figcaption>
+                                </figure>
+                            </div>
+                            <div class="item tg-profile tg-featuredprofile">
+                                <figure>
+                                    <img src="~/Images/slider/img-03.jpg" alt="image description">
+                                    <figcaption>
+                                        <div class="tg-featuredprofilecontent">
+                                            <div class="tg-contentbox">
+                                                <div class="tg-companylogo"><a href="#"><img src="Images/logos/img-01.png" alt="image description"></a></div>
+                                                <div class="tg-companycontent">
+                                                    <ul class="tg-tags">
+                                                        <li><a class="tg-tag tg-featuredtag" href="#">featured</a></li>
+                                                        <li><a class="tg-tag tg-verifiedtag" href="#">verified</a></li>
+                                                    </ul>
+                                                    <div class="tg-title">
+                                                        <h3><a href="#">Bright Future Group &amp; Company</a></h3>
+                                                    </div>
+                                                    <ul class="tg-matadata">
+                                                        <li><span class="tg-stars"><span></span></span></li>
+                                                        <li>
+                                                            <i class="fa fa-thumbs-o-up"></i>
+                                                            <em>99% (1009 votes)</em>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <a class="tg-btn" href="contractor-profile.php">View Profile</a>
+                                        </div>
+                                    </figcaption>
+                                </figure>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--************************************
+        Home Slider End
+*************************************-->
+<!--************************************
+        Main Start
+*************************************-->
+<main id="tg-main" class="tg-main tg-haslayout">
+    <!--************************************
+            Top Categories Start
+    *************************************-->
+    <section class="tg-main-section tg-haslayout">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-10 col-md-push-1 col-lg-8 col-lg-push-2">
+                    <div class="tg-sectionhead">
+                        <div class="tg-sectiontitle">
+                            <h2>Contractor Categories</h2>
+                        </div>
+                        <div class="tg-description">
+                            <p>Consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim adia minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip extea commodo consequat.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="tg-topcategories">
+
+                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                        <div class="tg-category">
+                            <figure>
+                                <img src="~/Images/categories/img-07.jpg" alt="image description">
+                                <figcaption class="tg-automotive">
+                                    <span class="lnr lnr-car tg-categoryicon"></span>
+                                    <a href="contractors.php">
+                                        <span class="tg-categoryname">Electrician</span>
+                                    </a>
+                                    <a href="contractors.php" class="tg-themetag tg-tagjobcount">
+                                        <i class="fa fa-clone"></i>
+                                        <em>3215</em>
+                                    </a>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                        <div class="tg-category">
+                            <figure>
+                                <img src="~/Images/categories/img-08.jpg" alt="image description">
+                                <figcaption class="tg-beautypersonalcare">
+                                    <span class="lnr lnr-heart tg-categoryicon"></span>
+                                    <a href="contractors.php">
+                                        <span class="tg-categoryname">Plumbers</span>
+                                    </a>
+                                    <a href="contractors.php" class="tg-themetag tg-tagjobcount">
+                                        <i class="fa fa-clone"></i>
+                                        <em>3045</em>
+                                    </a>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                        <div class="tg-category">
+                            <figure>
+                                <img src="~/Images/categories/img-09.jpg" alt="image description">
+                                <figcaption class="tg-business">
+                                    <span class="lnr lnr-apartment tg-categoryicon"></span>
+                                    <a href="contractors.php">
+                                        <span class="tg-categoryname">Carpenters</span>
+                                    </a>
+                                    <a href="contractors.php" class="tg-themetag tg-tagjobcount">
+                                        <i class="fa fa-clone"></i>
+                                        <em>2478</em>
+                                    </a>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                        <div class="tg-category">
+                            <figure>
+                                <img src="~/Images/categories/img-10.jpg" alt="image description">
+                                <figcaption class="tg-childcare">
+                                    <span class="lnr lnr-smile tg-categoryicon"></span>
+                                    <a href="contractors.php">
+                                        <span class="tg-categoryname">General Contractor</span>
+                                    </a>
+                                    <a href="#" class="tg-themetag tg-tagjobcount">
+                                        <i class="fa fa-clone"></i>
+                                        <em>2655</em>
+                                    </a>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                        <div class="tg-category">
+                            <figure>
+                                <img src="~/Images/categories/img-11.jpg" alt="image description">
+                                <figcaption class="tg-cleaning">
+                                    <span class="lnr lnr-magic-wand tg-categoryicon"></span>
+                                    <a href="contractors.php">
+                                        <span class="tg-categoryname">Handyman</span>
+                                    </a>
+                                    <a href="contractors.php" class="tg-themetag tg-tagjobcount">
+                                        <i class="fa fa-clone"></i>
+                                        <em>2242</em>
+                                    </a>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                        <div class="tg-category">
+                            <figure>
+                                <img src="~/Images/categories/img-12.jpg" alt="image description">
+                                <figcaption class="tg-computermobile">
+                                    <span class="lnr lnr-laptop tg-categoryicon"></span>
+                                    <a href="contractors.php">
+                                        <span class="tg-categoryname">computer &amp; mobile services</span>
+                                    </a>
+                                    <a href="contractors.php" class="tg-themetag tg-tagjobcount">
+                                        <i class="fa fa-clone"></i>
+                                        <em>1206</em>
+                                    </a>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+                <div class="tg-btnbox">
+                    <a class="tg-btn tg-btnviewall" href="contractors.php">view all</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--************************************
+            Top Categories End
+    *************************************-->
+    <!--************************************
+            Advantagies Start
+    *************************************-->
+    <section class="tg-main-section tg-haslayout tg-bglight">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-10 col-md-push-1 col-lg-8 col-lg-push-2">
+                    <div class="tg-sectiontitle">
+                        <h2>Easiest Way To Get Services</h2>
+                    </div>
+                </div>
+                <div class="tg-advantagies">
+                    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+                        <div class="tg-advantage tg-advantageplan">
+                            <span class="tg-advantageicon">
+                                <i class="tg-badge">1</i>
+                                <em><img src="~/Images/advantagies/img-01.png" alt="image description"></em>
+                            </span>
+                            <div class="tg-title">
+                                <h3><a href="#">Plan Your Task</a></h3>
+                            </div>
+                            <div class="tg-description">
+                                <p>Adipisicing elit sed dotas eiusmod incididunt utia labore.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+                        <div class="tg-advantage tg-advantagechoosebest">
+                            <span class="tg-advantageicon">
+                                <i class="tg-badge">2</i>
+                                <em><img src="~/Images/advantagies/img-02.png" alt="image description"></em>
+                            </span>
+                            <div class="tg-title">
+                                <h3><a href="#">Choose Best Service</a></h3>
+                            </div>
+                            <div class="tg-description">
+                                <p>Adipisicing elit sed dotas eiusmod incididunt utia labore.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+                        <div class="tg-advantage tg-advantagestressfree">
+                            <span class="tg-advantageicon">
+                                <i class="tg-badge">3</i>
+                                <em><img src="~/Images/advantagies/img-03.png" alt="image description"></em>
+                            </span>
+                            <div class="tg-title">
+                                <h3><a href="#">Live Stress Free</a></h3>
+                            </div>
+                            <div class="tg-description">
+                                <p>Adipisicing elit sed dotas eiusmod incididunt utia labore.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+                        <div class="tg-advantage tg-advantageexperience">
+                            <span class="tg-advantageicon">
+                                <i class="tg-badge">4</i>
+                                <em><img src="~/Images/advantagies/img-04.png" alt="image description"></em>
+                            </span>
+                            <div class="tg-title">
+                                <h3><a href="#">Share Your Experience</a></h3>
+                            </div>
+                            <div class="tg-description">
+                                <p>Adipisicing elit sed dotas eiusmod incididunt utia labore.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--************************************
+            Advantagies End
+    *************************************-->
+    <!--************************************
+        Latest Services Provider Start
+    *************************************-->
+    <section class="tg-main-section tg-haslayout">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-10 col-md-push-1 col-lg-8 col-lg-push-2">
+                    <div class="tg-sectionhead">
+                        <div class="tg-sectiontitle">
+                            <h2>Recent Jobs</h2>
+                        </div>
+                        <div class="tg-description">
+                            <p>Consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim adia minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip extea commodo consequat.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="tg-latestserviceproviders">
+                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                        <div class="tg-serviceprovider tg-automotive">
+                            <figure class="tg-featuredimg">
+                                <img src="~/Images/serviceproviders/img-01.jpg" alt="image description">
+                                <figcaption>
+                                    <a class="tg-themetag tg-categorytag" href="jobdetail.php">Electrician</a>
+                                    <a class="tg-heart tg-liked" href="jobdetail.php"><i class="fa fa-heart"></i></a>
+                                </figcaption>
+                            </figure>
+                            <div class="tg-serviceprovidercontent">
+                                <div class="tg-companylogo"><a href="#"><img src="Images/logos/img-01.png" alt="image description"></a></div>
+                                <div class="tg-companycontent">
+                                    <ul class="tg-tags">
+                                        <li><a class="tg-tag tg-featuredtag" href="jobdetail.php">view job</a></li>
+                                        <li><a class="tg-tag tg-verifiedtag" href="#">verified</a></li>
+                                    </ul>
+                                    <div class="tg-title">
+                                        <h3><a href="jobdetail.php">DHA Lahore</a></h3>
+                                    </div>
+                                    <ul class="tg-matadata">
+                                        <li><span class="tg-stars"><span></span></span></li>
+                                        <li>
+                                            <i class="fa fa-thumbs-o-up"></i>
+                                            <em>99% (1009 votes)</em>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                        <div class="tg-serviceprovider tg-beautypersonalcare">
+                            <figure class="tg-featuredimg">
+                                <img src="~/Images/serviceproviders/img-02.jpg" alt="image description">
+                                <figcaption>
+                                    <a class="tg-themetag tg-categorytag" href="jobdetail.php">Plumber</a>
+                                    <a class="tg-heart" href="jobdetail.php"><i class="fa fa-heart"></i></a>
+                                </figcaption>
+                            </figure>
+                            <div class="tg-serviceprovidercontent">
+                                <div class="tg-companylogo"><a href="#"><img src="~/Images/logos/img-02.png" alt="image description"></a></div>
+                                <div class="tg-companycontent">
+                                    <ul class="tg-tags">
+                                        <li><a class="tg-tag tg-featuredtag" href="jobdetail.php">view job</a></li>
+                                        <li><a class="tg-tag tg-verifiedtag" href="#">verified</a></li>
+                                    </ul>
+                                    <div class="tg-title">
+                                        <h3><a href="jobdetail.php">Bridge Colony Lahore</a></h3>
+                                    </div>
+                                    <ul class="tg-matadata">
+                                        <li><span class="tg-stars"><span></span></span></li>
+                                        <li>
+                                            <i class="fa fa-thumbs-o-up"></i>
+                                            <em>99% (1009 votes)</em>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                        <div class="tg-serviceprovider tg-business">
+                            <figure class="tg-featuredimg">
+                                <img src="~/Images/serviceproviders/img-03.jpg" alt="image description">
+                                <figcaption>
+                                    <a class="tg-themetag tg-categorytag" href="jobdetail.php">Carpenter</a>
+                                    <a class="tg-heart tg-liked" href="jobdetail.php"><i class="fa fa-heart"></i></a>
+                                </figcaption>
+                            </figure>
+                            <div class="tg-serviceprovidercontent">
+                                <div class="tg-companylogo"><a href="#"><img src="~/Images/logos/img-03.png" alt="image description"></a></div>
+                                <div class="tg-companycontent">
+                                    <ul class="tg-tags">
+                                        <li><a class="tg-tag tg-featuredtag" href="jobdetail.php">view job</a></li>
+                                        <li><a class="tg-tag tg-verifiedtag" href="#">verified</a></li>
+                                    </ul>
+                                    <div class="tg-title">
+                                        <h3><a href="jobdetail.php">Walton Lahore </a></h3>
+                                    </div>
+                                    <ul class="tg-matadata">
+                                        <li><span class="tg-stars"><span></span></span></li>
+                                        <li>
+                                            <i class="fa fa-thumbs-o-up"></i>
+                                            <em>99% (1009 votes)</em>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                        <div class="tg-serviceprovider tg-childcare">
+                            <figure class="tg-featuredimg">
+                                <img src="~/Images/serviceproviders/img-04.jpg" alt="image description">
+                                <figcaption>
+                                    <a class="tg-themetag tg-categorytag" href="jobdetail.php">General Contractor</a>
+                                    <a class="tg-heart tg-liked" href="jobdetail.php"><i class="fa fa-heart"></i></a>
+                                </figcaption>
+                            </figure>
+                            <div class="tg-serviceprovidercontent">
+                                <div class="tg-companylogo"><a href="jobdetail.php"><img src="~/Images/logos/img-04.png" alt="image description"></a></div>
+                                <div class="tg-companycontent">
+                                    <ul class="tg-tags">
+                                        <li><a class="tg-tag tg-featuredtag" href="jobdetail.php">view job</a></li>
+                                        <li><a class="tg-tag tg-verifiedtag" href="#">verified</a></li>
+                                    </ul>
+                                    <div class="tg-title">
+                                        <h3><a href="jobdetail.php">Multan Road Lahore</a></h3>
+                                    </div>
+                                    <ul class="tg-matadata">
+                                        <li><span class="tg-stars"><span></span></span></li>
+                                        <li>
+                                            <i class="fa fa-thumbs-o-up"></i>
+                                            <em>99% (1009 votes)</em>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                        <div class="tg-serviceprovider tg-cleaning">
+                            <figure class="tg-featuredimg">
+                                <img src="~/Images/serviceproviders/img-05.jpg" alt="image description">
+                                <figcaption>
+                                    <a class="tg-themetag tg-categorytag" href="jobdetail.php">Handyman</a>
+                                    <a class="tg-heart tg-liked" href="jobdetail.php"><i class="fa fa-heart"></i></a>
+                                </figcaption>
+                            </figure>
+                            <div class="tg-serviceprovidercontent">
+                                <div class="tg-companylogo"><a href="#"><img src="~/Images/logos/img-05.png" alt="image description"></a></div>
+                                <div class="tg-companycontent">
+                                    <ul class="tg-tags">
+                                        <li><a class="tg-tag tg-featuredtag" href="jobdetail.php">view job</a></li>
+                                        <li><a class="tg-tag tg-verifiedtag" href="#">verified</a></li>
+                                    </ul>
+                                    <div class="tg-title">
+                                        <h3><a href="jobdetail.php">Ichra Lahore</a></h3>
+                                    </div>
+                                    <ul class="tg-matadata">
+                                        <li><span class="tg-stars"><span></span></span></li>
+                                        <li>
+                                            <i class="fa fa-thumbs-o-up"></i>
+                                            <em>99% (1009 votes)</em>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                        <div class="tg-serviceprovider tg-computermobile">
+                            <figure class="tg-featuredimg">
+                                <img src="~/Images/serviceproviders/img-06.jpg" alt="image description">
+                                <figcaption>
+                                    <a class="tg-themetag tg-categorytag" href="jobdetail.php">Computer &amp; Mobile Service</a>
+                                    <a class="tg-heart tg-liked" href="jobdetail.php"><i class="fa fa-heart"></i></a>
+                                </figcaption>
+                            </figure>
+                            <div class="tg-serviceprovidercontent">
+                                <div class="tg-companylogo"><a href="#"><img src="~/Images/logos/img-06.png" alt="image description"></a></div>
+                                <div class="tg-companycontent">
+                                    <ul class="tg-tags">
+                                        <li><a class="tg-tag tg-featuredtag" href="jobdetail.php">view job</a></li>
+                                        <li><a class="tg-tag tg-verifiedtag" href="#">verified</a></li>
+                                    </ul>
+                                    <div class="tg-title">
+                                        <h3><a href="jobdetail.php">Shadman Lahore</a></h3>
+                                    </div>
+                                    <ul class="tg-matadata">
+                                        <li><span class="tg-stars"><span></span></span></li>
+                                        <li>
+                                            <i class="fa fa-thumbs-o-up"></i>
+                                            <em>99% (1009 votes)</em>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--************************************
+        Latest Services Provider End
+    *************************************-->
+    <!--************************************
+            Testimonials Start
+    *************************************-->
+    <section class="tg-main-section tg-haslayout tg-bglight">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                    <figure class="tg-clientlargedp">
+                        <img src="~/Images/testimonials/img-01.jpg" alt="image description">
+                        <span class="tg-quotes"><i class="fa fa-quote-right"></i></span>
+                    </figure>
+                </div>
+                <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+                    <div class="tg-testimonials">
+                        <div id="tg-testimonialcontentslider" class="owl-carousel tg-testimonialcontentslider">
+                            <div class="item">
+                                <div class="tg-testimonial">
+                                    <h2>Athar Ali</h2>
+                                    <h3>A Truly Amazing Experience</h3>
+                                    <blockquote><q>Consectetur adipisicing elit sed eiusmod tempor incididunt labore et dolore magna aliqua eantnim adia minim veniam quis nostrud exercitation ullamco laboris.</q></blockquote>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="tg-testimonial">
+                                    <h2>Javeria Khan</h2>
+                                    <h3>A Truly Amazing Experience</h3>
+                                    <blockquote><q>Consectetur adipisicing elit sed eiusmod tempor incididunt labore et dolore magna aliqua eantnim adia minim veniam quis nostrud exercitation ullamco laboris.</q></blockquote>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="tg-testimonial">
+                                    <h2>Sundas Bukhari</h2>
+                                    <h3>A Truly Amazing Experience</h3>
+                                    <blockquote><q>Consectetur adipisicing elit sed eiusmod tempor incididunt labore et dolore magna aliqua eantnim adia minim veniam quis nostrud exercitation ullamco laboris.</q></blockquote>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="tg-testimonial">
+                                    <h2>Nimra Yaseen</h2>
+                                    <h3>A Truly Amazing Experience</h3>
+                                    <blockquote><q>Consectetur adipisicing elit sed eiusmod tempor incididunt labore et dolore magna aliqua eantnim adia minim veniam quis nostrud exercitation ullamco laboris.</q></blockquote>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="tg-testimonial">
+                                    <h2>Murtaza Hussain</h2>
+                                    <h3>A Truly Amazing Experience</h3>
+                                    <blockquote><q>Consectetur adipisicing elit sed eiusmod tempor incididunt labore et dolore magna aliqua eantnim adia minim veniam quis nostrud exercitation ullamco laboris.</q></blockquote>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="tg-testimonial">
+                                    <h2>Maryam Nawaz</h2>
+                                    <h3>A Truly Amazing Experience</h3>
+                                    <blockquote><q>Consectetur adipisicing elit sed eiusmod tempor incididunt labore et dolore magna aliqua eantnim adia minim veniam quis nostrud exercitation ullamco laboris.</q></blockquote>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="tg-testimonial">
+                                    <h2>Bakhtawar Bhutto</h2>
+                                    <h3>A Truly Amazing Experience</h3>
+                                    <blockquote><q>Consectetur adipisicing elit sed eiusmod tempor incididunt labore et dolore magna aliqua eantnim adia minim veniam quis nostrud exercitation ullamco laboris.</q></blockquote>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="tg-testimonialnavigationslider" class="owl-carousel tg-testimonialnavigationslider">
+                            <div class="item">
+                                <figure><img src="~/Images/testimonials/img-01.jpg" alt="image description"></figure>
+                            </div>
+                            <div class="item">
+                                <figure><img src="~/Images/testimonials/img-02.jpg" alt="image description"></figure>
+                            </div>
+                            <div class="item">
+                                <figure><img src="~/Images/testimonials/img-03.jpg" alt="image description"></figure>
+                            </div>
+                            <div class="item">
+                                <figure><img src="~/Images/testimonials/img-04.jpg" alt="image description"></figure>
+                            </div>
+                            <div class="item">
+                                <figure><img src="~/Images/testimonials/img-05.jpg" alt="image description"></figure>
+                            </div>
+                            <div class="item">
+                                <figure><img src="~/Images/testimonials/img-06.jpg" alt="image description"></figure>
+                            </div>
+                            <div class="item">
+                                <figure><img src="~/Images/testimonials/img-07.jpg" alt="image description"></figure>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--************************************
+            Testimonials End
+    *************************************-->
+    <!--************************************
+            News & Posts Start
+    *************************************-->
+    <section class="tg-main-section tg-haslayout">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-10 col-md-push-1 col-lg-8 col-lg-push-2">
+                    <div class="tg-sectionhead">
+                        <div class="tg-sectiontitle">
+                            <h2>Vendors</h2>
+                        </div>
+                        <div class="tg-description">
+                            <p>Consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim adia minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip extea commodo consequat.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="tg-newsandposts">
+                    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+                        <article class="tg-post">
+                            <figure class="tg-featuredimg">
+                                <a href="vendor-profile.php"><img src="~/Images/post/img-01.jpg" alt="image description"></a>
+                            </figure>
+                            <div class="tg-postcontent">
+                                <div class="tg-title">
+                                    <h3><a href="vendor-profile.php">Mira Khan</a></h3>
+                                </div>
+                                <ul class="tg-postmatadata">
+                                    <li>
+                                        <a href="vendor-profile.php">
+                                            <i class="lnr lnr-user"></i>
+                                            <span>Sale On AC Compressors</span>
+                                    <li><span class="tg-stars"><span></span></span></li>
+                                    </a>
+                                    </li>
+                                    <li>
+                                        <a href="vendor-profile.php">
+                                            <i class="lnr lnr-calendar-full"></i>
+                                            <span>June 27, 2017</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+                        <article class="tg-post">
+                            <figure class="tg-featuredimg">
+                                <a href="vendor-profile.php"><img src="~/Images/post/img-02.jpg" alt="image description"></a>
+                            </figure>
+                            <div class="tg-postcontent">
+                                <div class="tg-title">
+                                    <h3><a href="vendor-profile.php">Sahiba Rao</a></h3>
+                                </div>
+                                <ul class="tg-postmatadata">
+                                    <li>
+                                        <a href="vendor-profile.php">
+                                            <i class="lnr lnr-user"></i>
+                                            <span>Avaialble Spare Parts Of Ac</span>
+                                    <li><span class="tg-stars"><span></span></span></li>
+                                    </a>
+                                    </li>
+                                    <li>
+                                        <a href="vendor-profile.php">
+                                            <i class="lnr lnr-calendar-full"></i>
+                                            <span>June 27, 2017</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+                        <article class="tg-post">
+                            <figure class="tg-featuredimg">
+                                <a href="vendor-profile.php"><img src="~/Images/post/img-03.jpg" alt="image description"></a>
+                            </figure>
+                            <div class="tg-postcontent">
+                                <div class="tg-title">
+                                    <h3><a href="vendor-profile.php">Dua Ali</a></h3>
+                                </div>
+                                <ul class="tg-postmatadata">
+                                    <li>
+                                        <a href="vendor-profile.php">
+                                            <i class="lnr lnr-user"></i>
+                                            <span>Available Electric Parts</span>
+                                    <li><span class="tg-stars"><span></span></span></li>
+                                    </a>
+                                    </li>
+                                    <li>
+                                        <a href="vendor-profile.php">
+                                            <i class="lnr lnr-calendar-full"></i>
+                                            <span>June 27, 2017</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+                        <article class="tg-post">
+                            <figure class="tg-featuredimg">
+                                <a href="vendor-profile.php"><img src="~/Images/post/img-04.jpg" alt="image description"></a>
+                            </figure>
+                            <div class="tg-postcontent">
+                                <div class="tg-title">
+                                    <h3><a href="vendor-profile.php">Nimra Khan</a></h3>
+                                </div>
+                                <ul class="tg-postmatadata">
+                                    <li>
+                                        <a href="vendor-profile.php">
+                                            <i class="lnr lnr-user"></i>
+                                            <span>Available Wooden Material</span>
+                                    <li><span class="tg-stars"><span></span></span></li>
+                                    </a>
+                                    </li>
+                                    <li>
+                                        <a href="vendor-profile.php">
+                                            <i class="lnr lnr-calendar-full"></i>
+                                            <span>June 27, 2017</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tg-btnbox">
+            <a class="tg-btn tg-btnviewall" href="#">view all</a>
+        </div>
+    </section>
+    <!--************************************
+            News & Posts End
+    *************************************-->
+</main>
+<!--************************************
+        Main End
+*************************************-->

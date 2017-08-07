@@ -1,0 +1,101 @@
+﻿@using Microsoft.AspNet.Identity
+
+
+@{
+    string baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority +
+                                   Request.ApplicationPath.TrimEnd('/');
+}
+<div class="col-xs-12 col-sm-5 col-md-4 col-lg-3">
+    <aside id="tg-sidebar" class="tg-sidebar">
+        <div class="tg-widgetprofile">
+            <figure class="tg-profilebannerimg">
+                <img src="@baseUrl/Images/contractor-dashboard/img-02.jpg" alt="image description">
+            </figure>
+            <div class="tg-widgetcontent">
+                <figure>
+                    <img src=@Session["Photo"]>
+                    @{
+                        if (Request.Url.AbsolutePath.ToLower().Contains("profile/update"))
+                        {
+                            <a id="editPicPen" class="tg-btnedite" href="#" data-toggle="modal" data-target="#profilePicModal" onclick="openProfilePicDialoge()">
+                                <i class="lnr lnr-pencil"></i>
+                            </a>
+                        }
+                    }
+                  
+                </figure>
+                <div class="tg-admininfo">
+                    <h3 id="ud-profile-name"> @Session["UserName"]</h3>
+                    <h4 id="ud-profile-address">@Session["Address"] </h4>
+                    <ul class="tg-matadata">
+                        <li><span class="tg-stars"><span></span></span></li>
+                        <li>
+                            <i class="fa fa-thumbs-o-up"></i>
+                            <em>99% (1009 votes)</em>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="tg-widgetdashboard">
+            <nav id="tg-dashboardnav" class="tg-dashboardnav">
+                <ul>
+                    @*<li>
+                        <a href="dashboardappointment.php">
+                            <i class="lnr lnr-calendar-full"></i>
+                            <span>Appointments</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="dashboardappointmentsetting.php">
+                            <i class="lnr lnr-calendar-full"></i>
+                            <span>Appointment Settings</span>
+                        </a>
+                    </li>*@
+
+                    <li class="li-profile-setting">
+                        <a href="~/Profile/Update">
+                            <i class="lnr lnr-cog"></i>
+                            <span>Profile Settings</span>
+                        </a>
+                    </li>
+
+                    <li class="li-manage-jobs">
+                        <a href="~/Job/ManageJobs">
+                            <i class="lnr lnr-map"></i>
+                            <span>Manage Jobs</span>
+                        </a>
+                    </li>
+
+
+
+                    @*<li>
+                        <a href="dashboardsecuritysetting.php">
+                            <i class="lnr lnr-construction"></i>
+                            <span>Security Settings</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="dashboardprivacysetting.php">
+                            <i class="lnr lnr-lock"></i>
+                            <span>Privacy Settings</span>
+                        </a>
+                    </li>*@
+                    <li>
+                        <a href="#">
+                            <i class="lnr lnr-exit"></i>
+                            <span>Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="tg-widgetdashboard hidden-xs">
+            <div class="tg-banneradd">
+                <figure>
+                    <a href="#"><img src="@baseUrl/Images/contractor-dashboard/img-01.jpg" alt="image description"></a>
+                </figure>
+            </div>
+        </div>
+    </aside>
+</div>

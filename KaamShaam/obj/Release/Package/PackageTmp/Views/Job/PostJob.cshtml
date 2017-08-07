@@ -1,0 +1,509 @@
+﻿@using KaamShaam.DbEntities
+@using KaamShaam.Models
+@model KaamShaam.Models.CustomJobModel
+<!--************************************
+Inner Page Banner Start
+*************************************-->
+
+
+<style>
+    .customField {
+        margin-left: 45px !important;
+    }
+
+    #map {
+        height: 100%;
+    }
+    /* Optional: Makes the sample page fill the window. */
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    #description {
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+    }
+
+    #infowindow-content .title {
+        font-weight: bold;
+    }
+
+    #infowindow-content {
+        display: none;
+    }
+
+    #map #infowindow-content {
+        display: inline;
+    }
+
+    .pac-card {
+        margin: 10px 10px 0 0;
+        border-radius: 2px 0 0 2px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        outline: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        background-color: #fff;
+        font-family: Roboto;
+    }
+
+    .modal-backdrop {
+        z-index: 10;
+    }
+
+    ​ #pac-container {
+        padding-bottom: 12px;
+        margin-right: 12px;
+        z-index: 20;
+    }
+
+    .pac-controls {
+        display: inline-block;
+        padding: 5px 11px;
+    }
+
+        .pac-controls label {
+            font-family: Roboto;
+            font-size: 13px;
+            font-weight: 300;
+        }
+
+    #pac-input {
+        background-color: #fff;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        margin-left: 12px;
+        padding: 0 11px 0 13px;
+        text-overflow: ellipsis;
+        width: 400px;
+    }
+
+        #pac-input:focus {
+            border-color: #4d90fe;
+        }
+
+    #title {
+        color: #fff;
+        background-color: #4d90fe;
+        font-size: 25px;
+        font-weight: 500;
+        padding: 6px 12px;
+    }
+
+    #target {
+        width: 345px;
+    }
+
+    .modal {
+        z-index: 20;
+    }
+</style>
+
+<div class="tg-innerpagebanner">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="tg-pagetitle">
+                    <h1>Post A New Job</h1>
+                </div>
+                <ol class="tg-breadcrumb">
+                    <li><a href="~/Home/Index">Home</a></li>
+                    <li class="tg-active">Post A New Job</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!--************************************
+        Inner Page Banner End
+*************************************-->
+<!--************************************
+        Main Start
+*************************************-->
+<main id="tg-main" class="tg-main tg-paddingzero tg-haslayout">
+    <!--************************************
+    Login Register Start
+    *************************************-->
+    <div class="tg-main-section tg-haslayout" style="padding-top: 2%;">
+        <div class="container">
+            <div class="row">
+                <div id="tg-content" class="tg-content">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <fieldset>
+                                <ul class="tg-tabnav" role="tablist">
+                                    <li role="presentation" class="active" style="margin-left: 25%;">
+                                        <a href="#regularuser" data-toggle="tab">
+                                            <span class="lnr lnr-user"></span>
+                                            <div class="tg-navcontent">
+                                                <h3>Requirement Portal</h3>
+                                                <span>Requirement for hiring contractor/vendor</span>
+                                            </div>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                                <div class="tg-themetabcontent tab-content">
+                                    <div class="tab-pane active fade in" id="regularuser">
+                                        <div class="form-group">
+                                            @if (!Request.IsAuthenticated)
+                                            {
+                                                <div class="tg-registeras">
+                                                    <span>Already have an account?<a href="~/Account/Register"> Login Now</a></span>
+                                                </div>
+                                            }
+                                           
+                                        </div>
+                                        @using (Html.BeginForm("PostJob", "Job", FormMethod.Post, new {@class = "tg-themeform tg-formlogin-register", role = "form", id = "postJobForm"}))
+                                        {
+                                            <div class="form-group">
+                                                @Html.TextBoxFor(m => m.JobTitle, new {name = "jobTitle", @class = "form-control", @placeholder = "Job Title & Description"})
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.TextBoxFor(m => m.LocationName, new {@readonly = "readonly", @id = "locationName", onclick = "openMap()", name = "Loc", @class = "form-control", @placeholder = "Click to pick Job Location", data_toggle = "modal", data_target = "#addressmodel"})
+                                                @Html.HiddenFor(m => m.LocationCords, new {@id = "locationCord"})
+                                            </div>
+
+                                            var cats = new List<SelectListItem>();
+                                            if (Model.Cats != null && Model.Cats.Any())
+                                            {
+                                                foreach (var cat in Model.Cats)
+                                                {
+                                                    cats.Add(new SelectListItem {Text = cat.Name, Value = cat.Id.ToString()});
+                                                }
+                                            }
+                                            <div class="form-group">
+                                                <span class="tg-select ">
+                                                @Html.DropDownListFor(m => m.CategoryId, cats, new {@class = "form-control"})
+                                            </span>
+                                            </div>
+                                            var wages = new List<JobFeeModel>(new JobFeeModel[] {new JobFeeModel
+                                            {
+                                               Fee = 250,
+                                               Title = "Less than 250"
+                                            },new JobFeeModel
+                                            {
+                                               Fee = 500,
+                                               Title = "Less than 500"
+                                            },new JobFeeModel
+                                            {
+                                               Fee = 750,
+                                               Title = "Less than 750"
+                                            },new JobFeeModel
+                                            {
+                                               Fee = 1000,
+                                               Title = "Less than 1000"
+                                            },new JobFeeModel
+                                            {
+                                               Fee = 1250,
+                                               Title = "Less than 1250"
+                                            },new JobFeeModel
+                                            {
+                                               Fee = 1500,
+                                               Title = "Less than 1500"
+                                            }});
+                                            var wagesList = new List<SelectListItem>();
+
+                                            foreach (var obj in wages)
+                                            {
+                                                wagesList.Add(new SelectListItem {Text = obj.Title, Value = obj.Fee.ToString()});
+                                            }
+
+                                            <div class="form-group">
+                                                <span class="tg-select">
+                                                @Html.DropDownListFor(m => m.Fee, wagesList, new {@class = "form-control"})
+                                            </span>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", @placeholder = "Mobile"})
+                                            </div>
+
+                                            <div class="form-group">
+                                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Email"})
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <div class="tg-checkbox" style="padding-top: 12px;">
+                                                    <input type="checkbox" id="terms">
+                                                    <label for="terms">I have read the <a href="#">Terms &amp; Conditions</a> and accept them</label>
+                                                </div>
+                                            </div>
+                                            <button class="tg-btn" onclick="return submitRegis()">Post Job</button>
+                                            @Html.ValidationSummary("", new { @class = "text-danger" })
+                                        }
+
+                                        <ul class="tg-socialicons tg-socialsharewithtext">
+                                            <li class="tg-facebook">
+                                                <a class="tg-roundicontext" href="javascript:void(0);">
+                                                    <em class="tg-usericonholder">
+                                                        <i class="fa fa-facebook-f"></i>
+                                                        <span>facebook</span>
+                                                    </em>
+                                                </a>
+                                            </li>
+                                            <li class="tg-twitter">
+                                                <a class="tg-roundicontext" href="javascript:void(0);">
+                                                    <em class="tg-usericonholder">
+                                                        <i class="fa fa-twitter"></i>
+                                                        <span>twitter</span>
+                                                    </em>
+                                                </a>
+                                            </li>
+                                            <li class="tg-linkedin">
+                                                <a class="tg-roundicontext" href="javascript:void(0);">
+                                                    <em class="tg-usericonholder">
+                                                        <i class="fa fa-linkedin"></i>
+                                                        <span>linkdin</span>
+                                                    </em>
+                                                </a>
+                                            </li>
+                                            <li class="tg-googleplus">
+                                                <a class="tg-roundicontext" href="javascript:void(0);">
+                                                    <em class="tg-usericonholder">
+                                                        <i class="fa fa-google-plus"></i>
+                                                        <span>googl+</span>
+                                                    </em>
+                                                </a>
+                                            </li>
+                                            <li class="tg-tumblr">
+                                                <a class="tg-roundicontext" href="javascript:void(0);">
+                                                    <em class="tg-usericonholder">
+                                                        <i class="fa fa-tumblr"></i>
+                                                        <span>tumblr</span>
+                                                    </em>
+                                                </a>
+                                            </li>
+                                            <li class="tg-vimeo">
+                                                <a class="tg-roundicontext" href="javascript:void(0);">
+                                                    <em class="tg-usericonholder">
+                                                        <i class="fa fa-vimeo"></i>
+                                                        <span>vimeo</span>
+                                                    </em>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                </div>
+                            </fieldset>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--************************************
+    Login Register End
+    *************************************-->
+</main>
+
+<!-- line modal -->
+<div class="modal fade" id="addressmodel" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                <h3 class="modal-title" id="lineModalLabel">Add Location</h3>
+            </div>
+            <div class="modal-body" style="height: 460px;">
+
+                <!-- content goes here -->
+                <div class="form-group">
+                    <input type="text" class="form-control" id="pac-input" placeholder="Search">
+                </div>
+                <div class="form-group">
+                    <div id="map" style="height: 400px; width: 570px"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="btn-group btn-group-justified" role="group" aria-label="group button">
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" role="button">Close</button>
+                    </div>
+
+                    <div class="btn-group" role="group">
+                        <button type="button" id="saveImage" class="btn btn-primary btn-hover-green" data-action="save" role="button" onclick="saveLoc()">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--************************************
+Main End
+*************************************-->
+<script>
+    var infoWindow, pos, map, selectedLoc=undefined,locName=undefined;
+    var markersArray = [];
+        function initAutocomplete() {
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: { lat: 31.476535115002306, lng: 74.32158172130585 },
+          zoom: 10,
+          mapTypeId: 'roadmap'
+        });
+        infoWindow = new google.maps.InfoWindow;
+            // Try HTML5 geolocation.
+            debugger;
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                debugger;
+                pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+
+
+            }, function() {
+                handleLocationError(true, infoWindow, map.getCenter());
+            });
+        } else {
+            // Browser doesn't support Geolocation
+            handleLocationError(false, infoWindow, map.getCenter());
+        }
+
+
+    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                              'Error: The Geolocation service failed.' :
+                              'Error: Your browser doesn\'t support geolocation.');
+        infoWindow.open(map);
+    }
+
+            // Create the search box and link it to the UI element.
+        var input = document.getElementById('pac-input');
+        var searchBox = new google.maps.places.SearchBox(input);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+        // Bias the SearchBox results towards current map's viewport.
+        map.addListener('bounds_changed', function () {
+          searchBox.setBounds(map.getBounds());
+        });
+
+        var markers = [];
+        // Listen for the event fired when the user selects a prediction and retrieve
+        // more details for that place.
+        searchBox.addListener('places_changed', function () {
+          var places = searchBox.getPlaces();
+
+          if (places.length == 0) {
+              return;
+          } else {
+              selectedLoc = {};
+              selectedLoc.lat = places[0].geometry.location.lat();
+              selectedLoc.lng = places[0].geometry.location.lng();
+              locName = places[0].formatted_address;
+          }
+
+          // Clear out the old markers.
+          markers.forEach(function(marker) {
+            marker.setMap(null);
+          });
+          markers = [];
+
+          // For each place, get the icon, name and location.
+          var bounds = new google.maps.LatLngBounds();
+          places.forEach(function(place) {
+            if (!place.geometry) {
+              console.log("Returned place contains no geometry");
+              return;
+            }
+            var icon = {
+              url: place.icon,
+              size: new google.maps.Size(71, 71),
+              origin: new google.maps.Point(0, 0),
+              anchor: new google.maps.Point(17, 34),
+              scaledSize: new google.maps.Size(25, 25)
+            };
+
+            // Create a marker for each place.
+            markers.push(new google.maps.Marker({
+              map: map,
+              icon: icon,
+              title: place.name,
+              position: place.geometry.location
+            }));
+
+            if (place.geometry.viewport) {
+              // Only geocodes have viewport.
+              bounds.union(place.geometry.viewport);
+            } else {
+              bounds.extend(place.geometry.location);
+            }
+          });
+          map.fitBounds(bounds);
+        });
+
+            //Add listener
+        google.maps.event.addListener(map, 'click', function (event) {
+            clearOverlays();
+            var marker = new google.maps.Marker({ position: event.latLng, map: map });
+            selectedLoc = {};
+            selectedLoc.lat = event.latLng.lat();
+            selectedLoc.lng = event.latLng.lng();
+            markersArray.push(marker);
+        });
+      }
+        function clearOverlays() {
+            for (var i = 0; i < markersArray.length; i++) {
+                markersArray[i].setMap(null);
+            }
+            markersArray.length = 0;
+        }
+
+</script>   
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnRflqywXFgknXTzSG-BP3MmM8N1ZyOrQ&libraries=places&callback=initAutocomplete"></script>
+<script src="~/Scripts/vendor/jquery-library.js"></script>
+<Script>
+    function submitRegis() {
+        if (!$('#terms').is(":checked")) {
+            toastr.warning('Please check terms ');
+            return false;
+        }
+        if (selectedLoc == undefined) {
+            toastr.warning("Please select location");
+            return false;
+        }
+        debugger;
+        $("#postjobform").submit();
+    }
+    function saveLoc() {
+        if (selectedLoc == undefined) {
+            toastr.warning("Please select location");
+        } else {
+            $('#addressmodel').modal('hide');
+            $('#locationCord').val((selectedLoc.lat + "_" + selectedLoc.lng));
+            if (locName === undefined) {
+                getAddress(selectedLoc.lat, selectedLoc.lng);
+            } else {
+                $('#locationName').val(locName);
+            }
+        }
+        return;
+    }
+    function openMap() {
+        debugger;
+        setTimeout(function () {
+            google.maps.event.trigger(map, 'resize');
+            infoWindow.setPosition(pos);
+            infoWindow.setContent('Your Location');
+            infoWindow.open(map);
+            map.setCenter(pos);
+        }, 1000);
+    }
+    function getAddress(lat, lng) {
+        var geocoder = new google.maps.Geocoder();             // create a geocoder object
+        var location = new google.maps.LatLng(lat, lng);    // turn coordinates into an object          
+        geocoder.geocode({ 'latLng': location }, function (results, status) {
+            if (status === google.maps.GeocoderStatus.OK) { // if geocode success
+                var add = results[0].formatted_address; // if address found, pass to processing function
+                $('#locationName').val(add);
+            }
+        });
+    }
+</Script>

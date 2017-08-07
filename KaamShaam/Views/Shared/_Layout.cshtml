@@ -1,0 +1,548 @@
+﻿@{
+//Layout = null;
+}
+@using Microsoft.AspNet.Identity
+
+<!doctype html>
+<!--[if lt IE 7]>		<html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>			<html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>			<html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/normalize.css">
+    <link rel="stylesheet" href="~/Content/font-awesome.min.css">
+    <link rel="stylesheet" href="~/Content/linearicons.css">
+    <link rel="stylesheet" href="~/Content/scrollbar.css">
+    <link rel="stylesheet" href="~/Content/jquery-ui.css">
+    <link rel="stylesheet" href="~/Content/prettyPhoto.css">
+    <link rel="stylesheet" href="~/Content/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/Content/owl.theme.default.min.css">
+    <link rel="stylesheet" href="~/Content/jquery.countdown.css">
+    <link rel="stylesheet" href="~/Content/animate.css">
+    <link rel="stylesheet" href="~/Content/transitions.css">
+    <link rel="stylesheet" href="~/Content/main.css">
+    <link rel="stylesheet" href="~/Content/color.css">
+    <link rel="stylesheet" href="~/Content/responsive.css">
+    <link href="~/Content/toastr.css" rel="stylesheet" />
+    <script src="~/Scripts/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+    <script src="~/Scripts/Common.js"></script>
+    <title>Welcome - KaamShaam</title>
+</head>
+<body class="tg-home tg-login">
+    <!--[if lt IE 8]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <!--************************************
+            Preloader Start
+    *************************************-->
+    <div class="preloader-outer">
+        <div class="pin"></div>
+        <div class="pulse"></div>
+    </div>
+    <!--************************************
+            Preloader End
+    *************************************-->
+    <!--************************************
+            Wrapper Start
+    *************************************-->
+    <div id="tg-wrapper" class="tg-wrapper tg-haslayout">
+    <!--************************************
+    Header Start
+    *************************************-->
+        @{
+            string baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority +
+                                    Request.ApplicationPath.TrimEnd('/') ;
+            var userImg = System.Web.HttpContext.Current.User.Identity.GetUserId() + "_35.png";
+            userImg=KaamShaam.AppUtils.Common.ReturnImage(baseUrl+"/Images/Profiles/"+userImg, "35x35");
+
+        }
+        <header id="tg-header" class="tg-header tg-haslayout">
+            <div class="tg-topbar tg-haslayout">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12 col-xs-12">
+                            <ul class="tg-addressinfo">
+                                <li>
+                                    <i class="lnr lnr-envelope"></i>
+                                    <a href="mailto:info@domain.com">contact@infokaamsham.com</a>
+                                </li>
+                                <li>
+                                    <i class="lnr lnr-phone-handset"></i>
+                                    <span>+92 3084449991</span>
+                                </li>
+                            </ul>
+                            <div class="tg-themedropdown tg-languagesdropdown">
+                                <a href="javascript:void(0);" id="tg-languages" class="tg-btndropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <em><img src="@baseUrl/Images/flags/img-01.jpg" alt="image description"></em>
+                                    <span>eng</span>
+                                    <i class="fa fa-angle-down"></i>
+                                </a>
+                                <ul class="tg-dropdownmenu" aria-labelledby="tg-languages">
+                                    <li class="tg-active">
+                                        <a href="#">
+                                            <em><img src="~/Images/flags/img-03.jpg" alt="image description"></em>
+                                            <span>eng</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <em><img src="~/Images/flags/img-04.jpg" alt="image description"></em>
+                                            <span>urdu</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="tg-adminbox">
+                                <div class="tg-loginregister" style="display: block; padding: 0px">
+                                    @if (Request.IsAuthenticated)
+                                    {
+                                        @*<a class="tg-btnlogin" href="~/Account/LogOff">Logout (@User.Identity.GetUserName()) </a>*@
+
+                                        <div class="tg-useradminbox" style="display:block;">
+                                            <div class="tg-themedropdown tg-userdropdown">
+                                                <a href="dashboard.php" id="tg-usermenu" class="tg-btndropdown">
+                                                    <em><img src="@userImg" alt=""></em>
+                                                    <span>Hi! @Session["UserName"]</span>
+                                                    <i class="fa fa-angle-down"></i>
+                                                </a>
+                                                <div class="tg-dropdownmenu tg-usermenu" aria-labelledby="tg-usermenu">
+                                                    <nav id="tg-dashboardnav" class="tg-dashboardnav">
+                                                        <ul>
+                                                            @*<li>
+                                                            <a href="dashboardappointment.php">
+                                                                <i class="lnr lnr-calendar-full"></i>
+                                                                <span>Appointments</span>
+                                                            </a>
+                                                        </li>*@
+                                                            @{
+                                                                if (User.IsInRole("SuperAdmin"))
+                                                                {
+                                                                    <li>
+                                                                        <a href="~/Admin/Stats">
+                                                                            <i class="lnr lnr-calendar-full"></i>
+                                                                            <span>Admin Panel</span>
+                                                                        </a>
+                                                                    </li>
+                                                                }
+
+                                                            }
+
+                                                            <li class="li-profile-setting">
+                                                                <a href="/Profile/Update">
+                                                                    <i class="lnr lnr-cog"></i>
+                                                                    <span>Profile Settings</span>
+                                                                </a>
+                                                            </li>
+
+                                                            <li class="li-manage-jobs">
+                                                                <a href="~/Job/ManageJobs">
+                                                                    <i class="lnr lnr-map"></i>
+                                                                    <span>Manage Jobs</span>
+                                                                </a>
+                                                            </li>
+
+                                                            @*<li>
+                                                                <a href="dashboardsecuritysetting.php">
+                                                                    <i class="lnr lnr-construction"></i>
+                                                                    <span>Security Settings</span>
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="dashboardprivacysetting.php">
+                                                                    <i class="lnr lnr-lock"></i>
+                                                                    <span>Privacy Settings</span>
+                                                                </a>
+                                                            </li>*@
+                                                            <li>
+                                                                <a href="~/Account/LogOff">
+                                                                    <i class="lnr lnr-exit"></i>
+                                                                    <span>Logout</span>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </nav>
+                                                </div>
+                                            </div>
+                                        </div>
+                                                                }
+                                                                else
+                                                                {
+                                        <a class="tg-btnlogin" href="~/Account/Register">Login / Register </a>
+                                        <a class="tg-btnregister" href="admin/admin.php"> Admin</a>
+                                    }
+                                   
+                                </div>
+                                <div class="tg-useradminbox" style="display:none;">
+                                    <div class="tg-themedropdown tg-userdropdown">
+                                        <a href="dashboard.php" id="tg-usermenu" class="tg-btndropdown">
+                                            <em><img src="@baseUrl/Images/thumbnails/img-01.jpg" alt="image description"></em>
+                                            <span>Hi! Kena Maresca</span>
+                                            <i class="fa fa-angle-down"></i>
+                                        </a>
+                                        <div class="tg-dropdownmenu tg-usermenu" aria-labelledby="tg-usermenu">
+                                            <nav id="tg-dashboardnav" class="tg-dashboardnav">
+                                                <ul>
+                                                    <li>
+                                                        <a href="dashboardappointment.php">
+                                                            <i class="lnr lnr-calendar-full"></i>
+                                                            <span>Appointments</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="dashboardappointmentsetting.php">
+                                                            <i class="lnr lnr-calendar-full"></i>
+                                                            <span>Appointment Settings</span>
+                                                        </a>
+                                                    </li>
+
+                                                    <li class="tg-active">
+                                                        <a href="dashboardprofilesetting.php">
+                                                            <i class="lnr lnr-cog"></i>
+                                                            <span>Profile Settings</span>
+                                                        </a>
+                                                    </li>
+
+                                                    <li>
+                                                        <a href="dashboardmanagejobs.php">
+                                                            <i class="lnr lnr-map"></i>
+                                                            <span>Manage Jobs</span>
+                                                        </a>
+                                                    </li>
+
+                                                    <li>
+                                                        <a href="dashboardsecuritysetting.php">
+                                                            <i class="lnr lnr-construction"></i>
+                                                            <span>Security Settings</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="dashboardprivacysetting.php">
+                                                            <i class="lnr lnr-lock"></i>
+                                                            <span>Privacy Settings</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">
+                                                            <i class="lnr lnr-exit"></i>
+                                                            <span>Logout</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </nav>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tg-navigationarea">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12 col-xs-12">
+                            @{
+                               
+                                <strong class="tg-logo"><a href="~/Home/index"><img src="@baseUrl/Images/logo.png" alt="image description"></a></strong>
+
+                            }
+                            <div class="tg-rightarea">
+                                <nav id="tg-nav" class="tg-nav">
+                                    <div class="navbar-header">
+                                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#tg-navigation" aria-expanded="false">
+                                            <span class="sr-only">Toggle navigation</span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                        </button>
+                                    </div>
+                                    <div id="tg-navigation" class="collapse navbar-collapse tg-navigation">
+                                        <ul>
+                                            <li><a href="index.php">Home</a></li>
+                                            <li><a href="about.php">About Us</a></li>
+                                            <li><a href="#">How It Works</a></li>
+                                            <li class="menu-item-has-children">
+                                                <a href="#">Dashboard</a>
+                                                <ul class="sub-menu">
+                                                    <li>
+                                                        <a href="user-dashboard.php">User Dashbaord</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="contractor-dashboard.php">Contractor Dashboard</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="contact.php">Contact Us</a></li>
+                                        </ul>
+                                    </div>
+                                </nav>
+                                <a class="tg-btn tg-btnpostanewjob" href="~/job/PostJob">Post A New Job</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+
+        @RenderBody()
+        <footer id="tg-footer" class="tg-footer tg-haslayout">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <ul class="tg-features">
+                            <li>
+                                <div class="tg-feature">
+                                    <span class="tg-featureicon">
+                                        <i class="lnr lnr-diamond"></i>
+                                    </span>
+                                    <div class="tg-featurecontent">
+                                        <h3>Best Sevices Award</h3>
+                                        <span>Earned best service award in 2016</span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="tg-feature">
+                                    <span class="tg-featureicon">
+                                        <i class="lnr lnr-users"></i>
+                                    </span>
+                                    <div class="tg-featurecontent">
+                                        <h3>Verified Service Providers</h3>
+                                        <span>More than 35000 service providers</span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="tg-feature">
+                                    <span class="tg-featureicon">
+                                        <i class="lnr lnr-diamond"></i>
+                                    </span>
+                                    <div class="tg-featurecontent">
+                                        <h3>User Friendly Focused</h3>
+                                        <span>Given attention to rich user experience</span>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tg-fourcolumns">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3">
+                            <div class="tg-footercolumn">
+                                        @{
+                                            <strong class="tg-logo"><a href="index.html"><img src="@baseUrl/Images/logo.png" alt="image description"></a></strong>
+
+                                        }
+
+                                <div class="tg-description">
+                                    <p>Conseetur elit sed eiumod  apor incidunt ut lbore et dolore <a href="#">more...</a></p>
+                                </div>
+                                <ul class="tg-contactinfo">
+                                    <li>
+                                        <i class="lnr lnr-location"></i>
+                                        <address>Abc tower, xyz street UK, HG521A</address>
+                                    </li>
+                                    <li>
+                                        <i class="lnr lnr-phone-handset"></i>
+                                        <span>+92 30844991</span>
+                                    </li>
+                                    <li>
+                                        <i class="lnr lnr-envelope"></i>
+                                        <span><a href="query@domain.com">contact@kaamshaam.pk</a></span>
+                                    </li>
+                                    <li>
+                                        <i class="lnr lnr-construction"></i>
+                                        <span><a href="complaint@domain.com">contact@kaamshaam.pk</a></span>
+                                    </li>
+                                </ul>
+                                <ul class="tg-socialicons">
+                                    <li class="tg-facebook"><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                    <li class="tg-twitter"><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li class="tg-linkedin"><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                    <li class="tg-googleplus"><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                    <li class="tg-rss"><a href="#"><i class="fa fa-rss"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3">
+                            <div class="tg-footercolumn tg-widget tg-widgettwitter">
+                                <div class="tg-widgettitle">
+                                    <h3>Latest Tweets</h3>
+                                </div>
+                                <div class="tg-widgetcontent">
+                                    <ul>
+                                        <li>
+                                            <div class="tg-description"><p>Sed ut perspiciatis unde omnis isteat natus error sit voluptatem</p></div>
+                                            <a href="http://www.domainurl.com ">http://www.kaamshaam.pk</a>
+                                            <time datetime="2016-08-08">2 hours ago</time>
+                                        </li>
+                                        <li>
+                                            <div class="tg-description"><p>Sed ut perspiciatis unde omnis isteat natus error sit voluptatem</p></div>
+                                            <a href="http://www.domainurl.com ">http://www.kaamshaam.pk</a>
+                                            <time datetime="2016-08-08">3 hours ago</time>
+                                        </li>
+                                        <li><a href="javascript:void(0);">view all</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3">
+                            <div class="tg-footercolumn tg-widget tg-widgetusefullinks">
+                                <div class="tg-widgettitle">
+                                    <h3>Useful Links</h3>
+                                </div>
+                                <div class="tg-widgetcontent">
+                                    <ul>
+                                        <li><a href="#">Perspiciatis ate</a></li>
+                                        <li><a href="#">Aomnis isteat</a></li>
+                                        <li><a href="#">Canatus error</a></li>
+                                        <li><a href="#">Voluptatem clu</a></li>
+                                        <li><a href="#">Commodo</a></li>
+                                        <li><a href="#">Consequat</a></li>
+                                        <li><a href="#">Duis aute</a></li>
+                                        <li><a href="#">Aincididunt</a></li>
+                                        <li><a href="#">Alter veritatis</a></li>
+                                        <li><a href="#">Tempora Incid</a></li>
+                                        <li><a href="#">Dolore Magnam</a></li>
+                                        <li><a href="#">Aliquam Quaerat</a></li>
+                                        <li><a href="#">Quisquam</a></li>
+                                        <li><a href="#">Voluptatem</a></li>
+                                        <li><a href="#">Aliquip</a></li>
+                                        <li><a href="#">Adipisicing</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3">
+                            <div class="tg-footercolumn tg-widget tg-widgetfreeinspection">
+                                <div class="tg-widgettitle">
+                                    <h3>Offer Free Inspection</h3>
+                                </div>
+                                <div class="tg-widgetcontent">
+                                    <ul>
+                                        <li>
+@{
+    <figure><a href="#"><img src="@baseUrl/Images/logos/img-01.png" alt="image description"></a></figure>
+
+}                                            <div class="tg-contentbox">
+                                                <h4><a href="#">Lahore Cleaning Service</a></h4>
+                                                <ul class="tg-matadata">
+                                                    <li><span class="tg-stars"><span></span></span></li>
+                                                    <li>
+                                                        <i class="fa fa-thumbs-o-up"></i>
+                                                        <em>99% (1009 votes)</em>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        <li>
+@{
+    <figure><a href="#"><img src="@baseUrl/Images/logos/img-02.png" alt="image description"></a></figure>
+
+}                                            <div class="tg-contentbox">
+                                                <h4><a href="#">Karachi Cleaning Service</a></h4>
+                                                <ul class="tg-matadata">
+                                                    <li><span class="tg-stars"><span></span></span></li>
+                                                    <li>
+                                                        <i class="fa fa-thumbs-o-up"></i>
+                                                        <em>99% (1009 votes)</em>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <figure><a href="#"><img src="@baseUrl/Images/logos/img-03.png" alt="image description"></a></figure>
+                                            <div class="tg-contentbox">
+                                                <h4><a href="#">Islamabad Cleaning Service</a></h4>
+                                                <ul class="tg-matadata">
+                                                    <li><span class="tg-stars"><span></span></span></li>
+                                                    <li>
+                                                        <i class="fa fa-thumbs-o-up"></i>
+                                                        <em>99% (1009 votes)</em>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        <li><a href="javascript:void(0);">view all</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tg-footerbar">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <span>Copyright &copy; 2017 All Rights Reserved - Kaam Sham</span>
+                            <nav class="tg-footernav">
+                                <ul>
+                                    <li><a href="#">Privacy Policy</a></li>
+                                    <li><a href="#">Term and Conditions</a></li>
+                                    <li><a href="#">Contact</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!--************************************
+                Footer End
+        *************************************-->
+    </div>
+    <!--************************************
+            Wrapper End
+    *************************************-->
+
+    <script src="~/Scripts/vendor/jquery-library.js"></script>
+
+    <script src="~/Scripts/jquery-ui.js"></script>
+
+    <script src="~/Scripts/vendor/bootstrap.min.js"></script>
+
+    <script src="~/Scripts/mapclustering/markerclusterer.min.js"></script>
+    <script src="~/Scripts/mapclustering/infobox.js"></script>
+    <script src="~/Scripts/mapclustering/map.js"></script>
+
+    <script src="~/Scripts/readmore.js"></script>
+    <script src="~/Scripts/jquery.countdown.js"></script>
+    <script src="~/Scripts/owl.carousel.min.js"></script>
+    <script src="~/Scripts/scrollbar.min.js"></script>
+    <script src="~/Scripts/prettyPhoto.js"></script>
+    <script src="~/Scripts/gmap3.js"></script>
+    <script src="~/Scripts/main.js"></script>
+    <script src="~/Scripts/toastr.js"></script>
+
+</body>
+</html>
+<script src="~/Scripts/masterslider/masterslider.min.js"></script>
+<script type="text/javascript">
+(function($) {
+ "use strict";
+	var slider = new MasterSlider();
+	// adds Arrows navigation control to the slider.
+	slider.control('arrows');
+	slider.control('bullets');
+
+	slider.setup('masterslider' , {
+		 width:1600,    // slider standard width
+		 height:650,   // slider standard height
+		 space:0,
+		 speed:45,
+		 layout:'fullwidth',
+		 loop:true,
+		 preload:0,
+		 autoplay:true,
+		 view:"parallaxMask"
+	});
+})(jQuery);
+</script>
