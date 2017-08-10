@@ -18,7 +18,6 @@ namespace KaamShaam.AdminServices
                 return dbCats;
             }
         }
-
         public static void UpdateCategory(Category obj)
         {
             using (var context = new KaamShaamEntities())
@@ -36,7 +35,6 @@ namespace KaamShaam.AdminServices
                 context.SaveChanges();
             }
         }
-
         public static void UpdateStatus(Category obj)
         {
             using (var context = new KaamShaamEntities())
@@ -50,7 +48,6 @@ namespace KaamShaam.AdminServices
                 context.SaveChanges();
             }
         }
-
         public static void DeleteCat(Category obj)
         {
             using (var context = new KaamShaamEntities())

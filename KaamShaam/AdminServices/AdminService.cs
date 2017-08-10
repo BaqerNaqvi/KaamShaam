@@ -21,7 +21,6 @@ namespace KaamShaam.AdminServices
                 return data;
             }
         }
-
         public static void UpdateStatus(AspNetUser obj)
         {
             using (var context = new KaamShaamEntities())
@@ -35,7 +34,6 @@ namespace KaamShaam.AdminServices
                 context.SaveChanges();
             }
         }
-
         public static void DeleteUser(AspNetUser obj)
         {
             using (var context = new KaamShaamEntities())
@@ -49,7 +47,6 @@ namespace KaamShaam.AdminServices
 
             }
         }
-
         public static List<LocalUser> GetUsersByType(string type)
         {
             using (var context = new KaamShaamEntities())
@@ -58,7 +55,6 @@ namespace KaamShaam.AdminServices
                 return data;
             }
         }
-
         public static List<LocalUser> GetAdminUsers()
         {
             using (var context = new KaamShaamEntities())
@@ -67,7 +63,6 @@ namespace KaamShaam.AdminServices
                 return adminUsers.Select(admin => admin.MapUser()).ToList();
             }
         }
-
         public static LocalUser FindUserByUsername(string username)
         {
             using (var dbcontext = new KaamShaamEntities())
@@ -80,7 +75,6 @@ namespace KaamShaam.AdminServices
                 return null;
             }
         }
-
         public static LocalUser AddUserToRole(MakeAdminModel adminModel)
         {
 
@@ -109,7 +103,6 @@ namespace KaamShaam.AdminServices
                 return userObj?.MapUser();
             }
         }
-
         public static void RemoveUserFromRole(MakeAdminModel adminModel)
         {
             var context = new ApplicationDbContext();
@@ -117,8 +110,6 @@ namespace KaamShaam.AdminServices
             var userManager = new UserManager<ApplicationUser>(userStore);
 
             userManager.RemoveFromRole(adminModel.Id, adminModel.Role);
-        }
-
-      
+        }     
     }
 }

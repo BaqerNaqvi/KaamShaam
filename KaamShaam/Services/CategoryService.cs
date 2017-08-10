@@ -17,7 +17,6 @@ namespace KaamShaam.Services
                 return dbCats;
             }
         }
-
         public static LocalCategory GetCategoryById(long? id)
         {
             if (id!=null)

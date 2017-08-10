@@ -19,7 +19,6 @@ namespace KaamShaam.Controllers
             var list = images.Select(img => new BannerModel { Path = img }).ToList();
             return View(list);
         }
-
         public JsonResult Upload()
         {
             for (int i = 0; i < Request.Files.Count; i++)
@@ -34,7 +33,6 @@ namespace KaamShaam.Controllers
             }
             return Json("Uploaded " + Request.Files.Count + " files");
         }
-
         [HttpPost]
         public JsonResult DeleteBanner(BannerModel obj)
         {

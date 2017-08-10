@@ -11,19 +11,16 @@ namespace KaamShaam.Controllers
 {
     public class UserController : Controller
     {
-        // GET: User
         public ActionResult ListView()
         {
             var data = AdminService.GetAllUsers();
             return View(data);
         }
-
         public ActionResult Vendors()
         {
             var data = AdminService.GetUsersByType("Vendor");
             return View(data);
         }
-
         public ActionResult Contractors(string vendorId, string vendorName)
         {
             var data = AdminService.GetUsersByType("Contractor");
@@ -37,22 +34,17 @@ namespace KaamShaam.Controllers
                 Vendor = vendorName
             });
         }
-
-
-
         public ActionResult Users()
         {
             var data = AdminService.GetUsersByType("User");
             return View(data);
         }
-
         [HttpPost]
         public JsonResult UpdateStatus(AspNetUser obj)
         {
             AdminService.UpdateStatus(obj);
             return Json(true, JsonRequestBehavior.AllowGet);
         }
-
         [HttpPost]
         public JsonResult DeleteUser(AspNetUser obj)
         {

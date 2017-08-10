@@ -19,7 +19,6 @@ namespace KaamShaam.Controllers
 
             return View(new CustomJobModel {Cats = cats});
         }
-
         [HttpPost]
         public ActionResult PostJob(CustomJobModel model)
         {
@@ -34,7 +33,6 @@ namespace KaamShaam.Controllers
             }
             return RedirectToAction("ManageJobs", "Job");
         }
-
         public ActionResult ManageJobs()
         {
             var cats = CategoryService.GetAllCategories();
@@ -52,7 +50,6 @@ namespace KaamShaam.Controllers
             page.CurrentPage = 1;
             return View(new ManageJobModel {Categories = cats, JobsList = jobs, Pagging = page});
         }
-
         [HttpPost]
         public ActionResult EditJobDone(JobRequestModel model)
         {           
@@ -64,7 +61,6 @@ namespace KaamShaam.Controllers
 
             return PartialView("~/Views/Job/ManageJobsPartials.cshtml", jobs);
         }
-
         [HttpPost]
         public ActionResult DeleteJob(JobRequestModel model)
         {
@@ -75,7 +71,6 @@ namespace KaamShaam.Controllers
             CalculateJobsWithPaging(ref jobs, model.PageObj);
             return PartialView("~/Views/Job/ManageJobsPartials.cshtml", jobs);
         }
-
         [HttpPost]
         public ActionResult GetSortedJobs(PaggingClass page)
         {
@@ -84,7 +79,6 @@ namespace KaamShaam.Controllers
             CalculateJobsWithPaging(ref jobs, page);
             return PartialView("~/Views/Job/ManageJobsPartials.cshtml", jobs);
         }
-
         [HttpPost]
         public ActionResult SuspendJob(JobRequestModel model)
         {
@@ -95,7 +89,6 @@ namespace KaamShaam.Controllers
             CalculateJobsWithPaging(ref jobs, model.PageObj);
             return PartialView("~/Views/Job/ManageJobsPartials.cshtml", jobs);
         }
-
         private PaggingClass CalculateJobsWithPaging(ref List<CustomJobModel> jobs,PaggingClass page)
         {
             if (page.SortBy == "Title")

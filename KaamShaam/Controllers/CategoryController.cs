@@ -11,27 +11,23 @@ namespace KaamShaam.Controllers
 {
     public class CategoryController : Controller
     {
-        // GET: Category
         public ActionResult ListView()
         {
             var data = CategoryAdminService.GetCategories();
             return View(data);
         }
-
         [HttpPost]
         public JsonResult UpdateCat(Category obj)
         {
             CategoryAdminService.UpdateCategory(obj);
             return Json(true, JsonRequestBehavior.AllowGet);
         }
-
         [HttpPost]
         public JsonResult UpdateStatus(Category obj)
         {
             CategoryAdminService.UpdateStatus(obj);
             return Json(true, JsonRequestBehavior.AllowGet);
         }
-
         [HttpPost]
         public JsonResult DeleteCat(Category obj)
         {

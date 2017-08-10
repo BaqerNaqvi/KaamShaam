@@ -19,17 +19,14 @@ namespace KaamShaam.Controllers
 {
     public class ProfileController : Controller
     {
-        // GET: Profile
         public ActionResult Update()
         {            
             var id = System.Web.HttpContext.Current.User.Identity.GetUserId();
             var user = UserServices.GetUserById(id);
             var cats = CategoryService.GetAllCategories();
-            var companies = UserServices.GetUserTypeDD("Vendor");
+            var companies = UserServices.GetUserTypeDd("Vendor");
             return View(new ProfileWraperModel {BasicInfo = user, Categoreis= cats, Companies = companies});
-        }
-         
-
+        } 
         public ActionResult UpdateBasicInfo(LocalUser user)
         {
             var id = System.Web.HttpContext.Current.User.Identity.GetUserId();
@@ -39,7 +36,6 @@ namespace KaamShaam.Controllers
             SetUserSession(updatedUser);
             return Json(true, JsonRequestBehavior.AllowGet); 
         }
-
         public ActionResult UpdateLocationInfo(LocalUser user)
          {
             var id = System.Web.HttpContext.Current.User.Identity.GetUserId();
@@ -49,7 +45,6 @@ namespace KaamShaam.Controllers
 
             return Json(true, JsonRequestBehavior.AllowGet); 
         }
-
         public ActionResult UpdateOtherInfo(LocalUser user)
         {
             var id = System.Web.HttpContext.Current.User.Identity.GetUserId();
@@ -57,7 +52,6 @@ namespace KaamShaam.Controllers
             UserServices.UpdateOtherInfo(user);
             return Json(true, JsonRequestBehavior.AllowGet);
         }
-
         public ActionResult UpdateCompanyInfo(LocalUser user)
         {
             var id = System.Web.HttpContext.Current.User.Identity.GetUserId();
@@ -65,7 +59,6 @@ namespace KaamShaam.Controllers
             UserServices.UpdateCompanyInfo(user);
             return Json(true, JsonRequestBehavior.AllowGet);
         }
-
         public JsonResult Upload()
         {
             for (int i = 0; i < Request.Files.Count; i++)

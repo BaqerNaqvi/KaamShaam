@@ -53,7 +53,6 @@ namespace KaamShaam.Services
                 }
             }
         }
-
         public static LocalUser GetUserById(string userId)
         {
             using (var dbContext = new KaamShaamEntities())
@@ -63,9 +62,6 @@ namespace KaamShaam.Services
                 return model;
             }
         }
-
-     
-
         public static AspNetUser UpdateBasicInfo(LocalUser user)
         {
             using (var dbContext = new KaamShaamEntities())
@@ -84,7 +80,6 @@ namespace KaamShaam.Services
                 return dbuser;
             }
         }
-
         public static AspNetUser UpdateLocInfo(LocalUser user)
         {
             using (var dbContext = new KaamShaamEntities())
@@ -112,8 +107,6 @@ namespace KaamShaam.Services
                 return dbuser;
             }
         }
-
-
         public static void UpdateOtherInfo(LocalUser user)
         {
             using (var dbContext = new KaamShaamEntities())
@@ -128,7 +121,6 @@ namespace KaamShaam.Services
                 }
             }
         }
-
         public static void UpdateCompanyInfo(LocalUser user)
         {
             using (var dbContext = new KaamShaamEntities())
@@ -143,9 +135,6 @@ namespace KaamShaam.Services
                 }
             }
         }
-
-
-
         public static List<LocalUser> GetUserByType(string userType)
         {
             try
@@ -161,8 +150,7 @@ namespace KaamShaam.Services
                 return null;
             }
         }
-
-        public static List<UserDrowdownModel> GetUserTypeDD(string userType)
+        public static List<UserDrowdownModel> GetUserTypeDd(string userType)
         {
             using (var dbContext = new KaamShaamEntities())
             {

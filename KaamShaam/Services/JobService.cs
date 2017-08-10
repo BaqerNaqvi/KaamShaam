@@ -49,7 +49,6 @@ namespace KaamShaam.Services
                 dbcontext.SaveChanges();
             }
         }
-
         public static List<CustomJobModel> GetUserJobs(string userId)
         {
             using (var dbcontext = new KaamShaamEntities())
@@ -58,7 +57,6 @@ namespace KaamShaam.Services
                 return jobs.Select(j => j.Mapper()).ToList();
             }
         }
-
         public static void EditJob(CustomJobModel job)
         {           
             using (var dbcontext = new KaamShaamEntities())
@@ -75,7 +73,6 @@ namespace KaamShaam.Services
                 dbcontext.SaveChanges();
             }
         }
-
         public static void DeleteJob(CustomJobModel job)
         {
             using (var dbcontext = new KaamShaamEntities())
