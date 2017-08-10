@@ -41,20 +41,25 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in Model)
-                            {
-                                var status = "";
-                                if (item.Status)
-                                {
-                                    status = "checked";
-                                }
-                                <tr>
-                                    <td>@item.Name</td>
-                                    <td><input onchange="changeStatus(@Json.Encode(item))" id='tg_@item.Id' class="cattoggle" type="checkbox" @status data-toggle="toggle"></td>
-                                    <td><button class="btn btn-default" data-toggle="modal" data-target="#categoryModal" onclick="EditCat(@Json.Encode(item))">Edit</button></td>
-                                    <td><button onclick="DeleteCat(@Json.Encode(item))" class="btn btn-danger">Delete</button></td>
-                                </tr>
-                            }
+                           @{
+                               if (Model != null)
+                               {
+                                   foreach (var item in Model)
+                                   {
+                                       var status = "";
+                                       if (item.Status)
+                                       {
+                                           status = "checked";
+                                       }
+                                       <tr>
+                                           <td>@item.Name</td>
+                                           <td><input onchange=" changeStatus(@Json.Encode(item)) " id='tg_@item.Id' class="cattoggle" type="checkbox" @status data-toggle="toggle"></td>
+                                           <td><button class="btn btn-default" data-toggle="modal" data-target="#categoryModal" onclick=" EditCat(@Json.Encode(item)) ">Edit</button></td>
+                                           <td><button onclick=" DeleteCat(@Json.Encode(item)) " class="btn btn-danger">Delete</button></td>
+                                       </tr>
+                                   }
+                               }
+                           }
                         </tbody>
                     </table>
                 </div>

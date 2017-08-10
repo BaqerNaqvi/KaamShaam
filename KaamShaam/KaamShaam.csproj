@@ -208,6 +208,7 @@
     <Compile Include="AdminModels\BannerModel.cs" />
     <Compile Include="AdminModels\DashboardPageModel.cs" />
     <Compile Include="AdminModels\LocalUser.cs" />
+    <Compile Include="AdminModels\MakeAdminModel.cs" />
     <Compile Include="AdminModels\VendorPageModel.cs" />
     <Compile Include="AdminServices\CategoryAdminService.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -419,6 +420,7 @@
     <Content Include="Images\contractor-profile\video2.jpg" />
     <Content Include="Images\contractor-profile\video3.jpg" />
     <Content Include="Images\contractor-profile\video4.jpg" />
+    <Content Include="Images\cross.png" />
     <Content Include="Images\dashboard\ceo-img.jpg" />
     <Content Include="Images\dashboard\img-01.jpg" />
     <Content Include="Images\dashboard\img-02.jpg" />
@@ -689,6 +691,7 @@
     <Content Include="Images\thumbnails\img-35.jpg" />
     <Content Include="Images\thumbnails\img-36.jpg" />
     <Content Include="Images\thumbnails\img-37.jpg" />
+    <Content Include="Images\tic.png" />
     <Content Include="Images\timeline\img-01.jpg" />
     <Content Include="Images\tim_80x80.png" />
     <Content Include="Images\ui-icons_444444_256x240.png" />
@@ -1070,6 +1073,7 @@
     <Content Include="Views\User\Contractors.cshtml" />
     <Content Include="Views\User\Users.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
+    <Content Include="Views\Admin\AdminUsers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

@@ -1,8 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
+using System.Web.Security;
 using KaamShaam.AdminModels;
 using KaamShaam.DbEntities;
+using KaamShaam.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using UserMapper = KaamShaam.LocalModels.UserMapper;
 
 namespace KaamShaam.AdminServices
 {
@@ -53,5 +58,67 @@ namespace KaamShaam.AdminServices
                 return data;
             }
         }
+
+        public static List<LocalUser> GetAdminUsers()
+        {
+            using (var context = new KaamShaamEntities())
+            {
+                var adminUsers = context.AspNetUsers.Where( user => user.AspNetRoles.Any(role => role.Name=="Admin" || role.Name == "Super Admin")).ToList();
+                return adminUsers.Select(admin => admin.MapUser()).ToList();
+            }
+        }
+
+        public static LocalUser FindUserByUsername(string username)
+        {
+            using (var dbcontext = new KaamShaamEntities())
+            {
+                var userObj=  dbcontext.AspNetUsers.FirstOrDefault(user => user.UserName.ToLower() == username.ToLower());
+                if (userObj != null)
+                {
+                    return userObj.MapUser();
+                }
+                return null;
+            }
+        }
+
+        public static LocalUser AddUserToRole(MakeAdminModel adminModel)
+        {
+
+            using (var dbcontext = new KaamShaamEntities())
+            {
+                var context = new ApplicationDbContext();
+                var userStore = new UserStore<ApplicationUser>(context);
+                var userManager = new UserManager<ApplicationUser>(userStore);
+
+                var userObj = dbcontext.AspNetUsers.FirstOrDefault(user => user.Id.ToLower() == adminModel.Id);
+                try
+                {
+                    if (userObj != null)
+                    {
+                        foreach (var role in userObj.AspNetRoles.ToList())
+                        {
+                            userManager.RemoveFromRole(userObj.Id, role.Name);
+                        }
+                        userManager.AddToRole(userObj.Id, adminModel.Role);
+                    }
+                }
+                catch (System.Exception xfdf)
+                {
+
+                }
+                return userObj?.MapUser();
+            }
+        }
+
+        public static void RemoveUserFromRole(MakeAdminModel adminModel)
+        {
+            var context = new ApplicationDbContext();
+            var userStore = new UserStore<ApplicationUser>(context);
+            var userManager = new UserManager<ApplicationUser>(userStore);
+
+            userManager.RemoveFromRole(adminModel.Id, adminModel.Role);
+        }
+
+      
     }
 }

@@ -29,5 +29,38 @@ namespace KaamShaam.Controllers
                 JobsCount = jobs.Count
             });
         }
+
+        public ActionResult AdminUsers()
+        {
+            var admins= AdminService.GetAdminUsers();
+            return View(admins);
+        } 
+
+        public ActionResult FindUserByEmail(MakeAdminModel model)
+        {
+            var user = AdminService.FindUserByUsername(model.Email);
+            if (user == null)
+            {
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+            return Json(user, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult AddUserInRole(MakeAdminModel model)
+        {
+            var user = AdminService.AddUserToRole(model);
+            if (user == null)
+            {
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+            return Json(user, JsonRequestBehavior.AllowGet);
+        } 
+
+        public ActionResult RemoveFromRole(MakeAdminModel model)
+        {
+            AdminService.RemoveUserFromRole(model);
+            return Json(true, JsonRequestBehavior.AllowGet);           
+        }
+        
     }
 }

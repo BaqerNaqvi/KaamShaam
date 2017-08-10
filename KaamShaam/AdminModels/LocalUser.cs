@@ -33,16 +33,19 @@ namespace KaamShaam.AdminModels
 
         public long? CategoryId { get; set; }
         public string ContractorId { get; set; }
+
+        public string RoleName { get; set; }
     }
     public static class UserMapper
     {
         public static LocalUser MapUser(this AspNetUser source)
         {
+            var roleName = source.AspNetRoles.Any() ? source.AspNetRoles.FirstOrDefault().Name : "";
             return new LocalUser
             {
                 CNIC = source.CNIC,
                 Email = source.Email,
-                FullName = source.FullName,
+                FullName = source.FullName, 
                 Id = source.Id,
                 Mobile = source.Mobile,
                 Type = source.Type,
@@ -53,7 +56,8 @@ namespace KaamShaam.AdminModels
                 Language = source.Language,
                 Status = (bool)source.Status,
                 ContractorId = source.ContractorId,
-                CategoryId = source.CategoryId
+                CategoryId = source.CategoryId,
+                RoleName = roleName
             };
         }
     }
