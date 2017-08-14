@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Data.Entity.Spatial;
 using System.Linq;
 using System.Web;
@@ -11,14 +12,15 @@ namespace KaamShaam.Services
 {
     public static class JobService
     {
-        public static List<CustomJobModel> GetAllJobs()
+        public static List<CustomJobModel> GetAllJobs(bool isApproved=false)
         {
             using (var dbcontext = new KaamShaamEntities())
             {
-                var jobs = dbcontext.Jobs.ToList();
+                var jobs = dbcontext.Jobs.Where(j=> !j.IsRecycled 
+                && j.IsApproved== isApproved &&( isApproved || j.UserStstus)).ToList();
                 return jobs.Select(j => j.Mapper()).ToList();
             }
-        }
+        }       
         public static void AddJob(CustomJobModel job)
         {
             DbGeography loc = null;
@@ -38,7 +40,10 @@ namespace KaamShaam.Services
                 Fee = Convert.ToInt32(job.Fee),
                 CategoryId = job.CategoryId,
                 Location = loc,
-                Ststus = true,
+                UserStstus = true,
+                AdminStatus = true,
+                IsApproved = false,
+                IsRecycled = false,
                 PostedById = job.PostedById,
                 LocationName = job.LocationName,
                 PostingDate = DateTime.Now
@@ -53,7 +58,7 @@ namespace KaamShaam.Services
         {
             using (var dbcontext = new KaamShaamEntities())
             {
-                var jobs = dbcontext.Jobs.Where(j => j.PostedById != null && j.PostedById == userId).ToList();
+                var jobs = dbcontext.Jobs.Where(j =>  j.PostedById == userId  && !j.IsRecycled).ToList();
                 return jobs.Select(j => j.Mapper()).ToList();
             }
         }
@@ -68,33 +73,66 @@ namespace KaamShaam.Services
                     dbObj.Mobile = job.Mobile;
                     dbObj.Email = job.Email;
                     dbObj.Fee = Convert.ToInt32(job.Fee);
+                    dbObj.IsApproved = false;
+                    dbObj.FeedBack = null;
                     dbObj.CategoryId = job.CategoryId;
                 }
                 dbcontext.SaveChanges();
             }
         }
-        public static void DeleteJob(CustomJobModel job)
+        public static void DeleteJob(CustomJobModel job, string loggedInUserid)
         {
             using (var dbcontext = new KaamShaamEntities())
             {
                 var dbObj = dbcontext.Jobs.FirstOrDefault(j => j.Id == job.Id);
                 if (dbObj != null)
                 {
-                    dbcontext.Jobs.Remove(dbObj);
+                    if (loggedInUserid == dbObj.PostedById)
+                    {
+                        dbObj.IsRecycled = true;
+                    }
+                    else
+                    {
+                        dbObj.IsRecycled = true;
+                    }
                 }
                 dbcontext.SaveChanges();
             }
         }
-        public static void SuspendResumeJob(CustomJobModel job)
+        public static void SuspendResumeJob(CustomJobModel job, string loggedInUserid)
         {
             using (var dbcontext = new KaamShaamEntities())
             {
                 var dbObj = dbcontext.Jobs.FirstOrDefault(j => j.Id == job.Id);
                 if (dbObj != null)
                 {
-                    dbObj.Ststus = !dbObj.Ststus;
+                    if (loggedInUserid == dbObj.PostedById)
+                    {
+                        dbObj.UserStstus = !dbObj.UserStstus;
+                    }
+                    else
+                    {
+                        dbObj.AdminStatus = !dbObj.AdminStatus;
+                    }
                 }
                 dbcontext.SaveChanges();
+            }
+        }
+
+        public static void ChangeJobApproval(CustomJobModel job)
+        {
+            using (var dbcontext = new KaamShaamEntities())
+            {
+                var dbJob= dbcontext.Jobs.FirstOrDefault(l => l.Id == job.Id);
+                if (dbJob != null)
+                {
+                    dbJob.IsApproved = job.IsApproved;
+                    if (!job.IsApproved)
+                    {
+                        dbJob.FeedBack = job.Feedback;
+                    }
+                    dbcontext.SaveChanges();
+                }
             }
         }
     }

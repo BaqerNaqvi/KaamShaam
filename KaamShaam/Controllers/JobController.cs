@@ -12,12 +12,115 @@ namespace KaamShaam.Controllers
 {
     public class JobController : Controller
     {
+        #region Admin
+
+        public ActionResult ListView()
+        {
+            var cats = CategoryService.GetAllCategories();
+            var allJobs = JobService.GetAllJobs(true);
+            var page = new PaggingClass
+            {
+                CurrentPage = 0,
+                ItemsPerPage = 2,
+                TotalItems = allJobs.Count,
+                SortBy = "Date",
+                SortOrder = "Des"
+            };
+            page = CalculateJobsWithPaging(ref allJobs, page);
+            page.CurrentPage = 1;
+            return View(new ManageJobModel { Categories = cats, JobsList = allJobs, Pagging = page });
+        }
+        [HttpPost]
+        public ActionResult GetSortedListViewJobs(PaggingClass page)
+        {
+            // if you make any change here, do also make in Approval Controller
+            var jobs = JobService.GetAllJobs(true);
+            var newPage = CalculateJobsWithPaging(ref jobs, page);
+            var modelnew = new JobPartialPageModel
+            {
+                JobList = jobs,
+                Page = new PaggingClass
+                {
+                    TotalPages = newPage.TotalPages,
+                    TotalItems = newPage.TotalItems,
+                    CurrentPage = page.CurrentPage + 1,
+                    ItemsPerPage = page.ItemsPerPage,
+                    SortBy = page.SortBy,
+                    SortOrder = page.SortOrder,
+                    CategoryId = page.CategoryId,
+                    SearchTerm = page.SearchTerm
+                }
+            };
+            return PartialView("~/Views/Job/ListViewJobsPartial.cshtml", modelnew);
+        }
+        /// <summary>
+        /// For Admin
+        /// </summary>
+        [HttpPost]
+        public ActionResult DeleteJobByAdmin(JobRequestModel model)
+        {
+            var id = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            JobService.DeleteJob(model.JobModel, id);
+            var jobs = JobService.GetAllJobs(true);
+            model.PageObj.CurrentPage--;
+            var newPage = CalculateJobsWithPaging(ref jobs, model.PageObj);
+            var modelnew = new JobPartialPageModel
+            {
+                JobList = jobs,
+                Page = new PaggingClass
+                {
+                    TotalPages = newPage.TotalPages,
+                    TotalItems = newPage.TotalItems,
+                    CurrentPage = model.PageObj.CurrentPage+1,
+                    ItemsPerPage = model.PageObj.ItemsPerPage,
+                    SortBy = model.PageObj.SortBy,
+                    SortOrder = model.PageObj.SortOrder,
+                    CategoryId = model.PageObj.CategoryId,
+                    SearchTerm = model.PageObj.SearchTerm
+                }
+            };
+            return PartialView("~/Views/Job/ListViewJobsPartial.cshtml", modelnew);
+
+        }
+
+        /// <summary>
+        /// For Admin
+        /// </summary>
+        [HttpPost]
+        public ActionResult SuspendJobByAdmin(JobRequestModel model)
+        {
+            var id = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            JobService.SuspendResumeJob(model.JobModel, id);
+            var jobs = JobService.GetAllJobs(true);
+            model.PageObj.CurrentPage--;
+            var newPage = CalculateJobsWithPaging(ref jobs, model.PageObj);
+            var modelnew = new JobPartialPageModel
+            {
+                JobList = jobs,
+                Page = new PaggingClass
+                {
+                    TotalPages = newPage.TotalPages,
+                    TotalItems = newPage.TotalItems,
+                    CurrentPage = model.PageObj.CurrentPage+1,
+                    ItemsPerPage = model.PageObj.ItemsPerPage,
+                    SortBy = model.PageObj.SortBy,
+                    SortOrder = model.PageObj.SortOrder,
+                    CategoryId = model.PageObj.CategoryId,
+                    SearchTerm = model.PageObj.SearchTerm
+
+                }
+            };
+            return PartialView("~/Views/Job/ListViewJobsPartial.cshtml", modelnew);
+        }
+        #endregion
+
+        #region Post Job
         [HttpGet]
         public ActionResult PostJob()
         {
             var cats = CategoryService.GetAllCategories();
 
-            return View(new CustomJobModel {Cats = cats});
+            return View(new CustomJobModel { Cats = cats });
         }
         [HttpPost]
         public ActionResult PostJob(CustomJobModel model)
@@ -29,15 +132,19 @@ namespace KaamShaam.Controllers
                     var id = System.Web.HttpContext.Current.User.Identity.GetUserId();
                     model.PostedById = id;
                 }
-                JobService.AddJob(model); 
+                JobService.AddJob(model);
             }
             return RedirectToAction("ManageJobs", "Job");
         }
+        #endregion
+
+        #region Manage Job
+
         public ActionResult ManageJobs()
         {
             var cats = CategoryService.GetAllCategories();
             var id = System.Web.HttpContext.Current.User.Identity.GetUserId();
-            var jobs=JobService.GetUserJobs(id);
+            var jobs = JobService.GetUserJobs(id);
             var page = new PaggingClass
             {
                 CurrentPage = 0,
@@ -46,51 +153,134 @@ namespace KaamShaam.Controllers
                 SortBy = "Date",
                 SortOrder = "Des"
             };
-            page=CalculateJobsWithPaging(ref jobs, page);
+            page = CalculateJobsWithPaging(ref jobs, page);
             page.CurrentPage = 1;
-            return View(new ManageJobModel {Categories = cats, JobsList = jobs, Pagging = page});
+            return View(new ManageJobModel { Categories = cats, JobsList = jobs, Pagging = page });
         }
         [HttpPost]
         public ActionResult EditJobDone(JobRequestModel model)
-        {           
+        {
             JobService.EditJob(model.JobModel);
             var id = System.Web.HttpContext.Current.User.Identity.GetUserId();
             var jobs = JobService.GetUserJobs(id);
             model.PageObj.CurrentPage--;
-            CalculateJobsWithPaging(ref jobs, model.PageObj);
-
-            return PartialView("~/Views/Job/ManageJobsPartials.cshtml", jobs);
+            var newPage = CalculateJobsWithPaging(ref jobs, model.PageObj);
+            var modelnew = new JobPartialPageModel
+            {
+                JobList = jobs,
+                Page = new PaggingClass
+                {
+                    TotalPages = newPage.TotalPages,
+                    TotalItems = newPage.TotalItems,
+                    CurrentPage = model.PageObj.CurrentPage + 1,
+                    ItemsPerPage = model.PageObj.ItemsPerPage,
+                    SortBy = model.PageObj.SortBy,
+                    SortOrder = model.PageObj.SortOrder,
+                    CategoryId = model.PageObj.CategoryId,
+                    SearchTerm = model.PageObj.SearchTerm
+                }
+            };
+            return PartialView("~/Views/Job/ManageJobsPartials.cshtml", modelnew);
         }
+
+        /// <summary>
+        /// For Owner
+        /// </summary>
         [HttpPost]
         public ActionResult DeleteJob(JobRequestModel model)
         {
-            JobService.DeleteJob(model.JobModel);
             var id = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            JobService.DeleteJob(model.JobModel, id);
             var jobs = JobService.GetUserJobs(id);
             model.PageObj.CurrentPage--;
-            CalculateJobsWithPaging(ref jobs, model.PageObj);
-            return PartialView("~/Views/Job/ManageJobsPartials.cshtml", jobs);
+            var newPage = CalculateJobsWithPaging(ref jobs, model.PageObj);
+            var modelnew = new JobPartialPageModel
+            {
+                JobList = jobs,
+                Page = new PaggingClass
+                {
+                    TotalPages = newPage.TotalPages,
+                    TotalItems = newPage.TotalItems,
+                    CurrentPage = model.PageObj.CurrentPage + 1,
+                    ItemsPerPage = model.PageObj.ItemsPerPage,
+                    SortBy = model.PageObj.SortBy,
+                    SortOrder = model.PageObj.SortOrder,
+                    CategoryId = model.PageObj.CategoryId,
+                    SearchTerm = model.PageObj.SearchTerm
+                }
+            };
+            return PartialView("~/Views/Job/ManageJobsPartials.cshtml", modelnew);
         }
+
         [HttpPost]
         public ActionResult GetSortedJobs(PaggingClass page)
         {
             var id = System.Web.HttpContext.Current.User.Identity.GetUserId();
             var jobs = JobService.GetUserJobs(id);
-            CalculateJobsWithPaging(ref jobs, page);
-            return PartialView("~/Views/Job/ManageJobsPartials.cshtml", jobs);
+            var newPage=CalculateJobsWithPaging(ref jobs, page);
+            var modelnew = new JobPartialPageModel
+            {
+                JobList = jobs,
+                Page = new PaggingClass
+                {
+                    TotalPages = newPage.TotalPages,
+                    TotalItems = newPage.TotalItems,
+                    CurrentPage = page.CurrentPage + 1,
+                    ItemsPerPage = page.ItemsPerPage,
+                    SortBy = page.SortBy,
+                    SortOrder = page.SortOrder,
+                    CategoryId = page.CategoryId,
+                    SearchTerm = page.SearchTerm
+                }
+            };
+            return PartialView("~/Views/Job/ManageJobsPartials.cshtml", modelnew);
         }
+        /// <summary>
+        /// For Owner
+        /// </summary>
         [HttpPost]
         public ActionResult SuspendJob(JobRequestModel model)
         {
-            JobService.SuspendResumeJob(model.JobModel);
             var id = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            JobService.SuspendResumeJob(model.JobModel, id);
             var jobs = JobService.GetUserJobs(id);
             model.PageObj.CurrentPage--;
-            CalculateJobsWithPaging(ref jobs, model.PageObj);
-            return PartialView("~/Views/Job/ManageJobsPartials.cshtml", jobs);
+             var newPage=CalculateJobsWithPaging(ref jobs, model.PageObj);
+            var modelnew = new JobPartialPageModel
+            {
+                JobList = jobs,
+                Page = new PaggingClass
+                {
+                    TotalPages = newPage.TotalPages,
+                    TotalItems = newPage.TotalItems,
+                    CurrentPage = model.PageObj.CurrentPage + 1,
+                    ItemsPerPage = model.PageObj.ItemsPerPage,
+                    SortBy = model.PageObj.SortBy,
+                    SortOrder = model.PageObj.SortOrder,
+                    CategoryId = model.PageObj.CategoryId,
+                    SearchTerm = model.PageObj.SearchTerm
+                }
+            };
+            return PartialView("~/Views/Job/ManageJobsPartials.cshtml", modelnew);
         }
+
+        #endregion
+
         private PaggingClass CalculateJobsWithPaging(ref List<CustomJobModel> jobs,PaggingClass page)
         {
+            if (!string.IsNullOrEmpty(page.SearchTerm))
+            {
+                page.SearchTerm = page.SearchTerm.ToLower();
+                jobs = jobs.Where(j => j.JobTitle.ToLower().Contains(page.SearchTerm) || 
+                j.Email.ToLower().Contains(page.SearchTerm) || j.JobPostedBy.ToLower().Contains(page.SearchTerm) ||
+                j.Fee.ToLower().Contains(page.SearchTerm) || j.LocationName.ToLower().Contains(page.SearchTerm) ||
+                j.Mobile.ToLower().Contains(page.SearchTerm) || j.CatName.ToLower().Contains(page.SearchTerm)).ToList();
+            }
+            if (page.CategoryId != 0)
+            {
+                jobs = jobs.Where(j => j.CategoryId == page.CategoryId).ToList();
+            }
+            page.TotalItems = jobs.Count;
             if (page.SortBy == "Title")
             {
                 jobs = page.SortOrder == "Des" ? jobs.OrderByDescending(o => o.JobTitle).ToList() : jobs.OrderBy(o => o.JobTitle).ToList();

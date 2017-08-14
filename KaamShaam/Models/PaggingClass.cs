@@ -18,5 +18,9 @@ namespace KaamShaam.Models
 
         public string SortOrder { get; set; }
 
+        public long CategoryId { get; set; }
+
+        public string SearchTerm { get; set; }
+
     }
 }

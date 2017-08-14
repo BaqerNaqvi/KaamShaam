@@ -83,10 +83,14 @@
     <Property Name="Fee" Type="int" Nullable="false" />
     <Property Name="Mobile" Type="nvarchar" MaxLength="250" Nullable="false" />
     <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="PostedById" Type="nvarchar" MaxLength="250" />
     <Property Name="LocationName" Type="nvarchar" MaxLength="500" Nullable="false" />
     <Property Name="PostingDate" Type="datetime" Nullable="false" />
-    <Property Name="Ststus" Type="bit" Nullable="false" />
+    <Property Name="UserStstus" Type="bit" Nullable="false" />
+    <Property Name="IsApproved" Type="bit" Nullable="false" />
+    <Property Name="AdminStatus" Type="bit" Nullable="false" />
+    <Property Name="PostedById" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="IsRecycled" Type="bit" Nullable="false" />
+    <Property Name="FeedBack" Type="nvarchar" MaxLength="500" />
   </EntityType>
   <Association Name="FK_AspNetUserRoles_AspNetRole">
     <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1" />
@@ -152,6 +156,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Jobs_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+    <End Role="Jobs" Type="Self.Jobs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Jobs">
+        <PropertyRef Name="PostedById" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="KaamShaamModelStoreContainer">
     <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
@@ -178,6 +194,10 @@
     </AssociationSet>
     <AssociationSet Name="FK_Job_Categories" Association="Self.FK_Job_Categories">
       <End Role="Categories" EntitySet="Categories" />
+      <End Role="Jobs" EntitySet="Jobs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Jobs_AspNetUsers" Association="Self.FK_Jobs_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="Jobs" EntitySet="Jobs" />
     </AssociationSet>
   </EntityContainer>

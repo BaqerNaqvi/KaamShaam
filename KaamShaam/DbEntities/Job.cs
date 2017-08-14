@@ -24,8 +24,13 @@ namespace KaamShaam.DbEntities
         public string PostedById { get; set; }
         public string LocationName { get; set; }
         public System.DateTime PostingDate { get; set; }
-        public bool Ststus { get; set; }
+        public bool UserStstus { get; set; }
+        public bool IsApproved { get; set; }
+        public bool AdminStatus { get; set; }
+        public bool IsRecycled { get; set; }
+        public string FeedBack { get; set; }
     
         public virtual Category Category { get; set; }
+        public virtual AspNetUser AspNetUser { get; set; }
     }
 }

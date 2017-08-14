@@ -41,7 +41,15 @@ namespace KaamShaam.Models
 
         public DateTime PostingDateObj { get; set; }
 
-        public bool Status { get; set; }
+        public bool UserStatus { get; set; }
+
+        public bool AdminStatus { get; set; }
+
+        public string JobPostedBy { get; set; }
+
+        public string Feedback { get; set; }
+
+        public bool IsApproved { get; set; }
 
     }
 
@@ -60,9 +68,13 @@ namespace KaamShaam.Models
                 LocationName = source.LocationName,
                 Fee = source.Fee.ToString(),
                 PostedById = source.PostedById,
+                IsApproved = source.IsApproved,
                 PostingDateObj = source.PostingDate,
-                Status = source.Ststus,
-                PostingDate= source.PostingDate.ToShortDateString()+" "+ source.PostingDate.ToShortTimeString()
+                UserStatus = source.UserStstus,
+                AdminStatus = source.AdminStatus,
+                JobPostedBy = source.AspNetUser.FullName,
+                Feedback= source.FeedBack,
+                PostingDate = source.PostingDate.ToShortDateString()+" "+ source.PostingDate.ToShortTimeString()
             };
         }
     }

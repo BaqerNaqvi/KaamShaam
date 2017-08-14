@@ -56,13 +56,14 @@ Inner Page Banner Start
                                     </div>
                                 </div>
                                 <div class="tg-sortfilter tg-arrange">
-                                    <span>Arrange:</span>
+                                    <input type="text" class="form-control" placeholder="Search Jobs..." id="searchJob" />
+                                    @*<span>Arrange:</span>
                                     <div class="tg-select">
                                         <select id="sortOrderDd" onchange="sortOrderByChanged()">
                                             <option value="Aes">Ascending</option>
                                             <option value="Des">Descending</option>
                                         </select>
-                                    </div>
+                                    </div>*@
                                 </div>
                                 <div class="tg-sortfilter tg-show">
                                     <span>Jobs/Page: </span>
@@ -82,9 +83,10 @@ Inner Page Banner Start
                                     <span style="margin-left: 17px">of</span> 
                                    <strong><span id="totalPage" style="margin-left: 42px;">30</span></strong>
                                 </div>
-                                <div class="tg-sortfilter" style="margin-left:10%;">
+                                <div class="tg-sortfilter" style="margin-left: 10%;">
                                     <button id="jobNext" class="btn btn-default">></button>
                                 </div>
+                                <img class="displayNone" src="~/Images/ajax-loader.gif" id="adminLoading" style="display: none;margin-left: 21px;margin-top: 10px;" />
                             </div> 
                             <table class="tg-tablejoblidting">
                                 <tbody id="manage-Job-Body">
@@ -92,7 +94,7 @@ Inner Page Banner Start
                                     foreach (var item in Model.JobsList)
                                     {
                                         var cusStyle = "";
-                                        if (!item.Status)
+                                        if (!item.UserStatus)
                                         {
                                             cusStyle = cusStyle+" background-color: #ffeb99;";
                                         }
@@ -217,7 +219,7 @@ Inner Page Banner Start
         $("#jobFee").val(obj.Fee);
         $("#jobMobile").val(obj.Mobile);
         $("#jobEmail").val(obj.Email);
-        if (obj.Status) {
+        if (obj.UserStatus) {
             $("#suspendBtn").text('Suspend');
         } else {
             $("#suspendBtn").text('Resume');
@@ -247,8 +249,10 @@ Inner Page Banner Start
         toastr.success("Operation performed");
         $('#manage-Job-Body').html(data);
         $('#updateJob').modal('hide');
+        $('#adminLoading').hide();
     }
     function postMydata(serverObj, url, successFunc) {
+        $('#adminLoading').show();
         $.ajax({
             url: url,
             type: 'POST',
@@ -257,6 +261,7 @@ Inner Page Banner Start
             data: JSON.stringify(serverObj),
             success: successFunc,
             error: function (data) {
+                $('#adminLoading').hide();
                 toastr.error("Job failed to update");
             }
         });
@@ -310,6 +315,7 @@ Inner Page Banner Start
     function upDatePage(data) {
         $('#manage-Job-Body').html(data);
         setPage(pageDataObj);
+        $('#adminLoading').hide();
     }
     
     function sortByChanged() {
@@ -341,7 +347,7 @@ Inner Page Banner Start
     function suspendJob() {
         var serverObj = {};
         serverObj.Id = objtoedit.Id;
-        serverObj.Ststus = objtoedit.Ststus;
+        serverObj.UserStatus = objtoedit.UserStatus;
         var wraperObj = {};
         wraperObj.JobModel = serverObj;
         wraperObj.PageObj = pageDataObj;
@@ -350,4 +356,11 @@ Inner Page Banner Start
 
     $('.li-manage-jobs').addClass('tg-active');
 
+    $('#searchJob').keyup(function() {
+        pageDataObj.CurrentPage = 0;
+        pageDataObj.SearchTerm = $(this).val();
+        pageDataObj.CategoryId = $('#jobCatList').val();
+        getSortedJobs();
+        pageDataObj.CurrentPage++;
+    });
 </script>

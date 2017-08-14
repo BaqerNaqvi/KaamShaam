@@ -1,0 +1,27 @@
+﻿@model KaamShaam.Models.JobPartialPageModel
+@{
+    if (Model != null)
+    {
+        foreach (var item in Model.JobList)
+        {
+            <tr>
+                <td style="cursor: pointer" data-toggle="modal" data-target="#viewJob" onclick="viewJob(@Json.Encode(item))">
+                    <a>@item.JobTitle</a>
+                    @if (!item.AdminStatus)
+                    {
+                        <span style="background-color: rgba(255, 0, 0, 0.38); margin-right: 5px;float: right; border-radius: 5px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    }
+                    @if (!item.UserStatus)
+                    {
+                        <span style="background-color: rgba(240, 173, 78, 0.64);margin-right: 5px; float: right; border-radius: 5px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    }
+                </td>
+                <td>@item.CatName</td>
+                <td>@item.PostingDate</td>
+            </tr>
+        }
+        <script>
+        pageDataObj=@Html.Raw(Json.Encode(Model.Page));
+        </script>
+    }
+}

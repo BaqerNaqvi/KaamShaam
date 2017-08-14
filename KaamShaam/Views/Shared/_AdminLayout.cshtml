@@ -180,6 +180,17 @@
                     <li id="admin-li">
                         <a href="@baseUrl/Admin/AdminUsers"><i class="fa fa-fw fa-user"></i> Administrators</a>
                     </li>
+                    <li id="jobs-li">
+                        <a href="@baseUrl/Job/ListView"><i class="fa fa-fw fa-user"></i>Jobs</a>
+                    </li>
+                    <li id="appr-requs">
+                        <a href="javascript:;" data-toggle="collapse" data-target="#appReq"><i class="fa fa-fw fa-arrows-v"></i> Approval Requests <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="appReq" class="collapse">
+                            <li>
+                                <a href="~/ApprovalRequest/Jobs">Jobs</a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->

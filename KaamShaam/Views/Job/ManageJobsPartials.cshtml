@@ -1,38 +1,44 @@
-﻿@model List<KaamShaam.Models.CustomJobModel>
+﻿@model KaamShaam.Models.JobPartialPageModel
 @{
 
     string baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority +
                                    Request.ApplicationPath.TrimEnd('/');
-    foreach (var item in Model)
+    if (Model != null)
     {
-        var cusStyle = "";
-        if (!item.Status)
+        foreach (var item in Model.JobList.ToList())
         {
-            cusStyle = cusStyle + " background-color: #ffeb99;";
-        }
-        <tr style="cursor: pointer" data-toggle="modal" data-target="#updateJob" onclick="editJob(@Json.Encode(item))">
-            <td style="@cusStyle">
-                <figure class="tg-companylogo">
-                    <img src="@baseUrl/Images/contractor-dashboard/small1.jpg" alt="image description">
-                    <a class="tg-btndel" href="#"><i class="fa fa-close"></i></a>
+            var cusStyle = "";
+            if (!item.UserStatus)
+            {
+                cusStyle = cusStyle + " background-color: #ffeb99;";
+            }
+            <tr style="cursor: pointer" data-toggle="modal" data-target="#updateJob" onclick="editJob(@Json.Encode(item))">
+                <td style="@cusStyle">
+                    <figure class="tg-companylogo">
+                        <img src="@baseUrl/Images/contractor-dashboard/small1.jpg" alt="image description">
+                        <a class="tg-btndel" href="#"><i class="fa fa-close"></i></a>
 
-                </figure>
-                <div class="tg-contentbox">
-                    <a class="tg-tag tg-featuredtag" href="#">@item.PostingDate</a>
-                    <div class="tg-title">
-                        <h3>
-                            <a href="#">@item.CatName Required</a>
-                        </h3>
+                    </figure>
+                    <div class="tg-contentbox">
+                        <a class="tg-tag tg-featuredtag" href="#">@item.PostingDate</a>
+                        <div class="tg-title">
+                            <h3>
+                                <a href="#">@item.CatName Required</a>
+                            </h3>
+                        </div>
+                        <span>@item.JobTitle</span>
                     </div>
-                    <span>@item.JobTitle</span>
-                </div>
-            </td>
-            <td style="line-height: 12px; padding-top: 29px;"><span>@item.LocationName</span></td>
-            <td style="line-height: 18px; padding-top: 27px;">
-                <span>@item.Mobile</span>
-                <span>@item.Email</span>
-            </td>
-            <td><span>Rs. @item.Fee</span></td>
-        </tr>
+                </td>
+                <td style="line-height: 12px; padding-top: 29px;"><span>@item.LocationName</span></td>
+                <td style="line-height: 18px; padding-top: 27px;">
+                    <span>@item.Mobile</span>
+                    <span>@item.Email</span>
+                </td>
+                <td><span>Rs. @item.Fee</span></td>
+            </tr>
+        }
+        <script>
+        pageDataObj=@Html.Raw(Json.Encode(Model.Page));
+        </script>
     }
 }
