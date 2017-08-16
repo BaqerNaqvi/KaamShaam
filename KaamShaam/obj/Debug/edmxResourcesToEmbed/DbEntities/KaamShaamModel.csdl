@@ -71,6 +71,8 @@
     <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Status" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="Jobs" Relationship="KaamShaamModel.FK_Job_Categories" FromRole="Category" ToRole="Job" />
+    <Property Name="IsApproved" Type="Boolean" Nullable="false" />
+    <Property Name="Feedback" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
   </EntityType>
   <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
     <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
@@ -131,6 +133,7 @@
       <End Role="AspNetUser" EntitySet="AspNetUsers" />
       <End Role="Job" EntitySet="Jobs" />
     </AssociationSet>
+    <EntitySet Name="Banners" EntityType="KaamShaamModel.Banner" />
   </EntityContainer>
   <EntityType Name="Job">
     <Key>
@@ -178,4 +181,13 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="Banner">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FileName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="ShowOrder" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="Boolean" Nullable="false" />
+  </EntityType>
 </Schema>

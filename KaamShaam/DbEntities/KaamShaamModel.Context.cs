@@ -31,5 +31,6 @@ namespace KaamShaam.DbEntities
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Job> Jobs { get; set; }
+        public virtual DbSet<Banner> Banners { get; set; }
     }
 }

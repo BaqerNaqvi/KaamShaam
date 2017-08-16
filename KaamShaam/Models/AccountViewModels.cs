@@ -74,7 +74,6 @@ namespace KaamShaam.Models
         [Required]
         public string Mobile { get; set; }
 
-        [Required]
         //[StringLength(14, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         public string CNIC { get; set; }
 

@@ -16,6 +16,7 @@
         <EntityTypeShape EntityType="KaamShaamModel.Job" Width="1.5" PointX="7.375" PointY="4.5" />
         <AssociationConnector Association="KaamShaamModel.FK_Job_Categories" />
         <AssociationConnector Association="KaamShaamModel.FK_Jobs_AspNetUsers" />
+        <EntityTypeShape EntityType="KaamShaamModel.Banner" Width="1.5" PointX="0.75" PointY="5.375" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

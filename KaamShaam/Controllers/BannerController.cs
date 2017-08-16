@@ -5,6 +5,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using KaamShaam.AdminModels;
+using KaamShaam.DbEntities;
+using KaamShaam.Services;
 
 namespace KaamShaam.Controllers
 {
@@ -12,12 +14,24 @@ namespace KaamShaam.Controllers
     {
         public ActionResult ListView()
         {
-            var baseUrl = Server.MapPath("~/Images/Banners/");
-            string[] images = Directory.GetFiles(baseUrl, "*")
-                                     .Select(Path.GetFileName)
-                                     .ToArray();
-            var list = images.Select(img => new BannerModel { Path = img }).ToList();
-            return View(list);
+            //var baseUrl = Server.MapPath("~/Images/Banners/");
+            //string[] images = Directory.GetFiles(baseUrl, "*")
+            //                         .Select(Path.GetFileName)
+            //                         .ToArray();
+           var images = new List<BannerModel>();
+            var fullImages = BannerService.GetAllBanners();
+            if (fullImages!=null && fullImages.Any())
+            {
+                images = fullImages.Select(img => new BannerModel
+              {
+                  Id = img.Id,
+                  FileName = img.FileName,
+                  ShowOrder = img.ShowOrder,
+                  Status = img.Status
+
+              }).ToList();
+            }
+            return View(images);
         }
         public JsonResult Upload()
         {
@@ -29,16 +43,36 @@ namespace KaamShaam.Controllers
                 string mimeType = file.ContentType;
                 System.IO.Stream fileContent = file.InputStream;
                 //To save file, use SaveAs method
-                file.SaveAs(Server.MapPath("~/Images/Banners/") + fileName); //File will be saved in application root
+                file.SaveAs(Server.MapPath("~/Images/Banners/") + fileName);
+                int order = 0;
+
+                var allBanners= BannerService.GetAllBanners();
+                if (allBanners != null && allBanners.Any())
+                {
+                    order = allBanners.Count;
+                }
+
+                BannerService.AddBanner(new Banner
+                {
+                    FileName = fileName,
+                    ShowOrder = order+1,
+                    Status = false
+                });
             }
             return Json("Uploaded " + Request.Files.Count + " files");
         }
         [HttpPost]
         public JsonResult DeleteBanner(BannerModel obj)
         {
-            var baseUrl = Server.MapPath("~/Images/Banners/") + obj.Path;
+            var baseUrl = Server.MapPath("~/Images/Banners/") + obj.FileName;
             System.IO.File.Delete(baseUrl);
-
+            BannerService.DeleteBanner(obj.Id);
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult EditBanner(BannerModel obj)
+        {
+            BannerService.EditBanner(obj);
             return Json(true, JsonRequestBehavior.AllowGet);
         }
     }

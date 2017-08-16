@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using KaamShaam.Services;
 
 namespace KaamShaam.Controllers
 {
@@ -11,13 +12,12 @@ namespace KaamShaam.Controllers
     {
         public ActionResult Index()
         {
-            var bannerPath = Server.MapPath("/Images/Banners");
-            DirectoryInfo d = new DirectoryInfo(bannerPath);
-            FileInfo[] Files = d.GetFiles();
             var paths = new List<string>();
-            foreach (FileInfo file in Files)
+            var bannerPath = Server.MapPath("/Images/Banners");
+            var imgs = BannerService.GetActiveBanners();
+            if (imgs != null && imgs.Any())
             {
-               paths.Add(file.Name);
+                paths.AddRange(imgs.Select(banner => banner.FileName));
             }
             return View(paths);
         }

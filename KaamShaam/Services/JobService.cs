@@ -37,7 +37,7 @@ namespace KaamShaam.Services
                 JobTitle = job.JobTitle,
                 Mobile = job.Mobile,
                 Email = job.Email,
-                Fee = Convert.ToInt32(job.Fee),
+                Fee = !string.IsNullOrEmpty(job.Fee)? Convert.ToInt32(job.Fee):0,
                 CategoryId = job.CategoryId,
                 Location = loc,
                 UserStstus = true,

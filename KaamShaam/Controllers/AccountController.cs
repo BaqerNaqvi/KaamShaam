@@ -516,5 +516,69 @@ namespace KaamShaam.Controllers
             Session["Photo"] = AppUtils.Common.ReturnImage(img, "110x110");
             #endregion
         }
+
+
+
+        //
+        // GET: /Account/Login
+        [AllowAnonymous]
+        public ActionResult AdminLogin(string returnUrl)
+        {
+            var vendors = UserServices.GetUserByType("Vendor");
+            var cats = CategoryService.GetAllCategories();
+
+            return View(new RegisterPageWraper
+            {
+                Vendors = vendors,
+                Categories = cats
+            });
+        }
+
+        //
+        // POST: /Account/Login
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<ActionResult> AdminLogin(RegisterPageWraper model, string returnUrl)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("AdminLogin");
+            }
+
+            if (string.IsNullOrEmpty(returnUrl))
+            {
+                returnUrl = "Admin/Stats";
+            }
+            // This doesn't count login failures towards account lockout
+            // To enable password failures to trigger account lockout, change to shouldLockout: true
+            var result = await SignInManager.PasswordSignInAsync(model.LoginViewModel.Email, model.LoginViewModel.Password, true, shouldLockout: false);
+            switch (result)
+            {
+                case SignInStatus.Success:
+                    {
+                        var uid = UserManager.FindByEmail(model.LoginViewModel.Email).Id;
+                        var uObj = UserServices.GetUserById(uid);
+                        SetUserSession(uObj);
+                        // return RedirectToLocal(returnUrl);
+                        return RedirectToAction("Stats", "Admin");
+                    }
+                case SignInStatus.LockedOut:
+                    return View("Lockout");
+                case SignInStatus.RequiresVerification:
+                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.LoginViewModel.RememberMe });
+                case SignInStatus.Failure:
+                default:
+                    ModelState.AddModelError("", "Invalid admin login attempt.");
+                    return View("AdminLogin");
+            }
+        }
+
+        //
+        // POST: /Account/LogOff
+        public ActionResult AdminLogOff()
+        {
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            return RedirectToAction("AdminLogin", "Account");
+        }
     }
 }

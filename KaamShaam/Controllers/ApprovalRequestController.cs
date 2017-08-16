@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using KaamShaam.AdminServices;
+using KaamShaam.LocalModels;
 using KaamShaam.Models;
 using KaamShaam.Services;
 using Microsoft.AspNet.Identity;
@@ -11,6 +13,7 @@ namespace KaamShaam.Controllers
 {
     public class ApprovalRequestController : Controller
     {
+        #region Jobs
         public ActionResult Jobs()
         {
             var cats = CategoryService.GetAllCategories();
@@ -73,7 +76,7 @@ namespace KaamShaam.Controllers
                 {
                     TotalPages = newPage.TotalPages,
                     TotalItems = newPage.TotalItems,
-                    CurrentPage = model.PageObj.CurrentPage+1,
+                    CurrentPage = model.PageObj.CurrentPage + 1,
                     ItemsPerPage = model.PageObj.ItemsPerPage,
                     SortBy = model.PageObj.SortBy,
                     SortOrder = model.PageObj.SortOrder,
@@ -127,5 +130,19 @@ namespace KaamShaam.Controllers
             return page;
         }
 
+        #endregion
+        #region Categories
+
+        public ActionResult Categories()
+        {
+            var data = CategoryAdminService.GetNotApprovedCategories();
+            return View(data);
+        }
+        public ActionResult ChnageJobApprovalCats(LocalCategory model)
+        {
+            CategoryAdminService.ApprovalStatus(model);
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
     }
 }

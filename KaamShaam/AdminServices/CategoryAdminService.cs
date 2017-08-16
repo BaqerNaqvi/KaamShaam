@@ -31,6 +31,8 @@ namespace KaamShaam.AdminServices
                 {
                     data.Name = obj.Name;
                 }
+                data.IsApproved = false;
+                data.Feedback = null;
                 context.Categories.AddOrUpdate(data);
                 context.SaveChanges();
             }
@@ -59,6 +61,32 @@ namespace KaamShaam.AdminServices
                     context.SaveChanges();
                 }
 
+            }
+        }
+
+        public static List<LocalCategory> GetNotApprovedCategories()
+        {
+            using (var dbContext = new KaamShaamEntities())
+            {
+                var dbCats = dbContext.Categories.Where( cat => cat.Status && !cat.IsApproved && string.IsNullOrEmpty(cat.Feedback)).ToList().Select(pbj => pbj.Mapper()).ToList();
+                return dbCats;
+            }
+        }
+
+        public static void ApprovalStatus(LocalCategory obj)
+        {
+            using (var dbcontext = new KaamShaamEntities())
+            {
+                var dbJob = dbcontext.Categories.FirstOrDefault(l => l.Id == obj.Id);
+                if (dbJob != null)
+                {
+                    dbJob.IsApproved = obj.IsApproved;
+                    if (!obj.IsApproved)
+                    {
+                        dbJob.Feedback = obj.Feedback;
+                    }
+                    dbcontext.SaveChanges();
+                }
             }
         }
     }

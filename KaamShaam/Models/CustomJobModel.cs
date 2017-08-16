@@ -24,8 +24,7 @@ namespace KaamShaam.Models
         public long CategoryId { get; set; }
 
         public string CatName { get; set; }
-
-        [Required]
+     
         public string Fee { get; set; }
         [Required]
         public string Mobile { get; set; }

@@ -241,6 +241,9 @@
     <Compile Include="DbEntities\AspNetUserLogin.cs">
       <DependentUpon>KaamShaamModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DbEntities\Banner.cs">
+      <DependentUpon>KaamShaamModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DbEntities\Category.cs">
       <DependentUpon>KaamShaamModel.tt</DependentUpon>
     </Compile>
@@ -282,6 +285,7 @@
     <Compile Include="Models\PaggingClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AdminServices\AdminService.cs" />
+    <Compile Include="Services\BannerService.cs" />
     <Compile Include="Services\CategoryService.cs" />
     <Compile Include="Services\JobService.cs" />
     <Compile Include="Services\UserServices.cs" />
@@ -1080,6 +1084,8 @@
     <Content Include="Views\ApprovalRequest\Jobs.cshtml" />
     <Content Include="Views\Job\ListView.cshtml" />
     <Content Include="Views\Job\ListViewJobsPartial.cshtml" />
+    <Content Include="Views\Account\AdminLogin.cshtml" />
+    <Content Include="Views\ApprovalRequest\Categories.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

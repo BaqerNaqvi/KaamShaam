@@ -13,7 +13,7 @@ namespace KaamShaam.Services
         {
             using (var dbContext = new KaamShaamEntities())
             {
-                var dbCats = dbContext.Categories.Where(cat => cat.Status).ToList().Select( pbj => pbj.Mapper()).ToList();
+                var dbCats = dbContext.Categories.Where(cat => cat.Status && cat.IsApproved).ToList().Select( pbj => pbj.Mapper()).ToList();
                 return dbCats;
             }
         }

@@ -11,6 +11,8 @@ namespace KaamShaam.LocalModels
         public long Id { get; set; }
         public string Name { get; set; }
         public bool Status { get; set; }
+        public bool IsApproved { get; set; }
+        public string Feedback { get; set; }
     }
 
     public static class CategoryMapper
@@ -21,7 +23,9 @@ namespace KaamShaam.LocalModels
             {
                 Id = source.Id,
                 Name = source.Name,
-                Status = source.Status
+                Status = source.Status,
+                IsApproved = source.IsApproved,
+                Feedback = source.Feedback
             };
         }
     }

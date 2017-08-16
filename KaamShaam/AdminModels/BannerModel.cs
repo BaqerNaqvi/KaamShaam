@@ -7,6 +7,9 @@ namespace KaamShaam.AdminModels
 {
     public class BannerModel
     {
-        public string Path { get; set; }
+        public long Id { get; set; }
+        public string FileName { get; set; }
+        public int ShowOrder { get; set; }
+        public bool Status { get; set; }
     }
 }
