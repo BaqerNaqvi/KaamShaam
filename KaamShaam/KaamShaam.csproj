@@ -211,6 +211,7 @@
     <Compile Include="AdminModels\MakeAdminModel.cs" />
     <Compile Include="AdminModels\VendorPageModel.cs" />
     <Compile Include="AdminServices\CategoryAdminService.cs" />
+    <Compile Include="AdminServices\UserAdminService.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -970,6 +971,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\GeneralAdmin\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -1086,6 +1088,9 @@
     <Content Include="Views\Job\ListViewJobsPartial.cshtml" />
     <Content Include="Views\Account\AdminLogin.cshtml" />
     <Content Include="Views\ApprovalRequest\Categories.cshtml" />
+    <Content Include="Views\ApprovalRequest\ApproveUsers.cshtml" />
+    <Content Include="Views\ApprovalRequest\ApproveContractors.cshtml" />
+    <Content Include="Views\ApprovalRequest\ApproveVendors.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

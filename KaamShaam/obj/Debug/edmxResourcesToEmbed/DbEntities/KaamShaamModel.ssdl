@@ -63,6 +63,8 @@
     <Property Name="CategoryId" Type="bigint" />
     <Property Name="ContractorId" Type="nvarchar" MaxLength="128" />
     <Property Name="LocationName" Type="nvarchar" MaxLength="500" />
+    <Property Name="IsApproved" Type="bit" Nullable="false" />
+    <Property Name="Feedback" Type="nvarchar" MaxLength="500" />
   </EntityType>
   <EntityType Name="Banners">
     <Key>

@@ -35,6 +35,13 @@ namespace KaamShaam.AdminModels
         public string ContractorId { get; set; }
 
         public string RoleName { get; set; }
+
+        public string Password { get; set; } // for admin to change password
+
+        public bool IsApproved { get; set; }
+        public string Feedback { get; set; }
+
+        public string LocationName { get; set; }
     }
     public static class UserMapper
     {
@@ -57,7 +64,11 @@ namespace KaamShaam.AdminModels
                 Status = (bool)source.Status,
                 ContractorId = source.ContractorId,
                 CategoryId = source.CategoryId,
-                RoleName = roleName
+                RoleName = roleName,
+                IsApproved = source.IsApproved,
+                Feedback = source.Feedback,
+                LocationName= source.LocationName
+
             };
         }
     }

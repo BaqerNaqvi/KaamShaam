@@ -4,8 +4,10 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Security;
+using KaamShaam.AdminServices;
 using KaamShaam.LocalModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -15,7 +17,7 @@ using KaamShaam.Services;
 
 namespace KaamShaam.Controllers
 {
-    [Authorize]
+    [System.Web.Mvc.Authorize]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -57,17 +59,23 @@ namespace KaamShaam.Controllers
 
         //
         // GET: /Account/Login
-        [AllowAnonymous]
+        [System.Web.Mvc.AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-            ViewBag.ReturnUrl = returnUrl;
-            return View();
+            var vendors = UserServices.GetUserByType("Vendor");
+            var cats = CategoryService.GetAllCategories();
+
+            return View(new RegisterPageWraper
+            {
+                Vendors = vendors,
+                Categories = cats
+            });
         }
 
         //
         // POST: /Account/Login
-        [HttpPost]
-        [AllowAnonymous]
+        [System.Web.Mvc.HttpPost]
+        [System.Web.Mvc.AllowAnonymous]
         public async Task<ActionResult> Login(RegisterPageWraper model, string returnUrl)
         {
             if (!ModelState.IsValid) 
@@ -78,6 +86,12 @@ namespace KaamShaam.Controllers
             if (string.IsNullOrEmpty(returnUrl))
             {
                 returnUrl = "Home/Index";
+            }
+            var isApproved= UserAdminService.IsUserApproved(model.LoginViewModel.Email);
+            if (!isApproved)
+            {
+                ModelState.AddModelError("", "User is not approved by admin.");
+                return View();
             }
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
@@ -98,13 +112,13 @@ namespace KaamShaam.Controllers
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
-                    return View("Register");
+                    return View();
             }
         }
 
         //
         // GET: /Account/VerifyCode
-        [AllowAnonymous]
+        [System.Web.Mvc.AllowAnonymous]
         public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)
         {
             // Require that the user has already logged in via username/password or external login
@@ -117,8 +131,8 @@ namespace KaamShaam.Controllers
 
         //
         // POST: /Account/VerifyCode
-        [HttpPost]
-        [AllowAnonymous]
+        [System.Web.Mvc.HttpPost]
+        [System.Web.Mvc.AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> VerifyCode(VerifyCodeViewModel model)
         {
@@ -147,7 +161,7 @@ namespace KaamShaam.Controllers
 
         //
         // GET: /Account/Register
-        [AllowAnonymous]
+        [System.Web.Mvc.AllowAnonymous]
         public ActionResult Register()
         {
             var vendors = UserServices.GetUserByType("Vendor");
@@ -162,8 +176,8 @@ namespace KaamShaam.Controllers
 
         //
         // POST: /Account/Register
-        [HttpPost]
-        [AllowAnonymous]
+        [System.Web.Mvc.HttpPost]
+        [System.Web.Mvc.AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterPageWraper model)
         {
@@ -196,7 +210,7 @@ namespace KaamShaam.Controllers
 
         //
         // GET: /Account/ConfirmEmail
-        [AllowAnonymous]
+        [System.Web.Mvc.AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(string userId, string code)
         {
             if (userId == null || code == null)
@@ -209,7 +223,7 @@ namespace KaamShaam.Controllers
 
         //
         // GET: /Account/ForgotPassword
-        [AllowAnonymous]
+        [System.Web.Mvc.AllowAnonymous]
         public ActionResult ForgotPassword()
         {
             return View();
@@ -217,8 +231,8 @@ namespace KaamShaam.Controllers
 
         //
         // POST: /Account/ForgotPassword
-        [HttpPost]
-        [AllowAnonymous]
+        [System.Web.Mvc.HttpPost]
+        [System.Web.Mvc.AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
@@ -245,7 +259,7 @@ namespace KaamShaam.Controllers
 
         //
         // GET: /Account/ForgotPasswordConfirmation
-        [AllowAnonymous]
+        [System.Web.Mvc.AllowAnonymous]
         public ActionResult ForgotPasswordConfirmation()
         {
             return View();
@@ -253,7 +267,7 @@ namespace KaamShaam.Controllers
 
         //
         // GET: /Account/ResetPassword
-        [AllowAnonymous]
+        [System.Web.Mvc.AllowAnonymous]
         public ActionResult ResetPassword(string code)
         {
             return code == null ? View("Error") : View();
@@ -261,8 +275,8 @@ namespace KaamShaam.Controllers
 
         //
         // POST: /Account/ResetPassword
-        [HttpPost]
-        [AllowAnonymous]
+        [System.Web.Mvc.HttpPost]
+        [System.Web.Mvc.AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
         {
@@ -287,7 +301,7 @@ namespace KaamShaam.Controllers
 
         //
         // GET: /Account/ResetPasswordConfirmation
-        [AllowAnonymous]
+        [System.Web.Mvc.AllowAnonymous]
         public ActionResult ResetPasswordConfirmation()
         {
             return View();
@@ -295,8 +309,8 @@ namespace KaamShaam.Controllers
 
         //
         // POST: /Account/ExternalLogin
-        [HttpPost]
-        [AllowAnonymous]
+        [System.Web.Mvc.HttpPost]
+        [System.Web.Mvc.AllowAnonymous]
         [ValidateAntiForgeryToken]
         public ActionResult ExternalLogin(string provider, string returnUrl)
         {
@@ -306,7 +320,7 @@ namespace KaamShaam.Controllers
 
         //
         // GET: /Account/SendCode
-        [AllowAnonymous]
+        [System.Web.Mvc.AllowAnonymous]
         public async Task<ActionResult> SendCode(string returnUrl, bool rememberMe)
         {
             var userId = await SignInManager.GetVerifiedUserIdAsync();
@@ -321,8 +335,8 @@ namespace KaamShaam.Controllers
 
         //
         // POST: /Account/SendCode
-        [HttpPost]
-        [AllowAnonymous]
+        [System.Web.Mvc.HttpPost]
+        [System.Web.Mvc.AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> SendCode(SendCodeViewModel model)
         {
@@ -341,7 +355,7 @@ namespace KaamShaam.Controllers
 
         //
         // GET: /Account/ExternalLoginCallback
-        [AllowAnonymous]
+        [System.Web.Mvc.AllowAnonymous]
         public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
@@ -371,8 +385,8 @@ namespace KaamShaam.Controllers
 
         //
         // POST: /Account/ExternalLoginConfirmation
-        [HttpPost]
-        [AllowAnonymous]
+        [System.Web.Mvc.HttpPost]
+        [System.Web.Mvc.AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
         {
@@ -417,7 +431,7 @@ namespace KaamShaam.Controllers
 
         //
         // GET: /Account/ExternalLoginFailure
-        [AllowAnonymous]
+        [System.Web.Mvc.AllowAnonymous]
         public ActionResult ExternalLoginFailure()
         {
             return View();
@@ -521,7 +535,7 @@ namespace KaamShaam.Controllers
 
         //
         // GET: /Account/Login
-        [AllowAnonymous]
+        [System.Web.Mvc.AllowAnonymous]
         public ActionResult AdminLogin(string returnUrl)
         {
             var vendors = UserServices.GetUserByType("Vendor");
@@ -536,8 +550,8 @@ namespace KaamShaam.Controllers
 
         //
         // POST: /Account/Login
-        [HttpPost]
-        [AllowAnonymous]
+        [System.Web.Mvc.HttpPost]
+        [System.Web.Mvc.AllowAnonymous]
         public async Task<ActionResult> AdminLogin(RegisterPageWraper model, string returnUrl)
         {
             if (!ModelState.IsValid)
@@ -579,6 +593,35 @@ namespace KaamShaam.Controllers
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("AdminLogin", "Account");
+        }
+
+        public bool ChangePassword(KaamShaam.AdminModels.LocalUser usermodel)
+        {
+            var localUsermanager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            ApplicationUser user = localUsermanager.FindById(usermodel.Id);
+            if (user == null)
+            {
+                return false;
+            }
+            user.PasswordHash = localUsermanager.PasswordHasher.HashPassword(usermodel.Password);
+            var result = localUsermanager.Update(user);
+            if (!result.Succeeded)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        // GET: GeneralAdmin
+        public ActionResult UpdateUser(AdminModels.LocalUser user)
+        {
+            AdminService.EditUserByAdmin(user);
+            bool result = true;
+            if (!string.IsNullOrEmpty(user.Password))
+            {
+                result = ChangePassword(user);
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }

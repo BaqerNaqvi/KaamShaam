@@ -73,7 +73,8 @@ namespace KaamShaam.Services
                     dbuser.Mobile = user.Mobile;
                     dbuser.CNIC = user.CNIC;
                     dbuser.Email = user.Email;
-                   
+                    dbuser.IsApproved = false;
+                    dbuser.Feedback = null;
                     dbContext.AspNetUsers.AddOrUpdate(dbuser);
                     dbContext.SaveChanges();
                 }
@@ -100,7 +101,8 @@ namespace KaamShaam.Services
                     dbuser.City = user.City;
                     dbuser.LocationCord = loc;
                     dbuser.LocationName = user.LocationName;
-
+                    dbuser.IsApproved = false;
+                    dbuser.Feedback = null;
                     dbContext.AspNetUsers.AddOrUpdate(dbuser);
                     dbContext.SaveChanges();
                 }
@@ -116,7 +118,8 @@ namespace KaamShaam.Services
                 {                    
                     dbuser.Intro = user.Intro;
                     dbuser.Language = user.Language;
-                    dbContext.AspNetUsers.AddOrUpdate(dbuser);
+                    dbuser.IsApproved = false;
+                    dbuser.Feedback = null;
                     dbContext.SaveChanges();
                 }
             }
@@ -130,7 +133,8 @@ namespace KaamShaam.Services
                 {
                     dbuser.CategoryId = user.CategoryId;
                     dbuser.ContractorId = user.ContractorId;
-                    dbContext.AspNetUsers.AddOrUpdate(dbuser);
+                    dbuser.IsApproved = false;
+                    dbuser.Feedback = null;
                     dbContext.SaveChanges();
                 }
             }
@@ -158,5 +162,7 @@ namespace KaamShaam.Services
                 return dbuser;
             }
         }
+
+
     }
 }

@@ -25,6 +25,7 @@ namespace KaamShaam.Services
                 if (dbObj != null)
                 {
                     dbcontext.Banners.Remove(dbObj);
+                    dbcontext.SaveChanges();
                 }
             }
         }

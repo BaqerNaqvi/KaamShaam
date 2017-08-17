@@ -48,6 +48,8 @@ namespace KaamShaam.DbEntities
         public Nullable<long> CategoryId { get; set; }
         public string ContractorId { get; set; }
         public string LocationName { get; set; }
+        public bool IsApproved { get; set; }
+        public string Feedback { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetUserClaim> AspNetUserClaims { get; set; }

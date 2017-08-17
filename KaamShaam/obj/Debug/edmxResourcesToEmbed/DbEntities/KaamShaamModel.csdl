@@ -62,6 +62,8 @@
     <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
     <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
     <NavigationProperty Name="Jobs" Relationship="KaamShaamModel.FK_Jobs_AspNetUsers" FromRole="AspNetUser" ToRole="Job" />
+    <Property Name="IsApproved" Type="Boolean" Nullable="false" />
+    <Property Name="Feedback" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="Category">
     <Key>

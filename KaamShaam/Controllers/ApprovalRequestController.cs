@@ -8,6 +8,7 @@ using KaamShaam.LocalModels;
 using KaamShaam.Models;
 using KaamShaam.Services;
 using Microsoft.AspNet.Identity;
+using LocalUser = KaamShaam.AdminModels.LocalUser;
 
 namespace KaamShaam.Controllers
 {
@@ -141,6 +142,45 @@ namespace KaamShaam.Controllers
         public ActionResult ChnageJobApprovalCats(LocalCategory model)
         {
             CategoryAdminService.ApprovalStatus(model);
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
+        #region Users
+        public ActionResult ApproveUsers()
+        {
+            var data = UserAdminService.GetNotApprovedUsers("User");
+            return View(data);
+        }
+        public ActionResult ChnageUserApproval(LocalUser model)
+        {
+            UserAdminService.ApprovalStatus(model);
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
+        #region Contractors
+        public ActionResult ApproveContractors()
+        {
+            var data = UserAdminService.GetNotApprovedUsers("Contractor");
+            return View(data);
+        }
+        public ActionResult ChnageContractorsApproval(LocalUser model)
+        {
+            UserAdminService.ApprovalStatus(model);
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
+        #region Vendors
+        public ActionResult ApproveVendors()
+        {
+            var data = UserAdminService.GetNotApprovedUsers("Contractor");
+            return View(data);
+        }
+        public ActionResult ChnageVendorsApproval(LocalUser model)
+        {
+            UserAdminService.ApprovalStatus(model);
             return Json(true, JsonRequestBehavior.AllowGet);
         }
         #endregion

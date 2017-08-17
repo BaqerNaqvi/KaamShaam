@@ -3,6 +3,7 @@ using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web.Security;
 using KaamShaam.AdminModels;
+using KaamShaam.Controllers;
 using KaamShaam.DbEntities;
 using KaamShaam.Models;
 using Microsoft.AspNet.Identity;
@@ -110,6 +111,25 @@ namespace KaamShaam.AdminServices
             var userManager = new UserManager<ApplicationUser>(userStore);
 
             userManager.RemoveFromRole(adminModel.Id, adminModel.Role);
-        }     
+        }
+        public static void EditUserByAdmin(LocalUser user)
+        {
+            var cont = new AccountController();
+            using (var dbcontext = new KaamShaamEntities())
+            {
+                var dbuser = dbcontext.AspNetUsers.FirstOrDefault(obj => obj.Id == user.Id);
+                if (dbuser != null)
+                {
+                    if (!string.IsNullOrEmpty(user.Mobile))
+                    {
+                        dbuser.Mobile = user.Mobile;
+                        dbuser.Feedback = null;
+                        dbuser.IsApproved = false;
+
+                    }
+                    dbcontext.SaveChanges();
+                }
+            }
+        }
     }
 }
