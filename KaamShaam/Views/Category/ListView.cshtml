@@ -56,7 +56,7 @@
                                        {
                                            status = "checked";
                                        }
-                                       var isApp=item.IsApproved ? "Yes" : "No";
+                                       var isApp=item.IsApproved ? "Approved" : "Pending";
                                        <tr>
                                            <td>@item.Name</td>
                                            <td><input  onchange="changeStatus(@Json.Encode(item)) " id='tg_@item.Id' class="cattoggle" type="checkbox" @status data-toggle="toggle"></td>

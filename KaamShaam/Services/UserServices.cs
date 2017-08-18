@@ -41,6 +41,7 @@ namespace KaamShaam.Services
                     //dbuser.CategoryId = user.CategoryId;
 
                     dbuser.Status = true;
+                    dbuser.IsApproved = true;
 
                     if (user.Type == "Vendor" || user.Type == "User")
                     {
