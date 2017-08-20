@@ -14,7 +14,7 @@ namespace KaamShaam.AdminServices
         {
             using (var dbContext = new KaamShaamEntities())
             {
-                var dbCats = dbContext.AspNetUsers.Where(cat =>cat.Type==type &&  !cat.IsApproved && string.IsNullOrEmpty(cat.Feedback)).ToList().Select(pbj => UserMapper.MapUser(pbj)).ToList();
+                var dbCats = dbContext.AspNetUsers.Where(cat =>cat.Type==type &&  (bool) !cat.IsApproved && string.IsNullOrEmpty(cat.Feedback)).ToList().Select(pbj => UserMapper.MapUser(pbj)).ToList();
                 return dbCats;
             }
         }
@@ -43,7 +43,7 @@ namespace KaamShaam.AdminServices
                 var dbo = dbcontext.AspNetUsers.FirstOrDefault(u=> u.UserName.ToLower()== userName.ToLower());
                 if (dbo != null)
                 {
-                    return dbo.IsApproved && (bool) dbo.Status;
+                    return (bool)dbo.IsApproved && (bool) dbo.Status;
                 }
                 return false;
             }

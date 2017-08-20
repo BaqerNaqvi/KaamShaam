@@ -1,4 +1,6 @@
-﻿@model KaamShaam.Models.JobPartialPageModel
+﻿@using KaamShaam.Commons
+@model KaamShaam.Models.JobPartialPageModel
+
 @{
 
     string baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority +
@@ -8,9 +10,26 @@
         foreach (var item in Model.JobList.ToList())
         {
             var cusStyle = "";
+            var iApplied = "";
+            var isAppliedClass = "";
+
             if (!item.UserStatus)
             {
                 cusStyle = cusStyle + " background-color: #ffeb99;";
+            }
+            if (item.IfIApplied)
+            {
+                iApplied = "[Applied]";
+                isAppliedClass = "appplySpan";
+            }
+            var showStartedText = false;
+            var jhistory = item.JobHistory.FirstOrDefault();
+            if (jhistory != null)
+            {
+                if (jhistory.JobStatus == (int)Enums.JobHistoryStatus.Continue)
+                {
+                    showStartedText = true;
+                }
             }
             <tr style="cursor: pointer" data-toggle="modal" data-target="#updateJob" onclick="editJob(@Json.Encode(item))">
                 <td style="@cusStyle">
@@ -23,10 +42,14 @@
                         <a class="tg-tag tg-featuredtag" href="#">@item.PostingDate</a>
                         <div class="tg-title">
                             <h3>
-                                <a href="#">@item.CatName Required</a>
+                                <a href="#">@item.CatName Required</a> <span class="@isAppliedClass">@iApplied</span>
                             </h3>
                         </div>
                         <span>@item.JobTitle</span>
+                        @if (showStartedText)
+                        {
+                            <span class="jobstartedspan">[started]</span>
+                        }
                     </div>
                 </td>
                 <td style="line-height: 12px; padding-top: 29px;"><span>@item.LocationName</span></td>
@@ -42,3 +65,21 @@
         </script>
     }
 }
+
+<style>
+    .appplySpan {
+        width: 26% !important;
+        color: rgb(255, 255, 255) !important;
+        background-color: green !important;
+        padding: 2px !important;
+        border-radius: 5px !important;
+    }
+    .jobstartedspan {
+            display: inline !important;
+    width: 24% !important;
+    background-color: green !important;
+    color: white !important;
+    padding: 2px !important;
+    border-radius: 5px !important;
+    }
+</style>

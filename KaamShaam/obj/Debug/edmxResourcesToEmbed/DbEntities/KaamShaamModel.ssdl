@@ -63,7 +63,7 @@
     <Property Name="CategoryId" Type="bigint" />
     <Property Name="ContractorId" Type="nvarchar" MaxLength="128" />
     <Property Name="LocationName" Type="nvarchar" MaxLength="500" />
-    <Property Name="IsApproved" Type="bit" Nullable="false" />
+    <Property Name="IsApproved" Type="bit" />
     <Property Name="Feedback" Type="nvarchar" MaxLength="500" />
   </EntityType>
   <EntityType Name="Banners">
@@ -84,6 +84,19 @@
     <Property Name="Status" Type="bit" Nullable="false" />
     <Property Name="IsApproved" Type="bit" Nullable="false" />
     <Property Name="Feedback" Type="nvarchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="JobHistory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="JobId" Type="bigint" Nullable="false" />
+    <Property Name="ContractorId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="JobStartDate" Type="datetime" Nullable="false" />
+    <Property Name="JobEndDate" Type="datetime" Nullable="false" />
+    <Property Name="Feedback" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="JobStatus" Type="int" Nullable="false" />
+    <Property Name="PurposalText" Type="nvarchar" MaxLength="500" />
   </EntityType>
   <EntityType Name="Jobs">
     <Key>
@@ -169,6 +182,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_JobHistory_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+    <End Role="JobHistory" Type="Self.JobHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="JobHistory">
+        <PropertyRef Name="ContractorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_JobHistory_Jobs">
+    <End Role="Jobs" Type="Self.Jobs" Multiplicity="1" />
+    <End Role="JobHistory" Type="Self.JobHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Jobs">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="JobHistory">
+        <PropertyRef Name="JobId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Jobs_AspNetUsers">
     <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
     <End Role="Jobs" Type="Self.Jobs" Multiplicity="*" />
@@ -189,6 +226,7 @@
     <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Banners" EntityType="Self.Banners" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="JobHistory" EntityType="Self.JobHistory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Jobs" EntityType="Self.Jobs" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_AspNetUserRoles_AspNetRole" Association="Self.FK_AspNetUserRoles_AspNetRole">
       <End Role="AspNetRoles" EntitySet="AspNetRoles" />
@@ -209,6 +247,14 @@
     <AssociationSet Name="FK_Job_Categories" Association="Self.FK_Job_Categories">
       <End Role="Categories" EntitySet="Categories" />
       <End Role="Jobs" EntitySet="Jobs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_JobHistory_AspNetUsers" Association="Self.FK_JobHistory_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="JobHistory" EntitySet="JobHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_JobHistory_Jobs" Association="Self.FK_JobHistory_Jobs">
+      <End Role="Jobs" EntitySet="Jobs" />
+      <End Role="JobHistory" EntitySet="JobHistory" />
     </AssociationSet>
     <AssociationSet Name="FK_Jobs_AspNetUsers" Association="Self.FK_Jobs_AspNetUsers">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />

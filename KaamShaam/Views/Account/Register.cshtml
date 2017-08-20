@@ -109,35 +109,38 @@
                                         </div>
 
                                         <div class="form-group ">
-                                            @Html.TextBoxFor(m => m.RegisterViewModel.LocationName, new { @readonly = "readonly" , @id = "locationName", onclick = "openMap()", name = "Loc", @class = "form-control customField", @placeholder = "Click to pick Location", data_toggle="modal" , data_target="#addressmodel" })
-                                            @Html.HiddenFor(m => m.RegisterViewModel.LocationCord, new {  @id = "locationCord" })
+                                            @Html.TextBoxFor(m => m.RegisterViewModel.LocationName, new {@readonly = "readonly", @id = "locationName", onclick = "openMap()", name = "Loc", @class = "form-control customField", @placeholder = "Click to pick Location", data_toggle = "modal", data_target = "#addressmodel"})
+                                            @Html.HiddenFor(m => m.RegisterViewModel.LocationCord, new {@id = "locationCord"})
 
                                         </div>
-                                        <div class="form-group">
-                                            @Html.TextBoxFor(m => m.RegisterViewModel.Mobile, new { name = "Mobile", @class = "form-control", @placeholder = "Mobile" })
-                                        </div>
-                                        <div class="form-group">
-                                            @Html.TextBoxFor(m => m.RegisterViewModel.CNIC, new { name = "CNIC", @class = "form-control customField notUserField", @placeholder = "CNIC" })
-                                        </div>
-                                        @*<div class="form-group contractorEle">
+
+                                        <div class="form-group contractorEle notUserField">
                                             <span class="tg-select ">
-                                                @Html.DropDownListFor(m => m.RegisterViewModel.CategoryId, cats, new { @class = "form-control" })
+                                                @Html.DropDownListFor(m => m.RegisterViewModel.CategoryId, cats, new { @class = "form-control " })
                                             </span>
                                         </div>
-                                        <div class="form-group contractorEle">
+                                        @*<div class="form-group contractorEle">
                                             <span class="tg-select customField">
                                                 @Html.DropDownListFor(m => m.RegisterViewModel.ContractorId, companies, new { @class = "form-control" })
                                             </span>
                                         </div>*@
-
+                                        <div class="form-group notUserField">
+                                            @Html.TextBoxFor(m => m.RegisterViewModel.CNIC, new { name = "CNIC", @class = "form-control customField", @placeholder = "CNIC" })
+                                        </div>
                                         <div class="form-group">
+                                            @Html.TextBoxFor(m => m.RegisterViewModel.Mobile, new { name = "Mobile", @class = "form-control", @placeholder = "Mobile" })
+                                        </div>
+                                        
+                                      
+
+                                        <div class="form-group" style="margin-left: 31px; margin-bottom: 0px;">
                                             <div class="tg-checkbox" style="margin-top: -28px;">
                                                 <input type="checkbox" id="terms">
                                                 <label for="terms">I have read the <a href="#">Terms &amp; Conditions</a> and accept them</label>
                                             </div>
                                         </div>
                                        
-                                        <button class="tg-btn" style="margin-left: 40px;" type="button" onclick="submitRegis()">Register Now</button>
+                                        <button class="tg-btn" style="" type="button" onclick="submitRegis()">Register Now</button>
                                         @Html.ValidationSummary("", new {@class = "text-danger"})
 
 
@@ -373,7 +376,6 @@ Main End
             debugger;
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function (position) {
-                debugger;
                 pos = {
                     lat: position.coords.latitude,
                     lng: position.coords.longitude
@@ -489,9 +491,13 @@ Main End
             return false;
         } 
         var loc = $('#locationName').val();
-        if (loc == undefined || loc === "") {
+        if (loc == undefined || loc === "") {g
             toastr.warning("Please select location");
             return false;
+        }
+        var typeval = $('#userTypeDd').val();
+        if (typeval === "Contractor") {
+            
         }
         $("#userRegistration").submit();
     }
@@ -532,9 +538,9 @@ Main End
         
 
         if (val === "User") {
-            $(".notUserField").css('visibility','hidden');
+            $(".notUserField").hide();
         } else {
-            $(".notUserField").css('visibility', 'visible');
+            $(".notUserField").show();
         }
     }
 

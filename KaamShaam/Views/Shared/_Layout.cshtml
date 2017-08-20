@@ -121,19 +121,6 @@
                                                                 <span>Appointments</span>
                                                             </a>
                                                         </li>*@
-                                                            @{
-                                                                if (User.IsInRole("Super Admin"))
-                                                                {
-                                                                    <li>
-                                                                        <a href="~/Admin/Stats">
-                                                                            <i class="lnr lnr-calendar-full"></i>
-                                                                            <span>Admin Panel</span>
-                                                                        </a>
-                                                                    </li>
-                                                                }
-
-                                                            }
-
                                                             <li class="li-profile-setting">
                                                                 <a href="/Profile/Update">
                                                                     <i class="lnr lnr-cog"></i>
@@ -141,13 +128,52 @@
                                                                 </a>
                                                             </li>
 
-                                                            <li class="li-manage-jobs">
-                                                                <a href="~/Job/ManageJobs">
-                                                                    <i class="lnr lnr-map"></i>
-                                                                    <span>Manage Jobs</span>
-                                                                </a>
-                                                            </li>
-
+                                                          @{
+                                                              if (User.IsInRole("User"))
+                                                              {
+                                                                  <li class="li-manage-jobs">
+                                                                      <a href="~/Job/ManageJobs">
+                                                                          <i class="lnr lnr-map"></i>
+                                                                          <span>Manage Jobs</span>
+                                                                      </a>
+                                                                  </li>
+                                                                  <li class="li-manage-jobs">
+                                                                      <a href="~/Job/jobProposals">
+                                                                          <i class="lnr lnr-map"></i>
+                                                                          <span>Job Proposals</span>
+                                                                      </a>
+                                                                  </li>
+                                                                <li class="li-manage-jobs">
+                                                                    <a href="~/Contractor/FindContractor">
+                                                                        <i class="lnr lnr-map"></i>
+                                                                        <span>Find Contractors</span>
+                                                                    </a>
+                                                                </li>
+                                                              }
+                                                        }
+                                                            @{
+                                                                if (User.IsInRole("Contractor"))
+                                                                {
+                                                                    <li class="li-manage-jobs">
+                                                                        <a href="~/Job/findJobs">
+                                                                            <i class="lnr lnr-map"></i>
+                                                                            <span>Find Jobs</span>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li class="li-manage-jobs">
+                                                                        <a href="~/Job/appliedJobs">
+                                                                            <i class="lnr lnr-map"></i>
+                                                                            <span>Applied Jobs</span>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li class="li-manage-jobs">
+                                                                        <a href="~/Job/MyCurrentJobs">
+                                                                            <i class="lnr lnr-map"></i>
+                                                                            <span>Current Jobs</span>
+                                                                        </a>
+                                                                    </li>
+                                                                }
+                                                            }
                                                             @*<li>
                                                                 <a href="dashboardsecuritysetting.php">
                                                                     <i class="lnr lnr-construction"></i>
@@ -171,11 +197,11 @@
                                                 </div>
                                             </div>
                                         </div>
-                                                                }
-                                                                else
-                                                                {
+                                     }
+                                      else
+                                     {
                                         <a class="tg-btnlogin" href="~/Account/Register">Login / Register </a>
-                                        <a class="tg-btnregister" href="admin/admin.php"> Admin</a>
+                                        @*<a class="tg-btnregister" href="admin/admin.php"> Admin</a>*@
                                     }
                                    
                                 </div>
@@ -270,20 +296,43 @@
                                             <li><a href="#">How It Works</a></li>
                                             <li class="menu-item-has-children">
                                                 <a href="#">Dashboard</a>
+
                                                 <ul class="sub-menu">
-                                                    <li>
-                                                        <a href="user-dashboard.php">User Dashbaord</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="contractor-dashboard.php">Contractor Dashboard</a>
-                                                    </li>
+                                                   @{
+                                                       if (Request.IsAuthenticated)
+                                                       {
+                                                           if (User.IsInRole("User"))
+                                                           {
+                                                            <li>
+                                                                <a href="user-dashboard.php">User Dashbaord</a>
+                                                            </li>                                                           }
+                                                           else if (User.IsInRole("Contractor"))
+                                                           {
+                                                            <li>
+                                                                <a href="contractor-dashboard.php">Contractor Dashboard</a>
+                                                            </li>                                                           }
+                                                       }
+                                                }
                                                 </ul>
                                             </li>
                                             <li><a href="contact.php">Contact Us</a></li>
                                         </ul>
                                     </div>
                                 </nav>
-                                <a class="tg-btn tg-btnpostanewjob" href="~/job/PostJob">Post A New Job</a>
+                                @{
+                                    if (Request.IsAuthenticated)
+                                    {
+                                        if (User.IsInRole("User"))
+                                        {
+                                            <a class="tg-btn tg-btnpostanewjob" href="~/job/PostJob">Post A New Job</a>
+                                        }
+                                        else if (User.IsInRole("Contractor"))
+                                        {
+                                            <a class="tg-btn tg-btnpostanewjob" href="~/Job/findJobs">Find Jobs</a>
+                                        }
+                                    }
+
+                                }                     
                             </div>
                         </div>
                     </div>

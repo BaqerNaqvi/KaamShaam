@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity.Spatial;
 using System.Linq;
 using System.Web;
 using KaamShaam.DbEntities;
+using KaamShaam.LocalModels;
+using KaamShaam.Services;
 
 namespace KaamShaam.AdminModels
 {
@@ -42,11 +45,22 @@ namespace KaamShaam.AdminModels
         public string Feedback { get; set; }
 
         public string LocationName { get; set; }
+        public double? lat { get; set; }
+        public double? lng { get; set; }
+        public string CatName { get; set; }
+
+        public DbGeography Location { get; set; }
+        public int DistanceFromOrigin { get; set; }
     }
     public static class UserMapper
     {
         public static LocalUser MapUser(this AspNetUser source)
         {
+            LocalCategory cat = null;
+            if (source.CategoryId != null)
+            {
+                cat = CategoryService.GetCategoryById(source.CategoryId);
+            }
             var roleName = source.AspNetRoles.Any() ? source.AspNetRoles.FirstOrDefault().Name : "";
             return new LocalUser
             {
@@ -59,16 +73,20 @@ namespace KaamShaam.AdminModels
                 UserName = source.UserName,
                 Country = source.Country,
                 City = source.City,
+                
                 Intro = source.Intro,
                 Language = source.Language,
                 Status = (bool)source.Status,
                 ContractorId = source.ContractorId,
                 CategoryId = source.CategoryId,
                 RoleName = roleName,
-                IsApproved = source.IsApproved,
+                IsApproved = (bool) source.IsApproved,
                 Feedback = source.Feedback,
-                LocationName= source.LocationName
-
+                LocationName= source.LocationName,
+                lat = source.LocationCord.Latitude,
+                lng = source.LocationCord.Longitude,
+                CatName = cat?.Name,
+                Location = source.LocationCord
             };
         }
     }

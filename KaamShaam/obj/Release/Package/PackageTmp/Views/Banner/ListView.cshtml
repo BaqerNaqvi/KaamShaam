@@ -1,13 +1,15 @@
 ﻿
+@model List<KaamShaam.AdminModels.BannerModel>
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
 <style>
     .bannerDiv {
         margin-top: 7%;
     }
 </style>
-@model List<KaamShaam.AdminModels.BannerModel>
-@{
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
-}
 <div id="page-wrapper">
     <div class="container-fluid">
 
@@ -21,15 +23,33 @@
             string baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority +
                                     Request.ApplicationPath.TrimEnd('/') + "/Images/Banners/";
         }
+
+
+
         @foreach (var item in Model)
         {
-            var img = baseUrl + item.Path;
+            var img = baseUrl + item.FileName;
+            var heading = "";
+            heading = item.Status ? "Suspend" : "Resume";
             <div class="bannerDiv">
                 <div>
                     <img class="img-thumbnail" src="@img" alt="" style="height:600px; width: 1600px">
                 </div>
                 <div>
-                    <button class="btn btn-danger" style="float: right; margin-top: 12px;" onclick="DeleteBanner(@Json.Encode(item))">Delete</button>
+                    <button class="btn btn-warning" style=";margin-left: 12px;float: right; margin-top: 12px;" onclick="SuspendBanner(@Json.Encode(item))">@heading</button>
+                    <button class="btn btn-danger" style=";margin-left: 12px;float: right; margin-top: 12px;" onclick="DeleteBanner(@Json.Encode(item))">Delete</button>
+                    <select id="ord_@item.Id" onchange="orderchnaged(@Json.Encode(item))" class="form-control" style="margin-top: 12px;display: inline-block;width: 7%;margin-left: 12px;float: right;">
+                        @for (var i = 0; i < Model.Count; i++)
+                        {
+                            var valtoshow=(i+1);
+                            var sel = "";
+                            if (valtoshow == item.ShowOrder)
+                            {
+                                sel = "selected";
+                            }
+                            <option @sel value="@valtoshow">@valtoshow</option>
+                        }
+                    </select>
                 </div>
             </div>
         }
@@ -95,12 +115,48 @@
             dataType: "json",
             data: JSON.stringify(obj),
             success: function (data) {
-                toastr.success("Category deleted");
+                toastr.success("Banner deleted");
                 setTimeout(function() {
                     location.reload();
                 },1000);
             },
             error: function (data) { }
         });
+    }
+
+    function SuspendBanner(obj) {
+        obj.Status = !obj.Status;
+        $.ajax({
+            url: 'EditBanner',
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify(obj),
+            success: function (data) {
+                toastr.success("Banner updated");
+                setTimeout(function() {
+                    location.reload();
+                },1000);
+            },
+            error: function (data) { }
+        }); 
+    }
+    function orderchnaged(obj) {
+        var id = "ord_" + obj.Id;
+        obj.ShowOrder=$('#' + id).val();
+        $.ajax({
+            url: 'EditBanner',
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify(obj),
+            success: function (data) {
+                toastr.success("Banner updated");
+                setTimeout(function() {
+                    location.reload();
+                },1000);
+            },
+            error: function (data) { }
+        });  
     }
 </script>

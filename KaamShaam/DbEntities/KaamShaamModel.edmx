@@ -68,7 +68,7 @@
           <Property Name="CategoryId" Type="bigint" />
           <Property Name="ContractorId" Type="nvarchar" MaxLength="128" />
           <Property Name="LocationName" Type="nvarchar" MaxLength="500" />
-          <Property Name="IsApproved" Type="bit" Nullable="false" />
+          <Property Name="IsApproved" Type="bit" />
           <Property Name="Feedback" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="Banners">
@@ -89,6 +89,19 @@
           <Property Name="Status" Type="bit" Nullable="false" />
           <Property Name="IsApproved" Type="bit" Nullable="false" />
           <Property Name="Feedback" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="JobHistory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="JobId" Type="bigint" Nullable="false" />
+          <Property Name="ContractorId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="JobStartDate" Type="datetime" Nullable="false" />
+          <Property Name="JobEndDate" Type="datetime" Nullable="false" />
+          <Property Name="Feedback" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="JobStatus" Type="int" Nullable="false" />
+          <Property Name="PurposalText" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="Jobs">
           <Key>
@@ -174,6 +187,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_JobHistory_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="JobHistory" Type="Self.JobHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="JobHistory">
+              <PropertyRef Name="ContractorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JobHistory_Jobs">
+          <End Role="Jobs" Type="Self.Jobs" Multiplicity="1" />
+          <End Role="JobHistory" Type="Self.JobHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Jobs">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="JobHistory">
+              <PropertyRef Name="JobId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Jobs_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="Jobs" Type="Self.Jobs" Multiplicity="*" />
@@ -194,6 +231,7 @@
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Banners" EntityType="Self.Banners" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JobHistory" EntityType="Self.JobHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Jobs" EntityType="Self.Jobs" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_AspNetUserRoles_AspNetRole" Association="Self.FK_AspNetUserRoles_AspNetRole">
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
@@ -214,6 +252,14 @@
           <AssociationSet Name="FK_Job_Categories" Association="Self.FK_Job_Categories">
             <End Role="Categories" EntitySet="Categories" />
             <End Role="Jobs" EntitySet="Jobs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JobHistory_AspNetUsers" Association="Self.FK_JobHistory_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="JobHistory" EntitySet="JobHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JobHistory_Jobs" Association="Self.FK_JobHistory_Jobs">
+            <End Role="Jobs" EntitySet="Jobs" />
+            <End Role="JobHistory" EntitySet="JobHistory" />
           </AssociationSet>
           <AssociationSet Name="FK_Jobs_AspNetUsers" Association="Self.FK_Jobs_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -286,8 +332,9 @@
           <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
           <NavigationProperty Name="Jobs" Relationship="KaamShaamModel.FK_Jobs_AspNetUsers" FromRole="AspNetUser" ToRole="Job" />
-          <Property Name="IsApproved" Type="Boolean" Nullable="false" />
+          <Property Name="IsApproved" Type="Boolean" />
           <Property Name="Feedback" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="JobHistories" Relationship="KaamShaamModel.FK_JobHistory_AspNetUsers" FromRole="AspNetUser" ToRole="JobHistory" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -360,7 +407,16 @@
             <End Role="Job" EntitySet="Jobs" />
           </AssociationSet>
           <EntitySet Name="Banners" EntityType="KaamShaamModel.Banner" />
-        </EntityContainer>
+          <EntitySet Name="JobHistories" EntityType="KaamShaamModel.JobHistory" />
+          <AssociationSet Name="FK_JobHistory_AspNetUsers" Association="KaamShaamModel.FK_JobHistory_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="JobHistory" EntitySet="JobHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JobHistory_Jobs" Association="KaamShaamModel.FK_JobHistory_Jobs">
+            <End Role="Job" EntitySet="Jobs" />
+            <End Role="JobHistory" EntitySet="JobHistories" />
+          </AssociationSet>
+          </EntityContainer>
         <EntityType Name="Job">
           <Key>
             <PropertyRef Name="Id" />
@@ -382,6 +438,7 @@
           <NavigationProperty Name="AspNetUser" Relationship="KaamShaamModel.FK_Jobs_AspNetUsers" FromRole="Job" ToRole="AspNetUser" />
           <Property Name="IsRecycled" Type="Boolean" Nullable="false" />
           <Property Name="FeedBack" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="JobHistories" Relationship="KaamShaamModel.FK_JobHistory_Jobs" FromRole="Job" ToRole="JobHistory" />
         </EntityType>
         <Association Name="FK_Job_Categories">
           <End Type="KaamShaamModel.Category" Role="Category" Multiplicity="1" />
@@ -416,7 +473,46 @@
           <Property Name="ShowOrder" Type="Int32" Nullable="false" />
           <Property Name="Status" Type="Boolean" Nullable="false" />
         </EntityType>
-      </Schema>
+        <EntityType Name="JobHistory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="JobId" Type="Int64" Nullable="false" />
+          <Property Name="ContractorId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="JobStartDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="JobEndDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Feedback" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="JobStatus" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="KaamShaamModel.FK_JobHistory_AspNetUsers" FromRole="JobHistory" ToRole="AspNetUser" />
+          <NavigationProperty Name="Job" Relationship="KaamShaamModel.FK_JobHistory_Jobs" FromRole="JobHistory" ToRole="Job" />
+          <Property Name="PurposalText" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_JobHistory_AspNetUsers">
+          <End Type="KaamShaamModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="KaamShaamModel.JobHistory" Role="JobHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="JobHistory">
+              <PropertyRef Name="ContractorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JobHistory_Jobs">
+          <End Type="KaamShaamModel.Job" Role="Job" Multiplicity="1" />
+          <End Type="KaamShaamModel.JobHistory" Role="JobHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Job">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="JobHistory">
+              <PropertyRef Name="JobId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -528,6 +624,20 @@
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="ShowOrder" ColumnName="ShowOrder" />
                 <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JobHistories">
+            <EntityTypeMapping TypeName="KaamShaamModel.JobHistory">
+              <MappingFragment StoreEntitySet="JobHistory">
+                <ScalarProperty Name="PurposalText" ColumnName="PurposalText" />
+                <ScalarProperty Name="JobStatus" ColumnName="JobStatus" />
+                <ScalarProperty Name="Feedback" ColumnName="Feedback" />
+                <ScalarProperty Name="JobEndDate" ColumnName="JobEndDate" />
+                <ScalarProperty Name="JobStartDate" ColumnName="JobStartDate" />
+                <ScalarProperty Name="ContractorId" ColumnName="ContractorId" />
+                <ScalarProperty Name="JobId" ColumnName="JobId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

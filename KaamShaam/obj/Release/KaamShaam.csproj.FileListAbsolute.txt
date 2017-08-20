@@ -182,3 +182,5 @@ D:\GitHub\KaamShaam\KaamShaam\bin\Microsoft.Owin.Security.Twitter.xml
 D:\GitHub\KaamShaam\KaamShaam\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 D:\GitHub\KaamShaam\KaamShaam\obj\Release\KaamShaam.dll
 D:\GitHub\KaamShaam\KaamShaam\obj\Release\KaamShaam.pdb
+D:\GitHub\KaamShaam\KaamShaam\bin\System.Web.Http.Owin.dll
+D:\GitHub\KaamShaam\KaamShaam\bin\System.Web.Http.Owin.xml

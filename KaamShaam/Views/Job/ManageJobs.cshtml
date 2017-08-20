@@ -6,6 +6,7 @@ Inner Page Banner Start
                                    Request.ApplicationPath.TrimEnd('/');
 }
 
+@using KaamShaam.Commons
 @model KaamShaam.Models.ManageJobModel
 <div class="tg-innerpagebanner">
     <div class="container">
@@ -98,6 +99,15 @@ Inner Page Banner Start
                                         {
                                             cusStyle = cusStyle+" background-color: #ffeb99;";
                                         }
+                                        var showStartedText = false;
+                                        var jhistory = item.JobHistory.FirstOrDefault();
+                                        if (jhistory != null)
+                                        {
+                                            if (jhistory.JobStatus == (int)Enums.JobHistoryStatus.Continue)
+                                            {
+                                                showStartedText = true;
+                                            }
+                                        }
                                         <tr style="cursor: pointer;" data-toggle="modal" data-target="#updateJob" onclick="editJob(@Json.Encode(item))">
                                             <td style="@cusStyle">
                                                 <figure class="tg-companylogo">
@@ -112,7 +122,11 @@ Inner Page Banner Start
                                                             <a href="#">@item.CatName Required</a>
                                                         </h3>
                                                     </div>
-                                                    <span>@item.JobTitle</span>
+                                                    <span>@item.JobTitle </span>
+                                                     @if (showStartedText)
+                                                     {
+                                                        <span class="jobstartedspan">[started]</span>
+                                                     }
                                                 </div>
                                             </td>
                                             <td style="line-height: 12px; padding-top: 29px;"><span>@item.LocationName</span></td>
@@ -137,6 +151,14 @@ Inner Page Banner Start
 <style>
     .width45 {
         width: 47%
+    }
+    .jobstartedspan {
+            display: inline !important;
+    width: 24% !important;
+    background-color: green !important;
+    color: white !important;
+    padding: 2px !important;
+    border-radius: 5px !important;
     }
 </style>
 @{

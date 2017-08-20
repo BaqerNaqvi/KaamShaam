@@ -32,5 +32,6 @@ namespace KaamShaam.DbEntities
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Job> Jobs { get; set; }
         public virtual DbSet<Banner> Banners { get; set; }
+        public virtual DbSet<JobHistory> JobHistories { get; set; }
     }
 }

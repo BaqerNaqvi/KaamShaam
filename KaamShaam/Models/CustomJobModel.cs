@@ -50,6 +50,16 @@ namespace KaamShaam.Models
 
         public bool IsApproved { get; set; }
 
+
+        public List<CustomJobHistory> JobHistory { get; set; }
+
+        public string PurposalText { get; set; } // being when apply job
+        public bool IfIApplied { get; set; }
+
+        public string ContractorId { get; set; }  // for job proposal
+
+        public double lat { get; set; }
+        public double lng { get; set; }
     }
 
     public static class JobMapper
@@ -73,7 +83,10 @@ namespace KaamShaam.Models
                 AdminStatus = source.AdminStatus,
                 JobPostedBy = source.AspNetUser.FullName,
                 Feedback= source.FeedBack,
-                PostingDate = source.PostingDate.ToShortDateString()+" "+ source.PostingDate.ToShortTimeString()
+                PostingDate = source.PostingDate.ToShortDateString()+" "+ source.PostingDate.ToShortTimeString(),
+                JobHistory = source.JobHistories?.Select(j => j.Mapper()).ToList(),
+                lat = (double) source.Location.Latitude,
+                lng = (double) source.Location.Longitude
             };
         }
     }

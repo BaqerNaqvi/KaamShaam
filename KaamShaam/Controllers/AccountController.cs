@@ -531,6 +531,12 @@ namespace KaamShaam.Controllers
             #endregion
         }
 
+        public static string SetImagePath(string userId, string size, string baseUrl)
+        {
+            var img = baseUrl + "Profiles/" + userId + "_110.png";
+            var imggpath = AppUtils.Common.ReturnImage(img, size);
+            return imggpath;
+        }
 
 
         //

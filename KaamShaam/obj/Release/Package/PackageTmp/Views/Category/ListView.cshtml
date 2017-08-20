@@ -5,7 +5,11 @@
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    var isAdmin = User.IsInRole("Super Admin");
+    var isAdminResult = !User.IsInRole("Super Admin") ? "disabled" : "";
+
 }
+
 <div id="page-wrapper">
     <div class="container-fluid">
         <!-- Page Heading -->
@@ -36,6 +40,7 @@
                             <tr>
                                 <th class="col-lg-6">Name</th>
                                 <th class="col-lg-2">Active</th>
+                                <th class="col-lg-2">Approved</th>
                                 <th class="col-lg-2">&nbsp;</th>
                                 <th class="col-lg-2">&nbsp;</th>
                             </tr>
@@ -51,11 +56,13 @@
                                        {
                                            status = "checked";
                                        }
+                                       var isApp=item.IsApproved ? "Approved" : "Pending";
                                        <tr>
                                            <td>@item.Name</td>
-                                           <td><input onchange=" changeStatus(@Json.Encode(item)) " id='tg_@item.Id' class="cattoggle" type="checkbox" @status data-toggle="toggle"></td>
+                                           <td><input  onchange="changeStatus(@Json.Encode(item)) " id='tg_@item.Id' class="cattoggle" type="checkbox" @status data-toggle="toggle"></td>
+                                           <td>@isApp</td>
                                            <td><button class="btn btn-default" data-toggle="modal" data-target="#categoryModal" onclick=" EditCat(@Json.Encode(item)) ">Edit</button></td>
-                                           <td><button onclick=" DeleteCat(@Json.Encode(item)) " class="btn btn-danger">Delete</button></td>
+                                           <td><button @isAdminResult onclick="DeleteCat(@Json.Encode(item))" class="btn btn-danger">Delete</button></td>
                                        </tr>
                                    }
                                }
@@ -167,21 +174,27 @@
         });
     }
 
-    function DeleteCat(obj) {
-        $.ajax({
-            url: 'DeleteCat',
-            type: 'POST',
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            data: JSON.stringify(obj),
-            success: function (data) {
-                toastr.success("Category deleted");
-                setTimeout(function() {
-                    location.reload();
-                },1000);
-            },
-            error: function (data) { }
-        });
-    }
-
+   
 </script>
+@if (isAdmin)
+{
+    <script>
+        function DeleteCat(obj) {
+            $.ajax({
+                url: 'DeleteCat',
+                type: 'POST',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(obj),
+                success: function (data) {
+                    toastr.success("Category deleted");
+                    setTimeout(function () {
+                        location.reload();
+                    }, 1000);
+                },
+                error: function (data) { }
+            });
+        }
+    </script>
+}
+

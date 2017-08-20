@@ -14,6 +14,12 @@ namespace KaamShaam.DbEntities
     
     public partial class Job
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Job()
+        {
+            this.JobHistories = new HashSet<JobHistory>();
+        }
+    
         public long Id { get; set; }
         public string JobTitle { get; set; }
         public System.Data.Entity.Spatial.DbGeography Location { get; set; }
@@ -32,5 +38,7 @@ namespace KaamShaam.DbEntities
     
         public virtual Category Category { get; set; }
         public virtual AspNetUser AspNetUser { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<JobHistory> JobHistories { get; set; }
     }
 }

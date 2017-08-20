@@ -111,5 +111,19 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="JobHistories">
+      <EntityTypeMapping TypeName="KaamShaamModel.JobHistory">
+        <MappingFragment StoreEntitySet="JobHistory">
+          <ScalarProperty Name="PurposalText" ColumnName="PurposalText" />
+          <ScalarProperty Name="JobStatus" ColumnName="JobStatus" />
+          <ScalarProperty Name="Feedback" ColumnName="Feedback" />
+          <ScalarProperty Name="JobEndDate" ColumnName="JobEndDate" />
+          <ScalarProperty Name="JobStartDate" ColumnName="JobStartDate" />
+          <ScalarProperty Name="ContractorId" ColumnName="ContractorId" />
+          <ScalarProperty Name="JobId" ColumnName="JobId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

@@ -66,8 +66,8 @@
 
                                         @{
                                             var items = new List<SelectListItem>();
-                                            items.Add(new SelectListItem {Text = "User", Value = "User", Selected = true});
-                                            items.Add(new SelectListItem {Text = "Contractor", Value = "Contractor"});
+                                            items.Add(new SelectListItem {Text = "User", Value = "User"});
+                                            items.Add(new SelectListItem {Text = "Contractor", Value = "Contractor", Selected = true });
                                             //items.Add(new SelectListItem {Text = "Vendor", Value = "Vendor"});
 
                                             <div class="form-group">
@@ -97,14 +97,9 @@
                                         }
                                       
                                        
+                                       
                                         <div class="form-group">
-                                            @Html.TextBoxFor(m => m.RegisterViewModel.Mobile, new {name = "Mobile", @class = "form-control", @placeholder = "Mobile"})
-                                        </div>
-                                        <div class="form-group">
-                                            @Html.TextBoxFor(m => m.RegisterViewModel.CNIC, new {name = "CNIC", @class = "form-control customField", @placeholder = "CNIC"})
-                                        </div>
-                                        <div class="form-group">
-                                            @Html.TextBoxFor(m => m.RegisterViewModel.Email, new {name = "Email", @class = "form-control", @placeholder = "Email"})
+                                            @Html.TextBoxFor(m => m.RegisterViewModel.Email, new {name = "Email", @class = "form-control ", @placeholder = "Email"})
                                         </div>
                                         <div class="form-group">
                                             @Html.PasswordFor(m => m.RegisterViewModel.Password, new {name = "Password", @class = "form-control customField", @placeholder = "Password"})
@@ -118,7 +113,12 @@
                                             @Html.HiddenFor(m => m.RegisterViewModel.LocationCord, new {  @id = "locationCord" })
 
                                         </div>
-
+                                        <div class="form-group">
+                                            @Html.TextBoxFor(m => m.RegisterViewModel.Mobile, new { name = "Mobile", @class = "form-control", @placeholder = "Mobile" })
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.TextBoxFor(m => m.RegisterViewModel.CNIC, new { name = "CNIC", @class = "form-control customField notUserField", @placeholder = "CNIC" })
+                                        </div>
                                         @*<div class="form-group contractorEle">
                                             <span class="tg-select ">
                                                 @Html.DropDownListFor(m => m.RegisterViewModel.CategoryId, cats, new { @class = "form-control" })
@@ -365,7 +365,7 @@ Main End
         function initAutocomplete() {
         map = new google.maps.Map(document.getElementById('map'), {
             center: { lat: 31.476535115002306, lng: 74.32158172130585 },
-          zoom: 10,
+          zoom: 15,
           mapTypeId: 'roadmap'
         });
         infoWindow = new google.maps.InfoWindow;
@@ -378,8 +378,8 @@ Main End
                     lat: position.coords.latitude,
                     lng: position.coords.longitude
                 };
+                getAddress(position.coords.latitude, position.coords.longitude);
 
-               
             }, function() {
                 handleLocationError(true, infoWindow, map.getCenter());
             });
@@ -488,7 +488,8 @@ Main End
             toastr.warning('Please check terms ');
             return false;
         } 
-        if (selectedLoc == undefined) {
+        var loc = $('#locationName').val();
+        if (loc == undefined || loc === "") {
             toastr.warning("Please select location");
             return false;
         }
@@ -512,7 +513,6 @@ Main End
    
    
     function openMap() {
-        debugger;
         setTimeout(function () {
             google.maps.event.trigger(map, 'resize');
             infoWindow.setPosition(pos);
@@ -523,7 +523,7 @@ Main End
     }
 
     function UserTypeChnaged() {
-        //var val = $('#userTypeDd').val();
+        var val = $('#userTypeDd').val();
         //if (val === "Contractor") {
         //    $('.contractorEle').show();
         //} else {
@@ -531,11 +531,11 @@ Main End
         //}
         
 
-        //if (val === "Contractor" || val === "User") {
-        //    $(".contractorEleExt").css('visibility', 'visible');
-        //} else {
-        //    $(".contractorEleExt").css('visibility', 'hidden');
-        //}
+        if (val === "User") {
+            $(".notUserField").css('visibility','hidden');
+        } else {
+            $(".notUserField").css('visibility', 'visible');
+        }
     }
 
     function getAddress(lat, lng) {

@@ -180,7 +180,14 @@ Inner Page Banner Start
                                                 @Html.DropDownListFor(m => m.CategoryId, cats, new {@class = "form-control"})
                                             </span>
                                             </div>
-                                            var wages = new List<JobFeeModel>(new JobFeeModel[] {new JobFeeModel
+                                            var wages = new List<JobFeeModel>(new JobFeeModel[] {
+
+                                                   new JobFeeModel
+                                            {
+                                               Fee = 0,
+                                               Title = "Open Rates"
+                                            },
+                                                new JobFeeModel
                                             {
                                                Fee = 250,
                                                Title = "Less than 250"
@@ -469,7 +476,6 @@ Main End
             toastr.warning("Please select location");
             return false;
         }
-        debugger;
         $("#postjobform").submit();
     }
     function saveLoc() {
@@ -487,7 +493,6 @@ Main End
         return;
     }
     function openMap() {
-        debugger;
         setTimeout(function () {
             google.maps.event.trigger(map, 'resize');
             infoWindow.setPosition(pos);

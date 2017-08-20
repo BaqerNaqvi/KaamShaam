@@ -7,6 +7,8 @@ using System.Web;
 using KaamShaam.DbEntities;
 using KaamShaam.LocalModels;
 using KaamShaam.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace KaamShaam.Services
 {
@@ -14,6 +16,10 @@ namespace KaamShaam.Services
     {
         public static  void AddUserProperties(RegisterViewModel user, string userId)
         {
+            var context = new ApplicationDbContext();
+            var userStore = new UserStore<ApplicationUser>(context);
+            var userManager = new UserManager<ApplicationUser>(userStore);
+
             using (var dbContext = new KaamShaamEntities())
             {
                 DbGeography loc = null;
@@ -22,7 +28,7 @@ namespace KaamShaam.Services
                     var latlng = user.LocationCord.Split('_');
                     if (latlng.Length == 2)
                     {
-                        loc = Commons.ConvertLatLonToDbGeography(latlng[1], latlng[0]); // lat _ lng
+                        loc = Commons.Commons.ConvertLatLonToDbGeography(latlng[1], latlng[0]); // lat _ lng
                     }
                 }
                 //https://cmatskas.com/working-with-dbgeography-points-and-polygons-in-net/
@@ -38,7 +44,7 @@ namespace KaamShaam.Services
                     dbuser.LocationName = user.LocationName;
 
                     //dbuser.ContractorId = user.ContractorId;
-                    //dbuser.CategoryId = user.CategoryId;
+                    dbuser.CategoryId = user.CategoryId;
 
                     dbuser.Status = true;
                     dbuser.IsApproved = true;
@@ -48,6 +54,7 @@ namespace KaamShaam.Services
                         dbuser.ContractorId = null;
                         dbuser.CategoryId = null;
                     }
+                    userManager.AddToRole(userId, user.Type);
 
                     dbContext.AspNetUsers.AddOrUpdate(dbuser);
                     dbContext.SaveChanges();
@@ -95,7 +102,7 @@ namespace KaamShaam.Services
                         var latlng = user.LocTempo.Split('_');
                         if (latlng.Length == 2)
                         {
-                            loc = Commons.ConvertLatLonToDbGeography(latlng[1], latlng[0]); // lat _ lng
+                            loc = Commons.Commons.ConvertLatLonToDbGeography(latlng[1], latlng[0]); // lat _ lng
                         }
                     } 
                     dbuser.Country = user.Country;

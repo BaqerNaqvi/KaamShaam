@@ -52,7 +52,8 @@ namespace KaamShaam.AdminServices
         {
             using (var context = new KaamShaamEntities())
             {
-                var data = context.AspNetUsers.Where(u => u.Type == type).ToList().Select(user => user.MapUser()).ToList();
+                var data = context.AspNetUsers.Where(u => u.Type == type).ToList()
+                    .Select(user => user.MapUser()).ToList();
                 return data;
             }
         }

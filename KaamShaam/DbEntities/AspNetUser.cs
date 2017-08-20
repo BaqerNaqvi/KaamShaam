@@ -21,6 +21,7 @@ namespace KaamShaam.DbEntities
             this.AspNetUserLogins = new HashSet<AspNetUserLogin>();
             this.AspNetRoles = new HashSet<AspNetRole>();
             this.Jobs = new HashSet<Job>();
+            this.JobHistories = new HashSet<JobHistory>();
         }
     
         public string Id { get; set; }
@@ -48,7 +49,7 @@ namespace KaamShaam.DbEntities
         public Nullable<long> CategoryId { get; set; }
         public string ContractorId { get; set; }
         public string LocationName { get; set; }
-        public bool IsApproved { get; set; }
+        public Nullable<bool> IsApproved { get; set; }
         public string Feedback { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -59,5 +60,7 @@ namespace KaamShaam.DbEntities
         public virtual ICollection<AspNetRole> AspNetRoles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Job> Jobs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<JobHistory> JobHistories { get; set; }
     }
 }

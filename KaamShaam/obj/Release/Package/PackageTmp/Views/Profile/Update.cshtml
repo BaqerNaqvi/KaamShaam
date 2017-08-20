@@ -19,9 +19,19 @@
     </div>
 </div>
 <style>
-    .customField {
-        margin-left: 45px !important;
+    .avatarThumb {
+        min-width: 90px;
+    height: 106px;
+    max-width: 90px;
+    max-height: 106px;
+    margin-top: 12px;
+    width: 90px;
+    min-height: 90px;
     }
+
+     .customField {
+         margin-left: 45px !important;
+     }
 
     #map {
         height: 50%;
@@ -77,11 +87,11 @@
         padding: 5px 11px;
     }
 
-        .pac-controls label {
-            font-family: Roboto;
-            font-size: 13px;
-            font-weight: 300;
-        }
+    .pac-controls label {
+        font-family: Roboto;
+        font-size: 13px;
+        font-weight: 300;
+    }
 
     #pac-input {
         background-color: #fff;
@@ -94,9 +104,9 @@
         width: 400px;
     }
 
-        #pac-input:focus {
-            border-color: #4d90fe;
-        }
+    #pac-input:focus {
+        border-color: #4d90fe;
+    }
 
     #title {
         color: #fff;
@@ -201,7 +211,7 @@ Main Start
                                         </div>
                                     }
 
-                                    <div class="tg-dashboardbox tg-basicinformation">
+                                    @*<div class="tg-dashboardbox tg-basicinformation">
                                         <div class="tg-dashboardtitle">
                                             <h2>Location</h2>
                                             <div class="infoeditDiv">[<a href="#" data-toggle="modal" data-target="#locationModel" onclick=" openMapforProfile() ">Edit</a>]
@@ -224,7 +234,7 @@ Main Start
                                             </tr>
                                             </tbody>
                                         </table>
-                                    </div>
+                                    </div>*@
 
                                     <div class="tg-dashboardbox tg-basicinformation">
                                         <div class="tg-dashboardtitle">
@@ -473,12 +483,14 @@ Main Start
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
                 <h3 class="modal-title" id="">Profile Avatar</h3>
             </div>
-            <div class="modal-body" style="padding-top: 0px;height: 87px;">
+            <div class="modal-body" style="padding-top: 0px;height: 185px;">
                 <div class="form-group">
                     <form id="profilePicUploaderForm">
-                        <label for="profilePicUploader"> &nbsp;</label>
-                        <input id="profilePicUploader" type="file" class="btn btn-default" style="margin-bottom: 9px; float: left;" value="Upload Banner">
-                        <input type="submit" class="btn btn-rounded" style="margin-left: 17px;" value="Upload file" />
+                        <img class="avatarThumb" width="100" height="100" style="margin-bottom: 5px;margin-top: 12px;" id="profile-pic-thumb" src="http://via.placeholder.com/50x60"/>
+                        <div style="margin-top: 8px">
+                            <input id="profilePicUploader" type="file" class="btn btn-default" style="display: inline-block;margin-bottom: 9px;" value="Upload Banner">
+                        <input type="submit" class="btn btn-rounded" style="margin-left: 10px;margin-bottom: 9px;" value="Upload file" />
+                        </div>
                     </form>
                 </div>
             </div>
@@ -920,4 +932,23 @@ Main End
     });
 
     $('.li-profile-setting').addClass('tg-active');
+
+    $('#profilePicUploader').change(function(){
+        var input = this;
+        var url = $(this).val();
+        var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+        if (input.files && input.files[0]&& (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg")) 
+        {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#profile-pic-thumb').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+        else
+        {
+            $('#profile-pic-thumb').attr('src', '/assets/no_preview.png');
+        }
+    });
 </script>

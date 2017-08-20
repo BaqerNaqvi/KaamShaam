@@ -47,3 +47,14 @@ function validateEmail(email) {
 function hideModel(modelId) {
     $('#' + modelId).modal('hide');
 }
+
+function getRandomNumber() {
+    var text = "";
+    var possible = "A@BC$DE^F&G*HIJ+KL$MNO=PQ_R@S?T/U>V*W*X-Y+Z^a@bcdef%ghijklmn)opqr^st?uv<wxyz0/123456|789!";
+    var specialChars = "";
+
+    for (var i = 0; i < 9; i++)
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
+}

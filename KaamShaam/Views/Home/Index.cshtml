@@ -1,7 +1,7 @@
 ﻿<!--************************************
 Header End
 *************************************-->
-@model List<string>
+@model KaamShaam.Models.HomePageWraper
 @{
     string baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority +
                             Request.ApplicationPath.TrimEnd('/');
@@ -21,7 +21,7 @@ Header End
 <div class="master-slider ms-skin-default" id="masterslider" style="display:table;">
 
    @{
-       foreach (var img in Model)
+       foreach (var img in Model.BannersList)
        {
             <!-- slide 1 -->
         <div class="ms-slide slide-1" data-delay="9">
@@ -37,7 +37,7 @@ Header End
 <!--************************************
             Home Slider Start
     *************************************-->
-<div class="tg-homebannerandslider">
+<div class="tg-homebannerandslider" style="display: none">
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -352,7 +352,7 @@ Header End
                                     <figcaption>
                                         <div class="tg-featuredprofilecontent">
                                             <div class="tg-contentbox">
-                                                <div class="tg-companylogo"><a href="#"><img src="Images/logos/img-01.png" alt="image description"></a></div>
+                                                <div class="tg-companylogo"><a href="#"><img src="@baseUrl/Images/logos/img-01.png" alt="image description"></a></div>
                                                 <div class="tg-companycontent">
                                                     <ul class="tg-tags">
                                                         <li><a class="tg-tag tg-featuredtag" href="#">featured</a></li>
@@ -381,7 +381,7 @@ Header End
                                     <figcaption>
                                         <div class="tg-featuredprofilecontent">
                                             <div class="tg-contentbox">
-                                                <div class="tg-companylogo"><a href="#"><img src="Images/logos/img-01.png" alt="image description"></a></div>
+                                                <div class="tg-companylogo"><a href="#"><img src="@baseUrl/Images/logos/img-01.png" alt="image description"></a></div>
                                                 <div class="tg-companycontent">
                                                     <ul class="tg-tags">
                                                         <li><a class="tg-tag tg-featuredtag" href="#">featured</a></li>
@@ -410,7 +410,7 @@ Header End
                                     <figcaption>
                                         <div class="tg-featuredprofilecontent">
                                             <div class="tg-contentbox">
-                                                <div class="tg-companylogo"><a href="#"><img src="Images/logos/img-01.png" alt="image description"></a></div>
+                                                <div class="tg-companylogo"><a href="#"><img src="@baseUrl/Images/logos/img-01.png" alt="image description"></a></div>
                                                 <div class="tg-companycontent">
                                                     <ul class="tg-tags">
                                                         <li><a class="tg-tag tg-featuredtag" href="#">featured</a></li>
@@ -446,7 +446,7 @@ Header End
 <!--************************************
         Main Start
 *************************************-->
-<main id="tg-main" class="tg-main tg-haslayout">
+<main id="tg-main" class="tg-main tg-haslayout" style="padding-top: 20px;">
     <!--************************************
             Top Categories Start
     *************************************-->
@@ -464,112 +464,44 @@ Header End
                     </div>
                 </div>
                 <div class="tg-topcategories">
+                    @{
+                        if (Model != null)
+                        {
+                            Random rnd = new Random();
 
-                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
-                        <div class="tg-category">
-                            <figure>
-                                <img src="~/Images/categories/img-07.jpg" alt="image description">
-                                <figcaption class="tg-automotive">
-                                    <span class="lnr lnr-car tg-categoryicon"></span>
-                                    <a href="contractors.php">
-                                        <span class="tg-categoryname">Electrician</span>
-                                    </a>
-                                    <a href="contractors.php" class="tg-themetag tg-tagjobcount">
-                                        <i class="fa fa-clone"></i>
-                                        <em>3215</em>
-                                    </a>
-                                </figcaption>
-                            </figure>
-                        </div>
-                    </div>
-                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
-                        <div class="tg-category">
-                            <figure>
-                                <img src="~/Images/categories/img-08.jpg" alt="image description">
-                                <figcaption class="tg-beautypersonalcare">
-                                    <span class="lnr lnr-heart tg-categoryicon"></span>
-                                    <a href="contractors.php">
-                                        <span class="tg-categoryname">Plumbers</span>
-                                    </a>
-                                    <a href="contractors.php" class="tg-themetag tg-tagjobcount">
-                                        <i class="fa fa-clone"></i>
-                                        <em>3045</em>
-                                    </a>
-                                </figcaption>
-                            </figure>
-                        </div>
-                    </div>
-                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
-                        <div class="tg-category">
-                            <figure>
-                                <img src="~/Images/categories/img-09.jpg" alt="image description">
-                                <figcaption class="tg-business">
-                                    <span class="lnr lnr-apartment tg-categoryicon"></span>
-                                    <a href="contractors.php">
-                                        <span class="tg-categoryname">Carpenters</span>
-                                    </a>
-                                    <a href="contractors.php" class="tg-themetag tg-tagjobcount">
-                                        <i class="fa fa-clone"></i>
-                                        <em>2478</em>
-                                    </a>
-                                </figcaption>
-                            </figure>
-                        </div>
-                    </div>
-                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
-                        <div class="tg-category">
-                            <figure>
-                                <img src="~/Images/categories/img-10.jpg" alt="image description">
-                                <figcaption class="tg-childcare">
-                                    <span class="lnr lnr-smile tg-categoryicon"></span>
-                                    <a href="contractors.php">
-                                        <span class="tg-categoryname">General Contractor</span>
-                                    </a>
-                                    <a href="#" class="tg-themetag tg-tagjobcount">
-                                        <i class="fa fa-clone"></i>
-                                        <em>2655</em>
-                                    </a>
-                                </figcaption>
-                            </figure>
-                        </div>
-                    </div>
-                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
-                        <div class="tg-category">
-                            <figure>
-                                <img src="~/Images/categories/img-11.jpg" alt="image description">
-                                <figcaption class="tg-cleaning">
-                                    <span class="lnr lnr-magic-wand tg-categoryicon"></span>
-                                    <a href="contractors.php">
-                                        <span class="tg-categoryname">Handyman</span>
-                                    </a>
-                                    <a href="contractors.php" class="tg-themetag tg-tagjobcount">
-                                        <i class="fa fa-clone"></i>
-                                        <em>2242</em>
-                                    </a>
-                                </figcaption>
-                            </figure>
-                        </div>
-                    </div>
-                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
-                        <div class="tg-category">
-                            <figure>
-                                <img src="~/Images/categories/img-12.jpg" alt="image description">
-                                <figcaption class="tg-computermobile">
-                                    <span class="lnr lnr-laptop tg-categoryicon"></span>
-                                    <a href="contractors.php">
-                                        <span class="tg-categoryname">computer &amp; mobile services</span>
-                                    </a>
-                                    <a href="contractors.php" class="tg-themetag tg-tagjobcount">
-                                        <i class="fa fa-clone"></i>
-                                        <em>1206</em>
-                                    </a>
-                                </figcaption>
-                            </figure>
-                        </div>
-                    </div>
+                            foreach (var cat in Model.ContractorCats)
+                            {
+                                int pic = rnd.Next(7, 12);
+                                string newval = pic+"";
+                                if (pic < 10)
+                                {
+                                    newval = "0"+pic;
+                                }
+                                var immg = baseUrl+"/Images/categories/img-"+ newval + ".jpg";
+                                <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4" style="cursor: pointer" onclick="gotoCat(@Json.Encode(cat))">
+                                    <div class="tg-category">
+                                        <figure>
+                                            <img src="@immg" alt="image description">
+                                            <figcaption class="tg-automotive">
+                                                <span class="lnr lnr-car tg-categoryicon"></span>
+                                                <a href="">
+                                                    <span class="tg-categoryname">@cat.CatName</span>
+                                                </a>
+                                                <a href="" class="tg-themetag tg-tagjobcount">
+                                                    <i class="fa fa-clone"></i>
+                                                    <em>@cat.CatCount</em>
+                                                </a>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    }
+                  
                 </div>
                 <div class="tg-btnbox">
-                    <a class="tg-btn tg-btnviewall" href="contractors.php">view all</a>
+                    <a class="tg-btn tg-btnviewall" href="../Contractor/FindContractor">view all</a>
                 </div>
             </div>
         </div>
@@ -679,7 +611,7 @@ Header End
                                 </figcaption>
                             </figure>
                             <div class="tg-serviceprovidercontent">
-                                <div class="tg-companylogo"><a href="#"><img src="Images/logos/img-01.png" alt="image description"></a></div>
+                                <div class="tg-companylogo"><a href="#"><img src="@baseUrl/Images/logos/img-01.png" alt="image description"></a></div>
                                 <div class="tg-companycontent">
                                     <ul class="tg-tags">
                                         <li><a class="tg-tag tg-featuredtag" href="jobdetail.php">view job</a></li>
@@ -1091,3 +1023,9 @@ Header End
 <!--************************************
         Main End
 *************************************-->
+<script src="~/Scripts/jquery-3.2.1.js"></script>
+<Script>
+    function gotoCat(obj) {
+        window.location = "../Contractor/FindContractor?categoryId=" + obj.CategoryId;
+    }
+</Script>

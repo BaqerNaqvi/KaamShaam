@@ -219,22 +219,22 @@ jQuery(document).on('ready', function() {
 	/* -------------------------------------
 			Google Map
 	-------------------------------------- */
-	jQuery("#tg-officelocationmap").gmap3({
-		marker: {
-			address: "1600 Elizabeth St, Melbourne, Victoria, Australia",
-			options: {
-				title: "Service Providers",
-				icon: "images/map-marker2.png",
-			}
-		},
-		map: {
-			options: {
-				zoom: 16,
-				scrollwheel: false,
-				disableDoubleClickZoom: true,
-			}
-		}
-	});
+	//jQuery("#tg-officelocationmap").gmap3({ // google error
+	//	marker: {
+	//		address: "1600 Elizabeth St, Melbourne, Victoria, Australia",
+	//		options: {
+	//			title: "Service Providers",
+	//			icon: "images/map-marker2.png",
+	//		}
+	//	},
+	//	map: {
+	//		options: {
+	//			zoom: 16,
+	//			scrollwheel: false,
+	//			disableDoubleClickZoom: true,
+	//		}
+	//	}
+	//});
 	/* --------------------------------------
 			FORM STEP PROGRESS
 	-------------------------------------- */
@@ -253,41 +253,41 @@ jQuery(document).on('ready', function() {
 	/*--------------------------------------
 			Google Map
 	--------------------------------------*/
-	jQuery("#tg-locationmap").gmap3({
-		marker: {
-			address: "1600 Elizabeth St, Melbourne, Victoria, Australia",
-			options: {
-				title: "Robert Frost Elementary School",
-				icon: "images/icons/markerseven.png",
-			}
-		},
-		map: {
-			options: {
-				zoom: 20,
-				scrollwheel: false,
-				disableDoubleClickZoom: true,
-			}
-		}
-	});
+	//jQuery("#tg-locationmap").gmap3({
+	//	marker: {
+	//		address: "1600 Elizabeth St, Melbourne, Victoria, Australia",
+	//		options: {
+	//			title: "Robert Frost Elementary School",
+	//			icon: "images/icons/markerseven.png",
+	//		}
+	//	},
+	//	map: {
+	//		options: {
+	//			zoom: 20,
+	//			scrollwheel: false,
+	//			disableDoubleClickZoom: true,
+	//		}
+	//	}
+	//});
 	/*--------------------------------------
 			JOB LOCATION Map
 	--------------------------------------*/
-	jQuery("#tg-joblocationmap").gmap3({
-		marker: {
-			address: "1600 Elizabeth St, Melbourne, Victoria, Australia",
-			options: {
-				title: "Robert Frost Elementary School",
-				icon: "images/icons/markertwo.png",
-			}
-		},
-		map: {
-			options: {
-				zoom: 18,
-				scrollwheel: false,
-				disableDoubleClickZoom: true,
-			}
-		}
-	});
+	//jQuery("#tg-joblocationmap").gmap3({
+	//	marker: {
+	//		address: "1600 Elizabeth St, Melbourne, Victoria, Australia",
+	//		options: {
+	//			title: "Robert Frost Elementary School",
+	//			icon: "images/icons/markertwo.png",
+	//		}
+	//	},
+	//	map: {
+	//		options: {
+	//			zoom: 18,
+	//			scrollwheel: false,
+	//			disableDoubleClickZoom: true,
+	//		}
+	//	}
+	//});
 	/* -------------------------------------
 			CURRENT DAY
 	-------------------------------------- */
