@@ -99,7 +99,14 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div class="tg-adminbox">
+                        @{
+                            var margin = "13px";
+                            if (Request.IsAuthenticated)
+                            {
+                                margin = "0px";
+                            }
+                            }
+                            <div class="tg-adminbox" style="margin-top: @margin">
                                 <div class="tg-loginregister" style="display: block; padding: 0px">
                                     @if (Request.IsAuthenticated)
                                     {
@@ -279,7 +286,7 @@
                                 <strong class="tg-logo"><a href="~/Home/index"><img src="@baseUrl/Images/logo.png" alt="image description"></a></strong>
 
                             }
-                            <div class="tg-rightarea">
+                            <div class="tg-rightarea" style="margin-top: 6px;padding-top: 0px;">
                                 <nav id="tg-nav" class="tg-nav">
                                     <div class="navbar-header">
                                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#tg-navigation" aria-expanded="false">
@@ -291,31 +298,35 @@
                                     </div>
                                     <div id="tg-navigation" class="collapse navbar-collapse tg-navigation">
                                         <ul>
-                                            <li><a href="index.php">Home</a></li>
-                                            <li><a href="about.php">About Us</a></li>
-                                            <li><a href="#">How It Works</a></li>
-                                            <li class="menu-item-has-children">
-                                                <a href="#">Dashboard</a>
+                                            <li><a href="@baseUrl/Home/Index">Home</a></li>
+                                            <li><a href="@baseUrl/Home/About">About Us</a></li>
+                                            @*<li><a href="#">How It Works</a></li>*@
+                                            @if (Request.IsAuthenticated)
+                                            {
+                                                <li class="menu-item-has-children">
+                                                    <a href="#">Dashboard</a>
 
-                                                <ul class="sub-menu">
-                                                   @{
-                                                       if (Request.IsAuthenticated)
-                                                       {
-                                                           if (User.IsInRole("User"))
-                                                           {
-                                                            <li>
-                                                                <a href="user-dashboard.php">User Dashbaord</a>
-                                                            </li>                                                           }
-                                                           else if (User.IsInRole("Contractor"))
-                                                           {
-                                                            <li>
-                                                                <a href="contractor-dashboard.php">Contractor Dashboard</a>
-                                                            </li>                                                           }
-                                                       }
-                                                }
-                                                </ul>
-                                            </li>
-                                            <li><a href="contact.php">Contact Us</a></li>
+                                                    <ul class="sub-menu">
+                                                       
+                                                            
+                                                            
+                                                                @if (User.IsInRole("User"))
+                                                                {
+                                                                    <li>
+                                                                        <a href="@baseUrl/profile/Update">User Dashbaord</a>
+                                                                    </li>                                                           }
+                                                                else if (User.IsInRole("Contractor"))
+                                                                {
+                                                                    <li>
+                                                                        <a href="@baseUrl/profile/Update">Contractor Dashboard</a>
+                                                                    </li>                                                           }
+                                                            
+                                                        
+                                                    </ul>
+                                                </li>
+                                            }
+                                            
+                                            <li><a href="@baseUrl/Home/Contact">Contact Us</a></li>
                                         </ul>
                                     </div>
                                 </nav>
@@ -391,12 +402,12 @@
                                         }
 
                                 <div class="tg-description">
-                                    <p>Conseetur elit sed eiumod  apor incidunt ut lbore et dolore <a href="#">more...</a></p>
+                                    <p>We offer our services at your door step without <a href="">more...</a></p>
                                 </div>
                                 <ul class="tg-contactinfo">
                                     <li>
                                         <i class="lnr lnr-location"></i>
-                                        <address>Abc tower, xyz street UK, HG521A</address>
+                                        <address>292 Johar Town F-Block Lahore Pakistan</address>
                                     </li>
                                     <li>
                                         <i class="lnr lnr-phone-handset"></i>
@@ -404,11 +415,11 @@
                                     </li>
                                     <li>
                                         <i class="lnr lnr-envelope"></i>
-                                        <span><a href="query@domain.com">contact@kaamshaam.pk</a></span>
+                                        <span><a href="mailto:admin@infokaamsham.com">admin@kaamsham.com</a></span>
                                     </li>
                                     <li>
                                         <i class="lnr lnr-construction"></i>
-                                        <span><a href="complaint@domain.com">contact@kaamshaam.pk</a></span>
+                                        <span><a href="mailto:contact@domain.com">contact@kaamshaam.pk</a></span>
                                     </li>
                                 </ul>
                                 <ul class="tg-socialicons">
@@ -428,12 +439,12 @@
                                 <div class="tg-widgetcontent">
                                     <ul>
                                         <li>
-                                            <div class="tg-description"><p>Sed ut perspiciatis unde omnis isteat natus error sit voluptatem</p></div>
+                                            <div class="tg-description"><p>Another milestone achieved. We just launched our Mobile app..</p></div>
                                             <a href="http://www.domainurl.com ">http://www.kaamshaam.pk</a>
                                             <time datetime="2016-08-08">2 hours ago</time>
                                         </li>
                                         <li>
-                                            <div class="tg-description"><p>Sed ut perspiciatis unde omnis isteat natus error sit voluptatem</p></div>
+                                            <div class="tg-description"><p>Get Special Discount on Independence Day...</p></div>
                                             <a href="http://www.domainurl.com ">http://www.kaamshaam.pk</a>
                                             <time datetime="2016-08-08">3 hours ago</time>
                                         </li>
@@ -449,22 +460,13 @@
                                 </div>
                                 <div class="tg-widgetcontent">
                                     <ul>
-                                        <li><a href="#">Perspiciatis ate</a></li>
-                                        <li><a href="#">Aomnis isteat</a></li>
-                                        <li><a href="#">Canatus error</a></li>
-                                        <li><a href="#">Voluptatem clu</a></li>
-                                        <li><a href="#">Commodo</a></li>
-                                        <li><a href="#">Consequat</a></li>
-                                        <li><a href="#">Duis aute</a></li>
-                                        <li><a href="#">Aincididunt</a></li>
-                                        <li><a href="#">Alter veritatis</a></li>
-                                        <li><a href="#">Tempora Incid</a></li>
-                                        <li><a href="#">Dolore Magnam</a></li>
-                                        <li><a href="#">Aliquam Quaerat</a></li>
-                                        <li><a href="#">Quisquam</a></li>
-                                        <li><a href="#">Voluptatem</a></li>
-                                        <li><a href="#">Aliquip</a></li>
-                                        <li><a href="#">Adipisicing</a></li>
+                                        <li><a href="#">News</a></li>
+                                        <li><a href="#">Carriers</a></li>
+                                        <li><a href="#">Gallery</a></li>
+                                        <li><a href="#">KaamShaam Org</a></li>
+                                        <li><a href="#">Press Releases</a></li>
+                                        <li><a href="#">Summit 2016</a></li>
+                                     
                                     </ul>
                                 </div>
                             </div>
@@ -486,7 +488,7 @@
                                                     <li><span class="tg-stars"><span></span></span></li>
                                                     <li>
                                                         <i class="fa fa-thumbs-o-up"></i>
-                                                        <em>99% (1009 votes)</em>
+                                                        <em>99% (70 votes)</em>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -496,12 +498,12 @@
     <figure><a href="#"><img src="@baseUrl/Images/logos/img-02.png" alt="image description"></a></figure>
 
 }                                            <div class="tg-contentbox">
-                                                <h4><a href="#">Karachi Cleaning Service</a></h4>
+                                                <h4><a href="#">Karachi Hardwares</a></h4>
                                                 <ul class="tg-matadata">
                                                     <li><span class="tg-stars"><span></span></span></li>
                                                     <li>
                                                         <i class="fa fa-thumbs-o-up"></i>
-                                                        <em>99% (1009 votes)</em>
+                                                        <em>99% (369 votes)</em>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -509,7 +511,7 @@
                                         <li>
                                             <figure><a href="#"><img src="@baseUrl/Images/logos/img-03.png" alt="image description"></a></figure>
                                             <div class="tg-contentbox">
-                                                <h4><a href="#">Islamabad Cleaning Service</a></h4>
+                                                <h4><a href="#">Humayio Computer Works</a></h4>
                                                 <ul class="tg-matadata">
                                                     <li><span class="tg-stars"><span></span></span></li>
                                                     <li>
@@ -551,8 +553,12 @@
     <!--************************************
             Wrapper End
     *************************************-->
-
-    <script src="~/Scripts/vendor/jquery-library.js"></script>
+    @{
+        if (!Request.Url.AbsolutePath.ToLower().Contains("appointment/upcoming"))
+        {
+            <script src="~/Scripts/vendor/jquery-library.js"></script>
+        }
+    }
 
     <script src="~/Scripts/jquery-ui.js"></script>
 

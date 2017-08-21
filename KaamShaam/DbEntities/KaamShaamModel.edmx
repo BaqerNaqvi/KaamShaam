@@ -5,6 +5,17 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="KaamShaamModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Appointment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="DateTime" Type="datetime" Nullable="false" />
+          <Property Name="WithId" Type="nvarchar" MaxLength="128" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
         <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="Id" />
@@ -123,6 +134,30 @@
           <Property Name="IsRecycled" Type="bit" Nullable="false" />
           <Property Name="FeedBack" Type="nvarchar" MaxLength="500" />
         </EntityType>
+        <Association Name="FK_Appointment_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Appointment_AspNetUsers1">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="WithId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_AspNetUserRoles_AspNetRole">
           <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1" />
           <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
@@ -224,6 +259,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="KaamShaamModelStoreContainer">
+          <EntitySet Name="Appointment" EntityType="Self.Appointment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
@@ -233,6 +269,14 @@
           <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="JobHistory" EntityType="Self.JobHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Jobs" EntityType="Self.Jobs" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Appointment_AspNetUsers" Association="Self.FK_Appointment_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Appointment" EntitySet="Appointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Appointment_AspNetUsers1" Association="Self.FK_Appointment_AspNetUsers1">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Appointment" EntitySet="Appointment" />
+          </AssociationSet>
           <AssociationSet Name="FK_AspNetUserRoles_AspNetRole" Association="Self.FK_AspNetUserRoles_AspNetRole">
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
@@ -335,6 +379,8 @@
           <Property Name="IsApproved" Type="Boolean" />
           <Property Name="Feedback" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="JobHistories" Relationship="KaamShaamModel.FK_JobHistory_AspNetUsers" FromRole="AspNetUser" ToRole="JobHistory" />
+          <NavigationProperty Name="MyCreatedAppointments" Relationship="KaamShaamModel.FK_Appointment_AspNetUsers" FromRole="AspNetUser" ToRole="Appointment" />
+          <NavigationProperty Name="MyWithAppointments" Relationship="KaamShaamModel.FK_Appointment_AspNetUsers1" FromRole="AspNetUser" ToRole="Appointment" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -415,6 +461,15 @@
           <AssociationSet Name="FK_JobHistory_Jobs" Association="KaamShaamModel.FK_JobHistory_Jobs">
             <End Role="Job" EntitySet="Jobs" />
             <End Role="JobHistory" EntitySet="JobHistories" />
+          </AssociationSet>
+          <EntitySet Name="Appointments" EntityType="KaamShaamModel.Appointment" />
+          <AssociationSet Name="FK_Appointment_AspNetUsers" Association="KaamShaamModel.FK_Appointment_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Appointment" EntitySet="Appointments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Appointment_AspNetUsers1" Association="KaamShaamModel.FK_Appointment_AspNetUsers1">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Appointment" EntitySet="Appointments" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Job">
@@ -509,6 +564,43 @@
             </Principal>
             <Dependent Role="JobHistory">
               <PropertyRef Name="JobId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Appointment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="WithId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CreatedByUser" Relationship="KaamShaamModel.FK_Appointment_AspNetUsers" FromRole="Appointment" ToRole="AspNetUser" />
+          <NavigationProperty Name="WithUser" Relationship="KaamShaamModel.FK_Appointment_AspNetUsers1" FromRole="Appointment" ToRole="AspNetUser" />
+        </EntityType>
+        <Association Name="FK_Appointment_AspNetUsers">
+          <End Type="KaamShaamModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="KaamShaamModel.Appointment" Role="Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Appointment_AspNetUsers1">
+          <End Type="KaamShaamModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+          <End Type="KaamShaamModel.Appointment" Role="Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="WithId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -638,6 +730,18 @@
                 <ScalarProperty Name="JobStartDate" ColumnName="JobStartDate" />
                 <ScalarProperty Name="ContractorId" ColumnName="ContractorId" />
                 <ScalarProperty Name="JobId" ColumnName="JobId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Appointments">
+            <EntityTypeMapping TypeName="KaamShaamModel.Appointment">
+              <MappingFragment StoreEntitySet="Appointment">
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="WithId" ColumnName="WithId" />
+                <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

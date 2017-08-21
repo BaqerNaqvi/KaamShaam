@@ -41,53 +41,84 @@
             <nav id="tg-dashboardnav" class="tg-dashboardnav">
                 <ul>
                     @*<li>
-                        <a href="dashboardappointment.php">
-                            <i class="lnr lnr-calendar-full"></i>
-                            <span>Appointments</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="dashboardappointmentsetting.php">
-                            <i class="lnr lnr-calendar-full"></i>
-                            <span>Appointment Settings</span>
-                        </a>
-                    </li>*@
-
+                <a href="dashboardappointment.php">
+                    <i class="lnr lnr-calendar-full"></i>
+                    <span>Appointments</span>
+                </a>
+            </li>*@
                     <li class="li-profile-setting">
-                        <a href="~/Profile/Update">
+                        <a href="/Profile/Update">
                             <i class="lnr lnr-cog"></i>
                             <span>Profile Settings</span>
                         </a>
                     </li>
 
-                    <li class="li-manage-jobs">
-                        <a href="~/Job/ManageJobs">
-                            <i class="lnr lnr-map"></i>
-                            <span>Manage Jobs</span>
-                        </a>
-                    </li>
-
-
-
+                    @{
+                        if (User.IsInRole("User"))
+                        {
+                            <li class="li-manage-jobs">
+                                <a href="~/Job/ManageJobs">
+                                    <i class="lnr lnr-map"></i>
+                                    <span>Manage Jobs</span>
+                                </a>
+                            </li>
+                            <li class="li-manage-jobs">
+                                <a href="~/Job/jobProposals">
+                                    <i class="lnr lnr-map"></i>
+                                    <span>Job Proposals</span>
+                                </a>
+                            </li>
+                            <li class="li-manage-jobs">
+                                <a href="~/Contractor/FindContractor">
+                                    <i class="lnr lnr-map"></i>
+                                    <span>Find Contractors</span>
+                                </a>
+                            </li>
+                        }
+                    }
+                    @{
+                        if (User.IsInRole("Contractor"))
+                        {
+                            <li class="li-manage-jobs">
+                                <a href="~/Job/findJobs">
+                                    <i class="lnr lnr-map"></i>
+                                    <span>Find Jobs</span>
+                                </a>
+                            </li>
+                                                                    <li class="li-manage-jobs">
+                                                                        <a href="~/Job/appliedJobs">
+                                                                            <i class="lnr lnr-map"></i>
+                                                                            <span>Applied Jobs</span>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li class="li-manage-jobs">
+                                                                        <a href="~/Job/MyCurrentJobs">
+                                                                            <i class="lnr lnr-map"></i>
+                                                                            <span>Current Jobs</span>
+                                                                        </a>
+                                                                    </li>
+                        }
+                    }
                     @*<li>
-                        <a href="dashboardsecuritysetting.php">
-                            <i class="lnr lnr-construction"></i>
-                            <span>Security Settings</span>
-                        </a>
-                    </li>
+                <a href="dashboardsecuritysetting.php">
+                    <i class="lnr lnr-construction"></i>
+                    <span>Security Settings</span>
+                </a>
+            </li>
+            <li>
+                <a href="dashboardprivacysetting.php">
+                    <i class="lnr lnr-lock"></i>
+                    <span>Privacy Settings</span>
+                </a>
+            </li>*@
                     <li>
-                        <a href="dashboardprivacysetting.php">
-                            <i class="lnr lnr-lock"></i>
-                            <span>Privacy Settings</span>
-                        </a>
-                    </li>*@
-                    <li>
-                        <a href="#">
+                        <a href="~/Account/LogOff">
                             <i class="lnr lnr-exit"></i>
                             <span>Logout</span>
                         </a>
                     </li>
                 </ul>
+
             </nav>
         </div>
         <div class="tg-widgetdashboard hidden-xs">

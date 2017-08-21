@@ -80,7 +80,7 @@ namespace KaamShaam.Controllers
         {
             if (!ModelState.IsValid) 
             {
-                return View("Register");
+                return View("Login");
             }
 
             if (string.IsNullOrEmpty(returnUrl))

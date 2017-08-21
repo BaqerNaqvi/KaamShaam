@@ -1,0 +1,231 @@
+﻿<!--************************************
+Inner Page Banner Start
+*************************************-->
+@{
+    string baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority +
+                                   Request.ApplicationPath.TrimEnd('/');
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css"/>
+<link rel="http://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/jquery.qtip.min.css"/>
+<style>
+    .fc-day-grid-container {
+        height: 595px !important;
+    }
+    .ui-autocomplete {
+  z-index:2147483647;
+}
+    li {
+    list-style: none;
+}
+</style>
+
+<div class="tg-innerpagebanner">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="tg-pagetitle">
+                    <h1>Appointments</h1>
+                </div>
+                <ol class="tg-breadcrumb">
+                    <li><a href="#">Home</a></li>
+                    <li class="tg-active">Appointments</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!--************************************
+        Inner Page Banner End
+*************************************-->
+<!--************************************
+        Main Start
+*************************************-->
+<main id="tg-main" class="tg-main tg-haslayout">
+    <div class="container">
+        <div class="row">
+            <div id="tg-twocolumns" class="tg-twocolumns">
+
+                @{ Html.RenderPartial("LeftMenu");}
+                <div class="col-xs-12 col-sm-7 col-md-8 col-lg-9">
+                    <div id="tg-content" class="tg-content">
+                        <div class="tg-joblisting tg-dashboardmanagejobs">
+                            <div class="tg-dashboardhead">
+                                <div class="tg-dashboardtitle">
+                                    <h2>Manage Appointments</h2>
+
+                                </div>
+                                <button class="tg-btnaddservices" data-toggle="modal" data-target="#addnewevent">Add New</button>
+                            </div>                            
+                            <div id="calendarContainer">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- basic info -->
+<div class="modal fade" id="addnewevent" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                <h3 class="modal-title">Appointment Details</h3>
+            </div>
+            <div class="modal-body" style="height:375px; padding: 4%;">
+
+                <!-- content goes here -->
+                <div class="form-group">
+                    <label> Title & Description</label>
+                    <input type="text" class="form-control editJobVal" id="eventTitle">
+                </div>
+                <div class="form-group">
+                    <label> Appointment Type</label>
+                    <select id="appType" class="form-control">
+                        <option value="General">General</option>
+                        <option value="Business">Business</option>
+                        <option value="Meeting">Meeting</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Date/Time</label>
+                    <div class='input-group date' id='datetimepicker1'>
+                        <input type='text' class="form-control" data-format="yyyy-MM-dd hh:mm:ss"/>
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group" style="width: 92%;">
+                    <label>Appointment With</label>
+                    <input type="text" id="appwith" class="typeahead tt-query" autocomplete="off" spellcheck="false">
+                </div>
+                <img class="ajaxloader" id="adminLoading" src="~/Images/ajax-loader.gif" style="margin-top: 40px;margin-left: 14px;"/>
+            </div>
+            <div class="modal-footer">
+                <div class="btn-group btn-group-justified" role="group" aria-label="group button">
+                    <div class="btn-group" role="group">
+                        <button onclick="addevent()" id="suspendBtn" type="button" class="btn btn-primary" data-dismiss="modal" role="button">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--************************************
+        Main End
+*************************************-->
+<script src="~/Scripts/vendor/jquery-library.js"></script>
+<script src="~/Scripts/moment.js"></script>
+<script src="~/Scripts/fullcal.js"></script>
+<script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/jquery.qtip.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#adminLoading').hide();
+        $('#calendarContainer').fullCalendar({
+
+            dayClick: function () {
+                alert('a day has been clicked!');
+            },
+            header: {
+                left: 'prev, next today',
+                center: 'title',
+                right: 'month, basicWeek, basicDay'
+            },
+            events: [
+       {
+           title: 'Meeting Time',
+           start: '2017-08-01',
+           description: 'first description is that i am going to deploy it'
+       },
+       {
+           title: 'Appointment/Usman',
+           start: '2017-08-01',
+           description: 'first description'
+       },
+        {
+            title: 'Birthday Party',
+            start: '2017-08-15T10:00:00',
+            end: '2017-08-17T06:00:00',
+            description: 'first description'
+        },
+       {
+           title: 'Wedding',
+           start: '2017-08-12T05:30:00',
+           description: 'first description',
+           allDay: false // will make the time show
+       }
+            ],
+            eventRender: function (event, element) {
+                element.qtip({
+                    content: event.description + '<br />' + event.start,
+                    style: {
+                        background: 'black',
+                        color: '#FFFFFF'
+                    },
+                    position: {
+                        corner: {
+                            target: 'center',
+                            tooltip: 'bottomMiddle'
+                        }
+                    }
+                });
+            }
+        });
+
+        $('#datetimepicker1').datetimepicker({
+            format: 'YYYY-MM-DD HH:mm:ss'
+        });
+
+        var objects = [];
+        var map = {};
+
+        $('#appwith').typeahead({
+            source: function (query, process) {
+                return $.getJSON(
+                    'GetSuggestions',
+                    { query: query },
+                    function (data) {
+
+                        objects = [];
+                        map = {};
+                       $.each(data, function (i, object) {
+                           map[object.label] = object;
+                           objects.push(object.label);
+                       });
+                       process(objects);
+                    });
+                $('#adminLoading').hide();
+            }
+            ,
+            updater: function (item) {
+                $('#adminLoading').hide();
+                $('hiddenInputElement').val(map[item].id);
+                return item;
+            }
+        }).on('keyup', this, function (event) {
+            $('#adminLoading').show();
+        });
+
+        setInterval(function() {
+            $('#adminLoading').hide();
+        },5000);
+
+    });
+    function addevent() {
+
+        var text = $('#eventTitle').val();
+        var dates = $("#datetimepicker1").find("input").val().split(' ');
+        var newval = dates[0] + "T" + dates[1];
+        var event = { id: 561, title: text, start: newval };
+        $('#calendarContainer').fullCalendar('renderEvent', event, true);
+    }
+
+</script>

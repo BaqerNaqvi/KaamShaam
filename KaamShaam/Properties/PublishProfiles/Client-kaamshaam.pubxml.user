@@ -25,7 +25,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/03/2015 09:32:26</publishTime>
     </File>
     <File Include="bin/KaamShaam.dll">
-      <publishTime>08/19/2017 20:28:58</publishTime>
+      <publishTime>08/21/2017 14:22:33</publishTime>
     </File>
     <File Include="bin/Microsoft.AI.Agent.Intercept.dll">
       <publishTime>11/30/2016 16:07:42</publishTime>
@@ -186,6 +186,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Content/animate.css">
       <publishTime>07/24/2017 22:50:52</publishTime>
     </File>
+    <File Include="Content/bootstrap-datetimepicker-build.less">
+      <publishTime>08/21/2017 05:36:17</publishTime>
+    </File>
     <File Include="Content/bootstrap-rtl.css">
       <publishTime>07/26/2016 00:59:31</publishTime>
     </File>
@@ -198,6 +201,219 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Content/bootstrap.min.css">
       <publishTime>07/26/2016 00:59:31</publishTime>
     </File>
+    <File Include="Content/bootstrap/alerts.less">
+      <publishTime>08/21/2017 05:36:16</publishTime>
+    </File>
+    <File Include="Content/bootstrap/badges.less">
+      <publishTime>08/21/2017 05:36:16</publishTime>
+    </File>
+    <File Include="Content/bootstrap/bootstrap.less">
+      <publishTime>08/21/2017 05:36:16</publishTime>
+    </File>
+    <File Include="Content/bootstrap/breadcrumbs.less">
+      <publishTime>08/21/2017 05:36:16</publishTime>
+    </File>
+    <File Include="Content/bootstrap/button-groups.less">
+      <publishTime>08/21/2017 05:36:16</publishTime>
+    </File>
+    <File Include="Content/bootstrap/buttons.less">
+      <publishTime>08/21/2017 05:36:16</publishTime>
+    </File>
+    <File Include="Content/bootstrap/carousel.less">
+      <publishTime>08/21/2017 05:36:16</publishTime>
+    </File>
+    <File Include="Content/bootstrap/close.less">
+      <publishTime>08/21/2017 05:36:16</publishTime>
+    </File>
+    <File Include="Content/bootstrap/code.less">
+      <publishTime>08/21/2017 05:36:16</publishTime>
+    </File>
+    <File Include="Content/bootstrap/component-animations.less">
+      <publishTime>08/21/2017 05:36:16</publishTime>
+    </File>
+    <File Include="Content/bootstrap/dropdowns.less">
+      <publishTime>08/21/2017 05:36:15</publishTime>
+    </File>
+    <File Include="Content/bootstrap/forms.less">
+      <publishTime>08/21/2017 05:36:15</publishTime>
+    </File>
+    <File Include="Content/bootstrap/glyphicons.less">
+      <publishTime>08/21/2017 05:36:15</publishTime>
+    </File>
+    <File Include="Content/bootstrap/grid.less">
+      <publishTime>08/21/2017 05:36:15</publishTime>
+    </File>
+    <File Include="Content/bootstrap/input-groups.less">
+      <publishTime>08/21/2017 05:36:15</publishTime>
+    </File>
+    <File Include="Content/bootstrap/jumbotron.less">
+      <publishTime>08/21/2017 05:36:15</publishTime>
+    </File>
+    <File Include="Content/bootstrap/labels.less">
+      <publishTime>08/21/2017 05:36:15</publishTime>
+    </File>
+    <File Include="Content/bootstrap/list-group.less">
+      <publishTime>08/21/2017 05:36:15</publishTime>
+    </File>
+    <File Include="Content/bootstrap/media.less">
+      <publishTime>08/21/2017 05:36:15</publishTime>
+    </File>
+    <File Include="Content/bootstrap/mixins.less">
+      <publishTime>08/21/2017 05:36:15</publishTime>
+    </File>
+    <File Include="Content/bootstrap/mixins/alerts.less">
+      <publishTime>08/21/2017 05:36:15</publishTime>
+    </File>
+    <File Include="Content/bootstrap/mixins/background-variant.less">
+      <publishTime>08/21/2017 05:36:15</publishTime>
+    </File>
+    <File Include="Content/bootstrap/mixins/border-radius.less">
+      <publishTime>08/21/2017 05:36:15</publishTime>
+    </File>
+    <File Include="Content/bootstrap/mixins/buttons.less">
+      <publishTime>08/21/2017 05:36:15</publishTime>
+    </File>
+    <File Include="Content/bootstrap/mixins/center-block.less">
+      <publishTime>08/21/2017 05:36:15</publishTime>
+    </File>
+    <File Include="Content/bootstrap/mixins/clearfix.less">
+      <publishTime>08/21/2017 05:36:15</publishTime>
+    </File>
+    <File Include="Content/bootstrap/mixins/forms.less">
+      <publishTime>08/21/2017 05:36:15</publishTime>
+    </File>
+    <File Include="Content/bootstrap/mixins/gradients.less">
+      <publishTime>08/21/2017 05:36:15</publishTime>
+    </File>
+    <File Include="Content/bootstrap/mixins/grid-framework.less">
+      <publishTime>08/21/2017 05:36:15</publishTime>
+    </File>
+    <File Include="Content/bootstrap/mixins/grid.less">
+      <publishTime>08/21/2017 05:36:14</publishTime>
+    </File>
+    <File Include="Content/bootstrap/mixins/hide-text.less">
+      <publishTime>08/21/2017 05:36:14</publishTime>
+    </File>
+    <File Include="Content/bootstrap/mixins/image.less">
+      <publishTime>08/21/2017 05:36:14</publishTime>
+    </File>
+    <File Include="Content/bootstrap/mixins/labels.less">
+      <publishTime>08/21/2017 05:36:14</publishTime>
+    </File>
+    <File Include="Content/bootstrap/mixins/list-group.less">
+      <publishTime>08/21/2017 05:36:14</publishTime>
+    </File>
+    <File Include="Content/bootstrap/mixins/nav-divider.less">
+      <publishTime>08/21/2017 05:36:14</publishTime>
+    </File>
+    <File Include="Content/bootstrap/mixins/nav-vertical-align.less">
+      <publishTime>08/21/2017 05:36:14</publishTime>
+    </File>
+    <File Include="Content/bootstrap/mixins/opacity.less">
+      <publishTime>08/21/2017 05:36:14</publishTime>
+    </File>
+    <File Include="Content/bootstrap/mixins/pagination.less">
+      <publishTime>08/21/2017 05:36:14</publishTime>
+    </File>
+    <File Include="Content/bootstrap/mixins/panels.less">
+      <publishTime>08/21/2017 05:36:14</publishTime>
+    </File>
+    <File Include="Content/bootstrap/mixins/progress-bar.less">
+      <publishTime>08/21/2017 05:36:14</publishTime>
+    </File>
+    <File Include="Content/bootstrap/mixins/reset-filter.less">
+      <publishTime>08/21/2017 05:36:14</publishTime>
+    </File>
+    <File Include="Content/bootstrap/mixins/reset-text.less">
+      <publishTime>08/21/2017 05:36:14</publishTime>
+    </File>
+    <File Include="Content/bootstrap/mixins/resize.less">
+      <publishTime>08/21/2017 05:36:14</publishTime>
+    </File>
+    <File Include="Content/bootstrap/mixins/responsive-visibility.less">
+      <publishTime>08/21/2017 05:36:14</publishTime>
+    </File>
+    <File Include="Content/bootstrap/mixins/size.less">
+      <publishTime>08/21/2017 05:36:14</publishTime>
+    </File>
+    <File Include="Content/bootstrap/mixins/tab-focus.less">
+      <publishTime>08/21/2017 05:36:14</publishTime>
+    </File>
+    <File Include="Content/bootstrap/mixins/table-row.less">
+      <publishTime>08/21/2017 05:36:14</publishTime>
+    </File>
+    <File Include="Content/bootstrap/mixins/text-emphasis.less">
+      <publishTime>08/21/2017 05:36:14</publishTime>
+    </File>
+    <File Include="Content/bootstrap/mixins/text-overflow.less">
+      <publishTime>08/21/2017 05:36:14</publishTime>
+    </File>
+    <File Include="Content/bootstrap/mixins/vendor-prefixes.less">
+      <publishTime>08/21/2017 05:36:13</publishTime>
+    </File>
+    <File Include="Content/bootstrap/modals.less">
+      <publishTime>08/21/2017 05:36:13</publishTime>
+    </File>
+    <File Include="Content/bootstrap/navbar.less">
+      <publishTime>08/21/2017 05:36:13</publishTime>
+    </File>
+    <File Include="Content/bootstrap/navs.less">
+      <publishTime>08/21/2017 05:36:13</publishTime>
+    </File>
+    <File Include="Content/bootstrap/normalize.less">
+      <publishTime>08/21/2017 05:36:13</publishTime>
+    </File>
+    <File Include="Content/bootstrap/pager.less">
+      <publishTime>08/21/2017 05:36:13</publishTime>
+    </File>
+    <File Include="Content/bootstrap/pagination.less">
+      <publishTime>08/21/2017 05:36:13</publishTime>
+    </File>
+    <File Include="Content/bootstrap/panels.less">
+      <publishTime>08/21/2017 05:36:13</publishTime>
+    </File>
+    <File Include="Content/bootstrap/popovers.less">
+      <publishTime>08/21/2017 05:36:13</publishTime>
+    </File>
+    <File Include="Content/bootstrap/print.less">
+      <publishTime>08/21/2017 05:36:13</publishTime>
+    </File>
+    <File Include="Content/bootstrap/progress-bars.less">
+      <publishTime>08/21/2017 05:36:13</publishTime>
+    </File>
+    <File Include="Content/bootstrap/responsive-embed.less">
+      <publishTime>08/21/2017 05:36:13</publishTime>
+    </File>
+    <File Include="Content/bootstrap/responsive-utilities.less">
+      <publishTime>08/21/2017 05:36:13</publishTime>
+    </File>
+    <File Include="Content/bootstrap/scaffolding.less">
+      <publishTime>08/21/2017 05:36:13</publishTime>
+    </File>
+    <File Include="Content/bootstrap/tables.less">
+      <publishTime>08/21/2017 05:36:13</publishTime>
+    </File>
+    <File Include="Content/bootstrap/theme.less">
+      <publishTime>08/21/2017 05:36:13</publishTime>
+    </File>
+    <File Include="Content/bootstrap/thumbnails.less">
+      <publishTime>08/21/2017 05:36:12</publishTime>
+    </File>
+    <File Include="Content/bootstrap/tooltip.less">
+      <publishTime>08/21/2017 05:36:12</publishTime>
+    </File>
+    <File Include="Content/bootstrap/type.less">
+      <publishTime>08/21/2017 05:36:12</publishTime>
+    </File>
+    <File Include="Content/bootstrap/utilities.less">
+      <publishTime>08/21/2017 05:36:12</publishTime>
+    </File>
+    <File Include="Content/bootstrap/variables.less">
+      <publishTime>08/21/2017 05:36:12</publishTime>
+    </File>
+    <File Include="Content/bootstrap/wells.less">
+      <publishTime>08/21/2017 05:36:12</publishTime>
+    </File>
     <File Include="Content/color.css">
       <publishTime>07/24/2017 22:50:47</publishTime>
     </File>
@@ -206,6 +422,21 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Content/font-awesome.min.css">
       <publishTime>07/25/2017 03:14:41</publishTime>
+    </File>
+    <File Include="Content/fonts/glyphicons-halflings-regular.eot">
+      <publishTime>08/21/2017 05:36:12</publishTime>
+    </File>
+    <File Include="Content/fonts/glyphicons-halflings-regular.svg">
+      <publishTime>08/21/2017 05:36:12</publishTime>
+    </File>
+    <File Include="Content/fonts/glyphicons-halflings-regular.ttf">
+      <publishTime>08/21/2017 05:36:12</publishTime>
+    </File>
+    <File Include="Content/fonts/glyphicons-halflings-regular.woff">
+      <publishTime>08/21/2017 05:36:12</publishTime>
+    </File>
+    <File Include="Content/fonts/glyphicons-halflings-regular.woff2">
+      <publishTime>08/21/2017 05:36:12</publishTime>
     </File>
     <File Include="Content/jquery-ui.css">
       <publishTime>07/24/2017 22:50:44</publishTime>
@@ -217,7 +448,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/25/2017 03:13:24</publishTime>
     </File>
     <File Include="Content/main.css">
-      <publishTime>07/31/2017 13:42:10</publishTime>
+      <publishTime>08/20/2017 14:24:43</publishTime>
     </File>
     <File Include="Content/morris.css">
       <publishTime>07/24/2017 22:50:39</publishTime>
@@ -273,11 +504,14 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Content/transitions.css">
       <publishTime>07/24/2017 22:50:29</publishTime>
     </File>
+    <File Include="Content/_bootstrap-datetimepicker.less">
+      <publishTime>08/21/2017 05:36:17</publishTime>
+    </File>
     <File Include="DbEntities/KaamShaamDataModel.edmx.diagram">
       <publishTime>01/08/2017 00:11:29</publishTime>
     </File>
     <File Include="DbEntities/KaamShaamModel.edmx.diagram">
-      <publishTime>08/19/2017 02:41:17</publishTime>
+      <publishTime>08/21/2017 14:02:22</publishTime>
     </File>
     <File Include="favicon.ico">
       <publishTime>07/25/2017 02:40:51</publishTime>
@@ -1111,7 +1345,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/24/2017 22:55:39</publishTime>
     </File>
     <File Include="Images/logo.png">
-      <publishTime>07/24/2017 22:51:30</publishTime>
+      <publishTime>08/21/2017 04:13:50</publishTime>
     </File>
     <File Include="Images/logos/img-01.png">
       <publishTime>07/24/2017 22:55:56</publishTime>
@@ -1642,16 +1876,25 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/24/2017 22:51:17</publishTime>
     </File>
     <File Include="packages.config">
-      <publishTime>08/19/2017 17:53:10</publishTime>
+      <publishTime>08/21/2017 05:36:18</publishTime>
+    </File>
+    <File Include="Scripts/bootstrap-datetimepicker.js">
+      <publishTime>08/21/2017 05:36:17</publishTime>
+    </File>
+    <File Include="Scripts/bootstrap-datetimepicker.min.js">
+      <publishTime>08/21/2017 05:36:17</publishTime>
     </File>
     <File Include="Scripts/bootstrap.js">
-      <publishTime>07/26/2016 00:59:31</publishTime>
+      <publishTime>08/21/2017 05:36:12</publishTime>
     </File>
     <File Include="Scripts/bootstrap.min.js">
-      <publishTime>07/26/2016 00:59:31</publishTime>
+      <publishTime>08/21/2017 05:36:12</publishTime>
     </File>
     <File Include="Scripts/Common.js">
       <publishTime>08/18/2017 01:10:02</publishTime>
+    </File>
+    <File Include="Scripts/fullcal.js">
+      <publishTime>08/21/2017 04:37:03</publishTime>
     </File>
     <File Include="Scripts/gmap3.js">
       <publishTime>07/24/2017 22:59:05</publishTime>
@@ -2074,13 +2317,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/18/2017 04:14:33</publishTime>
     </File>
     <File Include="Scripts/mapclustering/data.json">
-      <publishTime>07/24/2017 23:02:31</publishTime>
+      <publishTime>08/20/2017 13:26:47</publishTime>
     </File>
     <File Include="Scripts/mapclustering/infobox.js">
       <publishTime>07/24/2017 23:02:31</publishTime>
     </File>
     <File Include="Scripts/mapclustering/map.js">
-      <publishTime>07/24/2017 23:02:29</publishTime>
+      <publishTime>08/21/2017 00:25:30</publishTime>
     </File>
     <File Include="Scripts/mapclustering/markerclusterer.min.js">
       <publishTime>07/24/2017 23:02:28</publishTime>
@@ -2153,6 +2396,18 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Scripts/masterslider/style/video-close-btn.png">
       <publishTime>07/24/2017 23:02:45</publishTime>
+    </File>
+    <File Include="Scripts/moment-with-locales.js">
+      <publishTime>08/21/2017 04:32:54</publishTime>
+    </File>
+    <File Include="Scripts/moment-with-locales.min.js">
+      <publishTime>08/21/2017 04:32:53</publishTime>
+    </File>
+    <File Include="Scripts/moment.js">
+      <publishTime>08/21/2017 04:32:53</publishTime>
+    </File>
+    <File Include="Scripts/moment.min.js">
+      <publishTime>08/21/2017 04:32:53</publishTime>
     </File>
     <File Include="Scripts/morris.min.js">
       <publishTime>07/24/2017 22:58:57</publishTime>
@@ -2335,7 +2590,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/18/2017 03:13:16</publishTime>
     </File>
     <File Include="Views/Account/Register.cshtml">
-      <publishTime>08/18/2017 04:55:30</publishTime>
+      <publishTime>08/20/2017 21:23:20</publishTime>
     </File>
     <File Include="Views/Account/ResetPassword.cshtml">
       <publishTime>07/25/2017 02:41:10</publishTime>
@@ -2358,6 +2613,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/Admin/Stats.cshtml">
       <publishTime>07/08/2017 00:55:45</publishTime>
     </File>
+    <File Include="Views/Appointment/Upcoming.cshtml">
+      <publishTime>08/21/2017 14:41:52</publishTime>
+    </File>
     <File Include="Views/ApprovalRequest/ApproveContractors.cshtml">
       <publishTime>08/18/2017 03:24:04</publishTime>
     </File>
@@ -2379,6 +2637,12 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/Category/ListView.cshtml">
       <publishTime>08/18/2017 03:59:05</publishTime>
     </File>
+    <File Include="Views/Contractor/FindContractor.cshtml">
+      <publishTime>08/21/2017 01:53:29</publishTime>
+    </File>
+    <File Include="Views/Contractor/FindContractorPartial.cshtml">
+      <publishTime>08/21/2017 00:14:33</publishTime>
+    </File>
     <File Include="Views/Home/About.cshtml">
       <publishTime>07/25/2017 02:40:51</publishTime>
     </File>
@@ -2386,13 +2650,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/25/2017 02:40:51</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>08/18/2017 04:07:14</publishTime>
+      <publishTime>08/21/2017 01:45:38</publishTime>
     </File>
     <File Include="Views/Job/AppliedJobs.cshtml">
       <publishTime>08/19/2017 05:22:32</publishTime>
     </File>
     <File Include="Views/Job/FindJobs.cshtml">
       <publishTime>08/19/2017 04:46:39</publishTime>
+    </File>
+    <File Include="Views/Job/JobProposals.cshtml">
+      <publishTime>08/20/2017 00:33:06</publishTime>
+    </File>
+    <File Include="Views/Job/JobProposalsPartials.cshtml">
+      <publishTime>08/19/2017 23:00:53</publishTime>
     </File>
     <File Include="Views/Job/ListView.cshtml">
       <publishTime>08/14/2017 02:55:43</publishTime>
@@ -2401,10 +2671,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/13/2017 19:48:26</publishTime>
     </File>
     <File Include="Views/Job/ManageJobs.cshtml">
-      <publishTime>08/14/2017 01:11:19</publishTime>
+      <publishTime>08/20/2017 00:22:42</publishTime>
     </File>
     <File Include="Views/Job/ManageJobsPartials.cshtml">
-      <publishTime>08/19/2017 04:34:29</publishTime>
+      <publishTime>08/20/2017 00:25:26</publishTime>
+    </File>
+    <File Include="Views/Job/MyCurrentJobs.cshtml">
+      <publishTime>08/19/2017 23:20:58</publishTime>
     </File>
     <File Include="Views/Job/PostJob.cshtml">
       <publishTime>08/14/2017 23:36:16</publishTime>
@@ -2437,7 +2710,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/25/2017 02:41:10</publishTime>
     </File>
     <File Include="Views/Shared/LeftMenu.cshtml">
-      <publishTime>07/08/2017 00:40:07</publishTime>
+      <publishTime>08/21/2017 02:04:05</publishTime>
     </File>
     <File Include="Views/Shared/Lockout.cshtml">
       <publishTime>07/25/2017 02:41:11</publishTime>
@@ -2446,7 +2719,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/10/2017 06:04:48</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>08/18/2017 04:11:48</publishTime>
+      <publishTime>08/21/2017 14:44:07</publishTime>
     </File>
     <File Include="Views/Shared/_LoginPartial.cshtml">
       <publishTime>07/25/2017 02:41:11</publishTime>
@@ -2467,7 +2740,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/25/2017 02:40:51</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>08/19/2017 20:27:29</publishTime>
+      <publishTime>08/21/2017 14:53:50</publishTime>
     </File>
   </ItemGroup>
 </Project>

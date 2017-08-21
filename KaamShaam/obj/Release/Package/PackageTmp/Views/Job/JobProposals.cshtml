@@ -1,0 +1,363 @@
+﻿<!--************************************
+Inner Page Banner Start
+*************************************-->
+@{
+    string baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority +
+                                   Request.ApplicationPath.TrimEnd('/');
+}
+<style>
+    .disabledAttr {
+        background-color: transparent !important;
+    }
+
+    .appplySpan {
+        width: 45% !important;
+        color: rgb(255, 255, 255) !important;
+        background-color: darkgreen !important;
+        padding: 2px !important;
+        border-radius: 5px !important;
+        display: inline
+    }
+    .appliedspan {
+        display: inline !important;
+    width: 25% !important;
+    margin-left: 5px !important;
+    margin-top: 2px !important;
+    }
+</style>
+@model KaamShaam.Models.ManageJobModel
+<div class="tg-innerpagebanner">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="tg-pagetitle">
+                    <h1>Job Proposals</h1>
+                </div>
+                <ol class="tg-breadcrumb">
+                    <li><a href="#">Home</a></li>
+                    <li class="tg-active">Available Job Proposals</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!--************************************
+        Inner Page Banner End
+*************************************-->
+<!--************************************
+        Main Start
+*************************************-->
+<main id="tg-main" class="tg-main tg-haslayout">
+    <div class="container">
+        <div class="row">
+            <div id="tg-twocolumns" class="tg-twocolumns">
+
+                @{ Html.RenderPartial("LeftMenu");}
+                <div class="col-xs-12 col-sm-7 col-md-8 col-lg-9">
+                    <div id="tg-content" class="tg-content">
+                        <div class="tg-joblisting tg-dashboardmanagejobs">
+                            <div class="tg-dashboardhead">
+                                <div class="tg-dashboardtitle">
+                                    <h2>Available Job Proposals</h2>
+                                </div>
+                                @*<a href="~/job/PostJob"><button class="tg-btnaddservices" data-toggle="modal" data-target=".tg-categoryModal">Post A New Job</button></a>*@
+                            </div>
+                            <div class="tg-sortfilters">
+                                <div class="tg-sortfilter tg-sortby">
+                                    <span>Sort By:</span>
+                                    <div class="tg-select">
+                                        <select id="sortDd" onchange="sortByChanged()">
+                                            <option value="Title">Title</option>
+                                            <option value="Category">Category</option>
+                                            <option value="Date">Date</option>
+                                            <option value="Fee">Fee</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="tg-sortfilter tg-arrange">
+                                    <input type="text" class="form-control" placeholder="Search Jobs..." id="searchJob" />
+                                    @*<span>Arrange:</span>
+                                        <div class="tg-select">
+                                            <select id="sortOrderDd" onchange="sortOrderByChanged()">
+                                                <option value="Aes">Ascending</option>
+                                                <option value="Des">Descending</option>
+                                            </select>
+                                        </div>*@
+                                </div>
+                                <div class="tg-sortfilter tg-show">
+                                    <span>Jobs/Page: </span>
+                                    <div class="tg-select">
+                                        <select onchange="itemsPerPageChanged()" id="itemsPerPageDd" style="padding-left: 95px;">
+                                            <option value="2">2</option>
+                                            <option value="4">4</option>
+                                            <option value="1000">All</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="tg-sortfilter">
+                                    <button id="jobPrevious" class="btn btn-default"><</button>
+                                </div>
+                                <div class="tg-sortfilter tg-show" style="margin-left: 3px;">
+                                    <strong><span id="currentPage" style="margin-left: -6px;">15</span></strong>
+                                    <span style="margin-left: 17px">of</span>
+                                    <strong><span id="totalPage" style="margin-left: 42px;">30</span></strong>
+                                </div>
+                                <div class="tg-sortfilter" style="margin-left: 10%;">
+                                    <button id="jobNext" class="btn btn-default">></button>
+                                </div>
+                                <img class="displayNone" src="~/Images/ajax-loader.gif" id="adminLoading" style="display: none;margin-left: 21px;margin-top: 10px;" />
+                            </div>
+                            <table class="tg-tablejoblidting">
+                                <tbody id="manage-Job-Body">
+                                    @{
+                                        foreach (var item in Model.JobsList)
+                                        {
+                                            var cusStyle = "";
+                                            var iApplied = "";
+                                            var isAppliedClass = "";
+
+                                            if (!item.UserStatus)
+                                            {
+                                                cusStyle = cusStyle + " background-color: #ffeb99;";
+                                            }
+                                            if (item.IfIApplied)
+                                            {
+                                                iApplied = "[Applied]";
+                                                isAppliedClass = "appplySpan";
+                                            }
+                                            <tr style="cursor: pointer;" data-toggle="modal" data-target="#updateJob" onclick="editJob(@Json.Encode(item))">
+                                                <td style="@cusStyle">
+                                                    <figure class="tg-companylogo">
+                                                        <img src="@baseUrl/Images/contractor-dashboard/small1.jpg" alt="image description">
+                                                        <a class="tg-btndel" href="#"><i class="fa fa-close"></i></a>
+
+                                                    </figure>
+                                                    <div class="tg-contentbox">
+                                                        <a class="tg-tag tg-featuredtag" href="#">@item.PostingDate</a>
+                                                        <div class="tg-title">
+                                                            <h3>
+                                                                <a href="#">@item.CatName Required</a> <span class="appplySpan">@item.JobHistory.FirstOrDefault().ContractorName</span><span class="appliedspan">Applied</span>
+                                                            </h3>
+                                                        </div>
+                                                        <span>@item.JobTitle</span>
+                                                    </div>
+                                                </td>
+                                                <td style="line-height: 12px; padding-top: 29px;"><span>@item.LocationName</span></td>
+                                                <td style="line-height: 18px; padding-top: 27px;">
+                                                    <span>@item.Mobile</span>
+                                                    <span>@item.Email</span>
+                                                </td>
+                                                <td><span>Rs. @item.Fee</span></td>
+                                            </tr>
+                                        }
+                                    }
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<style>
+    .width45 {
+        width: 47%;
+    }
+</style>
+@{
+    var cats = new List<SelectListItem>();
+    if (Model.Categories != null && Model.Categories.Any())
+    {
+        foreach (var cat in Model.Categories)
+        {
+            cats.Add(new SelectListItem { Text = cat.Name, Value = cat.Id.ToString() });
+        }
+    }
+}
+<!-- basic info -->
+<div class="modal fade" id="updateJob" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                <h3 class="modal-title">Job Details</h3>
+            </div>
+            <div class="modal-body" style="height:300px; padding: 4%;">
+
+                <!-- content goes here -->
+                <div class="form-group">
+                    <label> Job Title & Description</label>
+                    <input type="text" class="form-control disabledAttr" disabled="" id="jobTitle">
+                </div>
+
+                <div class="form-group width45">
+                    <label> Category</label>
+                    <input type="text" class="form-control disabledAttr" disabled="" id="jobCat">
+                    @*@Html.DropDownList("selection", cats, new { @class = "form-control disabledAttr", @id = "jobCat" })*@
+                </div>
+                <div class="form-group width45" style="margin-left: 29px">
+                    <label> Fee</label>
+                    <input type="text" class="form-control disabledAttr" id="jobFee" disabled="">
+                </div>
+                <div class="form-group width45">
+                    <label> Mobile</label>
+                    <input type="text" class="form-control disabledAttr" id="jobMobile" disabled="">
+                </div>
+                <div class="form-group width45" style="margin-left: 29px">
+                    <label> Email</label>
+                    <input type="email" class="form-control disabledAttr" id="jobEmail" disabled="">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="btn-group btn-group-justified" role="group" aria-label="group button">
+                    <div class="btn-group" role="group">
+                        <button type="button" id="save-Basic-info-btn" class="btn btn-primary btn-hover-green" data-action="save" role="button" onclick="acceptProposal()">Accept Proposal</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--************************************
+        Main End
+*************************************-->
+<script src="~/Scripts/vendor/jquery-library.js"></script>
+
+<script>
+
+    var pageDataObj=@Html.Raw(Json.Encode(Model.Pagging));
+    var objtoedit = undefined;
+    $(document).ready(function() {
+        setPage(pageDataObj);
+    });
+    function editJob(obj) {
+        $("#jobTitle").val(obj.JobTitle);
+        //  $("#jobCat").val(obj.CategoryId);
+        $("#jobCat").val(obj.CatName);
+        $("#jobFee").val(obj.Fee);
+        $("#jobMobile").val(obj.Mobile);
+        $("#jobEmail").val(obj.Email);
+        //if (obj.IfIApplied) {
+       //////     $("#save-Basic-info-btn").text('Cancel Job').css('background-color','orange');
+       // } else {
+         //   $("#save-Basic-info-btn").text('Apply Job').css('background-color','green');
+      //  }
+        objtoedit = obj;
+    }
+
+    function opPerformed(data) {
+        toastr.success("Operation performed");
+        $('#manage-Job-Body').html(data);
+        $('#updateJob').modal('hide');
+        $('#adminLoading').hide();
+    }
+    function postMydata(serverObj, url, successFunc) {
+        $('#adminLoading').show();
+        $.ajax({
+            url: url,
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            dataType: "html",
+            data: JSON.stringify(serverObj),
+            success: successFunc,
+            error: function (data) {
+                $('#adminLoading').hide();
+                toastr.error("Job failed to update");
+            }
+        });
+    }
+    function acceptProposal() {
+        var serverObj = {};
+        serverObj.Id = objtoedit.Id;
+        serverObj.PurposalText = "I approve your job.";
+        serverObj.ContractorId = objtoedit.JobHistory[0].ContractorId;
+
+        var wraperObj = {};
+        wraperObj.JobModel = serverObj;
+        wraperObj.PageObj = pageDataObj;
+        postMydata(wraperObj, "AssignJob", opPerformed);
+        pageDataObj.TotalItems --;
+        setPage(pageDataObj);
+    }
+
+    function setPage(pageObj) {
+        $("#sortDd").val(pageObj.SortBy);
+        $("#sortOrderDd").val(pageObj.SortOrder);
+        $("#itemsPerPageDd").val(pageObj.ItemsPerPage);
+        $("#currentPage").text(pageObj.CurrentPage);
+        var tPages = pageObj.TotalItems / pageObj.ItemsPerPage;
+        if (pageObj.TotalItems % pageObj.ItemsPerPage > 0)
+        {
+            tPages++;
+        }
+        pageObj.TotalPages = parseInt(tPages);
+        $("#totalPage").text(parseInt(tPages));
+        if (pageObj.CurrentPage === pageObj.TotalPages) {
+            $("#jobNext").prop('disabled', true);
+        } else {
+            $("#jobNext").prop('disabled', false);
+        }
+
+        if (pageObj.CurrentPage === 1) {
+            $("#jobPrevious").prop('disabled', true);
+        } else {
+            $("#jobPrevious").prop('disabled', false);
+        }
+    }
+
+    $("#jobNext").click(function() {
+        getSortedJobs();
+        pageDataObj.CurrentPage++;
+    });
+    $("#jobPrevious").click(function() {
+        pageDataObj.CurrentPage = pageDataObj.CurrentPage - 2;
+        getSortedJobs();
+        pageDataObj.CurrentPage++;
+    });
+    function upDatePage(data) {
+        $('#manage-Job-Body').html(data);
+        setPage(pageDataObj);
+        $('#adminLoading').hide();
+    }
+
+    function sortByChanged() {
+        pageDataObj.CurrentPage = 0;
+        var val = $("#sortDd").val();
+        pageDataObj.SortBy = val;
+        getSortedJobs();
+        pageDataObj.CurrentPage++;
+    }
+
+    function sortOrderByChanged() {
+        pageDataObj.CurrentPage = 0;
+        var val = $("#sortOrderDd").val();
+        pageDataObj.SortOrder = val;
+        getSortedJobs();
+        pageDataObj.CurrentPage++;
+    }
+
+    function itemsPerPageChanged() {
+        pageDataObj.CurrentPage = 0;
+        var val = $("#itemsPerPageDd").val();
+        pageDataObj.ItemsPerPage = val;
+        getSortedJobs();
+        pageDataObj.CurrentPage++;
+    }
+    function getSortedJobs() {
+        postMydata(pageDataObj, "GetJobProposalsSorted", upDatePage);
+    }
+
+    $('.li-manage-jobs').addClass('tg-active');
+
+    $('#searchJob').keyup(function() {
+        pageDataObj.CurrentPage = 0;
+        pageDataObj.SearchTerm = $(this).val();
+        pageDataObj.CategoryId = $('#jobCatList').val();
+        getSortedJobs();
+        pageDataObj.CurrentPage++;
+    });
+</script>

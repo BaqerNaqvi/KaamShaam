@@ -2761,6 +2761,7 @@ body.tg-login .tg-useradminbox,
 	right: -13px;
 	z-index:10;
 	position: absolute !important;
+    content:url("../Images/cross.png");
 }
 .tg-infoBox{
 	padding: 25px;

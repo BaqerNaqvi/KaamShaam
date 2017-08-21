@@ -22,6 +22,8 @@ namespace KaamShaam.DbEntities
             this.AspNetRoles = new HashSet<AspNetRole>();
             this.Jobs = new HashSet<Job>();
             this.JobHistories = new HashSet<JobHistory>();
+            this.MyCreatedAppointments = new HashSet<Appointment>();
+            this.MyWithAppointments = new HashSet<Appointment>();
         }
     
         public string Id { get; set; }
@@ -62,5 +64,9 @@ namespace KaamShaam.DbEntities
         public virtual ICollection<Job> Jobs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<JobHistory> JobHistories { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Appointment> MyCreatedAppointments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Appointment> MyWithAppointments { get; set; }
     }
 }
