@@ -453,7 +453,7 @@
                                             <a href="http://www.domainurl.com ">http://www.kaamshaam.pk</a>
                                             <time datetime="2016-08-08">3 hours ago</time>
                                         </li>
-                                        <li><a href="javascript:void(0);">view all</a></li>
+                                        <li><a class="tg-btn tg-btnviewall" href="https://twitter.com">view all</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -493,7 +493,7 @@
                                                     <li><span class="tg-stars"><span></span></span></li>
                                                     <li>
                                                         <i class="fa fa-thumbs-o-up"></i>
-                                                        <em>99% (70 votes)</em>
+                                                        <em>0% (0 votes)</em>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -508,7 +508,7 @@
                                                     <li><span class="tg-stars"><span></span></span></li>
                                                     <li>
                                                         <i class="fa fa-thumbs-o-up"></i>
-                                                        <em>99% (369 votes)</em>
+                                                        <em>99% (0 votes)</em>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -521,12 +521,12 @@
                                                     <li><span class="tg-stars"><span></span></span></li>
                                                     <li>
                                                         <i class="fa fa-thumbs-o-up"></i>
-                                                        <em>99% (1009 votes)</em>
+                                                        <em>0% (0 votes)</em>
                                                     </li>
                                                 </ul>
                                             </div>
                                         </li>
-                                        <li><a href="javascript:void(0);">view all</a></li>
+                                        @*<li><a href="javascript:void(0);">view all</a></li>*@
                                     </ul>
                                 </div>
                             </div>
@@ -543,7 +543,7 @@
                                 <ul>
                                     <li><a href="#">Privacy Policy</a></li>
                                     <li><a href="#">Term and Conditions</a></li>
-                                    <li><a href="#">Contact</a></li>
+                                    <li><a href="@baseUrl/Home/Contact">Contact</a></li>
                                 </ul>
                             </nav>
                         </div>
@@ -560,9 +560,14 @@
     *************************************-->
 @{
     var appurl = Request.Url.AbsolutePath.ToLower();
-    if (!appurl.Contains("appointment/upcoming") && !appurl.Contains("appointment/getdayevents"))
+    <script>
+            console.log("You are on: " + @Html.Raw(Json.Encode(appurl)));
+    </script>
+    if (!appurl.Contains("appointment/upcoming") && !appurl.Contains("appointment/getdayevents")
+        && !appurl.Contains("home/index") && !(appurl.Count() == 1))
     {
-        <script src="~/Scripts/vendor/jquery-library.js"></script>
+        <script> console.log("Script added");</script>
+       <script src="~/Scripts/vendor/jquery-library.js"></script>
     }
 }
 
@@ -570,9 +575,6 @@
 
     <script src="~/Scripts/vendor/bootstrap.min.js"></script>
 
-    <script src="~/Scripts/mapclustering/markerclusterer.min.js"></script>
-    @*<script src="~/Scripts/mapclustering/map.js"></script>
-    <script src="~/Scripts/mapclustering/infobox.js"></script>*@
 
 
 <script src="~/Scripts/readmore.js"></script>
@@ -580,7 +582,6 @@
     <script src="~/Scripts/owl.carousel.min.js"></script>
     <script src="~/Scripts/scrollbar.min.js"></script>
     <script src="~/Scripts/prettyPhoto.js"></script>
-    @*<script src="~/Scripts/gmap3.js"></script>*@
     <script src="~/Scripts/main.js"></script>
     <script src="~/Scripts/toastr.js"></script>
 
@@ -588,23 +589,23 @@
 </html>
 <script src="~/Scripts/masterslider/masterslider.min.js"></script>
 <script type="text/javascript">
-(function($) {
- "use strict";
-	var slider = new MasterSlider();
-	// adds Arrows navigation control to the slider.
-	slider.control('arrows');
-	slider.control('bullets');
+    (function($) {
+        "use strict";
+        var slider = new MasterSlider();
+        // adds Arrows navigation control to the slider.
+        slider.control('arrows');
+        slider.control('bullets');
 
-	slider.setup('masterslider' , {
-		 width:1600,    // slider standard width
-		 height:650,   // slider standard height
-		 space:0,
-		 speed:45,
-		 layout:'fullwidth',
-		 loop:true,
-		 preload:0,
-		 autoplay:true,
-		 view:"parallaxMask"
-	});
-})(jQuery);
+        slider.setup('masterslider' , {
+            width:1600,    // slider standard width
+            height:650,   // slider standard height
+            space:0,
+            speed:45,
+            layout:'fullwidth',
+            loop:true,
+            preload:0,
+            autoplay:true,
+            view:"parallaxMask"
+        });
+    })(jQuery);
 </script>

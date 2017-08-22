@@ -90,6 +90,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -1212,6 +1213,7 @@
     <Content Include="Views\Appointment\Upcoming.cshtml" />
     <Content Include="Views\Appointment\Detail.cshtml" />
     <Content Include="Views\Appointment\GetDayEvents.cshtml" />
+    <Content Include="Views\Contractor\ViewProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

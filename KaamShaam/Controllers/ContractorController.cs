@@ -8,17 +8,14 @@ using KaamShaam.AdminServices;
 using KaamShaam.LocalModels;
 using KaamShaam.Models;
 using KaamShaam.Services;
+using Microsoft.AspNet.Identity;
 
 namespace KaamShaam.Controllers
 {
     public class ContractorController : Controller
     {
-        // GET: Contractor
         public ActionResult FindContractor(long? categoryId)
         {
-
-       //    var dist= Commons.GeodesicDistance.GetDistance(31.476535115002306, 74.32158172130585, 31.478077, 74.331951);
-
             string baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority +
                                   Request.ApplicationPath.TrimEnd('/');
             var contractors = AdminService.GetUsersByType("Contractor");
@@ -37,8 +34,6 @@ namespace KaamShaam.Controllers
 
             return View(list);
         }
-
-
         [HttpPost]
         public ActionResult FindContractor(ContractorRequestModel model)
         {
@@ -77,7 +72,6 @@ namespace KaamShaam.Controllers
             };
             return PartialView("~/Views/Contractor/FindContractorPartial.cshtml", list);
         }
-
         public List<MapPlaceModel> FormatMapData(List<AdminModels.LocalUser> contractors, string baseUrl)
         {
             var places = new List<MapPlaceModel>();
@@ -102,8 +96,31 @@ namespace KaamShaam.Controllers
             }
             return places;
         }
+        [HttpGet]
+        public ActionResult GetSuggestions(string query)
+        {
+            var data = new List<UserSuggestionModel>();
+            var cats = CategoryService.GetAllCategories();
+            foreach (var cat in cats)
+            {
+                if (cat.Name.ToLower().Contains(query.ToLower()))
+                {
+                    var contractorForThatCat = UserServices.GetContractorCategoryId(cat.Id);
+                    data.Add(new UserSuggestionModel
+                    {
+                        id = cat.Id.ToString(),
+                        label = cat.Name+" (with "+cat.JobCount+" Jobs , "+contractorForThatCat.Count+" Service Provider)"
+                    });
+                }
+            }
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
 
+        [HttpGet]
+        public ActionResult ViewProfile(string userId)
+        {
+            var contractor = UserServices.GetUserById(userId);
+            return View(contractor);
+        }
     }
-
-
-}
+} 

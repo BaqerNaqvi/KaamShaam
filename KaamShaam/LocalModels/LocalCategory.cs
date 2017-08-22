@@ -13,6 +13,7 @@ namespace KaamShaam.LocalModels
         public bool Status { get; set; }
         public bool IsApproved { get; set; }
         public string Feedback { get; set; }
+        public int JobCount { get; set; }
     }
 
     public static class CategoryMapper
@@ -25,7 +26,9 @@ namespace KaamShaam.LocalModels
                 Name = source.Name,
                 Status = source.Status,
                 IsApproved = source.IsApproved,
-                Feedback = source.Feedback
+                Feedback = source.Feedback,
+                JobCount = source.Jobs.Count
+                
             };
         }
     }

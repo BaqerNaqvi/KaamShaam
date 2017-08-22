@@ -13,19 +13,22 @@ namespace KaamShaam.Services
         {
             using (var dbContext = new KaamShaamEntities())
             {
-                var dbCats = dbContext.Categories.Where(cat => cat.Status && cat.IsApproved).ToList().Select( pbj => pbj.Mapper()).ToList();
+                var dbCats = dbContext.Categories.
+                    Where(cat => cat.Status && cat.IsApproved).ToList().Select( pbj => pbj.Mapper()).ToList();
                 return dbCats;
             }
         }
+       
+
         public static LocalCategory GetCategoryById(long? id)
         {
-            if (id!=null)
+            if (id != null)
             {
                 using (var dbContext = new KaamShaamEntities())
                 {
                     var dbCats = dbContext.Categories.FirstOrDefault(obj => obj.Id == id).Mapper();
                     return dbCats;
-                } 
+                }
             }
             return null;
         }

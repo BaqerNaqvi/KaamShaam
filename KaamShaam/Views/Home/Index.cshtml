@@ -15,6 +15,25 @@ Header End
             display: table !important;
         }
     </style>
+    <style>
+        .fc-day-grid-container {
+            height: 595px !important;
+        }
+
+        .ui-autocomplete {
+            z-index: 2147483647;
+        }
+
+        li {
+            list-style: none;
+        }
+        .dropdown-menu {
+    width: 87% !important;
+    top: 70px !important;
+    left: 0px !important;
+    padding: 13px !important;
+        }
+    </style>
 </head>
 <!--************************-->
 <!-- masterslider -->
@@ -446,17 +465,21 @@ Header End
 <!--************************************
         Main Start
 *************************************-->
-<main id="tg-main" class="tg-main tg-haslayout" style="padding-top: 20px;">
+<main id="tg-main" class="tg-main tg-haslayout" style="padding-top: 19px;">
     <!--************************************
             Top Categories Start
     *************************************-->
-    <section class="tg-main-section tg-haslayout">
+    <section class="tg-main-section tg-haslayout" style="padding-top: 19px;">
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-10 col-md-push-1 col-lg-8 col-lg-push-2">
                     <div class="tg-sectionhead">
                         <div class="tg-sectiontitle">
                             <h2>Contractor Categories</h2>
+                            <input  id="mysearch" type="search" class="form-control" placeholder="Search Contractor Categories ..." style="width: 87%; margin-top: 12px;float: left;"/>
+                            <input onclick="gotocatsearch()" type="button" value="Search" class="form-control btn btn-primary" style="width: 11%; margin-top: 12px;"/>
+                            <img class="ajaxloader" id="myloader" src="~/Images/ajax-loader.gif" style="margin-top: -63px;margin-left: 69%;" />
+
                         </div>
                         <div class="tg-description">
                             <p>Consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim adia minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip extea commodo consequat.</p>
@@ -531,7 +554,7 @@ Header End
                                 <h3><a href="#">Plan Your Task</a></h3>
                             </div>
                             <div class="tg-description">
-                                <p>Adipisicing elit sed dotas eiusmod incididunt utia labore.</p>
+                                <p>Plan your services & enjoy the comfort.</p>
                             </div>
                         </div>
                     </div>
@@ -545,7 +568,7 @@ Header End
                                 <h3><a href="#">Choose Best Service</a></h3>
                             </div>
                             <div class="tg-description">
-                                <p>Adipisicing elit sed dotas eiusmod incididunt utia labore.</p>
+                                <p>Pick best services from market that suit you.</p>
                             </div>
                         </div>
                     </div>
@@ -559,7 +582,7 @@ Header End
                                 <h3><a href="#">Live Stress Free</a></h3>
                             </div>
                             <div class="tg-description">
-                                <p>Adipisicing elit sed dotas eiusmod incididunt utia labore.</p>
+                                <p>Assign task to service provider & no more stress</p>
                             </div>
                         </div>
                     </div>
@@ -573,7 +596,7 @@ Header End
                                 <h3><a href="#">Share Your Experience</a></h3>
                             </div>
                             <div class="tg-description">
-                                <p>Adipisicing elit sed dotas eiusmod incididunt utia labore.</p>
+                                <p>Evaluate service provider on job ending</p>
                             </div>
                         </div>
                     </div>
@@ -606,25 +629,25 @@ Header End
                             <figure class="tg-featuredimg">
                                 <img src="~/Images/serviceproviders/img-01.jpg" alt="image description">
                                 <figcaption>
-                                    <a class="tg-themetag tg-categorytag" href="jobdetail.php">Electrician</a>
-                                    <a class="tg-heart tg-liked" href="jobdetail.php"><i class="fa fa-heart"></i></a>
+                                    <a class="tg-themetag tg-categorytag" href="~/job/FindJobs">Electrician</a>
+                                    <a class="tg-heart tg-liked" href="~/job/FindJobs"><i class="fa fa-heart"></i></a>
                                 </figcaption>
                             </figure>
                             <div class="tg-serviceprovidercontent">
                                 <div class="tg-companylogo"><a href="#"><img src="@baseUrl/Images/logos/img-01.png" alt="image description"></a></div>
                                 <div class="tg-companycontent">
                                     <ul class="tg-tags">
-                                        <li><a class="tg-tag tg-featuredtag" href="jobdetail.php">view job</a></li>
+                                        <li><a class="tg-tag tg-featuredtag" href="~/job/FindJobs">view job</a></li>
                                         <li><a class="tg-tag tg-verifiedtag" href="#">verified</a></li>
                                     </ul>
                                     <div class="tg-title">
-                                        <h3><a href="jobdetail.php">DHA Lahore</a></h3>
+                                        <h3><a href="~/job/FindJobs">I need a Electration</a></h3>
                                     </div>
                                     <ul class="tg-matadata">
                                         <li><span class="tg-stars"><span></span></span></li>
                                         <li>
                                             <i class="fa fa-thumbs-o-up"></i>
-                                            <em>99% (1009 votes)</em>
+                                            <em>0% (0 votes)</em>
                                         </li>
                                     </ul>
                                 </div>
@@ -636,25 +659,25 @@ Header End
                             <figure class="tg-featuredimg">
                                 <img src="~/Images/serviceproviders/img-02.jpg" alt="image description">
                                 <figcaption>
-                                    <a class="tg-themetag tg-categorytag" href="jobdetail.php">Plumber</a>
-                                    <a class="tg-heart" href="jobdetail.php"><i class="fa fa-heart"></i></a>
+                                    <a class="tg-themetag tg-categorytag" href="~/job/FindJobs">Plumber</a>
+                                    <a class="tg-heart" href="~/job/FindJobs"><i class="fa fa-heart"></i></a>
                                 </figcaption>
                             </figure>
                             <div class="tg-serviceprovidercontent">
                                 <div class="tg-companylogo"><a href="#"><img src="~/Images/logos/img-02.png" alt="image description"></a></div>
                                 <div class="tg-companycontent">
                                     <ul class="tg-tags">
-                                        <li><a class="tg-tag tg-featuredtag" href="jobdetail.php">view job</a></li>
+                                        <li><a class="tg-tag tg-featuredtag"  href="~/job/FindJobs">view job</a></li>
                                         <li><a class="tg-tag tg-verifiedtag" href="#">verified</a></li>
                                     </ul>
                                     <div class="tg-title">
-                                        <h3><a href="jobdetail.php">Bridge Colony Lahore</a></h3>
+                                        <h3><a href="~/job/FindJobs">Bridge Colony Lahore</a></h3>
                                     </div>
                                     <ul class="tg-matadata">
                                         <li><span class="tg-stars"><span></span></span></li>
                                         <li>
                                             <i class="fa fa-thumbs-o-up"></i>
-                                            <em>99% (1009 votes)</em>
+                                            <em>0% (0 votes)</em>
                                         </li>
                                     </ul>
                                 </div>
@@ -666,25 +689,25 @@ Header End
                             <figure class="tg-featuredimg">
                                 <img src="~/Images/serviceproviders/img-03.jpg" alt="image description">
                                 <figcaption>
-                                    <a class="tg-themetag tg-categorytag" href="jobdetail.php">Carpenter</a>
-                                    <a class="tg-heart tg-liked" href="jobdetail.php"><i class="fa fa-heart"></i></a>
+                                    <a class="tg-themetag tg-categorytag" href="~/job/FindJobs">Carpenter</a>
+                                    <a class="tg-heart tg-liked" href="~/job/FindJobs"><i class="fa fa-heart"></i></a>
                                 </figcaption>
                             </figure>
                             <div class="tg-serviceprovidercontent">
                                 <div class="tg-companylogo"><a href="#"><img src="~/Images/logos/img-03.png" alt="image description"></a></div>
                                 <div class="tg-companycontent">
                                     <ul class="tg-tags">
-                                        <li><a class="tg-tag tg-featuredtag" href="jobdetail.php">view job</a></li>
+                                        <li><a class="tg-tag tg-featuredtag"  href="~/job/FindJobs">view job</a></li>
                                         <li><a class="tg-tag tg-verifiedtag" href="#">verified</a></li>
                                     </ul>
                                     <div class="tg-title">
-                                        <h3><a href="jobdetail.php">Walton Lahore </a></h3>
+                                        <h3><a href="~/job/FindJobs">Test Job</a></h3>
                                     </div>
                                     <ul class="tg-matadata">
                                         <li><span class="tg-stars"><span></span></span></li>
                                         <li>
                                             <i class="fa fa-thumbs-o-up"></i>
-                                            <em>99% (1009 votes)</em>
+                                            <em>0% (0 votes)</em>
                                         </li>
                                     </ul>
                                 </div>
@@ -696,25 +719,25 @@ Header End
                             <figure class="tg-featuredimg">
                                 <img src="~/Images/serviceproviders/img-04.jpg" alt="image description">
                                 <figcaption>
-                                    <a class="tg-themetag tg-categorytag" href="jobdetail.php">General Contractor</a>
-                                    <a class="tg-heart tg-liked" href="jobdetail.php"><i class="fa fa-heart"></i></a>
+                                    <a class="tg-themetag tg-categorytag" href="~/job/FindJobs">General Contractor</a>
+                                    <a class="tg-heart tg-liked" href="~/job/FindJobs"><i class="fa fa-heart"></i></a>
                                 </figcaption>
                             </figure>
                             <div class="tg-serviceprovidercontent">
-                                <div class="tg-companylogo"><a href="jobdetail.php"><img src="~/Images/logos/img-04.png" alt="image description"></a></div>
+                                <div class="tg-companylogo"><a href="~/job/FindJobs"><img src="~/Images/logos/img-04.png" alt="image description"></a></div>
                                 <div class="tg-companycontent">
                                     <ul class="tg-tags">
-                                        <li><a class="tg-tag tg-featuredtag" href="jobdetail.php">view job</a></li>
+                                        <li><a class="tg-tag tg-featuredtag"  href="~/job/FindJobs">view job</a></li>
                                         <li><a class="tg-tag tg-verifiedtag" href="#">verified</a></li>
                                     </ul>
                                     <div class="tg-title">
-                                        <h3><a href="jobdetail.php">Multan Road Lahore</a></h3>
+                                        <h3><a href="~/job/FindJobs">Multan Road Lahore</a></h3>
                                     </div>
                                     <ul class="tg-matadata">
                                         <li><span class="tg-stars"><span></span></span></li>
                                         <li>
                                             <i class="fa fa-thumbs-o-up"></i>
-                                            <em>99% (1009 votes)</em>
+                                            <em>0% (0 votes)</em>
                                         </li>
                                     </ul>
                                 </div>
@@ -726,25 +749,25 @@ Header End
                             <figure class="tg-featuredimg">
                                 <img src="~/Images/serviceproviders/img-05.jpg" alt="image description">
                                 <figcaption>
-                                    <a class="tg-themetag tg-categorytag" href="jobdetail.php">Handyman</a>
-                                    <a class="tg-heart tg-liked" href="jobdetail.php"><i class="fa fa-heart"></i></a>
+                                    <a class="tg-themetag tg-categorytag" href="~/job/FindJobs">Handyman</a>
+                                    <a class="tg-heart tg-liked" href="~/job/FindJobs"><i class="fa fa-heart"></i></a>
                                 </figcaption>
                             </figure>
                             <div class="tg-serviceprovidercontent">
                                 <div class="tg-companylogo"><a href="#"><img src="~/Images/logos/img-05.png" alt="image description"></a></div>
                                 <div class="tg-companycontent">
                                     <ul class="tg-tags">
-                                        <li><a class="tg-tag tg-featuredtag" href="jobdetail.php">view job</a></li>
+                                        <li><a class="tg-tag tg-featuredtag" href="~/job/FindJobs">view job</a></li>
                                         <li><a class="tg-tag tg-verifiedtag" href="#">verified</a></li>
                                     </ul>
                                     <div class="tg-title">
-                                        <h3><a href="jobdetail.php">Ichra Lahore</a></h3>
+                                        <h3><a href="~/job/FindJobs">Ichra Lahore</a></h3>
                                     </div>
                                     <ul class="tg-matadata">
                                         <li><span class="tg-stars"><span></span></span></li>
                                         <li>
                                             <i class="fa fa-thumbs-o-up"></i>
-                                            <em>99% (1009 votes)</em>
+                                            <em>0% (0 votes)</em>
                                         </li>
                                     </ul>
                                 </div>
@@ -756,25 +779,25 @@ Header End
                             <figure class="tg-featuredimg">
                                 <img src="~/Images/serviceproviders/img-06.jpg" alt="image description">
                                 <figcaption>
-                                    <a class="tg-themetag tg-categorytag" href="jobdetail.php">Computer &amp; Mobile Service</a>
-                                    <a class="tg-heart tg-liked" href="jobdetail.php"><i class="fa fa-heart"></i></a>
+                                    <a class="tg-themetag tg-categorytag" href="~/job/FindJobs">Computer &amp; Mobile Service</a>
+                                    <a class="tg-heart tg-liked" href="~/job/FindJobs"><i class="fa fa-heart"></i></a>
                                 </figcaption>
                             </figure>
                             <div class="tg-serviceprovidercontent">
                                 <div class="tg-companylogo"><a href="#"><img src="~/Images/logos/img-06.png" alt="image description"></a></div>
                                 <div class="tg-companycontent">
                                     <ul class="tg-tags">
-                                        <li><a class="tg-tag tg-featuredtag" href="jobdetail.php">view job</a></li>
+                                        <li><a class="tg-tag tg-featuredtag" href="~/job/FindJobs">view job</a></li>
                                         <li><a class="tg-tag tg-verifiedtag" href="#">verified</a></li>
                                     </ul>
                                     <div class="tg-title">
-                                        <h3><a href="jobdetail.php">Shadman Lahore</a></h3>
+                                        <h3><a href="~/job/FindJobs">Shadman Lahore</a></h3>
                                     </div>
                                     <ul class="tg-matadata">
                                         <li><span class="tg-stars"><span></span></span></li>
                                         <li>
                                             <i class="fa fa-thumbs-o-up"></i>
-                                            <em>99% (1009 votes)</em>
+                                            <em>0% (0 votes)</em>
                                         </li>
                                     </ul>
                                 </div>
@@ -817,13 +840,13 @@ Header End
                                     <blockquote><q>Consectetur adipisicing elit sed eiusmod tempor incididunt labore et dolore magna aliqua eantnim adia minim veniam quis nostrud exercitation ullamco laboris.</q></blockquote>
                                 </div>
                             </div>
-                            <div class="item">
+                            @*<div class="item">
                                 <div class="tg-testimonial">
                                     <h2>Sundas Bukhari</h2>
                                     <h3>Best platform to get services</h3>
                                     <blockquote><q>Consectetur adipisicing elit sed eiusmod tempor incididunt labore et dolore magna aliqua eantnim adia minim veniam quis nostrud exercitation ullamco laboris.</q></blockquote>
                                 </div>
-                            </div>
+                            </div>*@
                             <div class="item">
                                 <div class="tg-testimonial">
                                     <h2>Nimra Yaseen</h2>
@@ -887,7 +910,7 @@ Header End
     <!--************************************
             News & Posts Start
     *************************************-->
-    <section class="tg-main-section tg-haslayout">
+    <section class="tg-main-section tg-haslayout" style="display: none">
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-10 col-md-push-1 col-lg-8 col-lg-push-2">
@@ -1013,7 +1036,7 @@ Header End
             </div>
         </div>
         <div class="tg-btnbox">
-            <a class="tg-btn tg-btnviewall" href="#">view all</a>
+            <a class="tg-btn tg-btnviewall" href="https://twitter.com">view all</a>
         </div>
     </section>
     <!--************************************
@@ -1023,9 +1046,48 @@ Header End
 <!--************************************
         Main End
 *************************************-->
-<script src="~/Scripts/jquery-3.2.1.js"></script>
+<script src="~/Scripts/vendor/jquery-library.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.js"></script>
+
 <Script>
+    $("#myloader").hide();
+    var objects = [];
+    var map = {};
+    var catId;
+    $(document).ready(function() {
+        $('#mysearch').typeahead({
+                source: function (query, process) {
+                return $.getJSON(
+                    'Contractor/GetSuggestions',
+                    { query: query },
+                    function (data) {
+                        $('#myloader').hide();
+                        objects = [];
+                        map = {};
+                        $.each(data, function (i, object) {
+                            map[object.label] = object;
+                            objects.push(object.label);
+                        });
+                        process(objects);
+                    });
+            }
+            ,
+            updater: function (item) {
+                $('#myloader').hide();
+                catId = (map[item].id);
+                return item;
+            }
+        }).on('keyup', this, function (event) {
+            $('#myloader').show();
+        });
+    });
+    setInterval(function () {
+        $('#myloader').hide();
+    }, 5000);
     function gotoCat(obj) {
         window.location = "../Contractor/FindContractor?categoryId=" + obj.CategoryId;
+    }
+    function gotocatsearch() {
+        window.location = "../Contractor/FindContractor?categoryId=" + catId;
     }
 </Script>

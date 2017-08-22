@@ -23,7 +23,7 @@ namespace KaamShaam.Services
             using (var dbContext = new KaamShaamEntities())
             {
                 DbGeography loc = null;
-                if (!string.IsNullOrEmpty(user.LocationCord) && user.LocationCord != "")
+                if (!String.IsNullOrEmpty(user.LocationCord) && user.LocationCord != "")
                 {
                     var latlng = user.LocationCord.Split('_');
                     if (latlng.Length == 2)
@@ -97,7 +97,7 @@ namespace KaamShaam.Services
                 if (dbuser != null)
                 {
                     DbGeography loc = null;
-                    if (!string.IsNullOrEmpty(user.LocTempo) && user.LocTempo != "")
+                    if (!String.IsNullOrEmpty(user.LocTempo) && user.LocTempo != "")
                     {
                         var latlng = user.LocTempo.Split('_');
                         if (latlng.Length == 2)
@@ -171,6 +171,17 @@ namespace KaamShaam.Services
             }
         }
 
-
+        public static List<LocalUser> GetContractorCategoryId(long catId)
+        {
+            if (catId != null)
+            {
+                using (var dbContext = new KaamShaamEntities())
+                {
+                    var dbusers = dbContext.AspNetUsers.Where(u => u.CategoryId == catId && u.Type == "Contractor").ToList();
+                    return dbusers.Select(d=>d.MapUser()).ToList();
+                }
+            }
+            return null;
+        }
     }
 }

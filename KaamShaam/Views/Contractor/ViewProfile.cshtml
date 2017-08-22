@@ -1,0 +1,346 @@
+﻿
+@{
+    string baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority +
+                                   Request.ApplicationPath.TrimEnd('/');
+}
+@model KaamShaam.LocalModels.LocalUser
+    @{
+        var imgg = Model.Id + "_110.png";
+    }
+<head>
+    <title>Contractor Profile</title>
+</head>
+<!--************************************
+        Inner Page Banner Start
+*************************************-->
+<div class="tg-innerpagebanner">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="tg-pagetitle">
+                    <h1>Contractor Profile</h1>
+                </div>
+                <ol class="tg-breadcrumb">
+                    <li><a href="~/Home/Index">Home</a></li>
+                    <li class="tg-active">Contractor Profile</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!--************************************
+        Inner Page Banner End
+*************************************-->
+<!--************************************
+        Main Start
+*************************************-->
+<main id="tg-main" class="tg-main tg-haslayout tg-paddingzero">
+    <div class="tg-serviceprovider tg-detailpage tg-serviceproviderdetail">
+        <div class="tg-detailpagehead">
+            <figure>
+                <img src="@baseUrl/images/contractor-profile/img-21.jpg" alt="background image">
+                <figcaption>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="tg-detailpageheadcontent">
+                                    <div class="tg-companylogo"><img src="@baseUrl/images/Profiles/@imgg" alt="image description"></div>
+                                    <div class="tg-companycontent">
+                                        <ul class="tg-tags">
+                                            <li><a class="tg-tag tg-featuredtag" href="#">featured</a></li>
+                                            <li><a class="tg-tag tg-verifiedtag" href="#">verified</a></li>
+                                        </ul>
+                                        <div class="tg-title">
+                                            <h1>@Model.FullName</h1>
+                                            <span>@Model.LocationName</span>
+                                        </div>
+                                        <ul class="tg-matadata">
+                                            <li><span class="tg-stars"><span></span></span></li>
+                                            <li>
+                                                <i class="fa fa-thumbs-o-up"></i>
+                                                <em>0% (0 votes)</em>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    @*<button class="tg-btn" type="buttton" data-toggle="modal" data-target=".tg-appointmentModal"> Hire Now </button>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </figcaption>
+            </figure>
+        </div>
+        <div class="tg-companynameandviews">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                        <h2>@Model.CategoryName</h2>
+                        <span class="tg-totalsviews">
+                            <i class="fa fa-eye"></i>
+                            <i>10</i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="tg-twocolumns" class="tg-twocolumns">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-7 col-md-8 col-lg-8 pull-left">
+                        <div id="tg-content" class="tg-content">
+                            @*<div class="tg-advertisement">
+                                <a href="javascript:void(0);"><img src="@baseUrl/images/contractor-profile/img-33.jpg" alt="image description"></a>
+                            </div>*@
+                            <div class="tg-companyfeatures tg-listfeatures">
+                                <div class="tg-companyfeaturebox tg-introduction">
+                                    <div class="tg-companyfeaturetitle">
+                                        <h3>Introduction</h3>
+                                    </div>
+                                    <div class="tg-description">
+                                        <p>@Model.Intro</p>
+                                    </div>
+                                </div>
+                                <div class="tg-companyfeaturebox tg-languages">
+                                    <div class="tg-companyfeaturetitle">
+                                        <h3>Languages</h3>
+                                    </div>
+                                    <ul class="tg-themeliststyle tg-themeliststyledisc">
+                                        <li>English</li>
+                                        <li>Urdu</li>
+                                    </ul>
+                                </div>
+
+
+                          
+                                
+                                <div class="tg-companyfeaturebox tg-services">
+                                    <div class="tg-companyfeaturetitle">
+                                        <h3>Services</h3>
+                                    </div>
+                                    <div id="tg-accordion" class="tg-accordion">
+                                       
+                                        <div class="tg-service tg-panel">
+                                            <div class="tg-accordionheading"><h4><span>Building Design Creation</span><span>$ 160/ Hour</span></h4></div>
+                                            <div class="tg-panelcontent">
+                                                <div class="tg-description">
+                                                    <p>Building professional design needed for our office site area</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                              
+
+                                <div class="tg-companyfeaturebox tg-reviews">
+                                    <div class="tg-companyfeaturetitle">
+                                        <h3>01 Reviews</h3>
+                                    </div>
+                                    <div class="tg-feedbacks">
+                                        <div class="tg-feedback">
+                                            <figure><a href="javascript:void(0);"><img src="@baseUrl/images/contractor-profile/review2.png" alt="image description"></a></figure>
+                                            <div class="tg-feedbackcontent">
+                                                <div class="tg-feedbackbox">
+                                                    <div class="tg-contenthead">
+                                                        <div class="tg-leftbox">
+                                                            <div class="tg-name">
+                                                                <h4><a href="#">Hammad &amp; Telecom</a></h4>
+                                                            </div>
+                                                            <ul class="tg-matadata">
+                                                                <li><a href="#">Bridge Colony</a></li>
+                                                                <li><a href="#">2 Days Ago</a></li>
+                                                            </ul>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    <div class="tg-description">
+                                                        <p>Very professional personal with expert in the Telecoms sector</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                       
+                                    </div>
+                                    <div class="tg-btnbox">
+                                        @*<a class="tg-btn tg-btnloadmore" href="javascript:void(0);">load more</a>*@
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-5 col-md-4 col-lg-4 pull-right">
+                        <aside id="tg-sidebar" class="tg-sidebar" >
+                            <div class="tg-widget tg-widgetlocationandcontactinfo">
+                                <div class="tg-mapbox" style="border: none">
+                                    @*<a class="tg-addtofavorite" href="javascript:void(0);"><i class="fa fa-heart"></i>Add To Favourite</a>*@
+                                    <div id="tg-locationmap" class="tg-locationmap"></div>
+                                </div>
+                                <div class="tg-contactinfobox">
+                                    <ul class="tg-contactinfo">
+                                        <li>
+                                            <i class="lnr lnr-location"></i>
+                                            <address>@Model.LocationName</address>
+                                        </li>
+                                        <li>
+                                            <i class="lnr lnr-phone-handset"></i>
+                                            <span>@Model.Mobile</span>
+                                        </li>
+                                      
+                                       
+                                        <li>
+                                            <i class="lnr lnr-construction"></i>
+                                            <span><a href="mailto:@Model.Email">@Model.Email</a></span>
+                                        </li>
+                                        <li>
+                                            <i class="lnr lnr-screen"></i>
+                                            <span><a href="#" target="_blank">www.@Model.FullName. com</a></span>
+                                        </li>
+                                    </ul>
+                                    <ul class="tg-socialicons">
+                                        <li class="tg-facebook"><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                        <li class="tg-twitter"><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                        <li class="tg-linkedin"><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                        <li class="tg-googleplus"><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                        <li class="tg-rss"><a href="#"><i class="fa fa-rss"></i></a></li>
+                                    </ul>
+                                    @*<a class="tg-btn tg-btn-lg" href="javascript:void(0);">get direction</a>*@
+                                </div>
+                            </div>
+                            <div class="tg-widget tg-widgetcontact">
+                                <div class="tg-widgettitle">
+                                    <h3>Contact Form</h3>
+                                </div>
+                                <div class="tg-widgetcontent">
+                                    <form class="tg-themeform">
+                                        <fieldset>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" name="text" placeholder="Your Name">
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="email" class="form-control" name="email" placeholder="Email Address">
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" name="phone" placeholder="Phone">
+                                            </div>
+                                            <div class="form-group">
+                                                <textarea class="form-control" placeholder="Message"></textarea>
+                                            </div>
+                                            @*<div class="form-group">
+                                                <img src="@baseUrl/images/placeholder/img-02.png" alt="image description">
+                                            </div>*@
+                                            <button class="tg-btn tg-btn-lg" type="submit">send now</button>
+                                        </fieldset>
+                                    </form>
+                                </div>
+                            </div>
+
+
+
+                            @*<div class="tg-widget tg-widgetclaim">
+                                <div class="tg-widgettitle">
+                                    <h3>Report/Claim Form</h3>
+                                </div>
+                                <div class="tg-widgetcontent">
+                                    <form class="tg-themeform">
+                                        <fieldset>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" name="text" placeholder="Report Saubject">
+                                            </div>
+                                            <div class="form-group">
+                                                <textarea class="form-control" placeholder="Detail"></textarea>
+                                            </div>
+                                            <button class="tg-btn tg-btn-lg" type="submit">Report Now</button>
+                                        </fieldset>
+                                    </form>
+                                </div>
+                            </div>*@
+                            <div class="tg-widget tg-widgettags">
+                                <div class="tg-widgettitle">
+                                    <h3>Tags</h3>
+                                </div>
+                                <div class="tg-widgetcontent">
+                                    <a class="tg-tag" href="javascript:void(0);">Verified</a>
+                                    <a class="tg-tag" href="javascript:void(0);">Test</a>
+                                </div>
+                            </div>
+
+                        </aside>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<!--************************************
+        Main End
+*************************************-->
+<!--************************************
+        Hire Modal Box Start
+*************************************-->
+<div class="modal fade tg-appointmentModal" tabindex="-1">
+    <div class="modal-dialog tg-modaldialog" role="document">
+        <div class="modal-content tg-modalcontent">
+            <div class="tg-modalhead">
+                <a class="tg-closemodal" href="javascript:void(0);" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+                <h2>Want To Hire This Person</h2>
+            </div>
+            <form class="tg-themeform tg-formappointment">
+                <div class="tg-modalbody">
+                    <form method="post" id="job-form">
+                        <div class="row clearfix">
+                            <div class="post-job2-panel">
+                                <form class="row">
+                                    <div class="col-md-12 col-sm-6 col-xs-12">
+
+                                        <p> NOTE: Please Fill The Form To Get The Contact Number</p>
+                                        <div class="form-group">
+                                            <label>Job Title</label>
+                                            <input type="text" placeholder="Job Title" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-sm-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label>Location</label>
+                                            <input type="text" placeholder="Job Location" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-sm-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label>Job Category</label>
+                                            <select class="questions-category form-control" multiple="multiple">
+                                                <option value="0">Electricians</option>
+                                                <option value="1">Carpenters</option>
+                                                <option value="2">Plumbers</option>
+                                                <option value="3">General Contractor</option>
+                                                <option value="4">Handyman</option>
+                                                <option value="5">Air Conditioning</option>
+                                                <option value="5">Gardeners</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-sm-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label>Job Type</label>
+                                            <select class="questions-category form-control">
+                                                <option value="0">Full Time</option>
+                                                <option value="1">Part Time</option>
+                                                <option value="2">Remote</option>
+                                                <option value="3">Freelancer</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="tg-btnbox">
+                            <button class="tg-btn" type="submit">continue</button>
+                        </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!--************************************
+Hire Modal Box End
+*************************************-->
