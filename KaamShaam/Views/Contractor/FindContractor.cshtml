@@ -235,7 +235,12 @@
                                                                     <span>Profile Settings</span>
                                                                 </a>
                                                             </li>
-
+                                                            <li class="li-manage-jobs">
+                                                                <a href="~/Appointment/Upcoming">
+                                                                    <i class="lnr lnr-map"></i>
+                                                                    <span>Appointments</span>
+                                                                </a>
+                                                            </li>
                                                             @{
                                                                 if (User.IsInRole("User"))
                                                                 {
@@ -393,31 +398,35 @@
                                     </div>
                                     <div id="tg-navigation" class="collapse navbar-collapse tg-navigation">
                                         <ul>
-                                            <li><a href="index.php">Home</a></li>
-                                            <li><a href="about.php">About Us</a></li>
-                                            <li><a href="#">How It Works</a></li>
-                                            <li class="menu-item-has-children">
-                                                <a href="#">Dashboard</a>
+                                            <li><a href="@baseUrl/Home/Index">Home</a></li>
+                                            <li><a href="@baseUrl/Home/About">About Us</a></li>
+                                            @*<li><a href="#">How It Works</a></li>*@
+                                            @if (Request.IsAuthenticated)
+                                            {
+                                                <li class="menu-item-has-children">
+                                                    <a href="#">Dashboard</a>
 
-                                                <ul class="sub-menu">
-                                                    @{
-                                                        if (Request.IsAuthenticated)
+                                                    <ul class="sub-menu">
+
+
+
+                                                        @if (User.IsInRole("User"))
                                                         {
-                                                            if (User.IsInRole("User"))
-                                                            {
-                                                                <li>
-                                                                    <a href="user-dashboard.php">User Dashbaord</a>
-                                                                </li>                                                           }
-                                                            else if (User.IsInRole("Contractor"))
-                                                            {
-                                                                <li>
-                                                                    <a href="contractor-dashboard.php">Contractor Dashboard</a>
-                                                                </li>                                                           }
-                                                        }
-                                                    }
-                                                </ul>
-                                            </li>
-                                            <li><a href="contact.php">Contact Us</a></li>
+                                                            <li>
+                                                                <a href="@baseUrl/profile/Update">User Dashbaord</a>
+                                                            </li>                                                           }
+                                                        else if (User.IsInRole("Contractor"))
+                                                        {
+                                                            <li>
+                                                                <a href="@baseUrl/profile/Update">Contractor Dashboard</a>
+                                                            </li>                                                           }
+
+
+                                                    </ul>
+                                                </li>
+                                            }
+
+                                            <li><a href="@baseUrl/Home/Contact">Contact Us</a></li>
                                         </ul>
                                     </div>
                                 </nav>
@@ -686,7 +695,7 @@
                                                             <figure class="tg-featuredimg" style="width: 110px">
                                                                 <img src="@item.image" alt="image description">
                                                                 <figcaption>
-                                                                    <a class="tg-themetag tg-categorytag" href="contractor-profile.php">@item.CatName</a>
+                                                                    <a class="tg-themetag tg-categorytag" href="">@item.CatName</a>
                                                                     <a class="tg-heart tg-liked" href="javascript:void(0);"><i class="fa fa-heart"></i></a>
                                                                 </figcaption>
                                                             </figure>
@@ -696,7 +705,7 @@
                                                                     <li><a class="tg-tag tg-verifiedtag" href="#">verified</a></li>
                                                                 </ul>
                                                                 <div class="tg-title">
-                                                                    <h3><a href="contractor-profile.php">@item.title</a></h3>
+                                                                    <h3><a href="">@item.title</a></h3>
                                                                 </div>
                                                                 <ul class="tg-matadata">
                                                                     <li><span class="tg-stars"><span></span></span></li>
@@ -716,7 +725,7 @@
                                                                     </li>
                                                                 </ul>
                                                                 <button class="tg-btn" type="buttton" data-toggle="modal" data-target=".tg-appointmentModal">Contact</button>
-                                                                <a href="contractor-profile.php"> <button class="tg-btn btn-margin-left" type="buttton" data-toggle="modal" data-target=".tg-appointmentModal">View Profile</button></a>
+                                                                <a href=""> <button class="tg-btn btn-margin-left" type="buttton" data-toggle="modal" data-target=".tg-appointmentModal">View Profile</button></a>
 
                                                             </div>
                                                         </div>

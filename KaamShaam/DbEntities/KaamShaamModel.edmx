@@ -15,6 +15,7 @@
           <Property Name="DateTime" Type="datetime" Nullable="false" />
           <Property Name="WithId" Type="nvarchar" MaxLength="128" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="IsAttended" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="AspNetRoles">
           <Key>
@@ -579,6 +580,7 @@
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="CreatedByUser" Relationship="KaamShaamModel.FK_Appointment_AspNetUsers" FromRole="Appointment" ToRole="AspNetUser" />
           <NavigationProperty Name="WithUser" Relationship="KaamShaamModel.FK_Appointment_AspNetUsers1" FromRole="Appointment" ToRole="AspNetUser" />
+          <Property Name="IsAttended" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="FK_Appointment_AspNetUsers">
           <End Type="KaamShaamModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
@@ -737,6 +739,7 @@
           <EntitySetMapping Name="Appointments">
             <EntityTypeMapping TypeName="KaamShaamModel.Appointment">
               <MappingFragment StoreEntitySet="Appointment">
+                <ScalarProperty Name="IsAttended" ColumnName="IsAttended" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="WithId" ColumnName="WithId" />
                 <ScalarProperty Name="DateTime" ColumnName="DateTime" />

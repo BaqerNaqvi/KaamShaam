@@ -294,9 +294,12 @@
     <Compile Include="LocalModels\UserDrowdownModel.cs" />
     <Compile Include="LocalModels\UserSuggestionModel.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AppointmentEventModel.cs" />
     <Compile Include="Models\ContractorIndexPageModel.cs" />
     <Compile Include="Models\ContractorRequestModel.cs" />
+    <Compile Include="Models\CustomAppoinmentModel.cs" />
     <Compile Include="Models\CustomJobHistory.cs" />
+    <Compile Include="Models\DayAppointmentModel.cs" />
     <Compile Include="Models\HomePageWraper.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\JobFeeModel.cs" />
@@ -308,6 +311,7 @@
     <Compile Include="Models\PaggingClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AdminServices\AdminService.cs" />
+    <Compile Include="Services\AppointmentService.cs" />
     <Compile Include="Services\BannerService.cs" />
     <Compile Include="Services\CategoryService.cs" />
     <Compile Include="Services\JobService.cs" />
@@ -1207,6 +1211,7 @@
     <Content Include="Views\Contractor\FindContractorPartial.cshtml" />
     <Content Include="Views\Appointment\Upcoming.cshtml" />
     <Content Include="Views\Appointment\Detail.cshtml" />
+    <Content Include="Views\Appointment\GetDayEvents.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

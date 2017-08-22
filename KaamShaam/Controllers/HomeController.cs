@@ -2,11 +2,16 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using KaamShaam.AdminServices;
 using KaamShaam.Models;
 using KaamShaam.Services;
+using System.Net.Mail;
+using System.Text;
+
 
 namespace KaamShaam.Controllers
 {
@@ -43,7 +48,34 @@ namespace KaamShaam.Controllers
         }
         public ActionResult About()
         {
-            
+
+            try
+            {
+                MailMessage message = new System.Net.Mail.MailMessage();
+                string fromEmail = "baqer@gmail.com";
+                string fromPW = "mypw";
+                string toEmail = "baqer.naqvi@afiniti.com";
+                message.From = new MailAddress(fromEmail);
+                message.To.Add(toEmail);
+                message.Subject = "Hello";
+                message.Body = "Hello Bob ";
+                message.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
+
+                using (SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587))
+                {
+                    smtpClient.EnableSsl = true;
+                    smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+                    smtpClient.UseDefaultCredentials = false;
+                    smtpClient.Credentials = new NetworkCredential("link2naqvi@gmail.com", "Spacein786");
+
+                    smtpClient.Send(message.From.ToString(), message.To.ToString(),
+                                    message.Subject, message.Body);
+                }
+            }
+            catch (Exception ffg)
+            {
+
+            }
             return View();
         }
         public ActionResult Contact()

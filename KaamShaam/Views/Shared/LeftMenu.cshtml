@@ -31,7 +31,7 @@
                         <li><span class="tg-stars"><span></span></span></li>
                         <li>
                             <i class="fa fa-thumbs-o-up"></i>
-                            <em>99% (1009 votes)</em>
+                            <em>0% (0 votes)</em>
                         </li>
                     </ul>
                 </div>
@@ -52,7 +52,12 @@
                             <span>Profile Settings</span>
                         </a>
                     </li>
-
+                    <li class="li-manage-jobs">
+                        <a href="~/Appointment/Upcoming">
+                            <i class="lnr lnr-map"></i>
+                            <span>Appointments</span>
+                        </a>
+                    </li>
                     @{
                         if (User.IsInRole("User"))
                         {

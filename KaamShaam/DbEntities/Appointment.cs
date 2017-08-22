@@ -20,6 +20,7 @@ namespace KaamShaam.DbEntities
         public System.DateTime DateTime { get; set; }
         public string WithId { get; set; }
         public string CreatedBy { get; set; }
+        public bool IsAttended { get; set; }
     
         public virtual AspNetUser CreatedByUser { get; set; }
         public virtual AspNetUser WithUser { get; set; }
