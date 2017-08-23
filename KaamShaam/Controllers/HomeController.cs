@@ -47,8 +47,11 @@ namespace KaamShaam.Controllers
             });
         }
         public ActionResult About()
+        {          
+            return View();
+        }
+        public ActionResult Contact()
         {
-
             try
             {
                 MailMessage message = new System.Net.Mail.MailMessage();
@@ -57,8 +60,8 @@ namespace KaamShaam.Controllers
                 string toEmail = "baqer.naqvi@afiniti.com";
                 message.From = new MailAddress(fromEmail);
                 message.To.Add(toEmail);
-                message.Subject = "Hello";
-                message.Body = "Hello Bob ";
+                message.Subject = "User Message | KaamShaam.Pk";
+                message.Body = "hey there!";
                 message.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
 
                 using (SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587))
@@ -76,11 +79,7 @@ namespace KaamShaam.Controllers
             {
 
             }
-            return View();
-        }
-        public ActionResult Contact()
-        {
-           
+
             return View();
         }
     }

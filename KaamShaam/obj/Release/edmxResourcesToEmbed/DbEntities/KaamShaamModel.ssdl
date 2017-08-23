@@ -10,6 +10,7 @@
     <Property Name="DateTime" Type="datetime" Nullable="false" />
     <Property Name="WithId" Type="nvarchar" MaxLength="128" />
     <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="IsAttended" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="AspNetRoles">
     <Key>

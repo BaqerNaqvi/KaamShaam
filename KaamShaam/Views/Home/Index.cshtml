@@ -1056,37 +1056,38 @@ Header End
     var catId;
     $(document).ready(function() {
         $('#mysearch').typeahead({
-                source: function (query, process) {
+            source: function(query, process) {
                 return $.getJSON(
                     'Contractor/GetSuggestions',
                     { query: query },
-                    function (data) {
+                    function(data) {
                         $('#myloader').hide();
                         objects = [];
                         map = {};
-                        $.each(data, function (i, object) {
+                        $.each(data, function(i, object) {
                             map[object.label] = object;
                             objects.push(object.label);
                         });
                         process(objects);
                     });
-            }
-            ,
-            updater: function (item) {
+            },
+            updater: function(item) {
                 $('#myloader').hide();
                 catId = (map[item].id);
                 return item;
             }
-        }).on('keyup', this, function (event) {
+        }).on('keyup', this, function(event) {
             $('#myloader').show();
         });
     });
-    setInterval(function () {
+    setInterval(function() {
         $('#myloader').hide();
     }, 5000);
+
     function gotoCat(obj) {
         window.location = "../Contractor/FindContractor?categoryId=" + obj.CategoryId;
     }
+
     function gotocatsearch() {
         window.location = "../Contractor/FindContractor?categoryId=" + catId;
     }

@@ -5,9 +5,9 @@ Inner Page Banner Start
     string baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority +
                                    Request.ApplicationPath.TrimEnd('/');
 }
+@model List<KaamShaam.Models.AppointmentEventModel> 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css"/>
-<link rel="http://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/jquery.qtip.min.css"/>
 <style>
     .fc-day-grid-container {
         height: 595px !important;
@@ -53,12 +53,10 @@ Inner Page Banner Start
                             <div class="tg-dashboardhead">
                                 <div class="tg-dashboardtitle">
                                     <h2>Manage Appointments</h2>
-
                                 </div>
-                                <button class="tg-btnaddservices" data-toggle="modal" data-target="#addnewevent">Add New</button>
+                                <button class="tg-btnaddservices" data-toggle="modal" data-target="#addnewevent"> New</button>
                             </div>                            
                             <div id="calendarContainer">
-                                
                             </div>
                         </div>
                     </div>
@@ -109,7 +107,7 @@ Inner Page Banner Start
             <div class="modal-footer">
                 <div class="btn-group btn-group-justified" role="group" aria-label="group button">
                     <div class="btn-group" role="group">
-                        <button onclick="addevent()" id="suspendBtn" type="button" class="btn btn-primary" data-dismiss="modal" role="button">Add</button>
+                        <button onclick="addevent()" id="suspendBtn" type="button" class="btn btn-primary" >Add</button>
                     </div>
                 </div>
             </div>
@@ -125,59 +123,32 @@ Inner Page Banner Start
 <script src="~/Scripts/fullcal.js"></script>
 <script src="~/Scripts/bootstrap-datetimepicker.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/jquery.qtip.min.js"></script>
 <script>
+    var withId = "";
+    var events = @Html.Raw(Json.Encode(Model));
     $(document).ready(function () {
         $('#adminLoading').hide();
         $('#calendarContainer').fullCalendar({
-
-            dayClick: function () {
-                alert('a day has been clicked!');
+            eventLimit: 2, // If you set a number it will hide the itens
+            eventLimitText: "More...", // Default is `more` (or "more" in the lang you pick in the option)
+            dayClick: function (date, jsEvent, view) {
+                var m = (date._d.getMonth() + 1);
+                var d = date._d.getDate();
+                if ( m< 10) {
+                    m = "0"+m;
+                }
+                if ( d< 10) {
+                    d = "0" +d;
+                }
+                var dateObj = date._d.getFullYear() + "-" + m + "-" + d;
+                window.location = "/Appointment/GetDayEvents?dateObj=" + dateObj;
             },
             header: {
                 left: 'prev, next today',
                 center: 'title',
                 right: 'month, basicWeek, basicDay'
             },
-            events: [
-       {
-           title: 'Meeting Time',
-           start: '2017-08-01',
-           description: 'first description is that i am going to deploy it'
-       },
-       {
-           title: 'Appointment/Usman',
-           start: '2017-08-01',
-           description: 'first description'
-       },
-        {
-            title: 'Birthday Party',
-            start: '2017-08-15T10:00:00',
-            end: '2017-08-17T06:00:00',
-            description: 'first description'
-        },
-       {
-           title: 'Wedding',
-           start: '2017-08-12T05:30:00',
-           description: 'first description',
-           allDay: false // will make the time show
-       }
-            ],
-            eventRender: function (event, element) {
-                element.qtip({
-                    content: event.description + '<br />' + event.start,
-                    style: {
-                        background: 'black',
-                        color: '#FFFFFF'
-                    },
-                    position: {
-                        corner: {
-                            target: 'center',
-                            tooltip: 'bottomMiddle'
-                        }
-                    }
-                });
-            }
+            events: events
         });
 
         $('#datetimepicker1').datetimepicker({
@@ -193,21 +164,20 @@ Inner Page Banner Start
                     'GetSuggestions',
                     { query: query },
                     function (data) {
-
+                        $('#adminLoading').hide();
                         objects = [];
                         map = {};
-                       $.each(data, function (i, object) {
-                           map[object.label] = object;
-                           objects.push(object.label);
-                       });
-                       process(objects);
+                        $.each(data, function (i, object) {
+                            map[object.label] = object;
+                            objects.push(object.label);
+                        });
+                        process(objects);
                     });
-                $('#adminLoading').hide();
             }
             ,
             updater: function (item) {
                 $('#adminLoading').hide();
-                $('hiddenInputElement').val(map[item].id);
+                withId=(map[item].id);
                 return item;
             }
         }).on('keyup', this, function (event) {
@@ -219,13 +189,48 @@ Inner Page Banner Start
         },5000);
 
     });
+    var myeve;
     function addevent() {
 
         var text = $('#eventTitle').val();
-        var dates = $("#datetimepicker1").find("input").val().split(' ');
+        var dobj = $("#datetimepicker1").find("input").val();
+        if (text === "" || dobj === "" || withId === "") {
+            toastr.warning("Enter mandatory data");
+            return false;
+        }
+        $('#adminLoading').show();
+
+        var dates = dobj.split(' ');
         var newval = dates[0] + "T" + dates[1];
-        var event = { id: 561, title: text, start: newval };
-        $('#calendarContainer').fullCalendar('renderEvent', event, true);
+        myeve = { id: -565, title: text, start: newval };
+        var server = {};
+        server.Title = text;
+        server.Type = $("#appType").val();
+        server.WithId = withId;
+        server.DateTime = new Date(dobj);
+
+        postMydata(server, 'AddApp', success_Handler);
+
+    }
+    function postMydata(serverObj, url, successFunc) {
+        $('#adminLoading').show();
+        $.ajax({
+            url: url,
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            dataType: "html",
+            data: JSON.stringify(serverObj),
+            success: successFunc,
+            error: function (data) {
+                $('#adminLoading').hide();
+                toastr.error("Job failed to update");
+            }
+        });
     }
 
+    function success_Handler(data) {
+        $('#calendarContainer').fullCalendar('renderEvent', myeve, true);
+        $('#adminLoading').hide();
+        hideModel("addnewevent");
+    }
 </script>

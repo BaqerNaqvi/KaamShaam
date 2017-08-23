@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Data.Entity.Spatial;
 using System.Linq;
 using System.Web;
+using System.Web.Script.Serialization;
 using KaamShaam.DbEntities;
 using KaamShaam.LocalModels;
 using KaamShaam.Services;
@@ -49,6 +50,7 @@ namespace KaamShaam.AdminModels
         public double? lng { get; set; }
         public string CatName { get; set; }
 
+        [ScriptIgnore]
         public DbGeography Location { get; set; }
         public int DistanceFromOrigin { get; set; }
     }
@@ -64,29 +66,30 @@ namespace KaamShaam.AdminModels
             var roleName = source.AspNetRoles.Any() ? source.AspNetRoles.FirstOrDefault().Name : "";
             return new LocalUser
             {
-                CNIC = source.CNIC,
-                Email = source.Email,
-                FullName = source.FullName, 
+                CNIC = source.CNIC??"(No Val)",
+                Email = source.Email?? "(No Val)",
+                FullName = source.FullName?? "(No Val)", 
                 Id = source.Id,
-                Mobile = source.Mobile,
-                Type = source.Type,
-                UserName = source.UserName,
-                Country = source.Country,
-                City = source.City,
+                Mobile = source.Mobile?? "(No Val)",
+                Type = source.Type?? "(No Val)",
+                UserName = source.UserName?? "(No Val)",
+                Country = source.Country?? "(No Val)",
+                City = source.City?? "(No Val)",
                 
-                Intro = source.Intro,
-                Language = source.Language,
+                Intro = source.Intro?? "(No Val)",
+                Language = source.Language?? "(No Val)",
                 Status = (bool)source.Status,
-                ContractorId = source.ContractorId,
-                CategoryId = source.CategoryId,
-                RoleName = roleName,
+                ContractorId = source.ContractorId?? "(No Val)",
+                CategoryId = source.CategoryId??0,
+                RoleName = roleName?? "(No Val)",
                 IsApproved = (bool) source.IsApproved,
-                Feedback = source.Feedback,
-                LocationName= source.LocationName,
-                lat = source.LocationCord.Latitude,
-                lng = source.LocationCord.Longitude,
-                CatName = cat?.Name,
-                Location = source.LocationCord
+                Feedback = source.Feedback?? "(No Val)",
+                LocationName= source.LocationName?? "(No Val)",
+                lat = source.LocationCord.Latitude??0,
+                lng = source.LocationCord.Longitude??0,
+                CatName = cat?.Name?? "(No Val)",
+                Location = source.LocationCord,
+                Password = source.PasswordHash
             };
         }
     }
