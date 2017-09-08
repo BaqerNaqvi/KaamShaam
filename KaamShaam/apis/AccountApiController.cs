@@ -22,13 +22,14 @@ namespace KaamShaam.apis
     {
         [HttpPost]
         [Route("api/User/Registration")]
-        public async Task<HttpResponseMessage> RegisterUser(RegisterPageWraper model)
+        public async Task<HttpResponseMessage> RegisterUser(RegisterViewModel model)
         {
             try
             {
+                #region Validation
                 HttpResponseMessage endResponse;
                 var response = new ApiResponseModel { Data = model };
-                if (model?.RegisterViewModel == null || !ModelState.IsValid)
+                if (model == null || !ModelState.IsValid)
                 {
                     response.Message = "Mandatory data is missing. ";
                     foreach (var error in ModelState)
@@ -39,17 +40,39 @@ namespace KaamShaam.apis
                     endResponse = Request.CreateResponse(HttpStatusCode.BadRequest, response);
                     return endResponse;
                 }
-                var user = new ApplicationUser { UserName = model.RegisterViewModel.Email, Email = model.RegisterViewModel.Email };
+                if (model.Type == "Contractor" && string.IsNullOrEmpty(model.CNIC))
+                {
+                    response.Message = "CNIC is missing. ";
+                    response.Success = false;
+                    endResponse = Request.CreateResponse(HttpStatusCode.BadRequest, response);
+                    return endResponse;
+                }
+                if (model.Type == "Contractor" && model.CategoryId == 0)
+                {
+                    response.Message = "Category is missing for contractor ";
+                    response.Success = false;
+                    endResponse = Request.CreateResponse(HttpStatusCode.BadRequest, response);
+                    return endResponse;
+                }
+                if (model.LocationCord == null || string.IsNullOrEmpty(model.LocationName))
+                {
+                    response.Message = "LocationCord(lat_lng)/LocationName is missing ";
+                    response.Success = false;
+                    endResponse = Request.CreateResponse(HttpStatusCode.BadRequest, response);
+                    return endResponse;
+                } 
+                #endregion
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var usermanager = Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
-                var result = await usermanager.CreateAsync(user, model.RegisterViewModel.Password);
+                var result = await usermanager.CreateAsync(user, model.Password);
                 var isUserCreated = result.Succeeded;
                 if (isUserCreated)
                 {
                     try
                     {
-                        response.Message = model.RegisterViewModel.FullName + " has been registered";
+                        response.Message = model.FullName + " has been registered";
                         response.Success = true;
-                        UserServices.AddUserProperties(model.RegisterViewModel, user.Id);
+                        UserServices.AddUserProperties(model, user.Id);
                     }
                     catch (Exception excep)
                     {
@@ -90,20 +113,20 @@ namespace KaamShaam.apis
 
         [HttpPost]
         [Route("api/User/Login")]
-        public async Task<HttpResponseMessage> LoginUser(RegisterPageWraper model)
+        public async Task<HttpResponseMessage> LoginUser(LoginViewModel model)
         {
             try
             {
                 HttpResponseMessage endResponse;
                 var response = new ApiResponseModel {Data = model};
-                if (model?.LoginViewModel == null)
+                if (model == null)
                 {
                     response.Success = false;
                     response.Message = "Mandatory data fields are missing/not mapped or not in right format";
                     endResponse = Request.CreateResponse(HttpStatusCode.BadRequest, response);
                     return endResponse;
                 }
-                var isApproved = UserAdminService.IsUserApproved(model.LoginViewModel.Email);
+                var isApproved = UserAdminService.IsUserApproved(model.Email);
                 if (!isApproved)
                 {
                     response.Message = "Account is not approved by Admin.";
@@ -115,7 +138,7 @@ namespace KaamShaam.apis
                     var signInManager = HttpContext.Current.GetOwinContext().Get<ApplicationSignInManager>();
                     var result =
                         await
-                            signInManager.PasswordSignInAsync(model.LoginViewModel.Email, model.LoginViewModel.Password,
+                            signInManager.PasswordSignInAsync(model.Email, model.Password,
                                 true,
                                 shouldLockout: false);
                     switch (result)
@@ -124,7 +147,7 @@ namespace KaamShaam.apis
                         {
                             response.Message = "Logged-in successfully";
                             response.Success = true;
-                            response.JToken = "GH%&@JK*@#CGHJLJ";
+                            response.JToken = "a%&@JK*@#CG|wJ";
                             break;
                         }
                         default: /* Optional */

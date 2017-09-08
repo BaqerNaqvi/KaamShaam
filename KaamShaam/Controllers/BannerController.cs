@@ -10,6 +10,7 @@ using KaamShaam.Services;
 
 namespace KaamShaam.Controllers
 {
+    [Authorize]
     public class BannerController : Controller
     {
         public ActionResult ListView()

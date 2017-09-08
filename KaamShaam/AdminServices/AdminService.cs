@@ -35,26 +35,34 @@ namespace KaamShaam.AdminServices
                 context.SaveChanges();
             }
         }
-        public static void DeleteUser(AspNetUser obj)
+        public static bool DeleteUser(AspNetUser obj)
         {
             using (var context = new KaamShaamEntities())
             {
-                var data = context.AspNetUsers.FirstOrDefault(x => x.Id == obj.Id);
-                if (data != null)
+                try
                 {
-                    context.AspNetUsers.Remove(data);
-                    context.SaveChanges();
+                    var data = context.AspNetUsers.FirstOrDefault(x => x.Id == obj.Id);
+                    if (data != null)
+                    {
+                        context.AspNetUsers.Remove(data);
+                        context.SaveChanges();
+                        return true;
+                    }
                 }
+                catch (System.Exception exp)
+                {
 
+                }
             }
+            return false;
         }
         public static List<LocalUser> GetUsersByType(string type)
         {
             using (var context = new KaamShaamEntities())
             {
                 var data = context.AspNetUsers.Where(u => u.Type == type).ToList()
-                    .Select(user => user.MapUser()).ToList();
-                return data;
+                   .Select(user => user.MapUser()).ToList();
+                 return data;
             }
         }
         public static List<LocalUser> GetAdminUsers()

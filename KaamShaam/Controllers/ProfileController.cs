@@ -19,6 +19,7 @@ namespace KaamShaam.Controllers
 {
     public class ProfileController : Controller
     {
+        [Authorize]
         public ActionResult Update()
         {            
             var id = System.Web.HttpContext.Current.User.Identity.GetUserId();

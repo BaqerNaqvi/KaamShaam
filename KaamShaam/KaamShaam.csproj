@@ -220,6 +220,9 @@
     <Compile Include="AdminServices\UserAdminService.cs" />
     <Compile Include="ApiModels\ApiResponseModel.cs" />
     <Compile Include="apis\AccountApiController.cs" />
+    <Compile Include="apis\CategoryController.cs" />
+    <Compile Include="apis\ContractorApiController.cs" />
+    <Compile Include="apis\JobController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -402,10 +405,6 @@
     <Content Include="Images\authors\img-02.jpg" />
     <Content Include="Images\authors\img-03.jpg" />
     <Content Include="Images\authors\img-04.jpg" />
-    <Content Include="Images\Banners\banner1.jpg" />
-    <Content Include="Images\Banners\banner2.jpg" />
-    <Content Include="Images\Banners\banner3.jpg" />
-    <Content Include="Images\Banners\banner4.jpg" />
     <Content Include="Images\bg-comming.jpg" />
     <Content Include="Images\blog\blog-img.jpg" />
     <Content Include="Images\blog\img-01.jpg" />
@@ -1006,6 +1005,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Images\Banners\" />
     <Folder Include="Views\Aappointment\" />
     <Folder Include="Views\GeneralAdmin\" />
   </ItemGroup>

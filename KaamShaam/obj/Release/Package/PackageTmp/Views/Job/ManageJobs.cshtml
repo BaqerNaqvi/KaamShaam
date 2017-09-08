@@ -48,7 +48,7 @@ Inner Page Banner Start
                                 <div class="tg-sortfilter tg-sortby">
                                     <span>Sort By:</span>
                                     <div class="tg-select">
-                                        <select id="sortDd" onchange="sortByChanged()">
+                                        <select id="sortDd" onchange="sortByChanged()" style="height: 39px;margin-top: 2px;">
                                             <option value="Title">Title</option>
                                             <option value="Category">Category</option>
                                             <option value="Date">Date</option>
@@ -69,7 +69,7 @@ Inner Page Banner Start
                                 <div class="tg-sortfilter tg-show">
                                     <span>Jobs/Page: </span>
                                     <div class="tg-select">
-                                        <select onchange="itemsPerPageChanged()" id="itemsPerPageDd" style="padding-left: 95px;">
+                                        <select onchange="itemsPerPageChanged()" id="itemsPerPageDd" style="padding-left: 95px;height:39px; margin-top: 2px;">
                                             <option value="2">2</option>
                                             <option value="4">4</option>
                                             <option value="1000">All</option>
@@ -77,15 +77,15 @@ Inner Page Banner Start
                                     </div>
                                 </div>
                                 <div class="tg-sortfilter">
-                                    <button id="jobPrevious" class="btn btn-default"><</button>
+                                    <button id="jobPrevious" class="btn btn-default" style="height: 39px;"><</button>
                                 </div>
-                                <div class="tg-sortfilter tg-show" style="margin-left: 3px;">
+                                <div class="tg-sortfilter tg-show" style="margin-left: 3px;margin-top: 5px;">
                                     <strong><span id="currentPage" style="margin-left: -6px;">15</span></strong>
                                     <span style="margin-left: 17px">of</span> 
                                    <strong><span id="totalPage" style="margin-left: 42px;">30</span></strong>
                                 </div>
                                 <div class="tg-sortfilter" style="margin-left: 10%;">
-                                    <button id="jobNext" class="btn btn-default">></button>
+                                    <button id="jobNext" class="btn btn-default" style="height: 39px;">></button>
                                 </div>
                                 <img class="displayNone" src="~/Images/ajax-loader.gif" id="adminLoading" style="display: none;margin-left: 21px;margin-top: 10px;" />
                             </div> 

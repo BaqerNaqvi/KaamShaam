@@ -1,0 +1,408 @@
+﻿
+<!--************************************
+Inner Page Banner Start
+*************************************-->
+
+@{
+    string baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority +
+                            Request.ApplicationPath.TrimEnd('/');
+
+}
+<div class="tg-innerpagebanner">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="tg-pagetitle">
+                    <h1>Dashboard</h1>
+                </div>
+                <ol class="tg-breadcrumb">
+                    <li><a href="index.php">Home</a></li>
+                    <li class="tg-active">Dashboard</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!--************************************
+        Inner Page Banner End
+*************************************-->
+<!--************************************
+        Main Start
+*************************************-->
+<main id="tg-main" class="tg-main tg-haslayout">
+    <div class="container">
+        <div class="row">
+            <div id="tg-twocolumns" class="tg-twocolumns">
+                <div class="col-xs-12 col-sm-5 col-md-4 col-lg-3">
+                    <aside id="tg-sidebar" class="tg-sidebar">
+                        <div class="tg-widgetprofile">
+                            <figure class="tg-profilebannerimg">
+                                <img src=@base"/images/contractor-dashboard/img-02.jpg" alt="profile-background-image">
+                            </figure>
+                            <div class="tg-widgetcontent">
+                                <figure>
+                                    <img src="images/contractor-dashboard/img-32.jpg" alt="image description">
+                                    <a class="tg-btnedite" href="javascript:void(0);"><i class="lnr lnr-pencil"></i></a>
+                                </figure>
+                                <div class="tg-admininfo">
+                                    <h3>Safdar Malik</h3>
+                                    <h4>Multan Road 95/C Lahore</h4>
+                                    <ul class="tg-matadata">
+                                        <li><span class="tg-stars"><span></span></span></li>
+                                        <li>
+                                            <i class="fa fa-thumbs-o-up"></i>
+                                            <em>99% (1009 votes)</em>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tg-widgetdashboard">
+                            <nav id="tg-dashboardnav" class="tg-dashboardnav">
+                                <ul>
+                                    <li>
+                                        <a href="dashboardappointment.php">
+                                            <i class="lnr lnr-calendar-full"></i>
+                                            <span>Appointments</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="dashboardappointmentsetting.php">
+                                            <i class="lnr lnr-calendar-full"></i>
+                                            <span>Appointment Settings</span>
+                                        </a>
+                                    </li>
+
+                                    <li class="tg-active">
+                                        <a href="dashboardprofilesetting.php">
+                                            <i class="lnr lnr-cog"></i>
+                                            <span>Profile Settings</span>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="dashboardmanagejobs.php">
+                                            <i class="lnr lnr-map"></i>
+                                            <span>Job History</span>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="dashboardsecuritysetting.php">
+                                            <i class="lnr lnr-construction"></i>
+                                            <span>Security Settings</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="dashboardprivacysetting.php">
+                                            <i class="lnr lnr-lock"></i>
+                                            <span>Privacy Settings</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="lnr lnr-exit"></i>
+                                            <span>Logout</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="tg-widgetdashboard hidden-xs">
+                            <div class="tg-banneradd">
+                                <figure>
+                                    <a href="#"><img src="images/contractor-dashboard/img-01.jpg" alt="image "></a>
+                                </figure>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+                <div class="col-xs-12 col-sm-7 col-md-8 col-lg-9">
+                    <div id="tg-content" class="tg-content">
+                        <div class="tg-dashboard tg-dashboardappointmentsetting">
+                            <form class="tg-themeform">
+                                <fieldset>
+                                    <div class="tg-dashboardbox tg-dashboardappointments">
+                                        <div class="tg-dashboardtitle">
+                                            <h2>Your Appointments</h2>
+                                        </div>
+
+                                        <div class="tg-sortfilters">
+                                            <div class="tg-sortfilter tg-sortby">
+                                                <span>Sort By:</span>
+                                                <div class="tg-select">
+                                                    <select>
+                                                        <option>days</option>
+                                                        <option>Type</option>
+                                                        <option>date</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="tg-sortfilter tg-arrange">
+                                                <span>Arrange:</span>
+                                                <div class="tg-select">
+                                                    <select>
+                                                        <option>des</option>
+                                                        <option>Asc</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="tg-sortfilter tg-show">
+                                                <span>Show:</span>
+                                                <div class="tg-select">
+                                                    <select>
+                                                        <option>All</option>
+                                                        <option>24</option>
+                                                        <option>all</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tg-dashboardappointmentbox">
+                                            <div class="tg-dashboardappointment">
+                                                <div class="tg-servicetitle">
+                                                    <figure>
+                                                        <img src="images/contractor-dashboard/small.jpg" alt="image description">
+                                                    </figure>
+                                                    <div class="tg-clientcontent">
+                                                        <h2><a href="javascript:void(0);">Brittaney Grubaugh</a></h2>
+                                                        <span>(In Appointment)</span>
+                                                    </div>
+                                                </div>
+                                                <div class="tg-serviceandservicetype">
+                                                    <h3>Service</h3>
+                                                    <span>Business Storage</span>
+                                                </div>
+                                                <div class="tg-btntimeedit">
+                                                    <div class="tg-appointmenttype">
+                                                        <h3>Appointment Type</h3>
+                                                        <span>General Aointment</span>
+                                                    </div>
+                                                    <a href="#" class="tg-btnedite" data-toggle="modal" data-target=".tg-categoryModal"><i class="lnr lnr-checkmark-circle"></i></a>
+                                                    <a href="#" class="tg-btndel" data-toggle="modal" data-target=".tg-appointmentrejectmodal"><i class="lnr lnr-cross-circle"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="tg-dashboardappointment">
+                                                <div class="tg-servicetitle">
+                                                    <figure>
+                                                        <img src="images/contractor-dashboard/small1.jpg" " alt="image description">
+                                                    </figure>
+                                                    <div class="tg-clientcontent">
+                                                        <h2><a href="#" data-toggle="modal" data-target=".tg-categoryModal">Brittaney Grubaugh</a></h2>
+                                                        <span>(In Appointment)</span>
+                                                    </div>
+                                                </div>
+                                                <div class="tg-serviceandservicetype">
+                                                    <h3>Service</h3>
+                                                    <span>Business Storage</span>
+                                                </div>
+                                                <div class="tg-btntimeedit">
+                                                    <div class="tg-appointmenttype">
+                                                        <h3>Appointment Type</h3>
+                                                        <span>General Aointment</span>
+                                                    </div>
+                                                    <a href="#" class="tg-btnedite" data-toggle="modal" data-target=".tg-categoryModal"><i class="lnr lnr-checkmark-circle"></i></a>
+                                                    <a href="#" class="tg-btndel" data-toggle="modal" data-target=".tg-appointmentrejectmodal"><i class="lnr lnr-cross-circle"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="tg-dashboardappointment">
+                                                <div class="tg-servicetitle">
+                                                    <figure>
+                                                        <img src="images/contractor-dashboard/ceo-img.jpg" alt="image description">
+                                                    </figure>
+                                                    <div class="tg-clientcontent">
+                                                        <h2><a href="#" data-toggle="modal" data-target=".tg-categoryModal">Brittaney Grubaugh</a></h2>
+                                                        <span>(In Appointment)</span>
+                                                    </div>
+                                                </div>
+                                                <div class="tg-serviceandservicetype">
+                                                    <h3>Service</h3>
+                                                    <span>Business Storage</span>
+                                                </div>
+                                                <div class="tg-btntimeedit">
+                                                    <div class="tg-appointmenttype">
+                                                        <h3>Appointment Type</h3>
+                                                        <span>General Aointment</span>
+                                                    </div>
+                                                    <a href="#" class="tg-btnedite" data-toggle="modal" data-target=".tg-categoryModal"><i class="lnr lnr-checkmark-circle"></i></a>
+                                                    <a href="#" class="tg-btndel" data-toggle="modal" data-target=".tg-appointmentrejectmodal"><i class="lnr lnr-cross-circle"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="tg-dashboardappointment">
+                                                <div class="tg-servicetitle">
+                                                    <figure>
+                                                        <img src="images/contractor-dashboard/small.jpg" alt="image description">
+                                                    </figure>
+                                                    <div class="tg-clientcontent">
+                                                        <h2><a href="#">Brittaney Grubaugh</a></h2>
+                                                        <span>(In Appointment)</span>
+                                                    </div>
+                                                </div>
+                                                <div class="tg-serviceandservicetype">
+                                                    <h3>Service</h3>
+                                                    <span>Business Storage</span>
+                                                </div>
+                                                <div class="tg-btntimeedit">
+                                                    <div class="tg-appointmenttype">
+                                                        <h3>Appointment Type</h3>
+                                                        <span>General Aointment</span>
+                                                    </div>
+                                                    <a href="#" class="tg-btnedite" data-toggle="modal" data-target=".tg-categoryModal"><i class="lnr lnr-checkmark-circle"></i></a>
+                                                    <a href="#" class="tg-btndel" data-toggle="modal" data-target=".tg-appointmentrejectmodal"><i class="lnr lnr-cross-circle"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="tg-dashboardappointment">
+                                                <div class="tg-servicetitle">
+                                                    <figure>
+                                                        <img src="images/contractor-dashboard/small1.jpg" alt="image description">
+                                                    </figure>
+                                                    <div class="tg-clientcontent">
+                                                        <h2><a href="#">Brittaney Grubaugh</a></h2>
+                                                        <span>(In Appointment)</span>
+                                                    </div>
+                                                </div>
+                                                <div class="tg-serviceandservicetype">
+                                                    <h3>Service</h3>
+                                                    <span>Business Storage</span>
+                                                </div>
+                                                <div class="tg-btntimeedit">
+                                                    <div class="tg-appointmenttype">
+                                                        <h3>Appointment Type</h3>
+                                                        <span>General Aointment</span>
+                                                    </div>
+                                                    <a href="#" class="tg-btnedite" data-toggle="modal" data-target=".tg-categoryModal"><i class="lnr lnr-checkmark-circle"></i></a>
+                                                    <a href="#" class="tg-btndel" data-toggle="modal" data-target=".tg-appointmentrejectmodal"><i class="lnr lnr-cross-circle"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="tg-dashboardappointment">
+                                                <div class="tg-servicetitle">
+                                                    <figure>
+                                                        <img src="images/contractor-dashboard/ceo-img.jpg" alt="image description">
+                                                    </figure>
+                                                    <div class="tg-clientcontent">
+                                                        <h2><a href="#">Brittaney Grubaugh</a></h2>
+                                                        <span>(In Appointment)</span>
+                                                    </div>
+                                                </div>
+                                                <div class="tg-serviceandservicetype">
+                                                    <h3>Service</h3>
+                                                    <span>Business Storage</span>
+                                                </div>
+                                                <div class="tg-btntimeedit">
+                                                    <div class="tg-appointmenttype">
+                                                        <h3>Appointment Type</h3>
+                                                        <span>General Aointment</span>
+                                                    </div>
+                                                    <a href="#" class="tg-btnedite" data-toggle="modal" data-target=".tg-categoryModal"><i class="lnr lnr-checkmark-circle"></i></a>
+                                                    <a href="#" class="tg-btndel" data-toggle="modal" data-target=".tg-appointmentrejectmodal"><i class="lnr lnr-cross-circle"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="tg-dashboardappointment">
+                                                <div class="tg-servicetitle">
+                                                    <figure>
+                                                        <img src="images/contractor-dashboard/small.jpg" alt="image description">
+                                                    </figure>
+                                                    <div class="tg-clientcontent">
+                                                        <h2><a href="#">Brittaney Grubaugh</a></h2>
+                                                        <span>(In Appointment)</span>
+                                                    </div>
+                                                </div>
+                                                <div class="tg-serviceandservicetype">
+                                                    <h3>Service</h3>
+                                                    <span>Business Storage</span>
+                                                </div>
+                                                <div class="tg-btntimeedit">
+                                                    <div class="tg-appointmenttype">
+                                                        <h3>Appointment Type</h3>
+                                                        <span>General Aointment</span>
+                                                    </div>
+                                                    <a href="#" class="tg-btnedite" data-toggle="modal" data-target=".tg-categoryModal"><i class="lnr lnr-checkmark-circle"></i></a>
+                                                    <a href="#" class="tg-btndel" data-toggle="modal" data-target=".tg-appointmentrejectmodal"><i class="lnr lnr-cross-circle"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="tg-dashboardappointment">
+                                                <div class="tg-servicetitle">
+                                                    <figure>
+                                                        <img src="images/contractor-dashboard/small1.jpg" alt="image description">
+                                                    </figure>
+                                                    <div class="tg-clientcontent">
+                                                        <h2><a href="#">Brittaney Grubaugh</a></h2>
+                                                        <span>(In Appointment)</span>
+                                                    </div>
+                                                </div>
+                                                <div class="tg-serviceandservicetype">
+                                                    <h3>Service</h3>
+                                                    <span>Business Storage</span>
+                                                </div>
+                                                <div class="tg-btntimeedit">
+                                                    <div class="tg-appointmenttype">
+                                                        <h3>Appointment Type</h3>
+                                                        <span>General Aointment</span>
+                                                    </div>
+                                                    <a href="#" class="tg-btnedite" data-toggle="modal" data-target=".tg-categoryModal"><i class="lnr lnr-checkmark-circle"></i></a>
+                                                    <a href="#" class="tg-btndel" data-toggle="modal" data-target=".tg-appointmentrejectmodal"><i class="lnr lnr-cross-circle"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="tg-dashboardappointment">
+                                                <div class="tg-servicetitle">
+                                                    <figure>
+                                                        <img src="images/contractor-dashboard/ceo-img.jpg" alt="image description">
+                                                    </figure>
+                                                    <div class="tg-clientcontent">
+                                                        <h2><a href="#">Brittaney Grubaugh</a></h2>
+                                                        <span>(In Appointment)</span>
+                                                    </div>
+                                                </div>
+                                                <div class="tg-serviceandservicetype">
+                                                    <h3>Service</h3>
+                                                    <span>Business Storage</span>
+                                                </div>
+                                                <div class="tg-btntimeedit">
+                                                    <div class="tg-appointmenttype">
+                                                        <h3>Appointment Type</h3>
+                                                        <span>General Aointment</span>
+                                                    </div>
+                                                    <a href="#" class="tg-btnedite" data-toggle="modal" data-target=".tg-categoryModal"><i class="lnr lnr-checkmark-circle"></i></a>
+                                                    <a href="#" class="tg-btndel" data-toggle="modal" data-target=".tg-appointmentrejectmodal"><i class="lnr lnr-cross-circle"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="tg-dashboardappointment">
+                                                <div class="tg-servicetitle">
+                                                    <figure>
+                                                        <img src="images/contractor-dashboard/small1.jpg" alt="image description">
+                                                    </figure>
+                                                    <div class="tg-clientcontent">
+                                                        <h2><a href="#">Brittaney Grubaugh</a></h2>
+                                                        <span>(In Appointment)</span>
+                                                    </div>
+                                                </div>
+                                                <div class="tg-serviceandservicetype">
+                                                    <h3>Service</h3>
+                                                    <span>Business Storage</span>
+                                                </div>
+                                                <div class="tg-btntimeedit">
+                                                    <div class="tg-appointmenttype">
+                                                        <h3>Appointment Type</h3>
+                                                        <span>General Aointment</span>
+                                                    </div>
+                                                    <a href="#" class="tg-btnedite" data-toggle="modal" data-target=".tg-categoryModal"><i class="lnr lnr-checkmark-circle"></i></a>
+                                                    <a href="#" class="tg-btndel" data-toggle="modal" data-target=".tg-appointmentrejectmodal"><i class="lnr lnr-cross-circle"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<!--************************************
+        Main End
+*************************************-->
+<!--************************************
+        Footer Start
+*************************************-->

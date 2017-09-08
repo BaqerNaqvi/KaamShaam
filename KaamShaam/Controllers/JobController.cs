@@ -140,6 +140,7 @@ namespace KaamShaam.Controllers
 
         #region Manage Job
 
+        [Authorize]
         public ActionResult ManageJobs()
         {
             var cats = CategoryService.GetAllCategories();
@@ -267,11 +268,15 @@ namespace KaamShaam.Controllers
         #endregion
 
         #region Find & Apply Job
-        public ActionResult FindJobs()
+        public ActionResult FindJobs(string category)
         {
             var id = System.Web.HttpContext.Current.User.Identity.GetUserId();
             var cats = CategoryService.GetAllCategories();
             var jobs = JobService.GetReadyJobs(id);
+            if (category != null && jobs.Count>0)
+            {
+                jobs = jobs.Where(j => j.CatName.ToLower().Contains(category.ToLower())).ToList();
+            }
             var page = new PaggingClass
             {
                 CurrentPage = 0,
@@ -282,7 +287,7 @@ namespace KaamShaam.Controllers
             };
             page = CalculateJobsWithPaging(ref jobs, page);
             page.CurrentPage = 1;
-            return View(new ManageJobModel { Categories = cats, JobsList = jobs, Pagging = page });
+            return View(new ManageJobModel { Categories = cats, JobsList = jobs, Pagging = page , Str = category??""});
         }
 
         [HttpPost]

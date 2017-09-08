@@ -12,6 +12,7 @@ using Microsoft.AspNet.Identity;
 
 namespace KaamShaam.Controllers
 {
+    [Authorize]
     public class AppointmentController : Controller
     {
         // GET: Appointment

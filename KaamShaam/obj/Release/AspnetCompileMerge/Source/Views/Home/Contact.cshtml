@@ -1,0 +1,91 @@
+﻿<!--************************************
+Inner Page Banner Start
+*************************************-->
+
+<div class="tg-innerpagebanner">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="tg-pagetitle">
+                    <h1>contact</h1>
+                </div>
+                <ol class="tg-breadcrumb">
+                    <li><a href="#">Home</a></li>
+                    <li class="tg-active">contact</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!--************************************
+        Inner Page Banner End
+*************************************-->
+<!--************************************
+        Main Start
+*************************************-->
+<main id="tg-main" class="tg-main tg-paddingzero tg-haslayout">
+    <!--************************************
+            Contact Us Start
+    *************************************-->
+    @*<div id="tg-officelocationmap" class="tg-locationmap tg-contactusmap"></div>*@
+    <div class="tg-main-section tg-haslayout">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-10 col-md-push-1 col-lg-8 col-lg-push-2">
+                    <div class="tg-sectionhead">
+                        <div class="tg-sectiontitle">
+                            <h2>Get In Touch</h2>
+                        </div>
+                        <div class="tg-description">
+                            <p>Let visitors know you really want to hear from them and include a call to action to ‘Say Hello.’ This call to action is well suited to Hello Innovation since the word is in the name, but the company has gone that one step further by including ‘hi’ in the email address. Can you resist saying hello?</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="tg-contactusarea">
+                    <div class="col-xs-12 col-sm-12 col-md-10 col-md-push-1 col-lg-10 col-lg-push-1">
+                            <fieldset>
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                                        <div class="form-group">
+                                            <input type="text" name="name" class="form-control" placeholder="Full Name">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                                        <div class="form-group">
+                                            <input type="text" name="phone" class="form-control" placeholder="Phone">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                                        <div class="form-group">
+                                            <input type="text" name="name" class="form-control" placeholder="Subject">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                        <div class="form-group">
+                                            <textarea rows="20" placeholder="Description"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                        <button onclick="sendFeedback()" class="tg-btn">Submit</button>
+                                    </div>
+                                </div>
+                            </fieldset>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--************************************
+            Contact Us End
+    *************************************-->
+
+</main>
+<!--************************************
+        Main End
+*************************************-->
+<script src="~/Scripts/jquery-3.2.1.js"></script>
+<script>
+    function sendFeedback() {
+        toastr.success("Thank you for your feedback");
+    }
+</script>

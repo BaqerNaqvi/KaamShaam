@@ -9,6 +9,7 @@ using KaamShaam.DbEntities;
 
 namespace KaamShaam.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         public ActionResult ListView()
@@ -48,8 +49,8 @@ namespace KaamShaam.Controllers
         [HttpPost]
         public JsonResult DeleteUser(AspNetUser obj)
         {
-            AdminService.DeleteUser(obj);
-            return Json(true, JsonRequestBehavior.AllowGet);
+           var resp= AdminService.DeleteUser(obj);
+            return Json(resp, JsonRequestBehavior.AllowGet);
         }
     }
 }

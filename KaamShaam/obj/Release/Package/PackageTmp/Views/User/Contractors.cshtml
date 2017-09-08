@@ -142,10 +142,15 @@
             dataType: "json",
             data: JSON.stringify(obj),
             success: function (data) {
-                toastr.success("User deleted");
-                setTimeout(function() {
-                    location.reload();
-                },1000);
+                if (data) {
+                    toastr.success("User deleted");
+                    setTimeout(function() {
+                        location.reload();
+                    }, 1000);
+                } else {
+                    toastr.error("Data is associated with Contractor. Can't be deleted.");
+                }
+               
             },
             error: function (data) { }
         });

@@ -1,0 +1,55 @@
+﻿@model KaamShaam.LocalModels.MapPlaceWrapper
+
+
+@{
+    if (Model != null)
+    {
+        foreach (var item in Model.listing)
+        {
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="tg-serviceprovider tg-automotive">
+                    <figure class="tg-featuredimg" style="width: 110px">
+                        <img src="@item.image" alt="image description">
+                        <figcaption>
+                            <a class="tg-themetag tg-categorytag" href="contractor-profile.php">@item.CatName</a>
+                            <a class="tg-heart tg-liked" href="javascript:void(0);"><i class="fa fa-heart"></i></a>
+                        </figcaption>
+                    </figure>
+                    <div class="tg-companycontent">
+                        <ul class="tg-tags">
+                            <li><a class="tg-tag tg-featuredtag" href="#">featured</a></li>
+                            <li><a class="tg-tag tg-verifiedtag" href="#">verified</a></li>
+                        </ul>
+                        <div class="tg-title">
+                            <h3><a href="contractor-profile.php" style="display: inline">@item.title</a><span style="font-size: x-small;">&nbsp;[@item.Distance Km away]</span></h3>
+                        </div>
+                        <ul class="tg-matadata">
+                            <li><span class="tg-stars"><span></span></span></li>
+                            <li>
+                                <i class="fa fa-thumbs-o-up"></i>
+                                <em>0% (0 votes)</em>
+                            </li>
+                        </ul>
+                        <ul class="tg-companycontactinfo">
+                            <li>
+                                <i class="lnr lnr-phone-handset"></i>
+                                <span data-toggle="tooltip" data-placement="top" title="Click to view Number" data-last="34 - 562 - 6">@item.Phone</span>
+                            </li>
+                            <li>
+                                <i class="lnr lnr-envelope"></i>
+                                <span data-toggle="tooltip" data-placement="top" title="Click to view Email" data-last="domain.com"><a href="mailto:query@domain.com">@item.Email</a></span>
+                            </li>
+                        </ul>
+                        @*<button class="tg-btn" type="buttton" data-toggle="modal" data-target=".tg-appointmentModal">Contact</button>*@
+                        <button class="tg-btn btn-margin-left"><a href="~/Contractor/ViewProfile?userId=@item.id">View Profile</a></button>
+
+                    </div>
+                </div>
+            </div>
+        }
+    }
+}
+
+<script>
+    var newplaces = @Html.Raw(Json.Encode(Model));
+</script>

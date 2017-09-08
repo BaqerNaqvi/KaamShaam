@@ -18,6 +18,12 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/ApplicationInsights.config">
       <publishTime>07/25/2017 02:41:32</publishTime>
     </File>
+    <File Include="bin/App_global.asax.compiled">
+      <publishTime>09/08/2017 05:00:00</publishTime>
+    </File>
+    <File Include="bin/App_global.asax.dll">
+      <publishTime>09/08/2017 05:00:00</publishTime>
+    </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>02/03/2015 09:32:26</publishTime>
     </File>
@@ -25,7 +31,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/03/2015 09:32:26</publishTime>
     </File>
     <File Include="bin/KaamShaam.dll">
-      <publishTime>08/23/2017 11:29:50</publishTime>
+      <publishTime>09/08/2017 04:59:04</publishTime>
     </File>
     <File Include="bin/Microsoft.AI.Agent.Intercept.dll">
       <publishTime>11/30/2016 16:07:42</publishTime>
@@ -1878,6 +1884,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="packages.config">
       <publishTime>08/21/2017 05:36:18</publishTime>
     </File>
+    <File Include="PrecompiledApp.config">
+      <publishTime>09/08/2017 04:59:57</publishTime>
+    </File>
     <File Include="Scripts/bootstrap-datetimepicker.js">
       <publishTime>08/21/2017 05:36:17</publishTime>
     </File>
@@ -2569,7 +2578,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/28/2017 03:33:46</publishTime>
     </File>
     <File Include="Views/Account/AdminLogin.cshtml">
-      <publishTime>08/23/2017 11:29:29</publishTime>
+      <publishTime>08/23/2017 15:55:02</publishTime>
     </File>
     <File Include="Views/Account/ConfirmEmail.cshtml">
       <publishTime>07/25/2017 02:41:10</publishTime>
@@ -2587,10 +2596,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/25/2017 02:41:10</publishTime>
     </File>
     <File Include="Views/Account/Login.cshtml">
-      <publishTime>08/18/2017 03:13:16</publishTime>
+      <publishTime>09/08/2017 04:50:57</publishTime>
     </File>
     <File Include="Views/Account/Register.cshtml">
-      <publishTime>08/22/2017 12:35:11</publishTime>
+      <publishTime>09/08/2017 03:39:50</publishTime>
     </File>
     <File Include="Views/Account/ResetPassword.cshtml">
       <publishTime>07/25/2017 02:41:10</publishTime>
@@ -2644,7 +2653,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/22/2017 05:47:46</publishTime>
     </File>
     <File Include="Views/Contractor/FindContractor.cshtml">
-      <publishTime>08/22/2017 11:41:24</publishTime>
+      <publishTime>09/08/2017 01:57:28</publishTime>
     </File>
     <File Include="Views/Contractor/FindContractorPartial.cshtml">
       <publishTime>08/22/2017 11:41:44</publishTime>
@@ -2659,13 +2668,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/22/2017 12:43:27</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>08/23/2017 10:45:51</publishTime>
+      <publishTime>09/08/2017 04:58:30</publishTime>
     </File>
     <File Include="Views/Job/AppliedJobs.cshtml">
       <publishTime>08/19/2017 05:22:32</publishTime>
     </File>
     <File Include="Views/Job/FindJobs.cshtml">
-      <publishTime>08/19/2017 04:46:39</publishTime>
+      <publishTime>09/08/2017 02:41:06</publishTime>
     </File>
     <File Include="Views/Job/JobProposals.cshtml">
       <publishTime>08/22/2017 11:50:08</publishTime>
@@ -2680,7 +2689,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/13/2017 19:48:26</publishTime>
     </File>
     <File Include="Views/Job/ManageJobs.cshtml">
-      <publishTime>08/20/2017 00:22:42</publishTime>
+      <publishTime>09/08/2017 03:25:08</publishTime>
     </File>
     <File Include="Views/Job/ManageJobsPartials.cshtml">
       <publishTime>08/20/2017 00:25:26</publishTime>
@@ -2689,7 +2698,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/19/2017 23:20:58</publishTime>
     </File>
     <File Include="Views/Job/PostJob.cshtml">
-      <publishTime>08/14/2017 23:36:16</publishTime>
+      <publishTime>09/08/2017 02:59:32</publishTime>
     </File>
     <File Include="Views/KaamShaam/ComminSoon.cshtml">
       <publishTime>08/10/2017 01:07:05</publishTime>
@@ -2713,7 +2722,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/25/2017 02:41:11</publishTime>
     </File>
     <File Include="Views/Profile/Update.cshtml">
-      <publishTime>07/08/2017 00:03:33</publishTime>
+      <publishTime>09/08/2017 03:56:50</publishTime>
     </File>
     <File Include="Views/Shared/Error.cshtml">
       <publishTime>07/25/2017 02:41:10</publishTime>
@@ -2728,13 +2737,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/10/2017 06:04:48</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>08/23/2017 10:47:18</publishTime>
+      <publishTime>09/08/2017 04:17:04</publishTime>
     </File>
     <File Include="Views/Shared/_LoginPartial.cshtml">
       <publishTime>07/25/2017 02:41:11</publishTime>
     </File>
     <File Include="Views/User/Contractors.cshtml">
-      <publishTime>08/18/2017 03:46:01</publishTime>
+      <publishTime>09/08/2017 04:26:46</publishTime>
     </File>
     <File Include="Views/User/Users.cshtml">
       <publishTime>08/23/2017 11:09:28</publishTime>
@@ -2749,7 +2758,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/25/2017 02:40:51</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>08/23/2017 11:29:51</publishTime>
+      <publishTime>09/07/2017 06:20:50</publishTime>
     </File>
   </ItemGroup>
 </Project>

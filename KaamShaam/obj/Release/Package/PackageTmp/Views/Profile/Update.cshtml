@@ -24,9 +24,10 @@
     height: 106px;
     max-width: 90px;
     max-height: 106px;
-    margin-top: 12px;
     width: 90px;
     min-height: 90px;
+    float: right;
+    margin-top: 12px;
     }
 
      .customField {
@@ -211,7 +212,7 @@ Main Start
                                         </div>
                                     }
 
-                                    @*<div class="tg-dashboardbox tg-basicinformation">
+                                    <div class="tg-dashboardbox tg-basicinformation">
                                         <div class="tg-dashboardtitle">
                                             <h2>Location</h2>
                                             <div class="infoeditDiv">[<a href="#" data-toggle="modal" data-target="#locationModel" onclick=" openMapforProfile() ">Edit</a>]
@@ -220,10 +221,10 @@ Main Start
                                         </div>
                                         <table class="table table-striped">
                                             <tbody>
-                                            <tr>
+                                            @*<tr>
                                                 <td class="col-lg-2"><strong>Country/City</strong></td>
                                                 <td class="col-lg-10"><span id="td-country">@Model.BasicInfo.Country</span> / <span id="td-city">@Model.BasicInfo.City</span> </td>
-                                            </tr>
+                                            </tr>*@
                                             <tr>
                                                 @{
                                                     var cords = Model.BasicInfo.Location.Latitude + "_" + Model.BasicInfo.Location.Longitude;
@@ -234,7 +235,7 @@ Main Start
                                             </tr>
                                             </tbody>
                                         </table>
-                                    </div>*@
+                                    </div>
 
                                     <div class="tg-dashboardbox tg-basicinformation">
                                         <div class="tg-dashboardtitle">
@@ -350,14 +351,14 @@ Main Start
                 }
                 <!-- content goes here -->
                 <div class="row">
-                    <div class="form-group " style="width: 45%; margin-left: 22px;">
+                    @*<div class="form-group " style="width: 45%; margin-left: 22px;">
                         <label> Country</label>
                         @Html.DropDownListFor(m => m.BasicInfo.Country, items, new {@class = "form-control profileVal", @id = "lc-Country"})
                     </div>
                     <div class="form-group" style="width: 45%; margin-left: 12px;">
-                        <label> City</label>
+                        <label> City</label>Country/City
                         <input type="text" class="form-control locisInfo" id="lc-City">
-                    </div>
+                    </div>*@
                     <div class="form-group" style="margin-bottom: 0px; width: 93%; margin-left: 20px;">
                         <input type="text" class="form-control locisInfo" id="lc-address" placeholder="Address" readonly="">
                     </div>
@@ -483,13 +484,13 @@ Main Start
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
                 <h3 class="modal-title" id="">Profile Avatar</h3>
             </div>
-            <div class="modal-body" style="padding-top: 0px;height: 185px;">
+            <div class="modal-body" style="padding-top: 0px;height: 140px;">
                 <div class="form-group">
                     <form id="profilePicUploaderForm">
                         <img class="avatarThumb" width="100" height="100" style="margin-bottom: 5px;margin-top: 12px;" id="profile-pic-thumb" src="http://via.placeholder.com/50x60"/>
                         <div style="margin-top: 8px">
-                            <input id="profilePicUploader" type="file" class="btn btn-default" style="display: inline-block;margin-bottom: 9px;" value="Upload Banner">
-                        <input type="submit" class="btn btn-rounded" style="margin-left: 10px;margin-bottom: 9px;" value="Upload file" />
+                            <input id="profilePicUploader" type="file" class="btn btn-default" style="margin-top: 14%; display: inline-block;margin-bottom: 9px;" value="Upload Banner">
+                        <input type="submit" class="btn btn-rounded" style="margin-top: 80px;margin-left: 36px;margin-bottom: 9px;" value="Upload file" />
                         </div>
                     </form>
                 </div>
@@ -766,10 +767,10 @@ Main End
     }
 
     function saveLocInfo() {
-        if (!ValidateByClassName('locisInfo')) {
-            toastr.warning("Please fill up the data");
-            return;
-        }
+        //if (!ValidateByClassName('locisInfo')) {
+        //    toastr.warning("Please fill up the data");
+        //    return;
+        //}
         var cords = selectedLoc.lat + "_" + selectedLoc.lng;
         var dbuser = {};
         dbuser.Country = $("#lc-Country").val();

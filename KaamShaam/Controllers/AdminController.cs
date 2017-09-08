@@ -9,6 +9,7 @@ using KaamShaam.Services;
 
 namespace KaamShaam.Controllers
 {
+    [Authorize(Roles = "Admin,Super Admin")]
     public class AdminController : Controller
     {
         public ActionResult Stats()

@@ -133,7 +133,7 @@
                                         
                                       
 
-                                        <div class="form-group" style="margin-left: 31px; margin-bottom: 0px;">
+                                        <div class="form-group" style="margin-left: 32px; margin-bottom: 0px;">
                                             <div class="tg-checkbox" style="margin-top: -28px;">
                                                 <input type="checkbox" id="terms">
                                                 <label for="terms">I have read the <a href="#">Terms &amp; Conditions</a> and accept them</label>
@@ -217,9 +217,12 @@
                                     <div class="form-group">
                                         <button class="tg-btn tg-btn-lg" type="submit">Login Now</button>
                                     </div>
+
                                 }
-                                <a style="cursor: pointer" class="tg-btnforgotpass" onclick="passforgot()">Forgot your password?</a>
+                                <a style="cursor: pointer" class="tg-btnforgotpass" onclick=" passforgot() ">Forgot your password?</a>
                             </fieldset>
+
+
                         </div>
                     </div>
                     <style>
@@ -531,13 +534,16 @@ Main End
     }
 
     function UserTypeChnaged() {
+        hideUserControlls();
+    }
+    function hideUserControlls() {
         var val = $('#userTypeDd').val();
         //if (val === "Contractor") {
         //    $('.contractorEle').show();
         //} else {
         //    $('.contractorEle').hide();
         //}
-        
+
 
         if (val === "User") {
             $(".notUserField").hide();
@@ -556,4 +562,6 @@ Main End
             }
         });
     }
+
+    hideUserControlls();
 </script>

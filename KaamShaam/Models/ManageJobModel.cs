@@ -12,5 +12,7 @@ namespace KaamShaam.Models
         public List<CustomJobModel> JobsList { get; set; }
 
         public List<LocalCategory> Categories { get; set; }
+
+        public string Str { get; set; }
     }
 }

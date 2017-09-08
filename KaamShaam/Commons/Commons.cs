@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity.Spatial;
+using KaamShaam.Controllers;
+using KaamShaam.LocalModels;
 
 namespace KaamShaam.Commons
 {
@@ -9,6 +12,31 @@ namespace KaamShaam.Commons
         {
             var point = string.Format("POINT({1} {0})", latitude, longitude);
             return DbGeography.FromText(point);
+        }
+
+        public static List<MapPlaceModel> FormatMapData(List<AdminModels.LocalUser> contractors, string baseUrl)
+        {
+            var places = new List<MapPlaceModel>();
+            foreach (var cont in contractors)
+            {
+                places.Add(new MapPlaceModel
+                {
+                    id = cont.Id,
+                    latitude = cont.lat,
+                    longitude = cont.lng,
+                    image = AccountController.SetImagePath(cont.Id, "110x110", baseUrl + "/Images/"),
+                    title = cont.FullName,
+                    subjects = cont.Mobile,
+                    url = "#",
+                    featured = "no",
+                    marker = baseUrl+"/Images/icons/markerone.png",
+                    CatName = cont.CatName,
+                    Phone = cont.Mobile,
+                    Email = cont.Email,
+                    Distance = cont.DistanceFromOrigin
+                });
+            }
+            return places;
         }
     }
     public static class GeodesicDistance

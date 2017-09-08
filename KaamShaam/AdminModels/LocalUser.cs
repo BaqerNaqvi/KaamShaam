@@ -59,7 +59,7 @@ namespace KaamShaam.AdminModels
         public static LocalUser MapUser(this AspNetUser source)
         {
             LocalCategory cat = null;
-            if (source.CategoryId != null)
+            if (source.CategoryId != 0)
             {
                 cat = CategoryService.GetCategoryById(source.CategoryId);
             }

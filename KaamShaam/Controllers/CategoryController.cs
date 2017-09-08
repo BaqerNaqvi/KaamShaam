@@ -9,6 +9,7 @@ using KaamShaam.Services;
 
 namespace KaamShaam.Controllers
 {
+    [Authorize]
     public class CategoryController : Controller
     {
         public ActionResult ListView()

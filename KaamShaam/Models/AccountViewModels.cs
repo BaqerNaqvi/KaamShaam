@@ -69,6 +69,7 @@ namespace KaamShaam.Models
         public string FullName { get; set; }
 
         [Display(Name = "User Type")]
+        [Required]
         public string Type { get; set; }
 
         [Required]

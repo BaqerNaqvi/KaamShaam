@@ -62,6 +62,11 @@ namespace KaamShaam.Controllers
         [System.Web.Mvc.AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            return GetLoginStuff();
+        }
+
+        private ActionResult GetLoginStuff()
+        {
             var vendors = UserServices.GetUserByType("Vendor");
             var cats = CategoryService.GetAllCategories();
 
@@ -91,7 +96,7 @@ namespace KaamShaam.Controllers
             if (!isApproved)
             {
                 ModelState.AddModelError("", "User is not approved by admin.");
-                return View();
+                return GetLoginStuff();
             }
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
@@ -112,7 +117,7 @@ namespace KaamShaam.Controllers
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
-                    return View();
+                    return GetLoginStuff();
             }
         }
 
@@ -203,7 +208,8 @@ namespace KaamShaam.Controllers
                 }
                 AddErrors(result);
             }
-
+            var cats = CategoryService.GetAllCategories();
+            model.Categories = cats;
             // If we got this far, something failed, redisplay form
             return View(model);
         }

@@ -306,7 +306,7 @@
                                             <li><a href="@baseUrl/Home/Index">Home</a></li>
                                             <li><a href="@baseUrl/Home/About">About Us</a></li>
                                             @*<li><a href="#">How It Works</a></li>*@
-                                            @if (Request.IsAuthenticated)
+                                            @if (Request.IsAuthenticated && (User.IsInRole("User") || User.IsInRole("Contractor")))
                                             {
                                                 <li class="menu-item-has-children">
                                                     <a href="#">Dashboard</a>
@@ -453,7 +453,7 @@
                                             <a href="http://www.domainurl.com ">http://www.kaamshaam.pk</a>
                                             <time datetime="2016-08-08">3 hours ago</time>
                                         </li>
-                                        <li><a class="tg-btn tg-btnviewall" href="https://twitter.com">view all</a></li>
+                                        @*<li><a class="tg-btn tg-btnviewall" href="https://twitter.com">view all</a></li>*@
                                     </ul>
                                 </div>
                             </div>
