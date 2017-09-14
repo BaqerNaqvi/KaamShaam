@@ -53,14 +53,14 @@
             Wrapper Start
     *************************************-->
     <div id="tg-wrapper" class="tg-wrapper tg-haslayout">
-    <!--************************************
-    Header Start
-    *************************************-->
+        <!--************************************
+        Header Start
+        *************************************-->
         @{
             string baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority +
-                                    Request.ApplicationPath.TrimEnd('/') ;
+                                    Request.ApplicationPath.TrimEnd('/');
             var userImg = System.Web.HttpContext.Current.User.Identity.GetUserId() + "_35.png";
-            userImg=KaamShaam.AppUtils.Common.ReturnImage(baseUrl+"/Images/Profiles/"+userImg, "35x35");
+            userImg = KaamShaam.AppUtils.Common.ReturnImage(baseUrl + "/Images/Profiles/" + userImg, "35x35");
 
         }
         <header id="tg-header" class="tg-header tg-haslayout">
@@ -71,7 +71,7 @@
                             <ul class="tg-addressinfo">
                                 <li>
                                     <i class="lnr lnr-envelope"></i>
-                                    <a href="mailto:info@domain.com">contact@infokaamsham.com</a>
+                                    <a href="mailto:contact@kamsham.com">contact@kamsham.com</a>
                                 </li>
                                 <li>
                                     <i class="lnr lnr-phone-handset"></i>
@@ -99,12 +99,12 @@
                                     </li>
                                 </ul>
                             </div>
-                        @{
-                            var margin = "13px";
-                            if (Request.IsAuthenticated)
-                            {
-                                margin = "0px";
-                            }
+                            @{
+                                var margin = "13px";
+                                if (Request.IsAuthenticated)
+                                {
+                                    margin = "0px";
+                                }
                             }
                             <div class="tg-adminbox" style="margin-top: @margin">
                                 <div class="tg-loginregister" style="display: block; padding: 0px">
@@ -123,11 +123,11 @@
                                                     <nav id="tg-dashboardnav" class="tg-dashboardnav">
                                                         <ul>
                                                             @*<li>
-                                                            <a href="dashboardappointment.php">
-                                                                <i class="lnr lnr-calendar-full"></i>
-                                                                <span>Appointments</span>
-                                                            </a>
-                                                        </li>*@
+                                                                    <a href="dashboardappointment.php">
+                                                                        <i class="lnr lnr-calendar-full"></i>
+                                                                        <span>Appointments</span>
+                                                                    </a>
+                                                                </li>*@
                                                             <li class="li-profile-setting">
                                                                 <a href="/Profile/Update">
                                                                     <i class="lnr lnr-cog"></i>
@@ -140,29 +140,29 @@
                                                                     <span>Appointments</span>
                                                                 </a>
                                                             </li>
-                                                          @{
-                                                              if (User.IsInRole("User"))
-                                                              {
-                                                                  <li class="li-manage-jobs">
-                                                                      <a href="~/Job/ManageJobs">
-                                                                          <i class="lnr lnr-map"></i>
-                                                                          <span>Manage Jobs</span>
-                                                                      </a>
-                                                                  </li>
-                                                                  <li class="li-manage-jobs">
-                                                                      <a href="~/Job/jobProposals">
-                                                                          <i class="lnr lnr-map"></i>
-                                                                          <span>Job Proposals</span>
-                                                                      </a>
-                                                                  </li>
-                                                                <li class="li-manage-jobs">
-                                                                    <a href="~/Contractor/FindContractor">
-                                                                        <i class="lnr lnr-map"></i>
-                                                                        <span>Find Contractors</span>
-                                                                    </a>
-                                                                </li>
-                                                              }
-                                                        }
+                                                            @{
+                                                                if (User.IsInRole("User"))
+                                                                {
+                                                                    <li class="li-manage-jobs">
+                                                                        <a href="~/Job/ManageJobs">
+                                                                            <i class="lnr lnr-map"></i>
+                                                                            <span>Manage Jobs</span>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li class="li-manage-jobs">
+                                                                        <a href="~/Job/jobProposals">
+                                                                            <i class="lnr lnr-map"></i>
+                                                                            <span>Job Proposals</span>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li class="li-manage-jobs">
+                                                                        <a href="~/Contractor/FindContractor">
+                                                                            <i class="lnr lnr-map"></i>
+                                                                            <span>Find Contractors</span>
+                                                                        </a>
+                                                                    </li>
+                                                                }
+                                                            }
                                                             @{
                                                                 if (User.IsInRole("Contractor"))
                                                                 {
@@ -187,17 +187,17 @@
                                                                 }
                                                             }
                                                             @*<li>
-                                                                <a href="dashboardsecuritysetting.php">
-                                                                    <i class="lnr lnr-construction"></i>
-                                                                    <span>Security Settings</span>
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="dashboardprivacysetting.php">
-                                                                    <i class="lnr lnr-lock"></i>
-                                                                    <span>Privacy Settings</span>
-                                                                </a>
-                                                            </li>*@
+                                                                    <a href="dashboardsecuritysetting.php">
+                                                                        <i class="lnr lnr-construction"></i>
+                                                                        <span>Security Settings</span>
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="dashboardprivacysetting.php">
+                                                                        <i class="lnr lnr-lock"></i>
+                                                                        <span>Privacy Settings</span>
+                                                                    </a>
+                                                                </li>*@
                                                             <li>
                                                                 <a href="~/Account/LogOff">
                                                                     <i class="lnr lnr-exit"></i>
@@ -209,13 +209,13 @@
                                                 </div>
                                             </div>
                                         </div>
-                                     }
-                                      else
-                                     {
-                                        <a class="tg-btnlogin" href="~/Account/Register">Login / Register </a>
-                                        @*<a class="tg-btnregister" href="admin/admin.php"> Admin</a>*@
-                                    }
-                                   
+                                                                }
+                                                                else
+                                                                {
+                                                                    <a class="tg-btnlogin" href="~/Account/Register">Login / Register </a>
+                                                                    @*<a class="tg-btnregister" href="admin/admin.php"> Admin</a>*@
+                                                                }
+
                                 </div>
                                 <div class="tg-useradminbox" style="display:none;">
                                     <div class="tg-themedropdown tg-userdropdown">
@@ -287,7 +287,7 @@
                     <div class="row">
                         <div class="col-sm-12 col-xs-12">
                             @{
-                               
+
                                 <strong class="tg-logo"><a href="~/Home/index"><img src="@baseUrl/Images/logo.png" alt="image description"></a></strong>
 
                             }
@@ -308,29 +308,17 @@
                                             @*<li><a href="#">How It Works</a></li>*@
                                             @if (Request.IsAuthenticated && (User.IsInRole("User") || User.IsInRole("Contractor")))
                                             {
-                                                <li class="menu-item-has-children">
-                                                    <a href="#">Dashboard</a>
-
-                                                    <ul class="sub-menu">
-                                                       
-                                                            
-                                                            
-                                                                @if (User.IsInRole("User"))
-                                                                {
-                                                                    <li>
-                                                                        <a href="@baseUrl/profile/Update">User Dashbaord</a>
-                                                                    </li>                                                           }
-                                                                else if (User.IsInRole("Contractor"))
-                                                                {
-                                                                    <li>
-                                                                        <a href="@baseUrl/profile/Update">Contractor Dashboard</a>
-                                                                    </li>                                                           }
-                                                            
-                                                        
-                                                    </ul>
+                                                <li class="">
+                                                    @if (User.IsInRole("User"))
+                                                    {
+                                                        <a href="@baseUrl/profile/Update">User Dashbaord</a>
+                                                    }
+                                                    else if (User.IsInRole("Contractor"))
+                                                    {
+                                                        <a href="@baseUrl/profile/Update">Contractor Dashboard</a>
+                                                    }
                                                 </li>
                                             }
-                                            
                                             <li><a href="@baseUrl/Home/Contact">Contact Us</a></li>
                                         </ul>
                                     </div>
@@ -348,7 +336,7 @@
                                         }
                                     }
 
-                                }                     
+                                }
                             </div>
                         </div>
                     </div>
@@ -401,10 +389,10 @@
                     <div class="tg-fourcolumns">
                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3">
                             <div class="tg-footercolumn">
-                                        @{
-                                            <strong class="tg-logo"><a href="index.html"><img src="@baseUrl/Images/logo.png" alt="image description"></a></strong>
+                                @{
+                                    <strong class="tg-logo"><a href="index.html"><img src="@baseUrl/Images/logo.png" alt="image description"></a></strong>
 
-                                        }
+                                }
 
                                 <div class="tg-description">
                                     <p>We offer our services at your door step without <a href="">more...</a></p>
@@ -420,11 +408,11 @@
                                     </li>
                                     <li>
                                         <i class="lnr lnr-envelope"></i>
-                                        <span><a href="mailto:admin@infokaamsham.com">admin@kaamsham.com</a></span>
+                                        <span><a href="mailto:admin@kamsham.com">admin@kamsham.com</a></span>
                                     </li>
                                     <li>
                                         <i class="lnr lnr-construction"></i>
-                                        <span><a href="mailto:contact@domain.com">contact@kaamshaam.pk</a></span>
+                                        <span><a href="mailto:complaints@kamsham.com">complaints@kamsham.pk</a></span>
                                     </li>
                                 </ul>
                                 <ul class="tg-socialicons">
@@ -471,7 +459,7 @@
                                         <li><a href="#">KaamShaam Org</a></li>
                                         <li><a href="#">Press Releases</a></li>
                                         <li><a href="#">Summit 2016</a></li>
-                                     
+
                                     </ul>
                                 </div>
                             </div>
@@ -484,10 +472,10 @@
                                 <div class="tg-widgetcontent">
                                     <ul>
                                         <li>
-@{
-    <figure><a href="#"><img src="@baseUrl/Images/logos/img-01.png" alt="image description"></a></figure>
+                                            @{
+                                                <figure><a href="#"><img src="@baseUrl/Images/logos/img-01.png" alt="image description"></a></figure>
 
-}                                            <div class="tg-contentbox">
+                                            }                                            <div class="tg-contentbox">
                                                 <h4><a href="#">Lahore Cleaning Service</a></h4>
                                                 <ul class="tg-matadata">
                                                     <li><span class="tg-stars"><span></span></span></li>
@@ -499,10 +487,10 @@
                                             </div>
                                         </li>
                                         <li>
-@{
-    <figure><a href="#"><img src="@baseUrl/Images/logos/img-02.png" alt="image description"></a></figure>
+                                            @{
+                                                <figure><a href="#"><img src="@baseUrl/Images/logos/img-02.png" alt="image description"></a></figure>
 
-}                                            <div class="tg-contentbox">
+                                            }                                            <div class="tg-contentbox">
                                                 <h4><a href="#">Karachi Hardwares</a></h4>
                                                 <ul class="tg-matadata">
                                                     <li><span class="tg-stars"><span></span></span></li>
@@ -558,18 +546,18 @@
     <!--************************************
             Wrapper End
     *************************************-->
-@{
-    var appurl = Request.Url.AbsolutePath.ToLower();
-    <script>
+    @{
+        var appurl = Request.Url.AbsolutePath.ToLower();
+        <script>
             console.log("You are on: " + @Html.Raw(Json.Encode(appurl)));
-    </script>
-    if (!appurl.Contains("appointment/upcoming") && !appurl.Contains("appointment/getdayevents")
-        && !appurl.Contains("home/index") && !(appurl.Count() == 1))
-    {
-        <script> console.log("Script added");</script>
-       <script src="~/Scripts/vendor/jquery-library.js"></script>
+        </script>
+        if (!appurl.Contains("appointment/upcoming") && !appurl.Contains("appointment/getdayevents")
+            && !appurl.Contains("home/index") && !(appurl.Count() == 1))
+        {
+            <script> console.log("Script added");</script>
+            <script src="~/Scripts/vendor/jquery-library.js"></script>
+        }
     }
-}
     @*<script src="~/Scripts/vendor/jquery-library.js"></script>*@
     <script src="~/Scripts/jquery-ui.js"></script>
 
@@ -577,7 +565,7 @@
 
 
 
-<script src="~/Scripts/readmore.js"></script>
+    <script src="~/Scripts/readmore.js"></script>
     <script src="~/Scripts/jquery.countdown.js"></script>
     <script src="~/Scripts/owl.carousel.min.js"></script>
     <script src="~/Scripts/scrollbar.min.js"></script>
@@ -597,8 +585,8 @@
         slider.control('bullets');
 
         slider.setup('masterslider' , {
-            width:1600,    // slider standard width
-            height:650,   // slider standard height
+            width:1200,    // slider standard width
+            height:400,   // slider standard height
             space:0,
             speed:45,
             layout:'fullwidth',

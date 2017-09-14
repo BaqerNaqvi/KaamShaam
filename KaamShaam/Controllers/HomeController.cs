@@ -26,19 +26,33 @@ namespace KaamShaam.Controllers
             {
                 paths.AddRange(imgs.Select(banner => banner.FileName));
             }
-            var contractors = AdminService.GetUsersByType("Contractor");
-            var gropuedCons= contractors.GroupBy(con => con.CategoryId).ToList().OrderByDescending( dd=>dd.Count());
+         //   var contractors = AdminService.GetUsersByType("Contractor");
+         //   var gropuedCons= contractors.GroupBy(con => con.CategoryId).ToList().OrderByDescending( dd=>dd.Count());
             var listcons = new List<ContractorIndexPageModel>();
-            foreach (var gcon in gropuedCons)
-            {
-                var obj = gcon.FirstOrDefault();
-                listcons.Add(new ContractorIndexPageModel
-                {
-                    CatName = obj.CatName,
-                    CatCount = gcon.Count(),
-                    CategoryId = obj.CategoryId
-                });
+            //foreach (var gcon in gropuedCons)
+            //{
+            //    var obj = gcon.FirstOrDefault();
+            //    listcons.Add(new ContractorIndexPageModel
+            //    {
+            //        CatName = obj.CatName,
+            //        CatCount = gcon.Count(),
+            //        CategoryId = obj.CategoryId
+            //    });
 
+            //}
+            var cats = CategoryService.GetAllCategories();
+            if (cats != null && cats.Any())
+            {
+                cats = cats.OrderByDescending(ca => ca.JobCount).ToList().Take(6).ToList();
+                foreach (var obj in cats)
+                {
+                    listcons.Add(new ContractorIndexPageModel
+                    {
+                        CatName = obj.Name,
+                        CatCount = obj.JobCount,
+                        CategoryId = obj.Id
+                    });
+                }
             }
             return View(new HomePageWraper
             {

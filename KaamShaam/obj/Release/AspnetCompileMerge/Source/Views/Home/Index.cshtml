@@ -27,11 +27,37 @@ Header End
         li {
             list-style: none;
         }
+
         .dropdown-menu {
-    width: 87% !important;
-    top: 70px !important;
-    left: 0px !important;
-    padding: 13px !important;
+            width: 87% !important;
+            left: 0px !important;
+            padding: 13px !important;
+        }
+
+        .searchSection {
+            background: #1eb38a;
+            width: 100%;
+            float: left;
+            padding: 30px 0px;
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .searchInnerContainer {
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .figureImg {
+            padding: 13px !important;
+            margin-left: 32px !important;
+            height: 280px !important;
+            width: 280px !important;
+        }
+
+        .typeahead {
+            top: 56px !important;
         }
     </style>
 </head>
@@ -39,17 +65,17 @@ Header End
 <!-- masterslider -->
 <div class="master-slider ms-skin-default" id="masterslider" style="display:table;">
 
-   @{
-       foreach (var img in Model.BannersList)
-       {
+    @{
+        foreach (var img in Model.BannersList)
+        {
             <!-- slide 1 -->
-        <div class="ms-slide slide-1" data-delay="9">
-        <img src="@baseUrl/Images/Banners/@img" alt="" />
-        </div>
+            <div class="ms-slide slide-1" data-delay="9">
+                <img src="@baseUrl/Images/Banners/@img" alt="" />
+            </div>
     <!-- end slide 1 -->
-       }
-}
-   
+        }
+    }
+
 </div>
 <!-- end of masterslider -->
 <!--******************************-->
@@ -469,6 +495,15 @@ Header End
     <!--************************************
             Top Categories Start
     *************************************-->
+
+    <div class="searchSection">
+        <div class="searchInnerContainer">
+            <input id="mysearch" type="search" class="form-control" placeholder="Search Contractor Categories ..." style="width: 87%; margin-top: 12px;float: left;" />
+            <input onclick="gotocatsearch()" type="button" value="Search" class="form-control btn btn-primary" style="width: 11%; margin-top: 12px;" />
+
+        </div>
+
+    </div>
     <section class="tg-main-section tg-haslayout" style="padding-top: 19px;">
         <div class="container">
             <div class="row">
@@ -476,10 +511,7 @@ Header End
                     <div class="tg-sectionhead">
                         <div class="tg-sectiontitle">
                             <h2>Contractor Categories</h2>
-                            <input  id="mysearch" type="search" class="form-control" placeholder="Search Contractor Categories ..." style="width: 87%; margin-top: 12px;float: left;"/>
-                            <input onclick="gotocatsearch()" type="button" value="Search" class="form-control btn btn-primary" style="width: 11%; margin-top: 12px;"/>
-                            <img class="ajaxloader" id="myloader" src="~/Images/ajax-loader.gif" style="margin-top: -63px;margin-left: 69%;" />
-
+                            <img class="ajaxloader" id="myloader" src="~/Images/ajax-loader.gif" style="margin-top: -309px;margin-left: 64%;display: inline;" />
                         </div>
                         <div class="tg-description">
                             <p>ow you can reach more than 5000 service providers in your area using our platform. Find contractors in your area or do post the job to let the contractrs reach you. </p>
@@ -490,18 +522,65 @@ Header End
                     @{
                         if (Model != null)
                         {
+                            var counter = 1;
                             Random rnd = new Random();
-
                             foreach (var cat in Model.ContractorCats)
                             {
+                                var content = "";
+                                var img = "";
+                                if (cat.CatName == "Plumber")
+                                {
+                                    img = "plumber.png";
+                                    content = "Don’t worry we’ll take the plunge for you! Whether it’s tweaking and cleaning the pipes or installing/maintaining fixtures and sanitation systems, we’ve got the man for the job. We can deal with heating, cooling, water distribution and sanitation systems in residential and commercial structures. Our plumbing team is highly collaborative; remember we’ll take the plunge for you!";
+                                }
+                                else if (cat.CatName == "Electrician")
+                                {
+                                    img = "general.png";
+                                    content = "Our Electronic Specialists are charged and ready to go. Their experience gives them the 220 Volts of energy and knowledge needed to manage a variety of tasks relating to setting up and maintaining electrical infrastructure. Through them, we keep ourselves ahead of the current market trends & are skilled with latest technology and tool kits.";
+                                }
+                                else if (cat.CatName == "Carpenter")
+                                {
+                                    img = "carpenter.png";
+                                    content = "There have been numerous projects our carpenters have undertaken, and quite frankly they nailed every single one of them! They have the experience to cut, fabricate and install wooden and other structures according to specifications. Their services will entail working in diverse settings to produce steady and functional infrastructure and products.";
+                                }
+                                else if (cat.CatName == "General Contractor")
+                                {
+                                    img = "general.png";
+                                    content = "We have a remarkable team of General contractors who coordinate and supervise the work at construction sites from early development to final product. They consist of owners of the contracting firms in charge of construction, or salaried employees of property owners and developers. Our team’s motto is to provide the best deliverables to our customers embracing every mean of security and safety measures.";
+                                }
+                                else if (cat.CatName == "Computer & Mobile Services")
+                                {
+                                    img = "general.png";
+                                    content = "Being a part of today’s dynamic world of constant development entails the need of experts that are up to date and well informed. We provide our customers with a well aware, specialized IT team to install, maintain and repair computers as well as networks. Our IT team is renowned for its services and durable work. It is essential for us to facilitate our clients with the best in terms of security, privacy and client satisfaction.";
+                                }
+                                else if (cat.CatName == "Handyman")
+                                {
+                                    img = "handyman.png";
+                                    content = "We keep a team of handymen handy for you to hire for the responsibilities that revolve around general maintenance, orderliness, and cleanliness in your organization to ensure that facilities and equipment are in good shape at all times for utilization. The team always follows the core value to provide the best using our success factor: to work with loyalty to fulfill every client’s need.";
+                                }
+                                else
+                                {
+                                    if (cat.CatName == "Home Cleaning")
+                                    {
+                                        img = "cleaning.png";
+                                    }
+                                    else
+                                    {
+                                        img = "general.png";
+                                    }
+                                    content = "KamSham.pk is your one stop for all your ‘ghareelo’ needs. It is a platform consisting of a wide range of services aimed to ensure customer satisfaction. We offer contractor’s categories like technicians, Electricians, Plumbers, Carpenters, A/C mechanics to our end customers with complete security and safety ensured. Let try KamSham.Pk.";
+                                }
+
                                 int pic = rnd.Next(7, 12);
-                                string newval = pic+"";
+                                string newval = pic + "";
                                 if (pic < 10)
                                 {
-                                    newval = "0"+pic;
+                                    newval = "0" + pic;
                                 }
-                                var immg = baseUrl+"/Images/categories/img-"+ newval + ".jpg";
-                                <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4" style="cursor: pointer" onclick="gotoCat(@Json.Encode(cat))">
+                                var immg = baseUrl + "/Images/categories/img-" + newval + ".jpg";
+
+                                var immgCar = baseUrl + "/Images/KamShamCats/" + img;
+                                <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4" style="cursor: pointer" onclick=" gotoCat(@Json.Encode(cat)) ">
                                     <div class="tg-category">
                                         <figure>
                                             <img src="@immg" alt="image description">
@@ -517,11 +596,22 @@ Header End
                                             </figcaption>
                                         </figure>
                                     </div>
+                                    @{
+                                        <p style="word-break: break-all;">
+                                            @content
+                                        </p>
+                                    }
                                 </div>
-                            }
-                        }
+
+                                                if (counter % 3 == 0)
+                                                {
+
+                                                }
+                                                counter++;
+                                            }
+                                        }
                     }
-                  
+
                 </div>
                 <div class="tg-btnbox">
                     <a class="tg-btn tg-btnviewall" href="../Contractor/FindContractor">view all</a>
@@ -667,7 +757,7 @@ Header End
                                 <div class="tg-companylogo"><a href="#"><img src="~/Images/logos/img-02.png" alt="image description"></a></div>
                                 <div class="tg-companycontent">
                                     <ul class="tg-tags">
-                                        <li><a class="tg-tag tg-featuredtag"  href="~/job/FindJobs?category=Plum">view job</a></li>
+                                        <li><a class="tg-tag tg-featuredtag" href="~/job/FindJobs?category=Plum">view job</a></li>
                                         <li><a class="tg-tag tg-verifiedtag" href="#">verified</a></li>
                                     </ul>
                                     <div class="tg-title">
@@ -689,7 +779,7 @@ Header End
                             <figure class="tg-featuredimg">
                                 <img src="~/Images/serviceproviders/img-03.jpg" alt="image description">
                                 <figcaption>
-                                    <a class="tg-themetag tg-categorytag" href="~/job/FindJobs?category=Carp">>Carpenter</a>
+                                    <a class="tg-themetag tg-categorytag" href="~/job/FindJobs?category=Carp">Carpenter</a>
                                     <a class="tg-heart tg-liked" href="~/job/FindJobs?category=Carp"><i class="fa fa-heart"></i></a>
                                 </figcaption>
                             </figure>
@@ -697,7 +787,7 @@ Header End
                                 <div class="tg-companylogo"><a href="#"><img src="~/Images/logos/img-03.png" alt="image description"></a></div>
                                 <div class="tg-companycontent">
                                     <ul class="tg-tags">
-                                        <li><a class="tg-tag tg-featuredtag"  href="~/job/FindJobs?category=Carp">view job</a></li>
+                                        <li><a class="tg-tag tg-featuredtag" href="~/job/FindJobs?category=Carp">view job</a></li>
                                         <li><a class="tg-tag tg-verifiedtag" href="#">verified</a></li>
                                     </ul>
                                     <div class="tg-title">
@@ -719,7 +809,7 @@ Header End
                             <figure class="tg-featuredimg">
                                 <img src="~/Images/serviceproviders/img-04.jpg" alt="image description">
                                 <figcaption>
-                                    <a class="tg-themetag tg-categorytag" href="~/job/FindJobs?category=Gene">>General Contractor</a>
+                                    <a class="tg-themetag tg-categorytag" href="~/job/FindJobs?category=Gene">General Contractor</a>
                                     <a class="tg-heart tg-liked" hhref="~/job/FindJobs?category=Gene"><i class="fa fa-heart"></i></a>
                                 </figcaption>
                             </figure>
@@ -841,12 +931,12 @@ Header End
                                 </div>
                             </div>
                             @*<div class="item">
-                                <div class="tg-testimonial">
-                                    <h2>Sundas Bukhari</h2>
-                                    <h3>Best platform to get services</h3>
-                                    <blockquote><q>Consectetur adipisicing elit sed eiusmod tempor incididunt labore et dolore magna aliqua eantnim adia minim veniam quis nostrud exercitation ullamco laboris.</q></blockquote>
-                                </div>
-                            </div>*@
+                                    <div class="tg-testimonial">
+                                        <h2>Sundas Bukhari</h2>
+                                        <h3>Best platform to get services</h3>
+                                        <blockquote><q>Consectetur adipisicing elit sed eiusmod tempor incididunt labore et dolore magna aliqua eantnim adia minim veniam quis nostrud exercitation ullamco laboris.</q></blockquote>
+                                    </div>
+                                </div>*@
                             <div class="item">
                                 <div class="tg-testimonial">
                                     <h2>Nimra Yaseen</h2>
@@ -861,7 +951,7 @@ Header End
                                     <blockquote><q>Consectetur adipisicing elit sed eiusmod tempor incididunt labore et dolore magna aliqua eantnim adia minim veniam quis nostrud exercitation ullamco laboris.</q></blockquote>
                                 </div>
                             </div>
-                           
+
                             <div class="item">
                                 <div class="tg-testimonial">
                                     <h2>Bakhtawar Bhutto</h2>

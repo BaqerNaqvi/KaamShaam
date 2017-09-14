@@ -72,7 +72,7 @@ namespace KaamShaam.apis
                     status = "found",
                     listing = places,
                 };
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, new ApiResponseModel
+                return Request.CreateResponse(HttpStatusCode.OK, new ApiResponseModel
                 {
                     Success = true,
                     Message = "Successfully fetched Contractors",

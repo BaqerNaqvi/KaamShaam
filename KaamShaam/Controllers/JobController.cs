@@ -115,6 +115,8 @@ namespace KaamShaam.Controllers
         #endregion
 
         #region Post Job
+
+        [Authorize]
         [HttpGet]
         public ActionResult PostJob()
         {
@@ -123,6 +125,7 @@ namespace KaamShaam.Controllers
             return View(new CustomJobModel { Cats = cats });
         }
         [HttpPost]
+        [Authorize]
         public ActionResult PostJob(CustomJobModel model)
         {
             if (ModelState.IsValid)
@@ -132,6 +135,7 @@ namespace KaamShaam.Controllers
                     var id = System.Web.HttpContext.Current.User.Identity.GetUserId();
                     model.PostedById = id;
                 }
+                model.Email = "NA";
                 JobService.AddJob(model);
             }
             return RedirectToAction("ManageJobs", "Job");
@@ -188,6 +192,7 @@ namespace KaamShaam.Controllers
         /// For Owner
         /// </summary>
         [HttpPost]
+        [Authorize]
         public ActionResult DeleteJob(JobRequestModel model)
         {
             var id = System.Web.HttpContext.Current.User.Identity.GetUserId();
@@ -214,6 +219,7 @@ namespace KaamShaam.Controllers
         }
 
         [HttpPost]
+
         public ActionResult GetSortedJobs(PaggingClass page)
         {
             var id = System.Web.HttpContext.Current.User.Identity.GetUserId();

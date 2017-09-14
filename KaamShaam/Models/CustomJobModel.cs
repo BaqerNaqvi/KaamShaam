@@ -28,7 +28,6 @@ namespace KaamShaam.Models
         public string Fee { get; set; }
         [Required]
         public string Mobile { get; set; }
-        [Required]
         [EmailAddress]
         public string Email { get; set; }
 

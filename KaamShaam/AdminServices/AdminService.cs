@@ -35,15 +35,71 @@ namespace KaamShaam.AdminServices
                 context.SaveChanges();
             }
         }
-        public static bool DeleteUser(AspNetUser obj)
+        public static bool DeleteUser(AspNetUser userObj)
         {
+            AspNetUser tempo=null;
             using (var context = new KaamShaamEntities())
             {
+                tempo = context.AspNetUsers.FirstOrDefault(x => x.Id == userObj.Id);
+                var contextnew = new ApplicationDbContext();
+                var userStore = new UserStore<ApplicationUser>(contextnew);
+                var userManager = new UserManager<ApplicationUser>(userStore);
+                foreach (var role in tempo.AspNetRoles.ToList())
+                {
+                    userManager.RemoveFromRole(userObj.Id, role.Name);
+                }
+            }
+            
+            using (var context = new KaamShaamEntities())
+            {               
                 try
                 {
-                    var data = context.AspNetUsers.FirstOrDefault(x => x.Id == obj.Id);
+                    var data = context.AspNetUsers.FirstOrDefault(x => x.Id == userObj.Id);
                     if (data != null)
                     {
+                        #region User Deletion
+                        if (data.Type == "User")
+                        {
+                            var jobsposted = context.Jobs.Where(j => j.PostedById == data.Id).ToList();
+                            if (jobsposted.Any())
+                            {
+                                foreach (var jpost in jobsposted)
+                                {
+                                    if (jpost.JobHistories != null && jpost.JobHistories.Any())
+                                    {
+                                        foreach (var jhistory in jpost.JobHistories.ToList())
+                                        {
+                                            context.JobHistories.Remove(jhistory);
+                                        }
+                                    }
+                                    context.Jobs.Remove(jpost);
+                                }
+                            }
+                        }
+                        #endregion
+                        #region Contractor Deletion
+                        if (data.Type == "Contractor")
+                        {
+                            var appliedJobs = context.JobHistories.Where(j => j.ContractorId == data.Id).ToList();
+                            if (appliedJobs.Any())
+                            {
+                                foreach (var appJob in appliedJobs)
+                                {
+                                    context.JobHistories.Remove(appJob);
+                                }
+                            }
+                        }
+                        #endregion
+
+                       var apps= context.Appointments.Where(app => app.CreatedBy == data.Id || app.WithId == data.Id).ToList();
+                        if (apps.Any())
+                        {
+                            foreach (var app in apps)
+                            {
+                                context.Appointments.Remove(app);
+                            }
+                        }
+
                         context.AspNetUsers.Remove(data);
                         context.SaveChanges();
                         return true;
@@ -87,7 +143,6 @@ namespace KaamShaam.AdminServices
         }
         public static LocalUser AddUserToRole(MakeAdminModel adminModel)
         {
-
             using (var dbcontext = new KaamShaamEntities())
             {
                 var context = new ApplicationDbContext();

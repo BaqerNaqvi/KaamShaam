@@ -558,6 +558,12 @@
     <Content Include="Images\job-detail\img-12.jpg" />
     <Content Include="Images\job-detail\img-32.png" />
     <Content Include="Images\job-detail\img-34.png" />
+    <Content Include="Images\KamShamCats\carpenter.png" />
+    <Content Include="Images\KamShamCats\cleaning.png" />
+    <Content Include="Images\KamShamCats\commercial cleaning.png" />
+    <Content Include="Images\KamShamCats\general.png" />
+    <Content Include="Images\KamShamCats\handyman.png" />
+    <Content Include="Images\KamShamCats\plumber.png" />
     <Content Include="Images\loading-bubbles.svg" />
     <Content Include="Images\loginregister\captcha.png" />
     <Content Include="Images\logo.png" />

@@ -183,7 +183,7 @@ namespace KaamShaam.Controllers
         // POST: /Account/Register
         [System.Web.Mvc.HttpPost]
         [System.Web.Mvc.AllowAnonymous]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterPageWraper model)
         {
             if (ModelState.IsValid)
@@ -527,6 +527,7 @@ namespace KaamShaam.Controllers
             #region Session
             Session["UserName"] = user.FullName;
             Session["Address"] = user.LocationName;
+            Session["Type"] = user.Type;
 
             string baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority +
                    Request.ApplicationPath.TrimEnd('/') + "/Images/";

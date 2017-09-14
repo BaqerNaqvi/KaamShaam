@@ -22,7 +22,7 @@ namespace KaamShaam.Services
                 return jobs.Select(j => j.Mapper()).ToList();
             }
         }       
-        public static void AddJob(CustomJobModel job)
+        public static long AddJob(CustomJobModel job)
         {
             DbGeography loc = null;
             if (!string.IsNullOrEmpty(job.LocationCords) && job.LocationCords != "")
@@ -53,6 +53,7 @@ namespace KaamShaam.Services
             {
                 dbcontext.Jobs.Add(obj);
                 dbcontext.SaveChanges();
+                return obj.Id;
             }
         }
         public static List<CustomJobModel> GetUserJobs(string userId)

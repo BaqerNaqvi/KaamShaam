@@ -87,6 +87,7 @@ namespace KaamShaam.Controllers
             #region Session
             Session["UserName"] = user.FullName;
             Session["Address"] = user.LocationName;
+            Session["Type"] = user.Type;
 
             string baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority +
                    Request.ApplicationPath.TrimEnd('/') + "/Images/";

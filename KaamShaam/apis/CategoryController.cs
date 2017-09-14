@@ -23,7 +23,7 @@ namespace KaamShaam.apis
             try
             {
                 var allCats = CategoryService.GetAllCategories();
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, new ApiResponseModel
+                return Request.CreateResponse(HttpStatusCode.OK, new ApiResponseModel
                 {
                     Success = true,
                     Message = "Successfully fetched categories",

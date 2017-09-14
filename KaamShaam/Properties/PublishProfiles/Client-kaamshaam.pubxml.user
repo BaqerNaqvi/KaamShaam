@@ -19,10 +19,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/25/2017 02:41:32</publishTime>
     </File>
     <File Include="bin/App_global.asax.compiled">
-      <publishTime>09/08/2017 05:00:00</publishTime>
+      <publishTime>09/14/2017 12:15:39</publishTime>
     </File>
     <File Include="bin/App_global.asax.dll">
-      <publishTime>09/08/2017 05:00:00</publishTime>
+      <publishTime>09/14/2017 12:15:39</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>02/03/2015 09:32:26</publishTime>
@@ -31,7 +31,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/03/2015 09:32:26</publishTime>
     </File>
     <File Include="bin/KaamShaam.dll">
-      <publishTime>09/08/2017 04:59:04</publishTime>
+      <publishTime>09/14/2017 12:15:34</publishTime>
     </File>
     <File Include="bin/Microsoft.AI.Agent.Intercept.dll">
       <publishTime>11/30/2016 16:07:42</publishTime>
@@ -1344,6 +1344,24 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Images/job-detail/img-34.png">
       <publishTime>07/24/2017 22:55:36</publishTime>
     </File>
+    <File Include="Images/KamShamCats/carpenter.png">
+      <publishTime>09/13/2017 08:54:50</publishTime>
+    </File>
+    <File Include="Images/KamShamCats/cleaning.png">
+      <publishTime>09/13/2017 08:54:50</publishTime>
+    </File>
+    <File Include="Images/KamShamCats/commercial cleaning.png">
+      <publishTime>09/13/2017 08:54:50</publishTime>
+    </File>
+    <File Include="Images/KamShamCats/general.png">
+      <publishTime>09/13/2017 08:54:50</publishTime>
+    </File>
+    <File Include="Images/KamShamCats/handyman.png">
+      <publishTime>09/13/2017 08:54:50</publishTime>
+    </File>
+    <File Include="Images/KamShamCats/plumber.png">
+      <publishTime>09/13/2017 08:54:50</publishTime>
+    </File>
     <File Include="Images/loading-bubbles.svg">
       <publishTime>01/12/2015 14:12:00</publishTime>
     </File>
@@ -1885,7 +1903,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/21/2017 05:36:18</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>09/08/2017 04:59:57</publishTime>
+      <publishTime>09/14/2017 12:15:36</publishTime>
     </File>
     <File Include="Scripts/bootstrap-datetimepicker.js">
       <publishTime>08/21/2017 05:36:17</publishTime>
@@ -2596,10 +2614,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/25/2017 02:41:10</publishTime>
     </File>
     <File Include="Views/Account/Login.cshtml">
-      <publishTime>09/08/2017 04:50:57</publishTime>
+      <publishTime>09/13/2017 09:36:32</publishTime>
     </File>
     <File Include="Views/Account/Register.cshtml">
-      <publishTime>09/08/2017 03:39:50</publishTime>
+      <publishTime>09/13/2017 08:18:16</publishTime>
     </File>
     <File Include="Views/Account/ResetPassword.cshtml">
       <publishTime>07/25/2017 02:41:10</publishTime>
@@ -2620,7 +2638,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/10/2017 06:04:58</publishTime>
     </File>
     <File Include="Views/Admin/Stats.cshtml">
-      <publishTime>07/08/2017 00:55:45</publishTime>
+      <publishTime>09/14/2017 12:15:27</publishTime>
     </File>
     <File Include="Views/Appointment/Detail.cshtml">
       <publishTime>08/21/2017 15:22:18</publishTime>
@@ -2653,7 +2671,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/22/2017 05:47:46</publishTime>
     </File>
     <File Include="Views/Contractor/FindContractor.cshtml">
-      <publishTime>09/08/2017 01:57:28</publishTime>
+      <publishTime>09/14/2017 11:36:25</publishTime>
     </File>
     <File Include="Views/Contractor/FindContractorPartial.cshtml">
       <publishTime>08/22/2017 11:41:44</publishTime>
@@ -2662,19 +2680,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/22/2017 11:45:00</publishTime>
     </File>
     <File Include="Views/Home/About.cshtml">
-      <publishTime>08/21/2017 15:46:09</publishTime>
+      <publishTime>09/13/2017 08:24:10</publishTime>
     </File>
     <File Include="Views/Home/Contact.cshtml">
       <publishTime>08/22/2017 12:43:27</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>09/08/2017 04:58:30</publishTime>
+      <publishTime>09/14/2017 12:06:59</publishTime>
     </File>
     <File Include="Views/Job/AppliedJobs.cshtml">
       <publishTime>08/19/2017 05:22:32</publishTime>
     </File>
     <File Include="Views/Job/FindJobs.cshtml">
-      <publishTime>09/08/2017 02:41:06</publishTime>
+      <publishTime>09/14/2017 10:40:21</publishTime>
     </File>
     <File Include="Views/Job/JobProposals.cshtml">
       <publishTime>08/22/2017 11:50:08</publishTime>
@@ -2698,7 +2716,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/19/2017 23:20:58</publishTime>
     </File>
     <File Include="Views/Job/PostJob.cshtml">
-      <publishTime>09/08/2017 02:59:32</publishTime>
+      <publishTime>09/14/2017 11:00:20</publishTime>
     </File>
     <File Include="Views/KaamShaam/ComminSoon.cshtml">
       <publishTime>08/10/2017 01:07:05</publishTime>
@@ -2728,7 +2746,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/25/2017 02:41:10</publishTime>
     </File>
     <File Include="Views/Shared/LeftMenu.cshtml">
-      <publishTime>08/22/2017 12:31:10</publishTime>
+      <publishTime>09/09/2017 03:32:11</publishTime>
     </File>
     <File Include="Views/Shared/Lockout.cshtml">
       <publishTime>07/25/2017 02:41:11</publishTime>
@@ -2737,7 +2755,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/10/2017 06:04:48</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>09/08/2017 04:17:04</publishTime>
+      <publishTime>09/14/2017 11:20:48</publishTime>
     </File>
     <File Include="Views/Shared/_LoginPartial.cshtml">
       <publishTime>07/25/2017 02:41:11</publishTime>

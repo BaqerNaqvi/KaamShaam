@@ -52,7 +52,7 @@
                                             </div>
                                         </a>
                                     </li>
-                                    @Html.AntiForgeryToken()
+                                    @*@Html.AntiForgeryToken()*@
 
                                 </ul>
                                 <div class="tg-themetabcontent tab-content">
@@ -76,14 +76,14 @@
                                                 </span>
                                             </div>
 
-                                            //var companies = new List<SelectListItem>();
-                                            //if (Model.Vendors != null && Model.Vendors.Any())
-                                            //{
-                                            //    foreach (var ven in Model.Vendors)
-                                            //    {
-                                            //        companies.Add(new SelectListItem { Text = ven.FullName, Value = ven.Id });
-                                            //    }
-                                            //}
+                                            var companies = new List<SelectListItem>();
+                                            if (Model.Vendors != null && Model.Vendors.Any())
+                                            {
+                                                foreach (var ven in Model.Vendors)
+                                                {
+                                                    companies.Add(new SelectListItem { Text = ven.FullName, Value = ven.Id });
+                                                }
+                                            }
 
                                             List<SelectListItem> cats = new List<SelectListItem>();
                                             if (Model.Categories != null && Model.Categories.Any())
@@ -128,7 +128,7 @@
                                             @Html.TextBoxFor(m => m.RegisterViewModel.CNIC, new { name = "CNIC", @class = "form-control customField", @placeholder = "CNIC" })
                                         </div>
                                         <div class="form-group">
-                                            @Html.TextBoxFor(m => m.RegisterViewModel.Mobile, new { name = "Mobile", @class = "form-control", @placeholder = "Mobile" })
+                                            @Html.TextBoxFor(m => m.RegisterViewModel.Mobile, new { name = "Mobile", @class = "form-control", @placeholder = "Mobile", @id = "mNumber" })
                                         </div>
 
 
@@ -357,7 +357,7 @@
                     </div>
 
                     <div class="btn-group" role="group">
-                        <button type="button" id="saveImage" class="btn btn-primary btn-hover-green" data-action="save" role="button" onclick="saveLoc()">Save</button>
+                        <button type="button" id="saveImage" class="btn btn-primary btn-hover-green" data-action="save" role="button" onclick="saveLoc()">Update</button>
                     </div>
                 </div>
             </div>
@@ -378,9 +378,17 @@ Main End
             mapTypeId: 'roadmap'
         });
         infoWindow = new google.maps.InfoWindow;
+        function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+            infoWindow.setPosition(pos);
+            infoWindow.setContent(browserHasGeolocation ?
+                'Error: The Geolocation service failed.' :
+                'Error: Your browser doesn\'t support geolocation.');
+            infoWindow.open(map);
+        }
         // Try HTML5 geolocation.
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function (position) {
+                debugger;
                 pos = {
                     lat: position.coords.latitude,
                     lng: position.coords.longitude
@@ -389,20 +397,18 @@ Main End
 
             }, function() {
                 handleLocationError(true, infoWindow, map.getCenter());
-            });
+            },{
+            maximumAge:Infinity,
+            timeout:5000
+        });
         } else {
+            alert("Please Allow accessing your location");
             // Browser doesn't support Geolocation
-            handleLocationError(false, infoWindow, map.getCenter());
+            // handleLocationError(false, infoWindow, map.getCenter());
         }
 
 
-        function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-            infoWindow.setPosition(pos);
-            infoWindow.setContent(browserHasGeolocation ?
-                'Error: The Geolocation service failed.' :
-                'Error: Your browser doesn\'t support geolocation.');
-            infoWindow.open(map);
-        }
+
 
         // Create the search box and link it to the UI element.
         var input = document.getElementById('pac-input');
@@ -507,8 +513,14 @@ Main End
         if (typeval === "Contractor") {
 
         }
+
+        var isnum = /^\d+$/.test($('#mNumber').val());
+        if (!isnum) {
+            toastr.warning("Add valid phone number (0-9)");
+            return false;
+        }
         $("#userRegistration").submit();
-    }
+    };
 
     function saveLoc() {
         if (selectedLoc == undefined) {
@@ -529,10 +541,12 @@ Main End
     function openMap() {
         setTimeout(function () {
             google.maps.event.trigger(map, 'resize');
-            infoWindow.setPosition(pos);
-            infoWindow.setContent('Your Location');
-            infoWindow.open(map);
-            map.setCenter(pos);
+           if (selectedLoc === undefined) {
+               infoWindow.setPosition(pos);
+               infoWindow.setContent('Your Location');
+               infoWindow.open(map);
+               map.setCenter(pos);
+           }
         }, 1000);
     }
 
@@ -568,5 +582,4 @@ Main End
 
     hideUserControlls();
     $(".validation-summary-errors").css('margin-left', '120%').css('width', '100%').css('margin-top', '-24%');
-
 </script>
