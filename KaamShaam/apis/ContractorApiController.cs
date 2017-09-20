@@ -40,7 +40,7 @@ namespace KaamShaam.apis
                     contractors = contractors.Where(con => con.CategoryId == model.CategoryId).ToList();
                 }
                 var filteredCons = new List<AdminModels.LocalUser>(contractors);
-                if (!string.IsNullOrEmpty(model.LocationCords) && model.LocationCords != "")
+                if (!string.IsNullOrEmpty(model.LocationCords) && model.LocationCords != "" && !string.IsNullOrEmpty(model.Distance))
                 {
                     var latlng = model.LocationCords.Split('_');
                     if (latlng.Length == 2)
@@ -51,10 +51,10 @@ namespace KaamShaam.apis
                             filteredCons=new List<LocalUser>();
                             foreach (var con in contractors)
                             {
-                                var dist = Commons.GeodesicDistance.GetDistance((double)userLoc.Latitude, (double)userLoc.Longitude, (double)con.lat, (double)con.lng);
+                                var dist = Commons.GeodesicDistance.GetDistance((double)userLoc.Latitude, (double)userLoc.Longitude, Convert.ToDouble(con.lat), Convert.ToDouble(con.lng));
                                 if (dist!=null && (int)dist < Convert.ToInt16(model.Distance))
                                 {
-                                    con.DistanceFromOrigin = (int)dist;
+                                    con.DistanceFromOrigin = (double)dist;
                                     filteredCons.Add(con);
                                 }
                             } 
@@ -78,6 +78,60 @@ namespace KaamShaam.apis
                     Message = "Successfully fetched Contractors",
                     Data = allJobs
                 });
+            }
+            catch (Exception excep)
+            {
+                var response = new ApiResponseModel
+                {
+                    Data = null,
+                    Message = excep.InnerException.Message,
+                    Success = false
+                };
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, response);
+            }
+        }
+
+        [HttpPost]
+        [Route("api/Contractor/Profile")]
+        public HttpResponseMessage ViewProfile(ContractorRequestModel model)
+        {
+            try
+            {
+                if (model == null || model.ContractorId == null || model.VisitedBy==null)
+                {
+                    var responseError = new ApiResponseModel
+                    {
+                        Data = model,
+                        Message = "Data is not mapped",
+                        Success = false
+                    };
+                    return Request.CreateResponse(HttpStatusCode.InternalServerError, responseError);
+                }
+                //if (!string.IsNullOrEmpty(model.VisitedBy))
+                //{
+                //    var dbVisit = ProfileVisitorService.AddLocalVisit(new LocalProfileVisit
+                //    {
+                //        VistedOf = model.ContractorId,
+                //        VistedBy = model.VisitedBy
+                //    });
+                //}
+                var contractor = UserServices.GetUserById(model.ContractorId);
+
+                var isContractorInvoledInAnyJobOfCurrenUser =
+                    contractor.JobHistories.Any(jh => jh.PostedById == model.VisitedBy);
+
+                var isProfileHitByUser = contractor.ProfileVisits.Any(pv => pv.VistedBy == model.VisitedBy || pv.VistedOf == model.VisitedBy);
+
+                bool canRate = isContractorInvoledInAnyJobOfCurrenUser || isProfileHitByUser;
+
+                contractor.CanRate = canRate;
+                var response = new ApiResponseModel
+                {
+                    Data = contractor,
+                    Message = "Profile successfully sent",
+                    Success = true
+                };
+                return Request.CreateResponse(HttpStatusCode.OK, response);
             }
             catch (Exception excep)
             {

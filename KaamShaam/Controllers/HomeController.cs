@@ -21,6 +21,8 @@ namespace KaamShaam.Controllers
         {
             var paths = new List<string>();
             var bannerPath = Server.MapPath("/Images/Banners");
+           
+
             var imgs = BannerService.GetActiveBanners();
             if (imgs != null && imgs.Any())
             {
@@ -43,21 +45,25 @@ namespace KaamShaam.Controllers
             var cats = CategoryService.GetAllCategories();
             if (cats != null && cats.Any())
             {
-                cats = cats.OrderByDescending(ca => ca.JobCount).ToList().Take(6).ToList();
+                cats = cats.OrderByDescending(ca => ca.JobCount).ToList().ToList();
                 foreach (var obj in cats)
                 {
                     listcons.Add(new ContractorIndexPageModel
                     {
                         CatName = obj.Name,
                         CatCount = obj.JobCount,
-                        CategoryId = obj.Id
+                        CategoryId = obj.Id,
+                        BgURL = obj.Image,
+                        IconURL = obj.Icon
                     });
                 }
             }
+            var feed = AdminService.GetApprovedFeedbacks();
             return View(new HomePageWraper
             {
                 BannersList = paths,
-                ContractorCats = listcons
+                ContractorCats = listcons,
+                Feedback = feed
             });
         }
         public ActionResult About()
@@ -66,33 +72,7 @@ namespace KaamShaam.Controllers
         }
         public ActionResult Contact()
         {
-            try
-            {
-                MailMessage message = new System.Net.Mail.MailMessage();
-                string fromEmail = "baqer@gmail.com";
-                string fromPW = "mypw";
-                string toEmail = "baqer.naqvi@afiniti.com";
-                message.From = new MailAddress(fromEmail);
-                message.To.Add(toEmail);
-                message.Subject = "User Message | KaamShaam.Pk";
-                message.Body = "hey there!";
-                message.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
-
-                using (SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587))
-                {
-                    smtpClient.EnableSsl = true;
-                    smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-                    smtpClient.UseDefaultCredentials = false;
-                    smtpClient.Credentials = new NetworkCredential("link2naqvi@gmail.com", "Spacein786");
-
-                    smtpClient.Send(message.From.ToString(), message.To.ToString(),
-                                    message.Subject, message.Body);
-                }
-            }
-            catch (Exception ffg)
-            {
-
-            }
+           
 
             return View();
         }

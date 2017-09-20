@@ -46,13 +46,24 @@ namespace KaamShaam.AdminModels
         public string Feedback { get; set; }
 
         public string LocationName { get; set; }
-        public double? lat { get; set; }
-        public double? lng { get; set; }
+        public string lat { get; set; }
+        public string lng { get; set; }
         public string CatName { get; set; }
 
         [ScriptIgnore]
         public DbGeography Location { get; set; }
-        public int DistanceFromOrigin { get; set; }
+        public double DistanceFromOrigin { get; set; }
+        [ScriptIgnore]
+        public string EditedAt { get; set; }
+
+        public List<LocalProfileVisit> ProfileVisits { get; set; }
+        public List<LocalUserRating> UserRatings { get; set; }
+        public double Score { get; set; }
+        public bool CanRate { get; set; }
+
+        public string LocTempo { get; set; }  // for api
+
+
     }
     public static class UserMapper
     {
@@ -64,7 +75,28 @@ namespace KaamShaam.AdminModels
                 cat = CategoryService.GetCategoryById(source.CategoryId);
             }
             var roleName = source.AspNetRoles.Any() ? source.AspNetRoles.FirstOrDefault().Name : "";
-            return new LocalUser
+
+            var profileVists = new List<LocalProfileVisit>();
+            if (source.ProfileVisitors != null && source.ProfileVisitors.Any())
+            {
+                profileVists = source.ProfileVisitors.Select(prf => prf.Mapper()).ToList();
+            }
+
+            var profileRatings = new List<LocalUserRating>();
+            if (source.YourRatings != null && source.YourRatings.Any())
+            {
+                profileRatings = source.YourRatings.Where( df=> df.IsApproved).Select(prf => prf.Mapper()).ToList();
+            }
+
+            var score = UserRatingService.GetRatingsInFloat(source.Id);
+
+            var tempoLoc = " 31.476535115002306_74.32158172130585";
+            if (source.LocationCord != null)
+            {
+                tempoLoc = source.LocationCord.Latitude + "_" + source.LocationCord.Longitude;
+            }
+
+            var userObj= new LocalUser
             {
                 CNIC = source.CNIC??"(No Val)",
                 Email = source.Email?? "(No Val)",
@@ -75,7 +107,9 @@ namespace KaamShaam.AdminModels
                 UserName = source.UserName?? "(No Val)",
                 Country = source.Country?? "(No Val)",
                 City = source.City?? "(No Val)",
-                
+
+                LocTempo = tempoLoc,
+
                 Intro = source.Intro?? "(No Val)",
                 Language = source.Language?? "(No Val)",
                 Status = (bool)source.Status,
@@ -85,12 +119,18 @@ namespace KaamShaam.AdminModels
                 IsApproved = (bool) source.IsApproved,
                 Feedback = source.Feedback?? "(No Val)",
                 LocationName= source.LocationName?? "(No Val)",
-                lat = source.LocationCord.Latitude??0,
-                lng = source.LocationCord.Longitude??0,
+                lat = (source.LocationCord.Latitude).ToString(),
+                lng = (source.LocationCord.Longitude).ToString(),
                 CatName = cat?.Name?? "(No Val)",
                 Location = source.LocationCord,
-                Password = source.PasswordHash
+                Password = source.PasswordHash,
+                EditedAt = Convert.ToDateTime(source.EditedAt).ToLongDateString(),
+                ProfileVisits = profileVists,
+                Score = score,
+                UserRatings = profileRatings,
+                CanRate = false
             };
+            return userObj;
         }
     }
 }

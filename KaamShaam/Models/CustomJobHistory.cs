@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.UI.WebControls;
 using KaamShaam.DbEntities;
 
 namespace KaamShaam.Models
@@ -21,6 +22,16 @@ namespace KaamShaam.Models
         public CustomJobModel JobModel { get; set; }
         public string PurposalText { get; set; }
 
+        #region for contracor profile
+        public string JobTitle { get; set; }
+
+        public string Des { get; set; }
+
+        public string Fee { get; set; }
+
+        public string PostedById { get; set; }
+        #endregion
+
     }
 
     public static class JobHistoryMapper
@@ -34,12 +45,16 @@ namespace KaamShaam.Models
                     Feedback = source.Feedback,
                     Id = source.Id,
                     ContractorId = source.ContractorId,
+                    PostedById = source.Job.PostedById,
                     ContractorName = source.AspNetUser.FullName,
                     JobStatus = source.JobStatus,
                     JobStartDate = source.JobStartDate,
                     JobEndDate = source.JobEndDate,
                     JobId = source.JobId,
                     PurposalText= source.PurposalText,
+                    JobTitle = source.Job.Category.Name,
+                    Des = source.Job.JobTitle,
+                    Fee = source.Job.Fee.ToString()
                    // JobModel = source.Job.Mapper()
                 };
                 return obj;

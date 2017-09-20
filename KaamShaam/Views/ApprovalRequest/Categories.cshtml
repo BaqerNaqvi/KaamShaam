@@ -35,6 +35,7 @@
                             <tr>
                                 <th class="col-lg-6">Name</th>
                                 <th class="col-lg-2">Status</th>
+                                <th class="col-lg-2">Date</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -47,6 +48,7 @@
                                         <tr style="cursor: pointer" data-toggle="modal" data-target="#viewCat" onclick="viewCat(@Json.Encode(item))">
                                             <td>@item.Name</td>
                                             <td>@val</td>
+                                            <td>@item.EditedAt</td>
                                         </tr>
                                     }
                                 }

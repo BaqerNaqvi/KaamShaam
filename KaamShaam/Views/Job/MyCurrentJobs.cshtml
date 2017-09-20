@@ -343,7 +343,6 @@ Inner Page Banner Start
         postMydata(pageDataObj, "AppliedJobsSorted", upDatePage);
     }
 
-    $('.li-manage-jobs').addClass('tg-active');
 
     $('#searchJob').keyup(function() {
         pageDataObj.CurrentPage = 0;
@@ -352,4 +351,8 @@ Inner Page Banner Start
         getSortedJobs();
         pageDataObj.CurrentPage++;
     });
+
+    setTimeout(function() {
+        $(".currentJobPage").addClass('tg-active');
+    },2000);
 </script>

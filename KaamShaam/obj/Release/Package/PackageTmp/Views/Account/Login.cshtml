@@ -4,6 +4,12 @@
 
 }
 
+<style>
+    #userloginForm {
+        margin-left: 27px;
+        margin-top: 37px;
+    }
+</style>
 
 <!--************************************
         Inner Page Banner Start
@@ -102,7 +108,7 @@
                                             @Html.TextBoxFor(m => m.RegisterViewModel.Email, new { name = "Email", @class = "form-control ", @placeholder = "Email" })
                                         </div>
                                         <div class="form-group">
-                                            @Html.PasswordFor(m => m.RegisterViewModel.Password, new { name = "Password", @class = "form-control customField", @placeholder = "Password" })
+                                            @Html.PasswordFor(m => m.RegisterViewModel.Password, new { name = "Password", @class = "form-control customField", @placeholder = "Password (5 letters minium)" })
                                         </div>
                                         <div class="form-group">
                                             @Html.PasswordFor(m => m.RegisterViewModel.ConfirmPassword, new { name = "ConfirmPassword", @class = "form-control", @placeholder = "Confirm Password" })
@@ -128,7 +134,7 @@
                                             @Html.TextBoxFor(m => m.RegisterViewModel.CNIC, new { name = "CNIC", @class = "form-control customField", @placeholder = "CNIC" })
                                         </div>
                                         <div class="form-group">
-                                            @Html.TextBoxFor(m => m.RegisterViewModel.Mobile, new { name = "Mobile", @class = "form-control", @placeholder = "Mobile" })
+                                            @Html.TextBoxFor(m => m.RegisterViewModel.Mobile, new { name = "Mobile", @class = "form-control", @placeholder = "Mobile", @id = "mNumber" })
                                         </div>
 
 
@@ -141,59 +147,58 @@
                                         </div>
 
                                         <button class="tg-btn" style="" type="button" onclick="submitRegis()">Register Now</button>
-                                        @Html.ValidationSummary("", new { @class = "text-danger" })
 
 
-                                        <ul class="tg-socialicons tg-socialsharewithtext" style="margin-top: 12px;">
-                                            <li class="tg-facebook">
-                                                <a class="tg-roundicontext" href="javascript:void(0);">
-                                                    <em class="tg-usericonholder">
-                                                        <i class="fa fa-facebook-f"></i>
-                                                        <span>facebook</span>
-                                                    </em>
-                                                </a>
-                                            </li>
-                                            <li class="tg-twitter">
-                                                <a class="tg-roundicontext" href="javascript:void(0);">
-                                                    <em class="tg-usericonholder">
-                                                        <i class="fa fa-twitter"></i>
-                                                        <span>twitter</span>
-                                                    </em>
-                                                </a>
-                                            </li>
-                                            <li class="tg-linkedin">
-                                                <a class="tg-roundicontext" href="javascript:void(0);">
-                                                    <em class="tg-usericonholder">
-                                                        <i class="fa fa-linkedin"></i>
-                                                        <span>linkdin</span>
-                                                    </em>
-                                                </a>
-                                            </li>
-                                            <li class="tg-googleplus">
-                                                <a class="tg-roundicontext" href="javascript:void(0);">
-                                                    <em class="tg-usericonholder">
-                                                        <i class="fa fa-google-plus"></i>
-                                                        <span>googl+</span>
-                                                    </em>
-                                                </a>
-                                            </li>
-                                            <li class="tg-tumblr">
-                                                <a class="tg-roundicontext" href="javascript:void(0);">
-                                                    <em class="tg-usericonholder">
-                                                        <i class="fa fa-tumblr"></i>
-                                                        <span>tumblr</span>
-                                                    </em>
-                                                </a>
-                                            </li>
-                                            <li class="tg-vimeo">
-                                                <a class="tg-roundicontext" href="javascript:void(0);">
-                                                    <em class="tg-usericonholder">
-                                                        <i class="fa fa-vimeo"></i>
-                                                        <span>vimeo</span>
-                                                    </em>
-                                                </a>
-                                            </li>
-                                        </ul>
+                                        @*<ul class="tg-socialicons tg-socialsharewithtext" style="margin-top: 12px;">
+                                                <li class="tg-facebook">
+                                                    <a class="tg-roundicontext" href="javascript:void(0);">
+                                                        <em class="tg-usericonholder">
+                                                            <i class="fa fa-facebook-f"></i>
+                                                            <span>facebook</span>
+                                                        </em>
+                                                    </a>
+                                                </li>
+                                                <li class="tg-twitter">
+                                                    <a class="tg-roundicontext" href="javascript:void(0);">
+                                                        <em class="tg-usericonholder">
+                                                            <i class="fa fa-twitter"></i>
+                                                            <span>twitter</span>
+                                                        </em>
+                                                    </a>
+                                                </li>
+                                                <li class="tg-linkedin">
+                                                    <a class="tg-roundicontext" href="javascript:void(0);">
+                                                        <em class="tg-usericonholder">
+                                                            <i class="fa fa-linkedin"></i>
+                                                            <span>linkdin</span>
+                                                        </em>
+                                                    </a>
+                                                </li>
+                                                <li class="tg-googleplus">
+                                                    <a class="tg-roundicontext" href="javascript:void(0);">
+                                                        <em class="tg-usericonholder">
+                                                            <i class="fa fa-google-plus"></i>
+                                                            <span>googl+</span>
+                                                        </em>
+                                                    </a>
+                                                </li>
+                                                <li class="tg-tumblr">
+                                                    <a class="tg-roundicontext" href="javascript:void(0);">
+                                                        <em class="tg-usericonholder">
+                                                            <i class="fa fa-tumblr"></i>
+                                                            <span>tumblr</span>
+                                                        </em>
+                                                    </a>
+                                                </li>
+                                                <li class="tg-vimeo">
+                                                    <a class="tg-roundicontext" href="javascript:void(0);">
+                                                        <em class="tg-usericonholder">
+                                                            <i class="fa fa-vimeo"></i>
+                                                            <span>vimeo</span>
+                                                        </em>
+                                                    </a>
+                                                </li>
+                                            </ul>*@
                                     </div>
 
                                 </div>
@@ -206,7 +211,7 @@
                                 <h3>Login Now</h3>
                             </div>
                             <fieldset>
-                                @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "userRegistration" }))
+                                @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "userloginForm" }))
                                 {
                                     <div class="form-group">
                                         @Html.TextBoxFor(m => m.LoginViewModel.Email, new { name = "Email", @class = "form-control", @placeholder = "Email" })
@@ -217,10 +222,12 @@
                                     <div class="form-group">
                                         <button class="tg-btn tg-btn-lg" type="submit">Login Now</button>
                                     </div>
-
                                 }
-                                <a style="cursor: pointer" class="tg-btnforgotpass" onclick=" passforgot() ">Forgot your password?</a>
+                                <a style="cursor: pointer" class="tg-btnforgotpass" onclick="passforgot()">Forgot your password?</a>
                             </fieldset>
+                            @Html.ValidationSummary("", new { @class = "text-danger" })
+
+
 
 
                         </div>
@@ -388,12 +395,13 @@ Main End
         // Try HTML5 geolocation.
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function (position) {
-                debugger;
                 pos = {
                     lat: position.coords.latitude,
                     lng: position.coords.longitude
                 };
                 getAddress(position.coords.latitude, position.coords.longitude);
+                $('#locationCord').val((pos.lat + "_" + pos.lng));
+
 
             }, function() {
                 handleLocationError(true, infoWindow, map.getCenter());
@@ -501,24 +509,29 @@ Main End
     //  $('.contractorEle').hide();
     function submitRegis() {
         if (!$('#terms').is(":checked")) {
-            toastr.warning('Please check terms ');
+            toastr.error('Please check terms ');
             return false;
         }
         var loc = $('#locationName').val();
         if (loc == undefined || loc === "") {
-            toastr.warning("Please select location");
+            toastr.error("Please select location");
             return false;
         }
         var typeval = $('#userTypeDd').val();
         if (typeval === "Contractor") {
 
         }
+        var isnum = /^\d+$/.test($('#mNumber').val());
+        if (!isnum) {
+            toastr.error("Add valid phone number (0-9)");
+            return false;
+        }
         $("#userRegistration").submit();
     };
 
     function saveLoc() {
         if (selectedLoc == undefined) {
-            toastr.warning("Please select location");
+            toastr.error("Please select location");
         } else {
             $('#addressmodel').modal('hide');
             $('#locationCord').val((selectedLoc.lat + "_" + selectedLoc.lng));
@@ -530,8 +543,6 @@ Main End
         }
         return;
     }
-
-
     function openMap() {
         setTimeout(function () {
             google.maps.event.trigger(map, 'resize');
@@ -543,7 +554,6 @@ Main End
            }
         }, 1000);
     }
-
     function UserTypeChnaged() {
         hideUserControlls();
     }
@@ -562,7 +572,6 @@ Main End
             $(".notUserField").show();
         }
     }
-
     function getAddress(lat, lng) {
         var geocoder  = new google.maps.Geocoder();             // create a geocoder object
         var location = new google.maps.LatLng(lat, lng);    // turn coordinates into an object
@@ -575,5 +584,4 @@ Main End
     }
 
     hideUserControlls();
-    $(".validation-summary-errors").css('margin-left', '120%').css('width', '100%').css('margin-top', '-24%');
 </script>

@@ -67,6 +67,12 @@
     <NavigationProperty Name="JobHistories" Relationship="KaamShaamModel.FK_JobHistory_AspNetUsers" FromRole="AspNetUser" ToRole="JobHistory" />
     <NavigationProperty Name="MyCreatedAppointments" Relationship="KaamShaamModel.FK_Appointment_AspNetUsers" FromRole="AspNetUser" ToRole="Appointment" />
     <NavigationProperty Name="MyWithAppointments" Relationship="KaamShaamModel.FK_Appointment_AspNetUsers1" FromRole="AspNetUser" ToRole="Appointment" />
+    <NavigationProperty Name="FeedBacks" Relationship="KaamShaamModel.FK_FeedBack_AspNetUsers" FromRole="AspNetUser" ToRole="FeedBack" />
+    <Property Name="EditedAt" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="YouVisited" Relationship="KaamShaamModel.FK_ProfileVisits_AspNetUsers" FromRole="AspNetUser" ToRole="ProfileVisit" />
+    <NavigationProperty Name="ProfileVisitors" Relationship="KaamShaamModel.FK_ProfileVisits_AspNetUsers1" FromRole="AspNetUser" ToRole="ProfileVisit" />
+    <NavigationProperty Name="YouRated" Relationship="KaamShaamModel.FK_UserRating_AspNetUsers" FromRole="AspNetUser" ToRole="UserRating" />
+    <NavigationProperty Name="YourRatings" Relationship="KaamShaamModel.FK_UserRating_AspNetUsers1" FromRole="AspNetUser" ToRole="UserRating" />
   </EntityType>
   <EntityType Name="Category">
     <Key>
@@ -78,6 +84,9 @@
     <NavigationProperty Name="Jobs" Relationship="KaamShaamModel.FK_Job_Categories" FromRole="Category" ToRole="Job" />
     <Property Name="IsApproved" Type="Boolean" Nullable="false" />
     <Property Name="Feedback" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Image" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Icon" Type="String" MaxLength="250" FixedLength="true" Unicode="true" />
+    <Property Name="EditedAt" Type="DateTime" Precision="3" />
   </EntityType>
   <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
     <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
@@ -156,6 +165,29 @@
     <AssociationSet Name="FK_Appointment_AspNetUsers1" Association="KaamShaamModel.FK_Appointment_AspNetUsers1">
       <End Role="AspNetUser" EntitySet="AspNetUsers" />
       <End Role="Appointment" EntitySet="Appointments" />
+    </AssociationSet>
+    <EntitySet Name="FeedBacks" EntityType="KaamShaamModel.FeedBack" />
+    <AssociationSet Name="FK_FeedBack_AspNetUsers" Association="KaamShaamModel.FK_FeedBack_AspNetUsers">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="FeedBack" EntitySet="FeedBacks" />
+    </AssociationSet>
+    <EntitySet Name="ProfileVisits" EntityType="KaamShaamModel.ProfileVisit" />
+    <AssociationSet Name="FK_ProfileVisits_AspNetUsers" Association="KaamShaamModel.FK_ProfileVisits_AspNetUsers">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="ProfileVisit" EntitySet="ProfileVisits" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProfileVisits_AspNetUsers1" Association="KaamShaamModel.FK_ProfileVisits_AspNetUsers1">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="ProfileVisit" EntitySet="ProfileVisits" />
+    </AssociationSet>
+    <EntitySet Name="UserRatings" EntityType="KaamShaamModel.UserRating" />
+    <AssociationSet Name="FK_UserRating_AspNetUsers" Association="KaamShaamModel.FK_UserRating_AspNetUsers">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="UserRating" EntitySet="UserRatings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserRating_AspNetUsers1" Association="KaamShaamModel.FK_UserRating_AspNetUsers1">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="UserRating" EntitySet="UserRatings" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Job">
@@ -288,6 +320,106 @@
       </Principal>
       <Dependent Role="Appointment">
         <PropertyRef Name="WithId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="FeedBack">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="PostedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="KaamShaamModel.FK_FeedBack_AspNetUsers" FromRole="FeedBack" ToRole="AspNetUser" />
+    <Property Name="IsApproved" Type="Boolean" Nullable="false" />
+    <Property Name="Status" Type="Boolean" />
+    <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <Association Name="FK_FeedBack_AspNetUsers">
+    <End Type="KaamShaamModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+    <End Type="KaamShaamModel.FeedBack" Role="FeedBack" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FeedBack">
+        <PropertyRef Name="PostedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="ProfileVisit">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="VistedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="VistedOf" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Vistor" Relationship="KaamShaamModel.FK_ProfileVisits_AspNetUsers" FromRole="ProfileVisit" ToRole="AspNetUser" />
+    <NavigationProperty Name="Owner" Relationship="KaamShaamModel.FK_ProfileVisits_AspNetUsers1" FromRole="ProfileVisit" ToRole="AspNetUser" />
+  </EntityType>
+  <Association Name="FK_ProfileVisits_AspNetUsers">
+    <End Type="KaamShaamModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+    <End Type="KaamShaamModel.ProfileVisit" Role="ProfileVisit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProfileVisit">
+        <PropertyRef Name="VistedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProfileVisits_AspNetUsers1">
+    <End Type="KaamShaamModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+    <End Type="KaamShaamModel.ProfileVisit" Role="ProfileVisit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProfileVisit">
+        <PropertyRef Name="VistedOf" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="UserRating">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Rating" Type="Double" Nullable="false" />
+    <Property Name="Comments" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="RatedTo" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="RatedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IsApproved" Type="Boolean" Nullable="false" />
+    <Property Name="JobId" Type="Int64" Nullable="false" />
+    <Property Name="EditedAt" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="RatedByUser" Relationship="KaamShaamModel.FK_UserRating_AspNetUsers" FromRole="UserRating" ToRole="AspNetUser" />
+    <NavigationProperty Name="RatedToUser" Relationship="KaamShaamModel.FK_UserRating_AspNetUsers1" FromRole="UserRating" ToRole="AspNetUser" />
+  </EntityType>
+  <Association Name="FK_UserRating_AspNetUsers">
+    <End Type="KaamShaamModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+    <End Type="KaamShaamModel.UserRating" Role="UserRating" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserRating">
+        <PropertyRef Name="RatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserRating_AspNetUsers1">
+    <End Type="KaamShaamModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+    <End Type="KaamShaamModel.UserRating" Role="UserRating" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserRating">
+        <PropertyRef Name="RatedTo" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

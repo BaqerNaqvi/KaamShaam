@@ -31,8 +31,8 @@
                     <ul class="tg-matadata">
                         <li><span class="tg-stars"><span></span></span></li>
                         <li>
-                            <i class="fa fa-thumbs-o-up"></i>
-                            <em>0% (0 votes)</em>
+                            <i class="fa fa-star"></i>
+                            <em>@Session["Score"] (@Session["Votes"] votes)</em>
                         </li>
 
                     </ul>
@@ -48,13 +48,13 @@
                     <span>Appointments</span>
                 </a>
             </li>*@
-                    <li class="li-profile-setting">
+                    <li class="li-profile-setting settingpage">
                         <a href="/Profile/Update">
                             <i class="lnr lnr-cog"></i>
                             <span>Profile Settings</span>
                         </a>
                     </li>
-                    <li class="li-manage-jobs">
+                    <li class="li-manage-jobs appPage">
                         <a href="~/Appointment/Upcoming">
                             <i class="lnr lnr-map"></i>
                             <span>Appointments</span>
@@ -63,42 +63,42 @@
                     @{
                         if (User.IsInRole("User"))
                         {
-                            <li class="li-manage-jobs">
+                            <li class="li-manage-jobs manageJobPage">
                                 <a href="~/Job/ManageJobs">
                                     <i class="lnr lnr-map"></i>
                                     <span>Manage Jobs</span>
                                 </a>
                             </li>
-                            <li class="li-purposal-jobs">
-                                <a href="~/Job/jobProposals">
-                                    <i class="lnr lnr-map"></i>
-                                    <span>Job Proposals</span>
-                                </a>
-                            </li>
-                            <li class="li-find-cons">
-                                <a href="~/Contractor/FindContractor">
-                                    <i class="lnr lnr-map"></i>
-                                    <span>Find Contractors</span>
-                                </a>
-                            </li>
+                                                                    <li class="li-manage-jobs jobProposalPage">
+                                                                        <a href="~/Job/jobProposals">
+                                                                            <i class="lnr lnr-map"></i>
+                                                                            <span>Job Proposals</span>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li class="li-manage-jobs">
+                                                                        <a href="~/Contractor/FindContractor">
+                                                                            <i class="lnr lnr-map"></i>
+                                                                            <span>Find Contractors</span>
+                                                                        </a>
+                                                                    </li>
                         }
                     }
                     @{
                         if (User.IsInRole("Contractor"))
                         {
-                            <li class="li-manage-jobs">
+                            <li class="li-manage-jobs findjobpage">
                                 <a href="~/Job/findJobs">
                                     <i class="lnr lnr-map"></i>
                                     <span>Find Jobs</span>
                                 </a>
                             </li>
-                                                                    <li class="li-manage-jobs">
+                                                                    <li class="li-manage-jobs appliedJobpage">
                                                                         <a href="~/Job/appliedJobs">
                                                                             <i class="lnr lnr-map"></i>
                                                                             <span>Applied Jobs</span>
                                                                         </a>
                                                                     </li>
-                                                                    <li class="li-manage-jobs">
+                                                                    <li class="li-manage-jobs currentJobPage">
                                                                         <a href="~/Job/MyCurrentJobs">
                                                                             <i class="lnr lnr-map"></i>
                                                                             <span>Current Jobs</span>

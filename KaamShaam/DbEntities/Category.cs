@@ -25,6 +25,9 @@ namespace KaamShaam.DbEntities
         public bool Status { get; set; }
         public bool IsApproved { get; set; }
         public string Feedback { get; set; }
+        public string Image { get; set; }
+        public string Icon { get; set; }
+        public Nullable<System.DateTime> EditedAt { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Job> Jobs { get; set; }

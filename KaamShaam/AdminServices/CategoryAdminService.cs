@@ -18,7 +18,7 @@ namespace KaamShaam.AdminServices
                 return dbCats;
             }
         }
-        public static void UpdateCategory(Category obj)
+        public static long UpdateCategory(Category obj)
         {
             using (var context = new KaamShaamEntities())
             {
@@ -32,9 +32,12 @@ namespace KaamShaam.AdminServices
                     data.Name = obj.Name;
                 }
                 data.IsApproved = false;
+                data.EditedAt = DateTime.Now;
                 data.Feedback = null;
+                data.EditedAt = DateTime.Now;
                 context.Categories.AddOrUpdate(data);
                 context.SaveChanges();
+                return data.Id;
             }
         }
         public static void UpdateStatus(Category obj)

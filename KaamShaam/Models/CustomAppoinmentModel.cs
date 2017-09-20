@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using KaamShaam.DbEntities;
+using KaamShaam.LocalModels;
 
 namespace KaamShaam.Models
 {
@@ -43,7 +44,12 @@ namespace KaamShaam.Models
           return   new AppointmentEventModel
           {
               title = source.Title+"-"+source.Type,
-              start = source.DateTime.ToString("yyyy-MM-dd")
+              start = source.DateTime.ToString("yyyy-MM-dd"),
+
+              startDateTime = source.DateTime,
+              appointmentWithId = source.WithUser.Id,
+              appointmentWithName = source.WithUser.FullName,
+              appointmentWithPhone = source.WithUser.Mobile
           };
         }
     }

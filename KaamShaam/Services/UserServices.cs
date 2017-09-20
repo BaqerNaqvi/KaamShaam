@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Data.Entity.Spatial;
 using System.Linq;
+using System.Net;
 using System.Web;
 using KaamShaam.DbEntities;
 using KaamShaam.LocalModels;
@@ -47,15 +48,18 @@ namespace KaamShaam.Services
                     dbuser.CategoryId = user.CategoryId;
 
                     dbuser.Status = true;
-                    dbuser.IsApproved = true;
+                    dbuser.IsApproved = false;
+                    dbuser.EditedAt = DateTime.Now;
+
 
                     if (user.Type == "Vendor" || user.Type == "User")
                     {
                         dbuser.ContractorId = null;
                         dbuser.CategoryId = null;
+                        dbuser.IsApproved = true;
+
                     }
                     userManager.AddToRole(userId, user.Type);
-
                     dbContext.AspNetUsers.AddOrUpdate(dbuser);
                     dbContext.SaveChanges();
                 }
@@ -77,11 +81,13 @@ namespace KaamShaam.Services
                 var dbuser = dbContext.AspNetUsers.FirstOrDefault(u => u.Id == user.Id);
                 if (dbuser != null)
                 {
-                    dbuser.FullName = user.FullName;
-                    dbuser.Mobile = user.Mobile;
-                    dbuser.CNIC = user.CNIC;
-                    dbuser.Email = user.Email;
+                    dbuser.FullName = user.FullName ?? dbuser.FullName;
+                    dbuser.Mobile = user.Mobile?? dbuser.Mobile;
+                    dbuser.CNIC = user.CNIC?? dbuser.CNIC;
+                    dbuser.Email = user?.Email?? dbuser.Email;
                     dbuser.IsApproved = false;
+                    dbuser.EditedAt = DateTime.Now;
+
                     dbuser.Feedback = null;
                     dbContext.AspNetUsers.AddOrUpdate(dbuser);
                     dbContext.SaveChanges();
@@ -110,6 +116,8 @@ namespace KaamShaam.Services
                     dbuser.LocationCord = loc;
                     dbuser.LocationName = user.LocationName;
                     dbuser.IsApproved = false;
+                    dbuser.EditedAt = DateTime.Now;
+
                     dbuser.Feedback = null;
                     dbContext.AspNetUsers.AddOrUpdate(dbuser);
                     dbContext.SaveChanges();
@@ -127,6 +135,7 @@ namespace KaamShaam.Services
                     dbuser.Intro = user.Intro;
                     dbuser.Language = user.Language;
                     dbuser.IsApproved = false;
+                    dbuser.EditedAt = DateTime.Now;
                     dbuser.Feedback = null;
                     dbContext.SaveChanges();
                 }
@@ -142,6 +151,8 @@ namespace KaamShaam.Services
                     dbuser.CategoryId = user.CategoryId;
                     dbuser.ContractorId = user.ContractorId;
                     dbuser.IsApproved = false;
+                    dbuser.EditedAt = DateTime.Now;
+
                     dbuser.Feedback = null;
                     dbContext.SaveChanges();
                 }
@@ -182,6 +193,13 @@ namespace KaamShaam.Services
                 }
             }
             return null;
+        }
+
+        public static void CreateUserAvatar(string path)
+        {
+            WebClient webClient = new WebClient();
+            webClient.DownloadFile("http://www.pftec.com/wp-content/uploads/2015/03/default_user.png", path + "_110.png");
+            webClient.DownloadFile("http://www.pftec.com/wp-content/uploads/2015/03/default_user.png", path + "_35.png");
         }
     }
 }

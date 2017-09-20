@@ -230,11 +230,12 @@ Inner Page Banner Start
 
 <script>
 
-    var pageDataObj=    @Html.Raw(Json.Encode(Model.Pagging));
+    var pageDataObj = @Html.Raw(Json.Encode(Model.Pagging));
     var objtoedit = undefined;
     $(document).ready(function() {
         setPage(pageDataObj);
     });
+
     function editJob(obj) {
         $("#jobTitle").val(obj.JobTitle);
         $("#jobCat").val(obj.CategoryId);
@@ -248,6 +249,7 @@ Inner Page Banner Start
         }
         objtoedit = obj;
     }
+
     function saveJob() {
         if (!ValidateByClassName('editJobVal')) {
             toastr.warning("Please fill-up data");
@@ -267,12 +269,14 @@ Inner Page Banner Start
 
         postMydata(wraperObj, "EditJobDone", opPerformed);
     }
+
     function opPerformed(data) {
         toastr.success("Operation performed");
         $('#manage-Job-Body').html(data);
         $('#updateJob').modal('hide');
         $('#adminLoading').hide();
     }
+
     function postMydata(serverObj, url, successFunc) {
         $('#adminLoading').show();
         $.ajax({
@@ -282,12 +286,13 @@ Inner Page Banner Start
             dataType: "html",
             data: JSON.stringify(serverObj),
             success: successFunc,
-            error: function (data) {
+            error: function(data) {
                 $('#adminLoading').hide();
                 toastr.error("Job failed to update");
             }
         });
     }
+
     function deleteJob() {
         var serverObj = {};
         serverObj.Id = objtoedit.Id;
@@ -306,8 +311,7 @@ Inner Page Banner Start
         $("#itemsPerPageDd").val(pageObj.ItemsPerPage);
         $("#currentPage").text(pageObj.CurrentPage);
         var tPages = pageObj.TotalItems / pageObj.ItemsPerPage;
-        if (pageObj.TotalItems % pageObj.ItemsPerPage > 0)
-        {
+        if (pageObj.TotalItems % pageObj.ItemsPerPage > 0) {
             tPages++;
         }
         pageObj.TotalPages = parseInt(tPages);
@@ -334,12 +338,13 @@ Inner Page Banner Start
         getSortedJobs();
         pageDataObj.CurrentPage++;
     });
+
     function upDatePage(data) {
         $('#manage-Job-Body').html(data);
         setPage(pageDataObj);
         $('#adminLoading').hide();
     }
-    
+
     function sortByChanged() {
         pageDataObj.CurrentPage = 0;
         var val = $("#sortDd").val();
@@ -363,9 +368,11 @@ Inner Page Banner Start
         getSortedJobs();
         pageDataObj.CurrentPage++;
     }
+
     function getSortedJobs() {
-        postMydata(pageDataObj, "GetSortedJobs", upDatePage);  
+        postMydata(pageDataObj, "GetSortedJobs", upDatePage);
     }
+
     function suspendJob() {
         var serverObj = {};
         serverObj.Id = objtoedit.Id;
@@ -376,7 +383,6 @@ Inner Page Banner Start
         postMydata(wraperObj, "SuspendJob", opPerformed);
     }
 
-    $('.li-manage-jobs').addClass('tg-active');
 
     $('#searchJob').keyup(function() {
         pageDataObj.CurrentPage = 0;
@@ -385,4 +391,8 @@ Inner Page Banner Start
         getSortedJobs();
         pageDataObj.CurrentPage++;
     });
+
+    setTimeout(function() {
+        $(".manageJobPage").addClass('tg-active');
+    },2000);
 </script>

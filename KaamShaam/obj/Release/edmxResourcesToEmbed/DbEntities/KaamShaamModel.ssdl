@@ -77,6 +77,7 @@
     <Property Name="LocationName" Type="nvarchar" MaxLength="500" />
     <Property Name="IsApproved" Type="bit" />
     <Property Name="Feedback" Type="nvarchar" MaxLength="500" />
+    <Property Name="EditedAt" Type="datetime" />
   </EntityType>
   <EntityType Name="Banners">
     <Key>
@@ -96,6 +97,21 @@
     <Property Name="Status" Type="bit" Nullable="false" />
     <Property Name="IsApproved" Type="bit" Nullable="false" />
     <Property Name="Feedback" Type="nvarchar" MaxLength="500" />
+    <Property Name="Image" Type="nvarchar" MaxLength="250" />
+    <Property Name="Icon" Type="nchar" MaxLength="250" />
+    <Property Name="EditedAt" Type="datetime" />
+  </EntityType>
+  <EntityType Name="FeedBack">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="1000" Nullable="false" />
+    <Property Name="PostedBy" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="IsApproved" Type="bit" Nullable="false" />
+    <Property Name="Status" Type="bit" />
+    <Property Name="DateTime" Type="datetime" Nullable="false" />
   </EntityType>
   <EntityType Name="JobHistory">
     <Key>
@@ -129,6 +145,29 @@
     <Property Name="PostedById" Type="nvarchar" MaxLength="128" Nullable="false" />
     <Property Name="IsRecycled" Type="bit" Nullable="false" />
     <Property Name="FeedBack" Type="nvarchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="ProfileVisits">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="VistedBy" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="VistedOf" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="DateTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserRating">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Rating" Type="float" Nullable="false" />
+    <Property Name="Comments" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="RatedTo" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="RatedBy" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="DateTime" Type="datetime" Nullable="false" />
+    <Property Name="IsApproved" Type="bit" Nullable="false" />
+    <Property Name="JobId" Type="bigint" Nullable="false" />
+    <Property Name="EditedAt" Type="datetime" Nullable="false" />
   </EntityType>
   <Association Name="FK_Appointment_AspNetUsers">
     <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
@@ -254,6 +293,54 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_ProfileVisits_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+    <End Role="ProfileVisits" Type="Self.ProfileVisits" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProfileVisits">
+        <PropertyRef Name="VistedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProfileVisits_AspNetUsers1">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+    <End Role="ProfileVisits" Type="Self.ProfileVisits" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProfileVisits">
+        <PropertyRef Name="VistedOf" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserRating_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+    <End Role="UserRating" Type="Self.UserRating" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserRating">
+        <PropertyRef Name="RatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserRating_AspNetUsers1">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+    <End Role="UserRating" Type="Self.UserRating" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserRating">
+        <PropertyRef Name="RatedTo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="KaamShaamModelStoreContainer">
     <EntitySet Name="Appointment" EntityType="Self.Appointment" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
@@ -263,8 +350,11 @@
     <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Banners" EntityType="Self.Banners" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FeedBack" EntityType="Self.FeedBack" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="JobHistory" EntityType="Self.JobHistory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Jobs" EntityType="Self.Jobs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProfileVisits" EntityType="Self.ProfileVisits" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserRating" EntityType="Self.UserRating" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_Appointment_AspNetUsers" Association="Self.FK_Appointment_AspNetUsers">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="Appointment" EntitySet="Appointment" />
@@ -304,6 +394,22 @@
     <AssociationSet Name="FK_Jobs_AspNetUsers" Association="Self.FK_Jobs_AspNetUsers">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="Jobs" EntitySet="Jobs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProfileVisits_AspNetUsers" Association="Self.FK_ProfileVisits_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="ProfileVisits" EntitySet="ProfileVisits" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProfileVisits_AspNetUsers1" Association="Self.FK_ProfileVisits_AspNetUsers1">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="ProfileVisits" EntitySet="ProfileVisits" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserRating_AspNetUsers" Association="Self.FK_UserRating_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="UserRating" EntitySet="UserRating" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserRating_AspNetUsers1" Association="Self.FK_UserRating_AspNetUsers1">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="UserRating" EntitySet="UserRating" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

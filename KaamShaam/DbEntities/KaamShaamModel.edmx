@@ -82,6 +82,7 @@
           <Property Name="LocationName" Type="nvarchar" MaxLength="500" />
           <Property Name="IsApproved" Type="bit" />
           <Property Name="Feedback" Type="nvarchar" MaxLength="500" />
+          <Property Name="EditedAt" Type="datetime" />
         </EntityType>
         <EntityType Name="Banners">
           <Key>
@@ -101,6 +102,21 @@
           <Property Name="Status" Type="bit" Nullable="false" />
           <Property Name="IsApproved" Type="bit" Nullable="false" />
           <Property Name="Feedback" Type="nvarchar" MaxLength="500" />
+          <Property Name="Image" Type="nvarchar" MaxLength="250" />
+          <Property Name="Icon" Type="nchar" MaxLength="250" />
+          <Property Name="EditedAt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="FeedBack">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="PostedBy" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="IsApproved" Type="bit" Nullable="false" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="DateTime" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="JobHistory">
           <Key>
@@ -134,6 +150,29 @@
           <Property Name="PostedById" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="IsRecycled" Type="bit" Nullable="false" />
           <Property Name="FeedBack" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="ProfileVisits">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VistedBy" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="VistedOf" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="DateTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserRating">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Rating" Type="float" Nullable="false" />
+          <Property Name="Comments" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="RatedTo" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RatedBy" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="DateTime" Type="datetime" Nullable="false" />
+          <Property Name="IsApproved" Type="bit" Nullable="false" />
+          <Property Name="JobId" Type="bigint" Nullable="false" />
+          <Property Name="EditedAt" Type="datetime" Nullable="false" />
         </EntityType>
         <Association Name="FK_Appointment_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
@@ -259,6 +298,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ProfileVisits_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="ProfileVisits" Type="Self.ProfileVisits" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProfileVisits">
+              <PropertyRef Name="VistedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProfileVisits_AspNetUsers1">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="ProfileVisits" Type="Self.ProfileVisits" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProfileVisits">
+              <PropertyRef Name="VistedOf" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRating_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="UserRating" Type="Self.UserRating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserRating">
+              <PropertyRef Name="RatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRating_AspNetUsers1">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="UserRating" Type="Self.UserRating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserRating">
+              <PropertyRef Name="RatedTo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="KaamShaamModelStoreContainer">
           <EntitySet Name="Appointment" EntityType="Self.Appointment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
@@ -268,8 +355,11 @@
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Banners" EntityType="Self.Banners" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FeedBack" EntityType="Self.FeedBack" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="JobHistory" EntityType="Self.JobHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Jobs" EntityType="Self.Jobs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProfileVisits" EntityType="Self.ProfileVisits" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRating" EntityType="Self.UserRating" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Appointment_AspNetUsers" Association="Self.FK_Appointment_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Appointment" EntitySet="Appointment" />
@@ -309,6 +399,22 @@
           <AssociationSet Name="FK_Jobs_AspNetUsers" Association="Self.FK_Jobs_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Jobs" EntitySet="Jobs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProfileVisits_AspNetUsers" Association="Self.FK_ProfileVisits_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="ProfileVisits" EntitySet="ProfileVisits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProfileVisits_AspNetUsers1" Association="Self.FK_ProfileVisits_AspNetUsers1">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="ProfileVisits" EntitySet="ProfileVisits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRating_AspNetUsers" Association="Self.FK_UserRating_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="UserRating" EntitySet="UserRating" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRating_AspNetUsers1" Association="Self.FK_UserRating_AspNetUsers1">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="UserRating" EntitySet="UserRating" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -382,6 +488,12 @@
           <NavigationProperty Name="JobHistories" Relationship="KaamShaamModel.FK_JobHistory_AspNetUsers" FromRole="AspNetUser" ToRole="JobHistory" />
           <NavigationProperty Name="MyCreatedAppointments" Relationship="KaamShaamModel.FK_Appointment_AspNetUsers" FromRole="AspNetUser" ToRole="Appointment" />
           <NavigationProperty Name="MyWithAppointments" Relationship="KaamShaamModel.FK_Appointment_AspNetUsers1" FromRole="AspNetUser" ToRole="Appointment" />
+          <NavigationProperty Name="FeedBacks" Relationship="KaamShaamModel.FK_FeedBack_AspNetUsers" FromRole="AspNetUser" ToRole="FeedBack" />
+          <Property Name="EditedAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="YouVisited" Relationship="KaamShaamModel.FK_ProfileVisits_AspNetUsers" FromRole="AspNetUser" ToRole="ProfileVisit" />
+          <NavigationProperty Name="ProfileVisitors" Relationship="KaamShaamModel.FK_ProfileVisits_AspNetUsers1" FromRole="AspNetUser" ToRole="ProfileVisit" />
+          <NavigationProperty Name="YouRated" Relationship="KaamShaamModel.FK_UserRating_AspNetUsers" FromRole="AspNetUser" ToRole="UserRating" />
+          <NavigationProperty Name="YourRatings" Relationship="KaamShaamModel.FK_UserRating_AspNetUsers1" FromRole="AspNetUser" ToRole="UserRating" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -393,6 +505,9 @@
           <NavigationProperty Name="Jobs" Relationship="KaamShaamModel.FK_Job_Categories" FromRole="Category" ToRole="Job" />
           <Property Name="IsApproved" Type="Boolean" Nullable="false" />
           <Property Name="Feedback" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Icon" Type="String" MaxLength="250" FixedLength="true" Unicode="true" />
+          <Property Name="EditedAt" Type="DateTime" Precision="3" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
@@ -471,6 +586,29 @@
           <AssociationSet Name="FK_Appointment_AspNetUsers1" Association="KaamShaamModel.FK_Appointment_AspNetUsers1">
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
             <End Role="Appointment" EntitySet="Appointments" />
+          </AssociationSet>
+          <EntitySet Name="FeedBacks" EntityType="KaamShaamModel.FeedBack" />
+          <AssociationSet Name="FK_FeedBack_AspNetUsers" Association="KaamShaamModel.FK_FeedBack_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="FeedBack" EntitySet="FeedBacks" />
+          </AssociationSet>
+          <EntitySet Name="ProfileVisits" EntityType="KaamShaamModel.ProfileVisit" />
+          <AssociationSet Name="FK_ProfileVisits_AspNetUsers" Association="KaamShaamModel.FK_ProfileVisits_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="ProfileVisit" EntitySet="ProfileVisits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProfileVisits_AspNetUsers1" Association="KaamShaamModel.FK_ProfileVisits_AspNetUsers1">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="ProfileVisit" EntitySet="ProfileVisits" />
+          </AssociationSet>
+          <EntitySet Name="UserRatings" EntityType="KaamShaamModel.UserRating" />
+          <AssociationSet Name="FK_UserRating_AspNetUsers" Association="KaamShaamModel.FK_UserRating_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="UserRating" EntitySet="UserRatings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRating_AspNetUsers1" Association="KaamShaamModel.FK_UserRating_AspNetUsers1">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="UserRating" EntitySet="UserRatings" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Job">
@@ -606,6 +744,106 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="FeedBack">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="PostedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="KaamShaamModel.FK_FeedBack_AspNetUsers" FromRole="FeedBack" ToRole="AspNetUser" />
+          <Property Name="IsApproved" Type="Boolean" Nullable="false" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <Association Name="FK_FeedBack_AspNetUsers">
+          <End Type="KaamShaamModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="KaamShaamModel.FeedBack" Role="FeedBack" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FeedBack">
+              <PropertyRef Name="PostedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ProfileVisit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VistedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="VistedOf" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Vistor" Relationship="KaamShaamModel.FK_ProfileVisits_AspNetUsers" FromRole="ProfileVisit" ToRole="AspNetUser" />
+          <NavigationProperty Name="Owner" Relationship="KaamShaamModel.FK_ProfileVisits_AspNetUsers1" FromRole="ProfileVisit" ToRole="AspNetUser" />
+        </EntityType>
+        <Association Name="FK_ProfileVisits_AspNetUsers">
+          <End Type="KaamShaamModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="KaamShaamModel.ProfileVisit" Role="ProfileVisit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProfileVisit">
+              <PropertyRef Name="VistedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProfileVisits_AspNetUsers1">
+          <End Type="KaamShaamModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="KaamShaamModel.ProfileVisit" Role="ProfileVisit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProfileVisit">
+              <PropertyRef Name="VistedOf" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="UserRating">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Rating" Type="Double" Nullable="false" />
+          <Property Name="Comments" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="RatedTo" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="RatedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsApproved" Type="Boolean" Nullable="false" />
+          <Property Name="JobId" Type="Int64" Nullable="false" />
+          <Property Name="EditedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="RatedByUser" Relationship="KaamShaamModel.FK_UserRating_AspNetUsers" FromRole="UserRating" ToRole="AspNetUser" />
+          <NavigationProperty Name="RatedToUser" Relationship="KaamShaamModel.FK_UserRating_AspNetUsers1" FromRole="UserRating" ToRole="AspNetUser" />
+        </EntityType>
+        <Association Name="FK_UserRating_AspNetUsers">
+          <End Type="KaamShaamModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="KaamShaamModel.UserRating" Role="UserRating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserRating">
+              <PropertyRef Name="RatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRating_AspNetUsers1">
+          <End Type="KaamShaamModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="KaamShaamModel.UserRating" Role="UserRating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserRating">
+              <PropertyRef Name="RatedTo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -642,6 +880,7 @@
           <EntitySetMapping Name="AspNetUsers">
             <EntityTypeMapping TypeName="KaamShaamModel.AspNetUser">
               <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="EditedAt" ColumnName="EditedAt" />
                 <ScalarProperty Name="Feedback" ColumnName="Feedback" />
                 <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -675,6 +914,9 @@
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="KaamShaamModel.Category">
               <MappingFragment StoreEntitySet="Categories">
+                <ScalarProperty Name="EditedAt" ColumnName="EditedAt" />
+                <ScalarProperty Name="Icon" ColumnName="Icon" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="Feedback" ColumnName="Feedback" />
                 <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -745,6 +987,44 @@
                 <ScalarProperty Name="DateTime" ColumnName="DateTime" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FeedBacks">
+            <EntityTypeMapping TypeName="KaamShaamModel.FeedBack">
+              <MappingFragment StoreEntitySet="FeedBack">
+                <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="PostedBy" ColumnName="PostedBy" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProfileVisits">
+            <EntityTypeMapping TypeName="KaamShaamModel.ProfileVisit">
+              <MappingFragment StoreEntitySet="ProfileVisits">
+                <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+                <ScalarProperty Name="VistedOf" ColumnName="VistedOf" />
+                <ScalarProperty Name="VistedBy" ColumnName="VistedBy" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRatings">
+            <EntityTypeMapping TypeName="KaamShaamModel.UserRating">
+              <MappingFragment StoreEntitySet="UserRating">
+                <ScalarProperty Name="EditedAt" ColumnName="EditedAt" />
+                <ScalarProperty Name="JobId" ColumnName="JobId" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+                <ScalarProperty Name="RatedBy" ColumnName="RatedBy" />
+                <ScalarProperty Name="RatedTo" ColumnName="RatedTo" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

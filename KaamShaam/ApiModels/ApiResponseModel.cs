@@ -15,5 +15,7 @@ namespace KaamShaam.ApiModels
         public object Data { get; set; }
 
         public string JToken { get; set; }
+
+        public string UserId { get; set; }
     }
 }

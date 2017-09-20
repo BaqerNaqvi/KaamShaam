@@ -12,5 +12,7 @@ namespace KaamShaam.Models
         public string CatName { get; set; }
 
         public int CatCount { get; set; }
+        public string BgURL { get; set; }
+        public string IconURL { get; set; }
     }
 }

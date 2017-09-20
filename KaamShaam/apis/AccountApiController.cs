@@ -73,6 +73,9 @@ namespace KaamShaam.apis
                         response.Message = model.FullName + " has been registered";
                         response.Success = true;
                         UserServices.AddUserProperties(model, user.Id);
+                        var baseUrlforimg = System.Web.Hosting.HostingEnvironment.MapPath("/Images/Profiles/");
+                        UserServices.CreateUserAvatar(baseUrlforimg + user.Id );
+                        response.Data = user;
                     }
                     catch (Exception excep)
                     {
@@ -145,9 +148,12 @@ namespace KaamShaam.apis
                     {
                         case SignInStatus.Success:
                         {
+                            var usermanager = Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                            var uid = usermanager.FindByEmail(model.Email).Id;
                             response.Message = "Logged-in successfully";
                             response.Success = true;
                             response.JToken = "a%&@JK*@#CG|wJ";
+                            response.UserId = uid;
                             break;
                         }
                         default: /* Optional */
@@ -172,6 +178,85 @@ namespace KaamShaam.apis
                 };
                 var endResponse = Request.CreateResponse(HttpStatusCode.InternalServerError, response);
                 return endResponse;
+            }
+        }
+
+       
+        [Route("api/User/UploadImage")]
+        public HttpResponseMessage PostImage(ApiRequestModel model)
+        {
+            if (model == null || model.UserId == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, new ApiResponseModel
+                {
+                    Success = false,
+                    Message = "Data not mapped",
+                    Data = model
+                });
+            }
+            try
+            {
+                for (int i = 0; i < HttpContext.Current.Request.Files.Count; i++)
+                {
+                    var file = HttpContext.Current.Request.Files[i]; //Uploaded file
+                                                                     //To save file, use SaveAs method
+                    var pathForProfileImage = System.Web.Hosting.HostingEnvironment.MapPath("/Images/Profiles/");
+                    file.SaveAs(pathForProfileImage + model.UserId + ".png");
+                    AppUtils.Common.GenerateImages(model.UserId, pathForProfileImage);
+
+                }
+                return Request.CreateResponse(HttpStatusCode.OK, new ApiResponseModel
+                {
+                    Success = true,
+                    Message = "Successfully User avatar updated",
+                    Data = model
+                });
+            }
+            catch (Exception excep)
+            {
+                var response = new ApiResponseModel
+                {
+                    Data = null,
+                    Message = excep.InnerException.Message,
+                    Success = false
+                };
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, response);
+            }
+        }
+
+
+        [Route("api/User/UploadProfile")]
+        public HttpResponseMessage UpdateProfile(LocalUser model)
+        {
+            if (model == null || model.FullName == null || model.Mobile == null || model.CNIC == null 
+                || model.Intro == null || model.Id == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, new ApiResponseModel
+                {
+                    Success = false,
+                    Message = "Data not mapped",
+                    Data = model
+                });
+            }
+            try
+            {
+                var updatedUser = UserServices.UpdateBasicInfo(model);
+                return Request.CreateResponse(HttpStatusCode.OK, new ApiResponseModel
+                {
+                    Success = true,
+                    Message = "Successfully User profile updated",
+                    Data = model
+                });
+            }
+            catch (Exception excep)
+            {
+                var response = new ApiResponseModel
+                {
+                    Data = null,
+                    Message = excep.InnerException.Message,
+                    Success = false
+                };
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, response);
             }
         }
     }

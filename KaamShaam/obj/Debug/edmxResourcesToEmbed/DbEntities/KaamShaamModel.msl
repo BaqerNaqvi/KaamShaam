@@ -31,6 +31,7 @@
     <EntitySetMapping Name="AspNetUsers">
       <EntityTypeMapping TypeName="KaamShaamModel.AspNetUser">
         <MappingFragment StoreEntitySet="AspNetUsers">
+          <ScalarProperty Name="EditedAt" ColumnName="EditedAt" />
           <ScalarProperty Name="Feedback" ColumnName="Feedback" />
           <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
           <ScalarProperty Name="Id" ColumnName="Id" />
@@ -64,6 +65,9 @@
     <EntitySetMapping Name="Categories">
       <EntityTypeMapping TypeName="KaamShaamModel.Category">
         <MappingFragment StoreEntitySet="Categories">
+          <ScalarProperty Name="EditedAt" ColumnName="EditedAt" />
+          <ScalarProperty Name="Icon" ColumnName="Icon" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
           <ScalarProperty Name="Feedback" ColumnName="Feedback" />
           <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
           <ScalarProperty Name="Id" ColumnName="Id" />
@@ -134,6 +138,44 @@
           <ScalarProperty Name="DateTime" ColumnName="DateTime" />
           <ScalarProperty Name="Type" ColumnName="Type" />
           <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FeedBacks">
+      <EntityTypeMapping TypeName="KaamShaamModel.FeedBack">
+        <MappingFragment StoreEntitySet="FeedBack">
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+          <ScalarProperty Name="PostedBy" ColumnName="PostedBy" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProfileVisits">
+      <EntityTypeMapping TypeName="KaamShaamModel.ProfileVisit">
+        <MappingFragment StoreEntitySet="ProfileVisits">
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+          <ScalarProperty Name="VistedOf" ColumnName="VistedOf" />
+          <ScalarProperty Name="VistedBy" ColumnName="VistedBy" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserRatings">
+      <EntityTypeMapping TypeName="KaamShaamModel.UserRating">
+        <MappingFragment StoreEntitySet="UserRating">
+          <ScalarProperty Name="EditedAt" ColumnName="EditedAt" />
+          <ScalarProperty Name="JobId" ColumnName="JobId" />
+          <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+          <ScalarProperty Name="RatedBy" ColumnName="RatedBy" />
+          <ScalarProperty Name="RatedTo" ColumnName="RatedTo" />
+          <ScalarProperty Name="Comments" ColumnName="Comments" />
+          <ScalarProperty Name="Rating" ColumnName="Rating" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>

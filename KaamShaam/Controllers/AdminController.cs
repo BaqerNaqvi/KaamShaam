@@ -46,6 +46,8 @@ namespace KaamShaam.Controllers
         public ActionResult AddUserInRole(MakeAdminModel model)
         {
             var user = AdminService.AddUserToRole(model);
+            KaamShaam.Services.EmailService.SendEmail(user.Email, "User Account Status Changed - KamSham.Pk", user.FullName + " we noticed that admin has updated your account role. Please review your account.");
+
             if (user == null)
             {
                 return Json(true, JsonRequestBehavior.AllowGet);

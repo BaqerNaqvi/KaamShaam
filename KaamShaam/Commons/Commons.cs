@@ -29,7 +29,7 @@ namespace KaamShaam.Commons
                     subjects = cont.Mobile,
                     url = "#",
                     featured = "no",
-                    marker = baseUrl+"/Images/icons/markerone.png",
+                    marker = baseUrl+ "/Images/icons/contractPin.png",
                     CatName = cont.CatName,
                     Phone = cont.Mobile,
                     Email = cont.Email,
@@ -37,6 +37,16 @@ namespace KaamShaam.Commons
                 });
             }
             return places;
+        }
+
+        public static MapPlaceModel FormatMapDataForResercher(AdminModels.LocalUser researcher, string baseUrl)
+        {
+            return new MapPlaceModel
+            {
+                latitude = researcher.lat,
+                longitude = researcher.lng,
+                marker = baseUrl + "/Images/icons/userPin.png",
+            };
         }
     }
     public static class GeodesicDistance

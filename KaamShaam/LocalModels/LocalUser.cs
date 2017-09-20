@@ -5,6 +5,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Data.Entity.Spatial;
 using System.Linq;
 using System.Web;
+using System.Web.Script.Serialization;
+using KaamShaam.Models;
 using KaamShaam.Services;
 using Microsoft.SqlServer.Types;
 
@@ -33,6 +35,7 @@ namespace KaamShaam.LocalModels
         public string Intro { get; set; }
         public string Language { get; set; }
 
+        [ScriptIgnore]
         public DbGeography Location { get; set; }
         public long? CategoryId { get; set; }
         public string ContractorId { get; set; }
@@ -44,6 +47,18 @@ namespace KaamShaam.LocalModels
         public string CompanyName { get; set; }
 
         public string ProfileImg { get; set; }
+
+
+        public List<LocalProfileVisit> ProfileVisits { get; set; }
+
+        public List<LocalUserRating> UserRatings { get; set; }
+
+        public double Score { get; set; }
+
+
+        public List<CustomJobHistory> JobHistories { get; set; }
+
+        public bool CanRate { get; set; }
 
     }
 
@@ -65,27 +80,65 @@ namespace KaamShaam.LocalModels
             {
                 contract= UserServices.GetUserById(source.ContractorId); //company
             }
-            
+
+            var profileVists = new List<LocalProfileVisit>();
+            if (source.ProfileVisitors != null && source.ProfileVisitors.Any())
+            {
+                profileVists = source.ProfileVisitors.Select(prf => prf.Mapper()).ToList();
+            }
+
+            var profileRatings = new List<LocalUserRating>();
+            if (source.YourRatings != null && source.YourRatings.Any())
+            {
+                profileRatings = source.YourRatings.Where(df => df.IsApproved).Select(prf => prf.Mapper()).ToList();
+            }
+
+            var score = UserRatingService.GetRatingsInFloat(source.Id);
+
+            var jobHistories = new List<CustomJobHistory>();
+            if (source.JobHistories != null && source.JobHistories.Any())
+            {
+                jobHistories = source.JobHistories.Select(prf => prf.Mapper()).ToList();
+            }
+
+            var tempoLoc = " 31.476535115002306_74.32158172130585";
+            if (source.LocationCord != null)
+            {
+                tempoLoc = source.LocationCord.Latitude + "_" + source.LocationCord.Longitude;
+            }
+
             return new LocalUser
             {
-                CNIC = source.CNIC,
-                Email = source.Email,
-                FullName = source.FullName,
-                Id = source.Id,
-                Mobile = source.Mobile,
-                Type = source.Type,
-                UserName = source.UserName,
-                Country = source.Country,
-                City = source.City,
-                Intro = source.Intro,
-                Language = source.Language,
+                
 
                 Location = source.LocationCord,
-                CategoryId = source.CategoryId,
-                ContractorId =source.ContractorId, //company 
-                LocationName= source.LocationName,
-                CategoryName = cat?.Name,
-                CompanyName= contract?.FullName
+               
+                CategoryName = cat?.Name??"",
+                CompanyName= contract?.FullName??"",
+                ProfileVisits = profileVists,
+                LocTempo = tempoLoc,
+                Score = score,
+                UserRatings = profileRatings,
+                ProfileImg = "",
+
+
+                CNIC = source.CNIC ?? "(No Val)",
+                Email = source.Email ?? "(No Val)",
+                FullName = source.FullName ?? "(No Val)",
+                Id = source.Id,
+                Mobile = source.Mobile ?? "(No Val)",
+                Type = source.Type ?? "(No Val)",
+                UserName = source.UserName ?? "(No Val)",
+                Country = source.Country ?? "(No Val)",
+                City = source.City ?? "(No Val)",
+
+                Intro = source.Intro ?? "(No Val)",
+                Language = source.Language ?? "(No Val)",
+                ContractorId = source.ContractorId ?? "(No Val)",
+                CategoryId = source.CategoryId ?? 0,
+                LocationName = source.LocationName ?? "(No Val)",
+                JobHistories = jobHistories,
+                CanRate = false,
 
             };
         }

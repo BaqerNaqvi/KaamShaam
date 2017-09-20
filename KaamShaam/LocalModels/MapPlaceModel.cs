@@ -9,9 +9,9 @@ namespace KaamShaam.LocalModels
     {
         public string id { get; set; }
 
-        public double? longitude { get; set; }
+        public string longitude { get; set; }
 
-        public double? latitude { get; set; }
+        public string latitude { get; set; }
 
         public string image { get; set; }
 
@@ -28,7 +28,7 @@ namespace KaamShaam.LocalModels
         public string CatName { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
-        public int Distance { get; set; }
+        public double Distance { get; set; }
     }
 
     public class MapPlaceWrapper

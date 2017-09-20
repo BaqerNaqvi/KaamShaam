@@ -13,7 +13,7 @@ Inner Page Banner Start
     .appplySpan {
         width: 45% !important;
         color: rgb(255, 255, 255) !important;
-        background-color: darkgreen !important;
+        background-color: #48484d !important;
         padding: 2px !important;
         border-radius: 5px !important;
         display: inline
@@ -136,7 +136,7 @@ Inner Page Banner Start
                                                         <a class="tg-tag tg-featuredtag" href="#">@item.PostingDate</a>
                                                         <div class="tg-title">
                                                             <h3>
-                                                                <a href="#">@item.CatName Required</a> <span class="appplySpan">@item.JobHistory.FirstOrDefault().ContractorName</span><span class="appliedspan">Applied</span>
+                                                                <a href="#">@item.CatName Required</a> <span class="appplySpan"><a href="~/Contractor/ViewProfile?userId=@item.JobHistory.FirstOrDefault().ContractorId" style="color: white">@item.JobHistory.FirstOrDefault().ContractorName</a></span><span class="appliedspan">Applied</span>
                                                             </h3>
                                                         </div>
                                                         <span>@item.JobTitle</span>
@@ -351,7 +351,6 @@ Inner Page Banner Start
         postMydata(pageDataObj, "GetJobProposalsSorted", upDatePage);
     }
 
-    $('.li-manage-jobs').addClass('tg-active');
 
     $('#searchJob').keyup(function() {
         pageDataObj.CurrentPage = 0;
@@ -360,4 +359,8 @@ Inner Page Banner Start
         getSortedJobs();
         pageDataObj.CurrentPage++;
     });
+
+    setTimeout(function() {
+        $(".jobProposalPage").addClass('tg-active');
+    },2000);
 </script>

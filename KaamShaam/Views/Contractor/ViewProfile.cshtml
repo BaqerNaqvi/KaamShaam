@@ -9,6 +9,8 @@
     }
 <head>
     <title>Contractor Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
+
 </head>
 <!--************************************
         Inner Page Banner Start
@@ -35,208 +37,211 @@
         Main Start
 *************************************-->
 <main id="tg-main" class="tg-main tg-haslayout tg-paddingzero">
-    <div class="tg-serviceprovider tg-detailpage tg-serviceproviderdetail">
-        <div class="tg-detailpagehead">
-            <figure>
-                <img src="@baseUrl/images/contractor-profile/img-21.jpg" alt="background image">
-                <figcaption>
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                <div class="tg-detailpageheadcontent">
-                                    <div class="tg-companylogo"><img src="@baseUrl/images/Profiles/@imgg" alt="image description"></div>
-                                    <div class="tg-companycontent">
-                                        <ul class="tg-tags">
-                                            <li><a class="tg-tag tg-featuredtag" href="#">featured</a></li>
-                                            <li><a class="tg-tag tg-verifiedtag" href="#">verified</a></li>
-                                        </ul>
-                                        <div class="tg-title">
-                                            <h1>@Model.FullName</h1>
-                                            <span>@Model.LocationName</span>
-                                        </div>
-                                        <ul class="tg-matadata">
-                                            <li><span class="tg-stars"><span></span></span></li>
-                                            <li>
-                                                <i class="fa fa-thumbs-o-up"></i>
-                                                <em>0% (0 votes)</em>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    @*<button class="tg-btn" type="buttton" data-toggle="modal" data-target=".tg-appointmentModal"> Hire Now </button>*@
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </figcaption>
-            </figure>
-        </div>
-        <div class="tg-companynameandviews">
+<div class="tg-serviceprovider tg-detailpage tg-serviceproviderdetail">
+<div class="tg-detailpagehead">
+    <figure>
+        <img src="@baseUrl/images/contractor-profile/img-21.jpg" alt="background image">
+        <figcaption>
             <div class="container">
                 <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-                        <h2>@Model.CategoryName</h2>
-                        <span class="tg-totalsviews">
-                            <i class="fa fa-eye"></i>
-                            <i>10</i>
-                        </span>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="tg-detailpageheadcontent">
+                            <div class="tg-companylogo"><img src="@baseUrl/images/Profiles/@imgg" alt="image description">
+                            </div>
+                            <div class="tg-companycontent">
+                                <ul class="tg-tags">
+                                    <li><a class="tg-tag tg-featuredtag" href="#">featured</a></li>
+                                    <li><a class="tg-tag tg-verifiedtag" href="#">verified</a></li>
+                                </ul>
+                                <div class="tg-title">
+                                    <h1>@Model.FullName</h1>
+                                    <span>@Model.LocationName</span>
+                                </div>
+                                <ul class="tg-matadata">
+                                    <li><div id="profileRating"></div></li>
+                                    <li>
+                                        <i class="fa fa-thumbs-o-up"></i>
+                                        <em>@Model.Score (@Model.UserRatings.Count votes)</em>
+                                    </li>
+                                </ul>
+                            </div>
+                            @*<button class="tg-btn" type="buttton" data-toggle="modal" data-target=".tg-appointmentModal"> Hire Now </button>*@
+                        </div>
                     </div>
                 </div>
             </div>
+        </figcaption>
+    </figure>
+</div>
+<div class="tg-companynameandviews">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                <h2>@Model.CategoryName</h2>
+                <span class="tg-totalsviews">
+                            <i class="fa fa-eye"></i>
+                            <i>@Model.ProfileVisits.Count</i>
+                        </span>
+            </div>
         </div>
-        <div id="tg-twocolumns" class="tg-twocolumns">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-7 col-md-8 col-lg-8 pull-left">
-                        <div id="tg-content" class="tg-content">
-                            @*<div class="tg-advertisement">
+    </div>
+</div>
+<div id="tg-twocolumns" class="tg-twocolumns">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-7 col-md-8 col-lg-8 pull-left">
+                <div id="tg-content" class="tg-content">
+                    @*<div class="tg-advertisement">
                                 <a href="javascript:void(0);"><img src="@baseUrl/images/contractor-profile/img-33.jpg" alt="image description"></a>
                             </div>*@
-                            <div class="tg-companyfeatures tg-listfeatures">
-                                <div class="tg-companyfeaturebox tg-introduction">
-                                    <div class="tg-companyfeaturetitle">
-                                        <h3>Introduction</h3>
-                                    </div>
-                                    <div class="tg-description">
-                                        <p>@Model.Intro</p>
-                                    </div>
-                                </div>
-                                <div class="tg-companyfeaturebox tg-languages">
-                                    <div class="tg-companyfeaturetitle">
-                                        <h3>Languages</h3>
-                                    </div>
-                                    <ul class="tg-themeliststyle tg-themeliststyledisc">
-                                        <li>English</li>
-                                        <li>Urdu</li>
-                                    </ul>
-                                </div>
-
-
-                          
-                                
-                                <div class="tg-companyfeaturebox tg-services">
-                                    <div class="tg-companyfeaturetitle">
-                                        <h3>Services</h3>
-                                    </div>
-                                    <div id="tg-accordion" class="tg-accordion">
-                                       
-                                        <div class="tg-service tg-panel">
-                                            <div class="tg-accordionheading"><h4><span>Building Design Creation</span><span>$ 160/ Hour</span></h4></div>
-                                            <div class="tg-panelcontent">
-                                                <div class="tg-description">
-                                                    <p>Building professional design needed for our office site area</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                              
-
-                                <div class="tg-companyfeaturebox tg-reviews">
-                                    <div class="tg-companyfeaturetitle">
-                                        <h3>01 Reviews</h3>
-                                    </div>
-                                    <div class="tg-feedbacks">
-                                        <div class="tg-feedback">
-                                            <figure><a href="javascript:void(0);"><img src="@baseUrl/images/contractor-profile/review2.png" alt="image description"></a></figure>
-                                            <div class="tg-feedbackcontent">
-                                                <div class="tg-feedbackbox">
-                                                    <div class="tg-contenthead">
-                                                        <div class="tg-leftbox">
-                                                            <div class="tg-name">
-                                                                <h4><a href="#">Hammad &amp; Telecom</a></h4>
-                                                            </div>
-                                                            <ul class="tg-matadata">
-                                                                <li><a href="#">Bridge Colony</a></li>
-                                                                <li><a href="#">2 Days Ago</a></li>
-                                                            </ul>
-                                                        </div>
-                                                        
-                                                    </div>
-                                                    <div class="tg-description">
-                                                        <p>Very professional personal with expert in the Telecoms sector</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                       
-                                    </div>
-                                    <div class="tg-btnbox">
-                                        @*<a class="tg-btn tg-btnloadmore" href="javascript:void(0);">load more</a>*@
-                                    </div>
-                                </div>
-                                
+                    <div class="tg-companyfeatures tg-listfeatures">
+                        <div class="tg-companyfeaturebox tg-introduction">
+                            <div class="tg-companyfeaturetitle">
+                                <h3>Introduction</h3>
+                            </div>
+                            <div class="tg-description">
+                                @{
+                                    var introo = Model.Intro ?? "(Not Provided)";
+                                }
+                                <p>@introo</p>
                             </div>
                         </div>
+                        <div class="tg-companyfeaturebox tg-languages">
+                            <div class="tg-companyfeaturetitle">
+                                <h3>Languages</h3>
+                            </div>
+                            @{
+                                var langs = Model.Language ?? "(Not Specified)";
+                            }
+                            <ul class="tg-themeliststyle tg-themeliststyledisc">
+                                <li>@langs</li>
+                            </ul>
+                        </div>
+
+
+
+
+                        <div class="tg-companyfeaturebox tg-services">
+                            <div class="tg-companyfeaturetitle">
+                                <h3>Job History</h3>
+                            </div>
+                           @{
+                               if (Model.JobHistories.Any())
+                               {
+                                   foreach (var history in Model.JobHistories)
+                                   {
+                                    <div id="tg-accordion" class="tg-accordion">
+
+                                        <div class="tg-service tg-panel">
+                                            <div class="tg-accordionheading">
+                                                <h4><span>@history.JobTitle</span><span>Rates: @history.Fee</span></h4>
+                                            </div>
+                                            <div class="tg-panelcontent">
+                                                <div class="tg-description">
+                                                    <p>@history.Des</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                   }
+                               }
+                               else
+                               {
+                                   <p>(No Job History)</p>
+                               }
+                        }
+                        </div>
+
+
+                        <div class="tg-companyfeaturebox tg-reviews">
+                            <div class="tg-companyfeaturetitle">
+                                <h3>@Model.UserRatings.Count Reviews</h3>
+                            </div>
+                           @{
+                               if (Model.UserRatings.Any())
+                               {
+                                   foreach (var rate in Model.UserRatings)
+                                   {
+                                       var img = baseUrl + "/Images/Profiles/" + rate.RatedBy + "_110.png";
+                                       <div class="tg-feedbacks">
+                                           <div class="tg-feedback">
+                                               <figure><a href="javascript:void(0);"><img src="@img" alt="image description"></a></figure>
+                                               <div class="tg-feedbackcontent">
+                                                   <div class="tg-feedbackbox">
+                                                       <div class="tg-contenthead">
+                                                           <div class="tg-leftbox">
+                                                               <div class="tg-name">
+                                                                   <h4><a href="#">@rate.RatedByUserFullName</a></h4>
+                                                               </div>
+                                                               <ul class="tg-matadata">
+                                                                   <li><a href="#">@rate.RatedByUserAddress</a></li>
+                                                                   <li><a href="#">@rate.DateTime</a></li>
+                                                               </ul>
+                                                           </div>
+
+                                                       </div>
+                                                       <div class="tg-description">
+                                                           <p>@rate.Comments</p>
+                                                       </div>
+                                                   </div>
+                                               </div>
+                                           </div>
+
+                                       </div>
+                                   }
+                               }
+                           }
+                            <div class="tg-btnbox">
+                                @*<a class="tg-btn tg-btnloadmore" href="javascript:void(0);">load more</a>*@
+                            </div>
+                        </div>
+
                     </div>
-                    <div class="col-xs-12 col-sm-5 col-md-4 col-lg-4 pull-right">
-                        <aside id="tg-sidebar" class="tg-sidebar" >
-                            <div class="tg-widget tg-widgetlocationandcontactinfo">
-                                <div class="tg-mapbox" style="border: none">
-                                    @*<a class="tg-addtofavorite" href="javascript:void(0);"><i class="fa fa-heart"></i>Add To Favourite</a>*@
-                                    <div id="tg-locationmap" class="tg-locationmap"></div>
-                                </div>
-                                <div class="tg-contactinfobox">
-                                    <ul class="tg-contactinfo">
-                                        <li>
-                                            <i class="lnr lnr-location"></i>
-                                            <address>@Model.LocationName</address>
-                                        </li>
-                                        <li>
-                                            <i class="lnr lnr-phone-handset"></i>
-                                            <span>@Model.Mobile</span>
-                                        </li>
-                                      
-                                       
-                                        <li>
-                                            <i class="lnr lnr-construction"></i>
-                                            <span><a href="mailto:@Model.Email">@Model.Email</a></span>
-                                        </li>
-                                        <li>
-                                            <i class="lnr lnr-screen"></i>
-                                            <span><a href="#" target="_blank">www.@Model.FullName. com</a></span>
-                                        </li>
-                                    </ul>
-                                    <ul class="tg-socialicons">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-5 col-md-4 col-lg-4 pull-right">
+                <aside id="tg-sidebar" class="tg-sidebar" style="margin-top: 20%">
+                    <div class="tg-widget tg-widgetlocationandcontactinfo" >
+
+                        <div class="tg-contactinfobox">
+                            <button class="tg-btn btn-margin-left" data-toggle="modal" dis data-target="#addconReviewModel">Rate & Review</button>
+
+                            <button class="tg-btn btn-margin-left" onclick="showOpps(@Json.Encode(Model.Id))">Hire Now</button>
+                            <ul class="tg-contactinfo" style="margin-top: 14px; display: none" id="conInfo">
+                                <li>
+                                    <i class="lnr lnr-location"></i>
+                                    <address>@Model.LocationName</address>
+                                </li>
+                                <li>
+                                    <i class="lnr lnr-phone-handset"></i>
+                                    <span>@Model.Mobile</span>
+                                </li>
+
+
+                                <li>
+                                    <i class="lnr lnr-construction"></i>
+                                    <span><a href="mailto:@Model.Email">@Model.Email</a></span>
+                                </li>
+                                <li>
+                                    <i class="lnr lnr-screen"></i>
+                                    @*<span><a href="#" target="_blank">www.@Model.FullName. com</a></span>*@
+                                </li>
+                            </ul>
+                            @*<ul class="tg-socialicons">
                                         <li class="tg-facebook"><a href="#"><i class="fa fa-facebook"></i></a></li>
                                         <li class="tg-twitter"><a href="#"><i class="fa fa-twitter"></i></a></li>
                                         <li class="tg-linkedin"><a href="#"><i class="fa fa-linkedin"></i></a></li>
                                         <li class="tg-googleplus"><a href="#"><i class="fa fa-google-plus"></i></a></li>
                                         <li class="tg-rss"><a href="#"><i class="fa fa-rss"></i></a></li>
-                                    </ul>
-                                    @*<a class="tg-btn tg-btn-lg" href="javascript:void(0);">get direction</a>*@
-                                </div>
-                            </div>
-                            <div class="tg-widget tg-widgetcontact">
-                                <div class="tg-widgettitle">
-                                    <h3>Contact Form</h3>
-                                </div>
-                                <div class="tg-widgetcontent">
-                                    <form class="tg-themeform">
-                                        <fieldset>
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" name="text" placeholder="Your Name">
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="email" class="form-control" name="email" placeholder="Email Address">
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" name="phone" placeholder="Phone">
-                                            </div>
-                                            <div class="form-group">
-                                                <textarea class="form-control" placeholder="Message"></textarea>
-                                            </div>
-                                            @*<div class="form-group">
-                                                <img src="@baseUrl/images/placeholder/img-02.png" alt="image description">
-                                            </div>*@
-                                            <button class="tg-btn tg-btn-lg" type="submit">send now</button>
-                                        </fieldset>
-                                    </form>
-                                </div>
-                            </div>
+                                    </ul>*@
+                            @*<a class="tg-btn tg-btn-lg" href="javascript:void(0);">get direction</a>*@
+                        </div>
+                    </div>
 
 
 
-                            @*<div class="tg-widget tg-widgetclaim">
+
+                    @*<div class="tg-widget tg-widgetclaim">
                                 <div class="tg-widgettitle">
                                     <h3>Report/Claim Form</h3>
                                 </div>
@@ -254,93 +259,162 @@
                                     </form>
                                 </div>
                             </div>*@
-                            <div class="tg-widget tg-widgettags">
-                                <div class="tg-widgettitle">
-                                    <h3>Tags</h3>
-                                </div>
-                                <div class="tg-widgetcontent">
-                                    <a class="tg-tag" href="javascript:void(0);">Verified</a>
-                                    <a class="tg-tag" href="javascript:void(0);">Test</a>
-                                </div>
-                            </div>
+                    <div class="tg-widget tg-widgettags">
+                        <div class="tg-widgettitle">
+                            <h3>Tags</h3>
+                        </div>
+                        <div class="tg-widgetcontent">
+                            <a class="tg-tag" href="javascript:void(0);">Verified</a>
+                            <a class="tg-tag" href="javascript:void(0);">@Model.CategoryName</a>
+                        </div>
+                    </div>
 
-                        </aside>
+                </aside>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</main>
+
+
+
+<div class="modal fade" id="addconReviewModel" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                <h3 class="modal-title" id="lineModalLabel">Rate @Model.FullName</h3>
+                <img style="margin-left: 10px;margin-top: -8px;" class="ajaxloader" id="adminLoading" src="~/Images/ajax-loader.gif" />
+
+            </div>
+            <div class="modal-body" style="height: 206px;">
+
+                <div class="form-group" style="display: inline-block;width: 50%;">
+                    <label for="">Rating:&nbsp; <strong><span id="ratingText">5.00</span></strong></label>
+                    <div id="contractStarRating"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="">Review:</label>
+                    <textarea class="form-control"  id="profileComments"></textarea>
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <div class="btn-group btn-group-justified" role="group" aria-label="group button">
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-primary" role="button" onclick="PostReview()">Post Review</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</main>
+</div>
 <!--************************************
         Main End
 *************************************-->
 <!--************************************
         Hire Modal Box Start
 *************************************-->
-<div class="modal fade tg-appointmentModal" tabindex="-1">
-    <div class="modal-dialog tg-modaldialog" role="document">
-        <div class="modal-content tg-modalcontent">
-            <div class="tg-modalhead">
-                <a class="tg-closemodal" href="javascript:void(0);" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></a>
-                <h2>Want To Hire This Person</h2>
-            </div>
-            <form class="tg-themeform tg-formappointment">
-                <div class="tg-modalbody">
-                    <form method="post" id="job-form">
-                        <div class="row clearfix">
-                            <div class="post-job2-panel">
-                                <form class="row">
-                                    <div class="col-md-12 col-sm-6 col-xs-12">
 
-                                        <p> NOTE: Please Fill The Form To Get The Contact Number</p>
-                                        <div class="form-group">
-                                            <label>Job Title</label>
-                                            <input type="text" placeholder="Job Title" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 col-sm-6 col-xs-12">
-                                        <div class="form-group">
-                                            <label>Location</label>
-                                            <input type="text" placeholder="Job Location" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 col-sm-6 col-xs-12">
-                                        <div class="form-group">
-                                            <label>Job Category</label>
-                                            <select class="questions-category form-control" multiple="multiple">
-                                                <option value="0">Electricians</option>
-                                                <option value="1">Carpenters</option>
-                                                <option value="2">Plumbers</option>
-                                                <option value="3">General Contractor</option>
-                                                <option value="4">Handyman</option>
-                                                <option value="5">Air Conditioning</option>
-                                                <option value="5">Gardeners</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 col-sm-6 col-xs-12">
-                                        <div class="form-group">
-                                            <label>Job Type</label>
-                                            <select class="questions-category form-control">
-                                                <option value="0">Full Time</option>
-                                                <option value="1">Part Time</option>
-                                                <option value="2">Remote</option>
-                                                <option value="3">Freelancer</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="tg-btnbox">
-                            <button class="tg-btn" type="submit">continue</button>
-                        </div>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
 <!--************************************
 Hire Modal Box End
 *************************************-->
+<script src="~/Scripts/vendor/jquery-library.js"></script>
+
+<script src="~/Scripts/rating.min.js"></script>
+
+<script>
+    var canRate = @Html.Raw(Json.Encode(Model.CanRate)); 
+
+    var contractorModel = @Html.Raw(Json.Encode(Model));
+
+
+    $("#contractStarRating").rateYo({
+        rating: 5,
+        onChange: function (rating, rateYoInstance) {
+            $("#ratingText").text(rating);
+        }
+    });
+
+    $("#profileRating").rateYo({
+        rating: contractorModel.Score,
+        readOnly: true,
+        starWidth: "15px"
+
+    });
+    $('#adminLoading').hide();
+    function postMydataNow(serverObj, url, successFunc) {
+        $('#adminLoading').show();
+        $.ajax({
+            url: url,
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            dataType: "html",
+            data: JSON.stringify(serverObj),
+            success: successFunc,
+            error: function (data) {
+                $('#adminLoading').hide();
+                toastr.error("Faild to perform operation.");
+            }
+        });
+    }
+    function successFuncforpostReview(data) {
+        $('#addconReviewModel').modal('toggle');
+        $('#adminLoading').hide();
+        toastr.success("Thank you for your feedback");
+    }
+    function PostReview() {
+
+        if (!canRate) {
+            toastr.error("You are not able to rate this contractor. Please read the policies.");
+
+            return;
+        }
+
+        var toId;
+        var rootParm = window.location.href.split("?");
+        if (rootParm.length > 1) {
+            var values = rootParm[1].split("=");
+            if (values.length > 1) {
+                toId= values[1];
+            }
+        }
+        var comments = $("#profileComments").val();
+        if (comments === "") {
+            toastr.error("Please add few commetns");
+            return;
+        }
+        var rate = $("#contractStarRating").rateYo("option", "rating");
+        if (toId !== undefined) {
+            var server = {
+                Comments:comments,
+                RatedTo:toId,
+                TempoRating:rate+""
+            };
+            debugger;
+            postMydataNow(server, "../ProfileVisitor/AddNewRating", successFuncforpostReview);
+        }
+      
+    }
+
+
+    function showOpps(id) {
+        $("#conInfo").show();
+        postVisit(id);
+    }
+
+
+    function postVisit (id) {
+        var server = {
+            VistedOf:id
+        };
+        postMydataNow(server, '../ProfileVisitor/AddNewVisit', successProfileVisit);
+        $('#adminLoading').hide();
+    }
+    function successProfileVisit() {
+        
+    }
+</script>

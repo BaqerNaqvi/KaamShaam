@@ -10,5 +10,7 @@ namespace KaamShaam.Models
         public List<string> BannersList { get; set; }
 
         public List<ContractorIndexPageModel> ContractorCats { get; set; }
+
+        public List<GeneralFeedbackModel> Feedback { get; set; }
     }
 }

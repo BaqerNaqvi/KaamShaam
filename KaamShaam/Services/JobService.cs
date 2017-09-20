@@ -5,6 +5,7 @@ using System.Data.Entity.Spatial;
 using System.Linq;
 using System.Media;
 using System.Web;
+using KaamShaam.ApiModels;
 using KaamShaam.DbEntities;
 using KaamShaam.LocalModels;
 using KaamShaam.Models;
@@ -120,7 +121,7 @@ namespace KaamShaam.Services
                 dbcontext.SaveChanges();
             }
         }
-        public static void ChangeJobApproval(CustomJobModel job)
+        public static Job ChangeJobApproval(CustomJobModel job)
         {
             using (var dbcontext = new KaamShaamEntities())
             {
@@ -134,6 +135,7 @@ namespace KaamShaam.Services
                     }
                     dbcontext.SaveChanges();
                 }
+                return dbJob;
             }
         }
         public static List<CustomJobModel> GetReadyJobs(string loggedInUserId)
@@ -302,6 +304,25 @@ namespace KaamShaam.Services
                 {
 
                 }
+            }
+        }
+
+        public static CustomJobModel GetJobById(long jobId)
+        {
+            using (var dbcontext = new KaamShaamEntities())
+            {
+                var jobs = dbcontext.Jobs.FirstOrDefault(job => job.Id == jobId).Mapper();
+                return jobs;
+            }
+        }
+
+        public static void Feedback(ApiRequestModel model)
+        {
+            using (var dbcontext = new KaamShaamEntities())
+            {
+                var jobObj = dbcontext.Jobs.FirstOrDefault(job => job.Id == model.JobId);
+                jobObj.FeedBack = model.Feedback;
+                dbcontext.SaveChanges();
             }
         }
     }

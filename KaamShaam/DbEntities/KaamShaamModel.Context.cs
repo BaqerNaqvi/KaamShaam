@@ -34,5 +34,8 @@ namespace KaamShaam.DbEntities
         public virtual DbSet<Banner> Banners { get; set; }
         public virtual DbSet<JobHistory> JobHistories { get; set; }
         public virtual DbSet<Appointment> Appointments { get; set; }
+        public virtual DbSet<FeedBack> FeedBacks { get; set; }
+        public virtual DbSet<ProfileVisit> ProfileVisits { get; set; }
+        public virtual DbSet<UserRating> UserRatings { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
@@ -194,7 +195,23 @@ namespace KaamShaam.Controllers
                 {
                     UserServices.AddUserProperties(model.RegisterViewModel,user.Id);
                     var uObj = UserServices.GetUserById(user.Id);
-                    SetUserSession(uObj);
+                    SetUserSession(uObj, true);
+                    
+                    
+                        var content = "Hi " + model.RegisterViewModel.FullName +
+                                      "!\nYou have been successfully registered as a " + model.RegisterViewModel.Type +
+                                      " at KamSham.Pk.";
+                        if (model.RegisterViewModel.Type == "Contractor")
+                        {
+                            content = content + "You will be able to login once we approve your account information.";
+                        }
+                        content = content + "\n-KamSham Team\n+923084449991";
+                        KaamShaam.Services.EmailService.SendEmail(user.Email,"Registration Notification | KamSham.Pk",content);
+
+                    if (model.RegisterViewModel.Type == "Contractor")
+                    {
+                        return RedirectToAction("Welcome", "Account");
+                    }
 
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
@@ -522,16 +539,31 @@ namespace KaamShaam.Controllers
         }
         #endregion
 
-        public void SetUserSession(LocalUser user)
+        public void SetUserSession(LocalUser user, bool createImg=false)
         {
             #region Session
             Session["UserName"] = user.FullName;
             Session["Address"] = user.LocationName;
             Session["Type"] = user.Type;
+            Session["Score"] = user.Score;
+            Session["Votes"] = user.UserRatings.Count;
 
             string baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority +
                    Request.ApplicationPath.TrimEnd('/') + "/Images/";
 
+            try
+            {
+                if (createImg)
+                {
+                    var baseUrlforimg = Server.MapPath("/Images/Profiles/");
+                    UserServices.CreateUserAvatar(baseUrlforimg + user.Id);
+                }
+
+            }
+            catch (Exception)
+            {
+
+            }
 
             var img = baseUrl + "Profiles/" + user.Id + "_110.png";
             Session["Photo"] = AppUtils.Common.ReturnImage(img, "110x110");
@@ -559,6 +591,12 @@ namespace KaamShaam.Controllers
                 Vendors = vendors,
                 Categories = cats
             });
+        }
+
+        [System.Web.Mvc.AllowAnonymous]
+        public ActionResult Welcome()
+        {
+            return View();
         }
 
         //
@@ -633,6 +671,7 @@ namespace KaamShaam.Controllers
             if (!string.IsNullOrEmpty(user.Password))
             {
                 result = ChangePassword(user);
+
             }
             return Json(result, JsonRequestBehavior.AllowGet);
         }

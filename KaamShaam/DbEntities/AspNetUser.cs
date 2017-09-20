@@ -24,6 +24,11 @@ namespace KaamShaam.DbEntities
             this.JobHistories = new HashSet<JobHistory>();
             this.MyCreatedAppointments = new HashSet<Appointment>();
             this.MyWithAppointments = new HashSet<Appointment>();
+            this.FeedBacks = new HashSet<FeedBack>();
+            this.YouVisited = new HashSet<ProfileVisit>();
+            this.ProfileVisitors = new HashSet<ProfileVisit>();
+            this.YouRated = new HashSet<UserRating>();
+            this.YourRatings = new HashSet<UserRating>();
         }
     
         public string Id { get; set; }
@@ -53,6 +58,7 @@ namespace KaamShaam.DbEntities
         public string LocationName { get; set; }
         public Nullable<bool> IsApproved { get; set; }
         public string Feedback { get; set; }
+        public Nullable<System.DateTime> EditedAt { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetUserClaim> AspNetUserClaims { get; set; }
@@ -68,5 +74,15 @@ namespace KaamShaam.DbEntities
         public virtual ICollection<Appointment> MyCreatedAppointments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Appointment> MyWithAppointments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FeedBack> FeedBacks { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProfileVisit> YouVisited { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProfileVisit> ProfileVisitors { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserRating> YouRated { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserRating> YourRatings { get; set; }
     }
 }

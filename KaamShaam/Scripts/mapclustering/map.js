@@ -27,8 +27,8 @@ function sp_init_map_script(_map_id, dataList){
 
 	var directory_path = '../';
 	var _data_list = dataList;
-	var dir_latitude = '31.483351';
-	var dir_longitude = '74.323508';
+	var dir_latitude = '31.503912';
+	var dir_longitude = '74.331631';
 	var dir_map_type	 = 'ROADMAP';
 	var dir_close_marker		= directory_path+'images/icons/close.png';
 	var dir_cluster_marker		= directory_path+'images/icons/cluster.png';
@@ -38,12 +38,12 @@ function sp_init_map_script(_map_id, dataList){
 	var dir_map_scroll			= 'false';
 	var gmap_norecod			= '';
 	var loader_html	= '<div class="provider-loader-wrap"><div class="provider-loader"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div></div>';
-
+    var locationCenter=null;
 	if (_data_list.status == 'found' && _data_list.listing.length>0) {
 		var response_data	= _data_list.listing;
-		var location_center = new google.maps.LatLng(response_data[0].latitude,response_data[0].longitude);
+		 locationCenter = new google.maps.LatLng(response_data[0].latitude,response_data[0].longitude);
 	} else{
-		var location_center = new google.maps.LatLng(dir_latitude,dir_longitude);
+		 locationCenter = new google.maps.LatLng(dir_latitude,dir_longitude);
 	}
 
 	if(dir_map_type == 'ROADMAP'){
@@ -76,11 +76,28 @@ function sp_init_map_script(_map_id, dataList){
 	}
 
 	var map = new google.maps.Map(document.getElementById(_map_id), mapOptions);
+
+	if (dataList != undefined && dataList.listing!=null) {
+	    var radius = parseInt($('#locDistance').val()) * 1000;
+	    var currentPosObj = dataList.listing[0];
+	    var posCenter = { lat: parseFloat(currentPosObj.latitude), lng: parseFloat(currentPosObj.longitude) };
+	    // Add the circle for this city to the map.
+	    var cityCircle = new google.maps.Circle({
+	        strokeColor: '#FF0000',
+	        strokeOpacity: 0.8,
+	        strokeWeight: 1,
+	        fillColor: '#0080ff',
+	        fillOpacity: 0.35,
+	        map: map,
+	        center: posCenter,
+	        radius: radius
+	    });
+	}
 	var bounds = new google.maps.LatLngBounds();
 
 	//Zoom In
 	if(document.getElementById('doc-mapplus') ){ 
-		google.maps.event.addDomListener(document.getElementById('doc-mapplus'), 'click', function () {
+	    google.maps.event.addDomListener(document.getElementById('doc-mapplus'), 'click', function () {
 			var current= parseInt( map.getZoom(),10 );
 			current++;
 			if(current>20){
@@ -134,7 +151,7 @@ function sp_init_map_script(_map_id, dataList){
 		setTimeout(function(){
 			jQuery('.tg-mapinnerbanner').find('.provider-loader-wrap').remove();
 			google.maps.event.trigger(map,"resize");
-			map.setCenter(location_center);
+			map.setCenter(locationCenter);
 		},1000);
     });
 			
@@ -189,7 +206,9 @@ function sp_init_map_script(_map_id, dataList){
                     enableEventPropagation: false
                 };
                 var ib = new InfoBox(myOptions);
-                attachInfoBoxToMarker(map, markers[i], ib);
+               if (i !== 0) {
+                   attachInfoBoxToMarker(map, markers[i], ib);
+               }
             }
         }
 		
@@ -210,6 +229,7 @@ function sp_init_map_script(_map_id, dataList){
 		map.fitBounds(bounds);
 		jQuery('#gmap-noresult').html(gmap_norecod).show();
 	}
+
 }
 //Assign Info window to marker
 function attachInfoBoxToMarker( map, marker, infoBox ){

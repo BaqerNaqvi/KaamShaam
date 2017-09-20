@@ -321,10 +321,11 @@ jQuery(document).on('ready', function() {
 	_geo_distance.slider({
 		range: "min",
 		min:1,
-		max:300,
-		value:50,
+		max:50,
+		value:10,
 		animate:"slow",
 		orientation: "horizontal",
+		change: function (event, ui) { distanceSliderUpdated(ui.value) },
 		slide: function( event, ui ) {
 		jQuery( ".distance-ml span" ).html( ui.value );
 		jQuery( ".geo_distance" ).val( ui.value );

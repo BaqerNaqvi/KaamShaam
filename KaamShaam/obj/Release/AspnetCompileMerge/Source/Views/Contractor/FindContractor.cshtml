@@ -93,7 +93,9 @@
         .modal-backdrop {
             z-index: 10;
         }
-
+        #jobCatList {
+            margin-top: 18px
+        }
         ​ #pac-container {
             padding-bottom: 12px;
             margin-right: 12px;
@@ -166,7 +168,7 @@
         *************************************-->
         @{
             string baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority +
-                                    Request.ApplicationPath.TrimEnd('/');
+                                   Request.ApplicationPath.TrimEnd('/');
             var userImg = System.Web.HttpContext.Current.User.Identity.GetUserId() + "_35.png";
             userImg = KaamShaam.AppUtils.Common.ReturnImage(baseUrl + "/Images/Profiles/" + userImg, "35x35");
 
@@ -207,7 +209,7 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div class="tg-adminbox">
+                            <div class="tg-adminbox" style="margin-top: 14px;">
                                 <div class="tg-loginregister" style="display: block; padding: 0px">
                                     @if (Request.IsAuthenticated)
                                     {
@@ -216,7 +218,7 @@
                                         <div class="tg-useradminbox" style="display:block;">
                                             <div class="tg-themedropdown tg-userdropdown">
                                                 <a href="#" id="tg-usermenu" class="tg-btndropdown">
-                                                    <em><img src="@userImg" alt=""></em>
+                                                    <em><img src="@userImg" alt="" style="height: 35px!important; width: 35px !important"></em>
                                                     <span>Hi! @Session["UserName"]</span>
                                                     <i class="fa fa-angle-down"></i>
                                                 </a>
@@ -347,11 +349,11 @@
                                             <li class="">
                                                 @if (User.IsInRole("User"))
                                                 {
-                                                    <a href="@baseUrl/profile/Update">User Dashbaord</a>
+                                                    <a href="@baseUrl/profile/Update">Dashboard</a>
                                                 }
                                                 else if (User.IsInRole("Contractor"))
                                                 {
-                                                    <a href="@baseUrl/profile/Update">Contractor Dashboard</a>
+                                                    <a href="@baseUrl/profile/Update">Dashboard</a>
                                                 }
                                             </li>
                                            }
@@ -417,29 +419,29 @@
                     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 pull-left">
                         <div class="row">
                             <div class="tg-serviceproviders">
-                                <form class="tg-themeform tg-formsearch" style="    padding-bottom: 0px;">
-                                    <fieldset>
+                                <form class="tg-themeform tg-formsearch" style="padding-right: 0px;width: 105%;padding-bottom: 0px;">
+                                    <fieldset style="padding: 0px">
 
                                         <div class="form-group" style="width: 100%;">
                                             <div class="locate-me-wrap">
                                                 <div id="location-pickr-map" class="elm-display-none"></div>
                                                 <input type="text" autocomplete="on" id="locationName" value="" name="geo_location" placeholder="Geo location" class="form-control">
-                                                <a href="javascript:;" class="geolocate" onclick="openMap()"><i class="fa fa-crosshairs" data-target="#addressmodel" data-toggle="modal"></i></a>
-                                                <a href="javascript:;" class="geodistance"><i class="fa fa-angle-down" aria-hidden="true"></i></a>
-                                                <div class="geodistance_range elm-display-none">
-                                                    <div class="distance-ml">Distance in&nbsp;( km )<span>50</span></div>
-                                                    <input type="hidden" id="locDistance" name="geo_distance" value="50" class="geo_distance"/>
+                                                <a href="javascript:;" title="Show Map" class="geolocate" onclick="openMap()" style="margin-right: -16px; margin-top: -29px"><i class="fa fa-crosshairs" data-target="#addressmodel" data-toggle="modal"></i></a>
+                                                <a href="javascript:;" class="geodistance"></a>
+                                                <div style="margin-top: 12px;">
+                                                    <div class="distance-ml">Distance in&nbsp;(km) &nbsp;<span>10</span></div>
+                                                    <input type="hidden" id="locDistance" name="geo_distance" value="10" class="geo_distance"/>
                                                     <div class="geo_distance" id="geo_distance"></div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group" style="padding-left: 0px;width: 100%;">
                                             @Html.DropDownList("selection", cats, new { @class = "form-control", @id = "jobCatList" })
                                         </div>
 
-                                            <div class="form-group">
-                                                <input type="button" style="margin-left: 12px; width: 65%;" class="form-control btn btn-primary" onclick="searchContractors()" value="Search"/>
-                                                <img class="ajaxloader" id="adminLoading" src="~/Images/ajax-loader.gif"/>
+                                            <div class="form-group" style=" ">
+                                                @*<input type="button" style="margin-left: 12px; width: 65%;" class="form-control btn btn-primary" onclick="searchContractors()" value="Search"/>*@
+                                                <img class="ajaxloader" id="adminLoading" src="~/Images/ajax-loader.gif" style="margin-left: 160%;"/>
                                             </div>
 </fieldset>
                                     @*<a id="tg-btnadvancefilters" class="tg-btnadvancefilters" href="javascript:void(0);">
@@ -579,7 +581,14 @@
                                     </form>
                                 </div>
                                 <div class="tg-filters">
-                                    <span class="tg-totallistingfound"><span id="placeCount">@Model.listing.Count</span> Results Found</span>
+                                    @{
+                                        var resCOunt=0;
+                                        if (Model.listing!=null && Model.listing.Count >0)
+                                        {
+                                            resCOunt = Model.listing.Count-1;
+                                        }
+                                    <span class="tg-totallistingfound"><span id="placeCount">@resCOunt</span> Results Found</span>
+                                }
                                     @*<div class="tg-sortfilters">
                                         <div class="tg-sortfilter tg-sortby">
                                             <span>Sort By:</span>
@@ -615,10 +624,14 @@
                                 <div id="tg-themescrollbar" class="tg-themescrollbar tg-listingscrollbar" style="overflow-y: auto;height: 971px;">
                                     <div class="row" id="contractorsLeftList">
                                         @{
-                                            if (Model != null)
+                                            if (Model != null && Model.listing!=null)
                                             {
                                                 foreach (var item in Model.listing)
                                                 {
+                                                    if (string.IsNullOrEmpty(item.CatName))
+                                                    {
+                                                        continue;
+                                                    }
                                                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                                         <div class="tg-serviceprovider tg-automotive">
                                                             <figure class="tg-featuredimg" style="width: 110px">
@@ -630,8 +643,8 @@
                                                             </figure>
                                                             <div class="tg-companycontent">
                                                                 <ul class="tg-tags">
-                                                                    <li><a class="tg-tag tg-featuredtag" href="#">featured</a></li>
-                                                                    <li><a class="tg-tag tg-verifiedtag" href="#">verified</a></li>
+                                                                    <li><a class="tg-tag tg-featuredtag">featured</a></li>
+                                                                    <li><a class="tg-tag tg-verifiedtag" >verified</a></li>
                                                                 </ul>
                                                                 <div class="tg-title">
                                                                     <h3><a href="">@item.title</a></h3>
@@ -643,18 +656,19 @@
                                                                         <em>0% (0 votes)</em>
                                                                     </li>
                                                                 </ul>
-                                                                <ul class="tg-companycontactinfo">
-                                                                    	<li>
-                                                                            <i class="lnr lnr-phone-handset"></i>
-                                                                            <span data-toggle="tooltip" data-placement="top" title="Click to view Number" data-last="34 - 562 - 6">@item.Phone</span>
-                                                                        </li>
-                                                                    <li>
+                                                                <ul class="tg-companycontactinfo" style="display: none; width: 108%;" id="op_@item.id">
+                                                                    <li style="margin-left: -5px;width: 40%;display: inline-block;">
+                                                                        <i class="lnr lnr-phone-handset"></i>
+                                                                        <span data-toggle="tooltip" data-placement="top" title="Click to view Number" data-last="34 - 562 - 6">@item.Phone</span>
+                                                                    </li>
+                                                                    <li style="margin-top: -8px;width: 57%;display: inline;">
                                                                         <i class="lnr lnr-envelope"></i>
                                                                         <span data-toggle="tooltip" data-placement="top" title="Click to view Email" data-last="domain.com"><a href="mailto:query@domain.com">@item.Email</a></span>
                                                                     </li>
                                                                 </ul>
+                                                                <button style="margin-top: 4px;margin-left: 0px !important;" class="tg-btn btn-margin-left"><a href="~/Contractor/ViewProfile?userId=@item.id">View Profile</a></button>
                                                                 @*<button class="tg-btn" type="buttton" data-toggle="modal" data-target=".tg-appointmentModal">Contact</button>*@
-                                                                <button class="tg-btn btn-margin-left"><a href="~/Contractor/ViewProfile?userId=@item.id">View Profile</a></button>
+                                                                <button style="margin-top: 4px;" class="tg-btn btn-margin-left" onclick="showOpps(@Json.Encode(item.id))">Hire</button>
 
                                                             </div>
                                                         </div>
@@ -702,7 +716,7 @@
                             </div>
 
                             <div class="btn-group" role="group">
-                                <button type="button" id="saveImage" class="btn btn-primary btn-hover-green" data-action="save" role="button" onclick="saveLoc()">Save</button>
+                                <button type="button" id="saveImage" class="btn btn-primary btn-hover-green" data-action="save" role="button" onclick="saveLoc()">Find Contractors</button>
                             </div>
                         </div>
                     </div>
@@ -714,7 +728,7 @@
         var markersArray = [];
         function initAutocomplete() {
             map = new google.maps.Map(document.getElementById('map'), {
-                center: { lat: 31.476535115002306, lng: 74.32158172130585 },
+                center: { lat: 31.503912, lng: 74.331631 },
                 zoom: 15,
                 mapTypeId: 'roadmap'
             });
@@ -723,11 +737,14 @@
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function (position) {
                     pos = {
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude
+                        lat: 31.503912,// position.coords.latitude,
+                        lng: 74.331631//position.coords.longitude
                     };
-                    getAddress(position.coords.latitude, position.coords.longitude);
-
+                    //  getAddress(position.coords.latitude, position.coords.longitude);
+                    getAddress(pos.lat, pos.lng);
+                    setTimeout(function() {
+                        searchContractors();
+                    }, 500);
                 }, function() {
                     handleLocationError(true, infoWindow, map.getCenter());
                 });
@@ -856,6 +873,7 @@
                 } else {
                     $('#locationName').val(locName);
                 }
+                searchContractors();
             }
             return;
         }
@@ -908,7 +926,7 @@
                             <div class="tg-footercolumn">
                                 <strong class="tg-logo"><a href="index.html"><img src="@baseUrl/Images/logo.png" alt="image description"></a></strong>
                                 <div class="tg-description">
-                                    <p>Conseetur elit sed eiumod  apor incidunt ut lbore et dolore <a href="#">more...</a></p>
+                                    <p>Conseetur elit sed eiumod  apor incidunt ut lbore et dolore <a>more...</a></p>
                                 </div>
                                 <ul class="tg-contactinfo">
                                     <li>
@@ -928,13 +946,13 @@
                                         <span><a href="mailto:complaints@kamsham.pk">complaints@kamsham.pk</a></span>
                                     </li>
                                 </ul>
-                                <ul class="tg-socialicons">
+                                @*<ul class="tg-socialicons">
                                     <li class="tg-facebook"><a href="#"><i class="fa fa-facebook"></i></a></li>
                                     <li class="tg-twitter"><a href="#"><i class="fa fa-twitter"></i></a></li>
                                     <li class="tg-linkedin"><a href="#"><i class="fa fa-linkedin"></i></a></li>
                                     <li class="tg-googleplus"><a href="#"><i class="fa fa-google-plus"></i></a></li>
                                     <li class="tg-rss"><a href="#"><i class="fa fa-rss"></i></a></li>
-                                </ul>
+                                </ul>*@
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3">
@@ -1098,7 +1116,15 @@
     jQuery(document).ready(function(e) {
 
         sp_init_map_script('tg-map',mydata);
-       
+
+        var rootParm = window.location.href.split("?");
+        if (rootParm.length > 1) {
+            var values = rootParm[1].split("=");
+            if (values.length > 1) {
+                $('#jobCatList').val(values[1]);
+            }
+        }
+        // searchContractors();
     });
 </script>
 <!--************************************
@@ -1174,6 +1200,12 @@
         Hire Modal Box End
 *************************************-->
 <script>
+    var citymap = {
+        chicago: {
+            center: {lat: 31.476535115002306, lng: 74.32158172130585},
+            population: 2714856
+        }
+    };
     $('#adminLoading').hide();
     function searchContractors() {
         var distance = $('#locDistance').val();
@@ -1207,8 +1239,25 @@
     function successFun(serverData) {
         $('#adminLoading').hide();
         $('#contractorsLeftList').html(serverData);
-        $('#placeCount').text(newplaces.listing.length);
+        if (newplaces.listing.length - 1 < 0) {
+            $('#placeCount').text(0);
+        } else {
+            $('#placeCount').text(newplaces.listing.length-1);
+  
+        }
 
         sp_init_map_script('tg-map',newplaces);
+    }
+
+    $('#jobCatList').change(function() {
+        searchContractors();
+    });
+
+    function distanceSliderUpdated(value) {
+        searchContractors();
+    }
+
+    function showOpps(id) {
+        $("#op_"+id).show();
     }
 </script>

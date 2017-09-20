@@ -194,7 +194,7 @@ Inner Page Banner Start
 
         var text = $('#eventTitle').val();
         var dobj = $("#datetimepicker1").find("input").val();
-        if (text === "" || dobj === "" || withId === "") {
+        if (text === "" || dobj === "") {
             toastr.warning("Enter mandatory data");
             return false;
         }
@@ -233,4 +233,9 @@ Inner Page Banner Start
         $('#adminLoading').hide();
         hideModel("addnewevent");
     }
+
+    setTimeout(function() {
+        $(".appPage").addClass('tg-active');
+    },2000);
+
 </script>

@@ -10,5 +10,6 @@ namespace KaamShaam
         {
             ConfigureAuth(app);
         }
+
     }
 }

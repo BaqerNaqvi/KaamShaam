@@ -157,7 +157,7 @@
             <div class="modal-footer">
                 <div class="btn-group btn-group-justified" role="group" aria-label="group button">
                     <div class="btn-group" role="group">
-                        <button onclick="editEvent()" id="suspendBtn" type="button" class="btn btn-primary">Add</button>
+                        <button onclick="editEvent()" id="suspendBtn" type="button" class="btn btn-primary">Update</button>
                     </div>
                 </div>
             </div>
@@ -262,7 +262,7 @@
 
         var text = $('#eventTitle').val();
         var dobj = $("#datetimepicker1").find("input").val();
-        if (text === "" || dobj === "" || withId === "") {
+        if (text === "" || dobj === "") {
             toastr.warning("Enter mandatory data");
             return false;
         }

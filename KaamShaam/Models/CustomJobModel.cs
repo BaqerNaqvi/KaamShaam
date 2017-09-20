@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Script.Serialization;
 using KaamShaam.DbEntities;
 using KaamShaam.LocalModels;
 
@@ -59,6 +60,9 @@ namespace KaamShaam.Models
 
         public double lat { get; set; }
         public double lng { get; set; }
+
+        [ScriptIgnore]
+        public LocalUser JobPostedByObj { get; set; }
     }
 
     public static class JobMapper
@@ -85,7 +89,8 @@ namespace KaamShaam.Models
                 PostingDate = source.PostingDate.ToShortDateString()+" "+ source.PostingDate.ToShortTimeString(),
                 JobHistory = source.JobHistories?.Select(j => j.Mapper()).ToList(),
                 lat = (double) source.Location.Latitude,
-                lng = (double) source.Location.Longitude
+                lng = (double) source.Location.Longitude,
+                JobPostedByObj = source.AspNetUser.MapUser()
             };
         }
     }

@@ -185,3 +185,6 @@ D:\GitHub\KaamShaam\KaamShaam\obj\Release\KaamShaam.pdb
 D:\GitHub\KaamShaam\KaamShaam\bin\System.Web.Http.Owin.dll
 D:\GitHub\KaamShaam\KaamShaam\bin\System.Web.Http.Owin.xml
 D:\GitHub\KaamShaam\KaamShaam\obj\Release\KaamShaam.csprojResolveAssemblyReference.cache
+D:\GitHub\KaamShaam\KaamShaam\bin\SendGrid.dll
+D:\GitHub\KaamShaam\KaamShaam\bin\SendGrid.pdb
+D:\GitHub\KaamShaam\KaamShaam\bin\SendGrid.xml

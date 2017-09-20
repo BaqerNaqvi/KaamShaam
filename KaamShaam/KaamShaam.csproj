@@ -85,6 +85,14 @@
       <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SendGrid, Version=9.8.0.0, Culture=neutral, PublicKeyToken=4f047e93159395ca, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sendgrid.9.9.0\lib\net452\SendGrid.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -155,9 +163,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System.Net.Http.Formatting">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
@@ -219,10 +224,14 @@
     <Compile Include="AdminServices\CategoryAdminService.cs" />
     <Compile Include="AdminServices\UserAdminService.cs" />
     <Compile Include="ApiModels\ApiResponseModel.cs" />
+    <Compile Include="ApiModels\ApiRequestModel.cs" />
     <Compile Include="apis\AccountApiController.cs" />
+    <Compile Include="apis\AppointmentApiController.cs" />
     <Compile Include="apis\CategoryController.cs" />
     <Compile Include="apis\ContractorApiController.cs" />
     <Compile Include="apis\JobController.cs" />
+    <Compile Include="apis\ProfileVisitController.cs" />
+    <Compile Include="apis\UserApiController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -243,6 +252,7 @@
     <Compile Include="Controllers\KaamShaamController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Controllers\ProfileVisitorController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DbEntities\Appointment.cs">
       <DependentUpon>KaamShaamModel.tt</DependentUpon>
@@ -263,6 +273,9 @@
       <DependentUpon>KaamShaamModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DbEntities\Category.cs">
+      <DependentUpon>KaamShaamModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbEntities\FeedBack.cs">
       <DependentUpon>KaamShaamModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DbEntities\Job.cs">
@@ -286,24 +299,34 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>KaamShaamModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="DbEntities\ProfileVisit.cs">
+      <DependentUpon>KaamShaamModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbEntities\UserRating.cs">
+      <DependentUpon>KaamShaamModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Commons\Commons.cs" />
     <Compile Include="LocalModels\LocalCategory.cs" />
+    <Compile Include="LocalModels\LocalProfileVisit.cs" />
     <Compile Include="LocalModels\LocalUser.cs" />
+    <Compile Include="LocalModels\LocalUserRating.cs" />
     <Compile Include="LocalModels\MapPlaceModel.cs" />
     <Compile Include="LocalModels\ProfileWraperModel.cs" />
     <Compile Include="LocalModels\RegisterPageWraper.cs" />
     <Compile Include="LocalModels\UserDrowdownModel.cs" />
     <Compile Include="LocalModels\UserSuggestionModel.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ApplyJobApiModel.cs" />
     <Compile Include="Models\AppointmentEventModel.cs" />
     <Compile Include="Models\ContractorIndexPageModel.cs" />
     <Compile Include="Models\ContractorRequestModel.cs" />
     <Compile Include="Models\CustomAppoinmentModel.cs" />
     <Compile Include="Models\CustomJobHistory.cs" />
     <Compile Include="Models\DayAppointmentModel.cs" />
+    <Compile Include="Models\GeneralFeedbackModel.cs" />
     <Compile Include="Models\HomePageWraper.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\JobFeeModel.cs" />
@@ -318,7 +341,10 @@
     <Compile Include="Services\AppointmentService.cs" />
     <Compile Include="Services\BannerService.cs" />
     <Compile Include="Services\CategoryService.cs" />
+    <Compile Include="Services\MyEmailService.cs" />
     <Compile Include="Services\JobService.cs" />
+    <Compile Include="Services\ProfileVisitorService.cs" />
+    <Compile Include="Services\UserRatingService.cs" />
     <Compile Include="Services\UserServices.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="Startup.cs" />
@@ -542,10 +568,13 @@
     <Content Include="Images\gallery\img-08.jpg" />
     <Content Include="Images\icons\close.png" />
     <Content Include="Images\icons\cluster.png" />
+    <Content Include="Images\icons\contractorsPin.png" />
+    <Content Include="Images\icons\contractPin.png" />
     <Content Include="Images\icons\icon-31.png" />
     <Content Include="Images\icons\icon-32.png" />
     <Content Include="Images\icons\icon-33.png" />
     <Content Include="Images\icons\icon-34.png" />
+    <Content Include="Images\icons\marker-pin-google.png" />
     <Content Include="Images\icons\markerfive.png" />
     <Content Include="Images\icons\markerfour.png" />
     <Content Include="Images\icons\markerone.png" />
@@ -553,6 +582,7 @@
     <Content Include="Images\icons\markersix.png" />
     <Content Include="Images\icons\markerthree.png" />
     <Content Include="Images\icons\markertwo.png" />
+    <Content Include="Images\icons\userPin.png" />
     <Content Include="Images\img-01.jpg" />
     <Content Include="Images\img-02.jpg" />
     <Content Include="Images\job-detail\img-12.jpg" />
@@ -1012,8 +1042,11 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Images\Banners\" />
+    <Folder Include="Images\NewCatsIcons\" />
+    <Folder Include="Images\NewCatsImages\" />
     <Folder Include="Views\Aappointment\" />
     <Folder Include="Views\GeneralAdmin\" />
+    <Folder Include="Views\UserApi\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -1220,6 +1253,11 @@
     <Content Include="Views\Appointment\Detail.cshtml" />
     <Content Include="Views\Appointment\GetDayEvents.cshtml" />
     <Content Include="Views\Contractor\ViewProfile.cshtml" />
+    <Content Include="Views\Account\welcome.cshtml" />
+    <Content Include="Views\KaamShaam\ViewFeedback.cshtml" />
+    <Content Include="Scripts\rating.min.js" />
+    <None Include="Properties\PublishProfiles\KamSham New.pubxml" />
+    <Content Include="Views\ProfileVisitor\UserReviews.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web.Security;
@@ -189,11 +190,80 @@ namespace KaamShaam.AdminServices
                         dbuser.Mobile = user.Mobile;
                         dbuser.Feedback = null;
                         dbuser.IsApproved = false;
+                        dbuser.EditedAt = DateTime.Now;
 
                     }
                     dbcontext.SaveChanges();
                 }
             }
         }
+
+
+        #region FeedBack
+        public static FeedBack AddFeedback(GeneralFeedbackModel feedback)
+        {
+            using (var dbcontext = new KaamShaamEntities())
+            {
+                var obj = new FeedBack
+                {
+                    Title = feedback.Title,
+                    Description = feedback.Des,
+                    PostedBy = feedback.PostedById,
+                    Status = false,
+                    IsApproved = false,
+                    DateTime = DateTime.Now
+                };
+                dbcontext.FeedBacks.Add(obj);
+                dbcontext.SaveChanges();
+                return obj;
+            }
+        }
+
+        public static List<GeneralFeedbackModel> GetAllFeedbacks()
+        {
+            using (var dbcontext = new KaamShaamEntities())
+            {
+                var feedback = dbcontext.FeedBacks.ToList().Select(fd => fd.MapFeedback()).ToList();
+                return feedback;
+            }
+        }
+
+        public static List<GeneralFeedbackModel> GetApprovedFeedbacks()
+        {
+            using (var dbcontext = new KaamShaamEntities())
+            {
+                var feedback = dbcontext.FeedBacks.Where(feed => feed.IsApproved && (bool) feed.Status).ToList().Select(fd => fd.MapFeedback()).ToList();
+                return feedback;
+            }
+        }
+
+        public static FeedBack ChangeFeedbackStatus(GeneralFeedbackModel feedback)
+        {
+            using (var dbcontext = new KaamShaamEntities())
+            {
+                var dbobj = dbcontext.FeedBacks.FirstOrDefault(fd => fd.Id == feedback.Id);
+                if (dbobj != null)
+                {
+                    dbobj.Status = feedback.Status;
+                }
+                dbcontext.SaveChanges();
+                return dbobj;
+            }
+        }
+
+        public static FeedBack ChangeFeedbackApproval(GeneralFeedbackModel feedback)
+        {
+            using (var dbcontext = new KaamShaamEntities())
+            {
+                var dbobj = dbcontext.FeedBacks.FirstOrDefault(fd => fd.Id == feedback.Id);
+                if (dbobj != null)
+                {
+                    dbobj.IsApproved = feedback.IsApproved;
+                }
+                dbcontext.SaveChanges();
+                return dbobj;
+            }
+        }
+        #endregion
     }
 }

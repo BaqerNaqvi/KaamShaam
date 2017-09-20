@@ -19,7 +19,7 @@ namespace KaamShaam.AdminServices
             }
         }
 
-        public static void ApprovalStatus(KaamShaam.AdminModels.LocalUser obj)
+        public static AspNetUser ApprovalStatus(KaamShaam.AdminModels.LocalUser obj)
         {
             using (var dbcontext = new KaamShaamEntities())
             {
@@ -33,6 +33,7 @@ namespace KaamShaam.AdminServices
                     }
                     dbcontext.SaveChanges();
                 }
+                return dbo;
             }
         }
 

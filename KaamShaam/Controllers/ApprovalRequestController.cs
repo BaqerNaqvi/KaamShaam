@@ -62,7 +62,9 @@ namespace KaamShaam.Controllers
         [HttpPost]
         public ActionResult ChnageJobApproval(JobRequestModel model)
         {
-            JobService.ChangeJobApproval(model.JobModel);
+           var job= JobService.ChangeJobApproval(model.JobModel);
+            KaamShaam.Services.EmailService.SendEmail(job.AspNetUser.Email, "Job Status Updated - KamSham.Pk", job.AspNetUser.FullName + " we noticed that admin has updated one of your job. Please review your Jobs in manage job section.");
+
             var jobs = JobService.GetAllJobs(false);
             if (jobs != null && jobs.Count > 0)
             {
@@ -132,6 +134,7 @@ namespace KaamShaam.Controllers
         }
 
         #endregion
+
         #region Categories
 
         public ActionResult Categories()
@@ -154,7 +157,8 @@ namespace KaamShaam.Controllers
         }
         public ActionResult ChnageUserApproval(LocalUser model)
         {
-            UserAdminService.ApprovalStatus(model);
+           var user=  UserAdminService.ApprovalStatus(model);
+            KaamShaam.Services.EmailService.SendEmail(user.Email,"User Account Status Changed - KamSham.Pk",user.FullName +" we noticed that admin has updated your account status. Please review your account.");
             return Json(true, JsonRequestBehavior.AllowGet);
         }
         #endregion
@@ -167,7 +171,8 @@ namespace KaamShaam.Controllers
         }
         public ActionResult ChnageContractorsApproval(LocalUser model)
         {
-            UserAdminService.ApprovalStatus(model);
+            var user = UserAdminService.ApprovalStatus(model);
+            KaamShaam.Services.EmailService.SendEmail(user.Email, "Contractor Account Status Changed - KamSham.Pk", user.FullName + " we noticed that admin has updated your account status. Please review your account.");
             return Json(true, JsonRequestBehavior.AllowGet);
         }
         #endregion
@@ -183,6 +188,17 @@ namespace KaamShaam.Controllers
             UserAdminService.ApprovalStatus(model);
             return Json(true, JsonRequestBehavior.AllowGet);
         }
+        #endregion
+
+        #region
+
+        public ActionResult ApproveFeedback()
+        {
+            var data = AdminService.GetAllFeedbacks();
+            return View(data);
+        }
+       
+
         #endregion
     }
 }

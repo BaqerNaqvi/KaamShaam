@@ -514,7 +514,7 @@ Header End
                             <img class="ajaxloader" id="myloader" src="~/Images/ajax-loader.gif" style="margin-top: -309px;margin-left: 64%;display: inline;" />
                         </div>
                         <div class="tg-description">
-                            <p>ow you can reach more than 5000 service providers in your area using our platform. Find contractors in your area or do post the job to let the contractrs reach you. </p>
+                            <p>Now you can reach more than 5000 service providers in your area using our platform. Find contractors in your area or do post the job to let the contractrs reach you. </p>
                         </div>
                     </div>
                 </div>
@@ -570,24 +570,29 @@ Header End
                                     }
                                     content = "KamSham.pk is your one stop for all your ‘ghareelo’ needs. It is a platform consisting of a wide range of services aimed to ensure customer satisfaction. We offer contractor’s categories like technicians, Electricians, Plumbers, Carpenters, A/C mechanics to our end customers with complete security and safety ensured. Let try KamSham.Pk.";
                                 }
-
-                                int pic = rnd.Next(7, 12);
-                                string newval = pic + "";
-                                if (pic < 10)
+                                var clear = "";
+                                if (counter==4)
                                 {
-                                    newval = "0" + pic;
+                                    clear = "clear:left;";
                                 }
-                                var immg = baseUrl + "/Images/categories/img-" + newval + ".jpg";
 
-                                var immgCar = baseUrl + "/Images/KamShamCats/" + img;
-                                <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4" style="cursor: pointer" onclick=" gotoCat(@Json.Encode(cat)) ">
+                                var hideCon = "";
+                                var hideClass = "";
+                                if (counter > 6)
+                                {
+                                    hideCon = "display: none;";
+                                    hideClass = "hidemeCon";
+                                }
+
+                                <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 @hideClass" style="@clear; cursor: pointer;@hideCon" onclick="gotoCat(@Json.Encode(cat))" >
                                     <div class="tg-category">
                                         <figure>
-                                            <img src="@immg" alt="image description">
+                                            <img src="@(baseUrl + cat.BgURL)" alt="image description">
                                             <figcaption class="tg-automotive">
-                                                <span class="lnr lnr-car tg-categoryicon"></span>
+                                                @*<span class="lnr lnr-car tg-categoryicon"></span>*@
                                                 <a href="">
-                                                    <span class="tg-categoryname">@cat.CatName</span>
+                                                    <span style=""class="tg-categoryname">@cat.CatName</span>
+                                                    <img src="@(baseUrl + cat.IconURL)" style="height: 90px; width: 90px; opacity: 1" onclick="return stoprefresh()">
                                                 </a>
                                                 <a href="" class="tg-themetag tg-tagjobcount">
                                                     <i class="fa fa-clone"></i>
@@ -596,25 +601,17 @@ Header End
                                             </figcaption>
                                         </figure>
                                     </div>
-                                    @{
-                                        <p style="word-break: break-all;">
-                                            @content
-                                        </p>
-                                    }
                                 </div>
-
-                                                if (counter % 3 == 0)
-                                                {
-
-                                                }
-                                                counter++;
-                                            }
-                                        }
+                                counter++;
+                            }
+                        }
                     }
 
                 </div>
                 <div class="tg-btnbox">
-                    <a class="tg-btn tg-btnviewall" href="../Contractor/FindContractor">view all</a>
+                    <a class="tg-btn tg-btnviewall" onclick="showMoreContractors()">
+                        <span  id="viewAllCon">View all</span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -625,7 +622,7 @@ Header End
     <!--************************************
             Advantagies Start
     *************************************-->
-    <section class="tg-main-section tg-haslayout tg-bglight">
+    <section class="tg-main-section tg-haslayout tg-bglight" >
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-10 col-md-push-1 col-lg-8 col-lg-push-2">
@@ -706,7 +703,7 @@ Header End
                 <div class="col-xs-12 col-sm-12 col-md-10 col-md-push-1 col-lg-8 col-lg-push-2">
                     <div class="tg-sectionhead">
                         <div class="tg-sectiontitle">
-                            <h2>Jobs by Contractor Category</h2>
+                            <h2>Recent Jobs</h2>
                         </div>
                         <div class="tg-description">
                             <p>Skilled person and want to earn some money? Do better use of your smart phone and find thousands of related jobs at your mobile phone. </p>
@@ -724,7 +721,7 @@ Header End
                                 </figcaption>
                             </figure>
                             <div class="tg-serviceprovidercontent">
-                                <div class="tg-companylogo"><a href="#"><img src="@baseUrl/Images/logos/img-01.png" alt="image description"></a></div>
+                                <div class="tg-companylogo"><a><img src="@baseUrl/Images/logos/img-01.png" alt="image description"></a></div>
                                 <div class="tg-companycontent">
                                     <ul class="tg-tags">
                                         <li><a class="tg-tag tg-featuredtag" href="~/job/FindJobs?category=Elect">view job</a></li>
@@ -904,84 +901,55 @@ Header End
     <!--************************************
             Testimonials Start
     *************************************-->
-    <section class="tg-main-section tg-haslayout tg-bglight">
+    <section class="tg-main-section tg-haslayout tg-bglight" style="padding-top: 25px!important; padding-bottom: 25px!important;">
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                     <figure class="tg-clientlargedp">
-                        <img src="~/Images/testimonials/img-01.jpg" alt="image description">
-                        <span class="tg-quotes"><i class="fa fa-quote-right"></i></span>
+                       @{
+                           if (Model != null && Model.Feedback.Any())
+                           {
+                               var imgh = baseUrl + "/Images/Profiles/" + Model.Feedback[0].PostedById + "_110.png";
+
+                                <img src="@imgh" alt="image description">
+                                <span class="tg-quotes"><i class="fa fa-quote-right"></i></span>                              
+                           }
+                    }
                     </figure>
                 </div>
                 <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
                     <div class="tg-testimonials">
                         <div id="tg-testimonialcontentslider" class="owl-carousel tg-testimonialcontentslider">
-                            <div class="item">
-                                <div class="tg-testimonial">
-                                    <h2>Athar Ali</h2>
-                                    <h3>A Truly Amazing Experience</h3>
-                                    <blockquote><q>I am really amazed by the service these people are providing at such a high level. </q></blockquote>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="tg-testimonial">
-                                    <h2>Javeria Khan</h2>
-                                    <h3>Great People, Great Work</h3>
-                                    <blockquote><q>Every time I need to do something done at home, i would prefer KamSham</q></blockquote>
-                                </div>
-                            </div>
-                            @*<div class="item">
-                                    <div class="tg-testimonial">
-                                        <h2>Sundas Bukhari</h2>
-                                        <h3>Best platform to get services</h3>
-                                        <blockquote><q>Consectetur adipisicing elit sed eiusmod tempor incididunt labore et dolore magna aliqua eantnim adia minim veniam quis nostrud exercitation ullamco laboris.</q></blockquote>
+                           @{
+                               if (Model != null && Model.Feedback.Any())
+                               {
+                                   foreach (var fd in Model.Feedback)
+                                   {
+                                    <div class="item">
+                                        <div class="tg-testimonial">
+                                            <h2>@fd.PostedByName</h2>
+                                            <h3>@fd.Title</h3>
+                                            <blockquote><q>@fd.Des</q></blockquote>
+                                        </div>
                                     </div>
-                                </div>*@
-                            <div class="item">
-                                <div class="tg-testimonial">
-                                    <h2>Nimra Yaseen</h2>
-                                    <h3>Amazing first experience</h3>
-                                    <blockquote><q>Reliable, comprehensive and platform of skilled persons. wao</q></blockquote>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="tg-testimonial">
-                                    <h2>Murtaza Hussain</h2>
-                                    <h3>A Truly Amazing Experience</h3>
-                                    <blockquote><q>Consectetur adipisicing elit sed eiusmod tempor incididunt labore et dolore magna aliqua eantnim adia minim veniam quis nostrud exercitation ullamco laboris.</q></blockquote>
-                                </div>
-                            </div>
-
-                            <div class="item">
-                                <div class="tg-testimonial">
-                                    <h2>Bakhtawar Bhutto</h2>
-                                    <h3>A Truly Amazing Experience</h3>
-                                    <blockquote><q>Consectetur adipisicing elit sed eiusmod tempor incididunt labore et dolore magna aliqua eantnim adia minim veniam quis nostrud exercitation ullamco laboris.</q></blockquote>
-                                </div>
-                            </div>
+                                   }
+                               }
+                        }                                                 
                         </div>
                         <div id="tg-testimonialnavigationslider" class="owl-carousel tg-testimonialnavigationslider">
-                            <div class="item">
-                                <figure><img src="~/Images/testimonials/img-01.jpg" alt="image description"></figure>
-                            </div>
-                            <div class="item">
-                                <figure><img src="~/Images/testimonials/img-02.jpg" alt="image description"></figure>
-                            </div>
-                            <div class="item">
-                                <figure><img src="~/Images/testimonials/img-03.jpg" alt="image description"></figure>
-                            </div>
-                            <div class="item">
-                                <figure><img src="~/Images/testimonials/img-04.jpg" alt="image description"></figure>
-                            </div>
-                            <div class="item">
-                                <figure><img src="~/Images/testimonials/img-05.jpg" alt="image description"></figure>
-                            </div>
-                            <div class="item">
-                                <figure><img src="~/Images/testimonials/img-06.jpg" alt="image description"></figure>
-                            </div>
-                            <div class="item">
-                                <figure><img src="~/Images/testimonials/img-07.jpg" alt="image description"></figure>
-                            </div>
+                           @{
+                               if (Model != null && Model.Feedback.Any())
+                               {
+                                   foreach (var fd in Model.Feedback)
+                                   {
+                                       var imgh = baseUrl + "/Images/Profiles/" + fd.PostedById + "_110.png";
+
+                                       <div class="item">
+                                           <figure><img src="@imgh" alt="image description"></figure>
+                                       </div>
+                                   }
+                               }
+                           }
                         </div>
                     </div>
                 </div>
@@ -1173,10 +1141,29 @@ Header End
     }, 5000);
 
     function gotoCat(obj) {
+        debugger;
         window.location = "../Contractor/FindContractor?categoryId=" + obj.CategoryId;
+        return false;
     }
 
+    function stoprefresh(e) {
+        var df = 10 / 0;
+        return false;
+    }
     function gotocatsearch() {
         window.location = "../Contractor/FindContractor?categoryId=" + catId;
+    }
+
+    var isMoreCatsShown = false;
+    function showMoreContractors() {
+        isMoreCatsShown = !isMoreCatsShown;
+        if (isMoreCatsShown) {
+            $(".hidemeCon").show();
+            $("#viewAllCon").text("View Less");
+        } else {
+            $(".hidemeCon").hide();
+            $("#viewAllCon").text("View All");
+
+        }
     }
 </Script>
