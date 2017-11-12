@@ -29,6 +29,9 @@ namespace KaamShaam.LocalModels
         public string Phone { get; set; }
         public string Email { get; set; }
         public double Distance { get; set; }
+        public double score { get; set; }
+
+        public int votes { get; set; }
     }
 
     public class MapPlaceWrapper

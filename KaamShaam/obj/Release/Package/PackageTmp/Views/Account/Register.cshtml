@@ -131,7 +131,7 @@
                                             </span>
                                         </div>*@
                                         <div class="form-group notUserField">
-                                            @Html.TextBoxFor(m => m.RegisterViewModel.CNIC, new { name = "CNIC", @class = "form-control customField", @placeholder = "CNIC" })
+                                            @Html.TextBoxFor(m => m.RegisterViewModel.CNIC, new { name = "CNIC", @class = "form-control customField", @placeholder = "CNIC" , @id = "myCnic" })
                                         </div>
                                         <div class="form-group">
                                             @Html.TextBoxFor(m => m.RegisterViewModel.Mobile, new { name = "Mobile", @class = "form-control", @placeholder = "Mobile", @id = "mNumber" })
@@ -224,7 +224,7 @@
                                         <button class="tg-btn tg-btn-lg" type="submit">Login Now</button>
                                     </div>
                                 }
-                                <a style="cursor: pointer" class="tg-btnforgotpass" onclick="passforgot()">Forgot your password?</a>
+                                @*<a style="cursor: pointer" class="tg-btnforgotpass" onclick="passforgot()">Forgot your password?</a>*@
                             </fieldset>
 
 
@@ -503,6 +503,19 @@ Main End
     }
     //  $('.contractorEle').hide();
     function submitRegis() {
+
+        var loc = $('#RegisterViewModel_FullName').val();
+        if (loc == undefined || loc === "") {
+            toastr.error("Please add Name");
+            return false;
+        }
+
+        var loc = $('#RegisterViewModel_Email').val();
+        if (loc == undefined || loc === "") {
+            toastr.error("Please add Email");
+            return false;
+        }
+
         if (!$('#terms').is(":checked")) {
             toastr.error('Please check terms ');
             return false;
@@ -514,6 +527,11 @@ Main End
         }
         var typeval = $('#userTypeDd').val();
         if (typeval === "Contractor") {
+            var cnic = $('#myCnic').val();
+            if (cnic === "" || cnic === undefined) {
+                toastr.error("Add valid CNIC (0-9)");
+                return false;
+                }
             
         }
         var isnum = /^\d+$/.test($('#mNumber').val());
@@ -521,6 +539,10 @@ Main End
             toastr.error("Add valid phone number (0-9)");
             return false;
         }
+
+       
+       
+
         $("#userRegistration").submit();
     };
 

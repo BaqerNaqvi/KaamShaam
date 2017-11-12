@@ -7805,7 +7805,7 @@ var widgetsMenu = $.widget( "ui.menu", {
 			var currentMenu = all ? this.element :
 				$( event && event.target ).closest( this.element.find( ".ui-menu" ) );
 
-			// If we found no valid submenu ancestor, use the main menu to close all
+			// If we found Not Providedid submenu ancestor, use the main menu to close all
 			// sub menus anyway
 			if ( !currentMenu.length ) {
 				currentMenu = this.element;

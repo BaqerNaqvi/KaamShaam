@@ -21,8 +21,10 @@
                 iApplied = "[Applied]";
                 isAppliedClass = "appplySpan";
             }
-            <tr style="cursor: pointer" data-toggle="modal" data-target="#updateJob" onclick="editJob(@Json.Encode(item))">
-                <td style="@cusStyle">
+            var ccnn = item.JobHistory.FirstOrDefault();
+
+            <tr style="">
+                <td style="@cusStyle; cursor: pointer;" data-toggle="modal" data-target="#updateJob" onclick="editJob(@Json.Encode(item))">
                     <figure class="tg-companylogo">
                         <img src="@baseUrl/Images/contractor-dashboard/small1.jpg" alt="image description">
                         <a class="tg-btndel" href="#"><i class="fa fa-close"></i></a>
@@ -32,18 +34,22 @@
                         <a class="tg-tag tg-featuredtag" href="#">@item.PostingDate</a>
                         <div class="tg-title">
                             <h3>
-                                <a href="#">@item.CatName Required</a> <span class="appplySpan">@item.JobHistory.FirstOrDefault().ContractorName</span><span class="appliedspan">Applied</span>
+                                <a href="#">@item.CatName Required</a>
                             </h3>
                         </div>
                         <span>@item.JobTitle</span>
+                        <span class="appplySpan"><a href="~/Contractor/ViewProfile?userId=@item.JobHistory.FirstOrDefault().ContractorId" style="color: white">@item.JobHistory.FirstOrDefault().ContractorName</a></span><span class="appliedspan">Applied</span>
                     </div>
                 </td>
-                <td style="line-height: 12px; padding-top: 29px;"><span>@item.LocationName</span></td>
-                <td style="line-height: 18px; padding-top: 27px;">
+                <td style="line-height: 12px; padding-top: 29px;">
+                    <span>@item.LocationName</span>
+                    <br />
                     <span>@item.Mobile</span>
-                    <span>@item.Email</span>
                 </td>
-                <td><span>Rs. @item.Fee</span></td>
+                <td style="line-height: 18px; padding-top: 45px;">
+                    <span>Rs. @item.Fee</span>
+                </td>
+                <td><input type="button" class="btn btn-primary" data-toggle="modal" onclick="openRateModel(@Json.Encode(ccnn.ContractorId),@Json.Encode(ccnn.JobId))" data-target="#addconReviewModel" value="Rate & Close" /></td>
             </tr>
         }
         <script>
@@ -56,12 +62,12 @@
     .appplySpan {
         width: 45% !important;
         color: rgb(255, 255, 255) !important;
-        background-color: darkgreen !important;
+        background-color: #48484d !important;
         padding: 2px !important;
         border-radius: 5px !important;
         display: inline
     }
-   .appliedspan {
+    .appliedspan {
         display: inline !important;
     width: 25% !important;
     margin-left: 5px !important;

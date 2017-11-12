@@ -4098,7 +4098,7 @@ Data.prototype = {
 		// In cases where either:
 		//
 		//   1. No key was specified
-		//   2. A string key was specified, but no value provided
+		//   2. A string key was specified, but Not Providedue provided
 		//
 		// Take the "read" path and allow the get method to determine
 		// which value to return, respectively either:

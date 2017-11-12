@@ -16,7 +16,7 @@
                         <img src="@item.image" alt="image description">
                         <figcaption>
                             <a class="tg-themetag tg-categorytag" href="contractor-profile.php">@item.CatName</a>
-                            <a class="tg-heart tg-liked" href="javascript:void(0);"><i class="fa fa-heart"></i></a>
+                            <a class="tg-heart tg-liked" href="javascript:void(0);"></a>
                         </figcaption>
                     </figure>
                     <div class="tg-companycontent">
@@ -31,19 +31,16 @@
                             <li><span class="tg-stars"><span></span></span></li>
                             <li>
                                 <i class="fa fa-thumbs-o-up"></i>
-                                <em>0% (0 votes)</em>
+                                <em>@item.score% (@item.votes votes)</em>
                             </li>
                         </ul>
-                        <ul class="tg-companycontactinfo" style="display: none; width: 108%;" id="op_@item.id">
-                            <li style="margin-left: -5px;width: 40%;display: inline-block;">
-                                <i class="lnr lnr-phone-handset"></i>
-                                <span data-toggle="tooltip" data-placement="top" title="Click to view Number" data-last="34 - 562 - 6">@item.Phone</span>
-                            </li>
-                            <li style="margin-top: -8px;width: 57%;display: inline;">
-                                <i class="lnr lnr-envelope"></i>
-                                <span data-toggle="tooltip" data-placement="top" title="Click to view Email" data-last="domain.com"><a href="mailto:query@domain.com">@item.Email</a></span>
-                            </li>
-                        </ul>
+                        <div class="tg-companycontactinfo" style="display: none; padding-top: 2px;width: 108%;padding-bottom: 3px;" id="op_@item.id">
+                            <span data-toggle="tooltip" data-placement="top" title="Click to view Number" data-last="34 - 562 - 6">@item.Phone</span>
+                            <br/>
+                            <span data-toggle="tooltip" data-placement="top" title="Click to view Email" data-last="domain.com"><a href="mailto:query@domain.com">@item.Email</a></span>
+
+
+                        </div>
                         <button style="margin-top: 4px;margin-left: 0px !important;" class="tg-btn btn-margin-left"><a href="~/Contractor/ViewProfile?userId=@item.id">View Profile</a></button>
                         @*<button class="tg-btn" type="buttton" data-toggle="modal" data-target=".tg-appointmentModal">Contact</button>*@
                         <button style="margin-top: 4px;" class="tg-btn btn-margin-left" onclick="showOpps(@Json.Encode(item.id))">Hire</button>

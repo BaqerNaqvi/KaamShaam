@@ -11,6 +11,7 @@ using KaamShaam.Models;
 using KaamShaam.Services;
 using System.Net.Mail;
 using System.Text;
+using Microsoft.AspNet.Identity;
 
 
 namespace KaamShaam.Controllers
@@ -27,43 +28,25 @@ namespace KaamShaam.Controllers
             if (imgs != null && imgs.Any())
             {
                 paths.AddRange(imgs.Select(banner => banner.FileName));
-            }
-         //   var contractors = AdminService.GetUsersByType("Contractor");
-         //   var gropuedCons= contractors.GroupBy(con => con.CategoryId).ToList().OrderByDescending( dd=>dd.Count());
+            }      
             var listcons = new List<ContractorIndexPageModel>();
-            //foreach (var gcon in gropuedCons)
-            //{
-            //    var obj = gcon.FirstOrDefault();
-            //    listcons.Add(new ContractorIndexPageModel
-            //    {
-            //        CatName = obj.CatName,
-            //        CatCount = gcon.Count(),
-            //        CategoryId = obj.CategoryId
-            //    });
-
-            //}
             var cats = CategoryService.GetAllCategories();
             if (cats != null && cats.Any())
             {
                 cats = cats.OrderByDescending(ca => ca.JobCount).ToList().ToList();
-                foreach (var obj in cats)
+                listcons.AddRange(cats.Select(obj => new ContractorIndexPageModel
                 {
-                    listcons.Add(new ContractorIndexPageModel
-                    {
-                        CatName = obj.Name,
-                        CatCount = obj.JobCount,
-                        CategoryId = obj.Id,
-                        BgURL = obj.Image,
-                        IconURL = obj.Icon
-                    });
-                }
+                    CatName = obj.Name, CatCount = obj.JobCount, CategoryId = obj.Id, BgURL = obj.Image, IconURL = obj.Icon
+                }));
             }
             var feed = AdminService.GetApprovedFeedbacks();
+            var jobs = JobService.GetAllJobs(true);
             return View(new HomePageWraper
             {
                 BannersList = paths,
                 ContractorCats = listcons,
-                Feedback = feed
+                Feedback = feed,
+                Jobs = jobs
             });
         }
         public ActionResult About()
@@ -75,6 +58,12 @@ namespace KaamShaam.Controllers
            
 
             return View();
+        }
+
+        public JsonResult PostContactUsForm(ContacUsFormModel model)
+        {       
+            KaamShaam.Services.EmailService.SendEmail("Link2naqvi@gmail.com", "'"+model.Subject+"' | "+model.FullName+" - KamSham.pk", "Admin\n You have recieved following message from "+model.FullName+" - "+model.Phone+"\n'"+model.Message+"'");
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
     }
 }

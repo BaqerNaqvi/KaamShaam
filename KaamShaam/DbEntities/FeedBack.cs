@@ -21,7 +21,5 @@ namespace KaamShaam.DbEntities
         public bool IsApproved { get; set; }
         public Nullable<bool> Status { get; set; }
         public System.DateTime DateTime { get; set; }
-    
-        public virtual AspNetUser AspNetUser { get; set; }
     }
 }

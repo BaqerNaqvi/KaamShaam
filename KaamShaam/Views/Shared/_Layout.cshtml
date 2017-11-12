@@ -152,7 +152,7 @@
                                                                     <li class="li-manage-jobs jobProposalPage">
                                                                         <a href="~/Job/jobProposals">
                                                                             <i class="lnr lnr-map"></i>
-                                                                            <span>Job Proposals</span>
+                                                                            <span>Job Proposals & Rating</span>
                                                                         </a>
                                                                     </li>
                                                                     <li class="li-manage-jobs">
@@ -483,7 +483,8 @@
 
                                             </select>
                                             <textarea id="feedbackDsc"style="background-color: #3c3c3c; color: white; height: 165px; width: 263px; margin-top: 9px" cols="20" rows="50"></textarea>
-                                            <button onclick="sendFeedback()" class="btn btn-primary"style="background-color: #3c3c3c; color: white;margin-top: 9px">SEND FEEDBACK</button>
+                                        <button onclick=" sendFeedback() " class="btn btn-primary"style="background-color: #3c3c3c; color: white; margin-top: 9px" id="feedBtn">SEND FEEDBACK</button>
+
                                     </div>
                                 }
                                 else
@@ -577,7 +578,8 @@
             console.log("You are on: " + @Html.Raw(Json.Encode(appurl)));
         </script>
         if (!appurl.Contains("appointment/upcoming") && !appurl.Contains("appointment/getdayevents")
-            && !appurl.Contains("home/index") && !(appurl.Count() == 1) && !appurl.Contains("contractor/viewprofile"))
+            && !appurl.Contains("home/index") && !(appurl.Count() == 1) && !appurl.Contains("contractor/viewprofile")
+            && !appurl.Contains("job/jobproposals"))
         {
             <script> console.log("Script added");</script>
             <script src="~/Scripts/vendor/jquery-library.js"></script>
@@ -622,6 +624,8 @@
         });
     })(jQuery);
 
+    var isfeedsent = false;
+
     function sendFeedback() {
         var title = $("#feedbackDd").val();
         var des = $("#feedbackDsc").val();
@@ -630,7 +634,12 @@
             toastr.error("Please add some feedback");
             return;
         }
-
+        if (isfeedsent) {
+            toastr.error("You are already have sumited your feedback. Please try later.");
+            return;  
+        }
+        isfeedsent = true;
+        $("#feedBtn").text("Sending...");
         $.ajax({
             url: '../KaamShaam/SendFeedback',
             type: 'POST',
@@ -640,6 +649,7 @@
             success: function (catId) {
                 toastr.success("Feedback Posted. We will get back to you.");
                 $("#feedbackDsc").val("");
+                $("#feedBtn").text("Sent");
             },
             error: function (data) { }
         });

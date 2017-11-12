@@ -325,5 +325,38 @@ namespace KaamShaam.Services
                 dbcontext.SaveChanges();
             }
         }
+
+        public static void MarkJobDone(long jobid, string conId)
+        {
+            using (var dbcontext = new KaamShaamEntities())
+            {
+                try
+                {
+                    var his = dbcontext.JobHistories.FirstOrDefault(hs => hs.JobId == jobid && hs.ContractorId == conId);
+                    his.JobStatus = 3;
+                    dbcontext.SaveChanges();
+
+                    var myjob = dbcontext.Jobs.FirstOrDefault(jhj => jhj.Id == jobid);
+                    myjob.UserStstus = false;
+
+                    var otherHIstoryes = dbcontext.JobHistories.Where(jo => jo.JobId == jobid && jo.Id != his.Id);
+                    if (otherHIstoryes != null && otherHIstoryes.Any())
+                    {
+                        foreach (var oo in otherHIstoryes)
+                        {
+                            dbcontext.JobHistories.Remove(oo);
+                        }
+                    }
+                    dbcontext.SaveChanges();
+                    KaamShaam.Services.EmailService.SendEmail(myjob.AspNetUser.Email, "Job Status Updated - KamSham.Pk", " Your job status has been updated. Please review your jobs section.");
+
+
+                }
+                catch (Exception)
+                {
+
+                }
+            }
+        }
     }
 }

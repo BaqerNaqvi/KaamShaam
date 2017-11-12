@@ -22,8 +22,9 @@ namespace KaamShaam.Controllers
         {
             var id=System.Web.HttpContext.Current.User.Identity.GetUserId();
             model.PostedById = id;
-            var obj = AdminServices.AdminService.AddFeedback(model);
-            KaamShaam.Services.EmailService.SendEmail(obj.AspNetUser.Email,"FeedBack - KamSham.pk","Thank you for your feedback. We will get back to you soon");
+            AdminServices.AdminService.AddFeedback(model);
+            var email = System.Web.HttpContext.Current.User.Identity.GetUserName();
+            KaamShaam.Services.EmailService.SendEmail(email, "FeedBack - KamSham.pk","Thank you for your feedback. We will get back to you soon");
             return Json(true, JsonRequestBehavior.AllowGet);
         }
 

@@ -25,16 +25,16 @@ namespace KaamShaam.DbEntities
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Appointment> Appointments { get; set; }
         public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
-        public virtual DbSet<Category> Categories { get; set; }
-        public virtual DbSet<Job> Jobs { get; set; }
         public virtual DbSet<Banner> Banners { get; set; }
-        public virtual DbSet<JobHistory> JobHistories { get; set; }
-        public virtual DbSet<Appointment> Appointments { get; set; }
+        public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<FeedBack> FeedBacks { get; set; }
+        public virtual DbSet<JobHistory> JobHistories { get; set; }
+        public virtual DbSet<Job> Jobs { get; set; }
         public virtual DbSet<ProfileVisit> ProfileVisits { get; set; }
         public virtual DbSet<UserRating> UserRatings { get; set; }
     }

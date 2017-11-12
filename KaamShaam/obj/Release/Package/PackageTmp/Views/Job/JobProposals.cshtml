@@ -64,9 +64,9 @@ Inner Page Banner Start
                             </div>
                             <div class="tg-sortfilters">
                                 <div class="tg-sortfilter tg-sortby">
-                                    <span>Sort By:</span>
+                                    <span style="    margin-top: 5px;">Sort By:</span>
                                     <div class="tg-select">
-                                        <select id="sortDd" onchange="sortByChanged()">
+                                        <select id="sortDd" onchange="sortByChanged()" style="height: 40px;">
                                             <option value="Title">Title</option>
                                             <option value="Category">Category</option>
                                             <option value="Date">Date</option>
@@ -85,9 +85,9 @@ Inner Page Banner Start
                                         </div>*@
                                 </div>
                                 <div class="tg-sortfilter tg-show">
-                                    <span>Jobs/Page: </span>
-                                    <div class="tg-select">
-                                        <select onchange="itemsPerPageChanged()" id="itemsPerPageDd" style="padding-left: 95px;">
+                                    <span style="    margin-top: 5px;">Jobs/Page: </span>
+                                    <div class="tg-select" style="height: 40px;">
+                                        <select onchange="itemsPerPageChanged()" id="itemsPerPageDd" style="padding-left: 95px;    margin-top: 5px;">
                                             <option value="2">2</option>
                                             <option value="4">4</option>
                                             <option value="1000">All</option>
@@ -95,15 +95,15 @@ Inner Page Banner Start
                                     </div>
                                 </div>
                                 <div class="tg-sortfilter">
-                                    <button id="jobPrevious" class="btn btn-default"><</button>
+                                    <button id="jobPrevious" class="btn btn-default" style="height: 40px;"><</button>
                                 </div>
-                                <div class="tg-sortfilter tg-show" style="margin-left: 3px;">
+                                <div class="tg-sortfilter tg-show" style="margin-left: 3px;    margin-top: 5px;">
                                     <strong><span id="currentPage" style="margin-left: -6px;">15</span></strong>
                                     <span style="margin-left: 17px">of</span>
                                     <strong><span id="totalPage" style="margin-left: 42px;">30</span></strong>
                                 </div>
                                 <div class="tg-sortfilter" style="margin-left: 10%;">
-                                    <button id="jobNext" class="btn btn-default">></button>
+                                    <button id="jobNext" class="btn btn-default" style="height: 40px;">></button>
                                 </div>
                                 <img class="displayNone" src="~/Images/ajax-loader.gif" id="adminLoading" style="display: none;margin-left: 21px;margin-top: 10px;" />
                             </div>
@@ -125,8 +125,9 @@ Inner Page Banner Start
                                                 iApplied = "[Applied]";
                                                 isAppliedClass = "appplySpan";
                                             }
-                                            <tr style="cursor: pointer;" data-toggle="modal" data-target="#updateJob" onclick="editJob(@Json.Encode(item))">
-                                                <td style="@cusStyle">
+                                            var ccnn = item.JobHistory.FirstOrDefault();
+                                            <tr style="">
+                                                <td style="@cusStyle; cursor: pointer;" data-toggle="modal" data-target="#updateJob" onclick="editJob(@Json.Encode(item))">
                                                     <figure class="tg-companylogo">
                                                         <img src="@baseUrl/Images/contractor-dashboard/small1.jpg" alt="image description">
                                                         <a class="tg-btndel" href="#"><i class="fa fa-close"></i></a>
@@ -136,18 +137,22 @@ Inner Page Banner Start
                                                         <a class="tg-tag tg-featuredtag" href="#">@item.PostingDate</a>
                                                         <div class="tg-title">
                                                             <h3>
-                                                                <a href="#">@item.CatName Required</a> <span class="appplySpan"><a href="~/Contractor/ViewProfile?userId=@item.JobHistory.FirstOrDefault().ContractorId" style="color: white">@item.JobHistory.FirstOrDefault().ContractorName</a></span><span class="appliedspan">Applied</span>
+                                                                <a href="#">@item.CatName Required</a>
                                                             </h3>
                                                         </div>
                                                         <span>@item.JobTitle</span>
+                                                        <span class="appplySpan"><a href="~/Contractor/ViewProfile?userId=@item.JobHistory.FirstOrDefault().ContractorId" style="color: white">@item.JobHistory.FirstOrDefault().ContractorName</a></span><span class="appliedspan">Applied</span>
                                                     </div>
                                                 </td>
-                                                <td style="line-height: 12px; padding-top: 29px;"><span>@item.LocationName</span></td>
-                                                <td style="line-height: 18px; padding-top: 27px;">
+                                                <td style="line-height: 12px; padding-top: 29px;">
+                                                    <span>@item.LocationName</span>
+                                                    <br/>
                                                     <span>@item.Mobile</span>
-                                                    <span>@item.Email</span>
                                                 </td>
-                                                <td><span>Rs. @item.Fee</span></td>
+                                                <td style="line-height: 18px; padding-top: 45px;">
+                                                    <span>Rs. @item.Fee</span>
+                                                </td>
+                                                <td><input type="button" class="btn btn-primary" data-toggle="modal" onclick="openRateModel(@Json.Encode(ccnn.ContractorId),@Json.Encode(ccnn.JobId))" data-target="#addconReviewModel" value="Rate & Close"/></td>
                                             </tr>
                                         }
                                     }
@@ -185,7 +190,7 @@ Inner Page Banner Start
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
                 <h3 class="modal-title">Job Details</h3>
             </div>
-            <div class="modal-body" style="height:300px; padding: 4%;">
+            <div class="modal-body" style="height: 300px; padding: 4%;">
 
                 <!-- content goes here -->
                 <div class="form-group">
@@ -214,7 +219,52 @@ Inner Page Banner Start
             <div class="modal-footer">
                 <div class="btn-group btn-group-justified" role="group" aria-label="group button">
                     <div class="btn-group" role="group">
-                        <button type="button" id="save-Basic-info-btn" class="btn btn-primary btn-hover-green" data-action="save" role="button" onclick="acceptProposal()">Accept Proposal & Start Job</button>
+                        <button type="button" id="save-Basic-info-btn" class="btn btn-primary btn-hover-green" data-action="save" role="button" onclick=" acceptProposal() ">Accept Proposal & Start Job</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addconReviewModel" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                <h3 class="modal-title" id="lineModalLabel">Rate The Contractor</h3>
+
+            </div>
+            <div class="modal-body" style="height: 209px;">
+
+                <div class="form-group" style="display: inline-block;width: 50%;">
+                    <label for="">Rating</label>
+                    <div>
+                        <select class="form-control" id="myrating">
+                            <option>0</option>
+                            <option>1</option>
+                            <option>1.5</option>
+                            <option>2</option>
+                            <option>2.5</option>
+                            <option>3</option>
+                            <option>3.5</option>
+                            <option>4</option><option>4.5</option>
+                            <option selected="">5</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="">Review:</label>
+                    <textarea class="form-control" id="profileComments"></textarea>
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <div class="btn-group btn-group-justified" role="group" aria-label="group button">
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-primary" role="button" onclick="PostReview()">Post Review & Close Job</button>
                     </div>
                 </div>
             </div>
@@ -226,6 +276,8 @@ Inner Page Banner Start
         Main End
 *************************************-->
 <script src="~/Scripts/vendor/jquery-library.js"></script>
+<script src="~/Scripts/rating.min.js"></script>
+
 
 <script>
 
@@ -363,4 +415,58 @@ Inner Page Banner Start
     setTimeout(function() {
         $(".jobProposalPage").addClass('tg-active');
     },2000);
+
+     $("#contractStarRating").rateYo({
+        rating: 5,
+        onChange: function (rating, rateYoInstance) {
+            $("#ratingText").text(rating);
+        }
+     });
+    var conrateId;
+    var jidd;
+     function openRateModel(id, jid) {
+         conrateId = id;
+         jidd = jid;
+     }
+
+     function postMydataNow(serverObj, url, successFunc) {
+         $('#adminLoading').show();
+         $.ajax({
+             url: url,
+             type: 'POST',
+             contentType: "application/json; charset=utf-8",
+             dataType: "html",
+             data: JSON.stringify(serverObj),
+             success: successFunc,
+             error: function (data) {
+                 $('#adminLoading').hide();
+                 toastr.error("Faild to perform operation.");
+             }
+         });
+     }
+     function successFuncforpostReview(data) {
+         $('#addconReviewModel').modal('toggle');
+         $('#adminLoading').hide();
+         toastr.success("Thank you for your feedback");
+     }
+     function PostReview() {
+
+       
+         var comments = $("#profileComments").val();
+         if (comments === "") {
+             toastr.error("Please add few commetns");
+             return;
+         }
+         var rate =  $("#myrating").val() ;//$("#contractStarRating").rateYo("option", "rating");
+             var server = {
+                 Comments:comments,
+                 RatedTo:conrateId,
+                 TempoRating:rate+"",
+                 JobId: jidd
+             };
+
+             postMydataNow(server, "../ProfileVisitor/AddNewRating", successFuncforpostReview);
+         }
+      
+     
 </script>

@@ -34,6 +34,10 @@ namespace KaamShaam.Controllers
             {
                 rating.Rating = Convert.ToDouble(rating.TempoRating);
                 UserRatingService.AddRating(rating);
+                if (rating.JobId>0)
+                {
+                    JobService.MarkJobDone(rating.JobId,rating.RatedTo);
+                }
             }
             catch (Exception excep)
             {

@@ -33,7 +33,9 @@ namespace KaamShaam.Commons
                     CatName = cont.CatName,
                     Phone = cont.Mobile,
                     Email = cont.Email,
-                    Distance = cont.DistanceFromOrigin
+                    Distance = cont.DistanceFromOrigin,
+                    score = cont.Score,
+                    votes = cont.UserRatings.Count
                 });
             }
             return places;

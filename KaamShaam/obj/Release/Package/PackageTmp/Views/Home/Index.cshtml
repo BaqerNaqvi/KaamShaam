@@ -59,6 +59,14 @@ Header End
         .typeahead {
             top: 56px !important;
         }
+
+        .jobDiv {
+            border-style: outset !important;
+             border-radius: 10px !important;
+            border-width: 2px !important;
+            padding: 12px;
+            box-shadow: 3px 3px 0px #888888;
+        }
     </style>
 </head>
 <!--************************-->
@@ -510,7 +518,7 @@ Header End
                 <div class="col-xs-12 col-sm-12 col-md-10 col-md-push-1 col-lg-8 col-lg-push-2">
                     <div class="tg-sectionhead">
                         <div class="tg-sectiontitle">
-                            <h2>Contractor Categories</h2>
+                            <h2>Contractors</h2>
                             <img class="ajaxloader" id="myloader" src="~/Images/ajax-loader.gif" style="margin-top: -309px;margin-left: 64%;display: inline;" />
                         </div>
                         <div class="tg-description">
@@ -711,186 +719,35 @@ Header End
                     </div>
                 </div>
                 <div class="tg-latestserviceproviders">
-                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
-                        <div class="tg-serviceprovider tg-automotive">
-                            <figure class="tg-featuredimg">
-                                <img src="~/Images/serviceproviders/img-01.jpg" alt="image description">
-                                <figcaption>
-                                    <a class="tg-themetag tg-categorytag" href="~/job/FindJobs?category=Elect">Electrician</a>
-                                    <a class="tg-heart tg-liked" href="~/job/FindJobs?category=Elect"><i class="fa fa-heart"></i></a>
-                                </figcaption>
-                            </figure>
-                            <div class="tg-serviceprovidercontent">
-                                <div class="tg-companylogo"><a><img src="@baseUrl/Images/logos/img-01.png" alt="image description"></a></div>
-                                <div class="tg-companycontent">
-                                    <ul class="tg-tags">
-                                        <li><a class="tg-tag tg-featuredtag" href="~/job/FindJobs?category=Elect">view job</a></li>
-                                        <li><a class="tg-tag tg-verifiedtag" href="#">verified</a></li>
-                                    </ul>
-                                    <div class="tg-title">
-                                        <h3><a href="~/job/FindJobs">I need a Lahore-based Elec...</a></h3>
+                    @{
+                        if (Model != null && Model.Jobs != null && Model.Jobs.Any())
+                        {
+                            foreach (var job in Model.Jobs)
+                            {
+                                var imgcatjob = baseUrl+ "/Images/NewCatsIcons/"+job.CategoryId+".png";
+                                <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4" title="Intrested As a @job.CatName ? Click to apply">
+                                    <div class="tg-serviceprovider tg-automotive">
+                                        <div class="tg-serviceprovidercontent jobDiv">
+                                            <div class="tg-companylogo"><a><img src="@imgcatjob" alt="Intrested As a @job.CatName ?"></a></div>
+                                            <div class="tg-companycontent">
+                                                <ul class="tg-tags">
+                                                    <li><a class="tg-tag tg-featuredtag" href="~/job/FindJobs?jobId=@job.Id" style="color: white;background-color: rgba(0, 0, 255, 0.68);">view job</a></li>
+                                                    <li><a class="tg-tag tg-verifiedtag" href="#" style="color: white;background-color: rgba(0, 128, 0, 0.68);">verified</a></li>
+                                                </ul>
+                                                <div class="tg-title">
+                                                    <h3><a href="~/job/FindJobs?jobId=@job.Id">@job.JobTitle</a></h3>
+                                                </div>
+                                                <ul class="tg-matadata" style="margin-bottom: 2px;">
+                                                    <li>By <span style="color: black;">@job.JobPostedBy</span><span>&nbsp;at&nbsp;</span> <span style="color: black;">@job.PostingDate</span></li>
+                                                </ul>
+                                                <p style="    margin-bottom: 0px;">@job.LocationName</p>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <ul class="tg-matadata">
-                                        <li><span class="tg-stars"><span></span></span></li>
-                                        <li>
-                                            <i class="fa fa-thumbs-o-up"></i>
-                                            <em>0% (0 votes)</em>
-                                        </li>
-                                    </ul>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
-                        <div class="tg-serviceprovider tg-beautypersonalcare">
-                            <figure class="tg-featuredimg">
-                                <img src="~/Images/serviceproviders/img-02.jpg" alt="image description">
-                                <figcaption>
-                                    <a class="tg-themetag tg-categorytag" href="~/job/FindJobs?category=Plum">Plumber</a>
-                                    <a class="tg-heart" href="~/job/FindJobs?category=Plum"><i class="fa fa-heart"></i></a>
-                                </figcaption>
-                            </figure>
-                            <div class="tg-serviceprovidercontent">
-                                <div class="tg-companylogo"><a href="#"><img src="~/Images/logos/img-02.png" alt="image description"></a></div>
-                                <div class="tg-companycontent">
-                                    <ul class="tg-tags">
-                                        <li><a class="tg-tag tg-featuredtag" href="~/job/FindJobs?category=Plum">view job</a></li>
-                                        <li><a class="tg-tag tg-verifiedtag" href="#">verified</a></li>
-                                    </ul>
-                                    <div class="tg-title">
-                                        <h3><a href="~/job/FindJobs">Experienced Plumber required</a></h3>
-                                    </div>
-                                    <ul class="tg-matadata">
-                                        <li><span class="tg-stars"><span></span></span></li>
-                                        <li>
-                                            <i class="fa fa-thumbs-o-up"></i>
-                                            <em>0% (0 votes)</em>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
-                        <div class="tg-serviceprovider tg-business">
-                            <figure class="tg-featuredimg">
-                                <img src="~/Images/serviceproviders/img-03.jpg" alt="image description">
-                                <figcaption>
-                                    <a class="tg-themetag tg-categorytag" href="~/job/FindJobs?category=Carp">Carpenter</a>
-                                    <a class="tg-heart tg-liked" href="~/job/FindJobs?category=Carp"><i class="fa fa-heart"></i></a>
-                                </figcaption>
-                            </figure>
-                            <div class="tg-serviceprovidercontent">
-                                <div class="tg-companylogo"><a href="#"><img src="~/Images/logos/img-03.png" alt="image description"></a></div>
-                                <div class="tg-companycontent">
-                                    <ul class="tg-tags">
-                                        <li><a class="tg-tag tg-featuredtag" href="~/job/FindJobs?category=Carp">view job</a></li>
-                                        <li><a class="tg-tag tg-verifiedtag" href="#">verified</a></li>
-                                    </ul>
-                                    <div class="tg-title">
-                                        <h3><a href="~/job/FindJobs">Junior level capenter requ...</a></h3>
-                                    </div>
-                                    <ul class="tg-matadata">
-                                        <li><span class="tg-stars"><span></span></span></li>
-                                        <li>
-                                            <i class="fa fa-thumbs-o-up"></i>
-                                            <em>0% (0 votes)</em>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
-                        <div class="tg-serviceprovider tg-childcare">
-                            <figure class="tg-featuredimg">
-                                <img src="~/Images/serviceproviders/img-04.jpg" alt="image description">
-                                <figcaption>
-                                    <a class="tg-themetag tg-categorytag" href="~/job/FindJobs?category=Gene">General Contractor</a>
-                                    <a class="tg-heart tg-liked" hhref="~/job/FindJobs?category=Gene"><i class="fa fa-heart"></i></a>
-                                </figcaption>
-                            </figure>
-                            <div class="tg-serviceprovidercontent">
-                                <div class="tg-companylogo"><a href="~/job/FindJobs"><img src="~/Images/logos/img-04.png" alt="image description"></a></div>
-                                <div class="tg-companycontent">
-                                    <ul class="tg-tags">
-                                        <li><a class="tg-tag tg-featuredtag" href="~/job/FindJobs?category=Gene">view job</a></li>
-                                        <li><a class="tg-tag tg-verifiedtag" href="#">verified</a></li>
-                                    </ul>
-                                    <div class="tg-title">
-                                        <h3><a href="~/job/FindJobs">Experienced Contractor needed</a></h3>
-                                    </div>
-                                    <ul class="tg-matadata">
-                                        <li><span class="tg-stars"><span></span></span></li>
-                                        <li>
-                                            <i class="fa fa-thumbs-o-up"></i>
-                                            <em>0% (0 votes)</em>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
-                        <div class="tg-serviceprovider tg-cleaning">
-                            <figure class="tg-featuredimg">
-                                <img src="~/Images/serviceproviders/img-05.jpg" alt="image description">
-                                <figcaption>
-                                    <a class="tg-themetag tg-categorytag" href="~/job/FindJobs?category=Hand">Handyman</a>
-                                    <a class="tg-heart tg-liked" href="~/job/FindJobs?category=Hand"><i class="fa fa-heart"></i></a>
-                                </figcaption>
-                            </figure>
-                            <div class="tg-serviceprovidercontent">
-                                <div class="tg-companylogo"><a href="#"><img src="~/Images/logos/img-05.png" alt="image description"></a></div>
-                                <div class="tg-companycontent">
-                                    <ul class="tg-tags">
-                                        <li><a class="tg-tag tg-featuredtag" href="~/job/FindJobs?category=Hand">view job</a></li>
-                                        <li><a class="tg-tag tg-verifiedtag" href="#">verified</a></li>
-                                    </ul>
-                                    <div class="tg-title">
-                                        <h3><a href="~/job/FindJobs">Help me find </a></h3>
-                                    </div>
-                                    <ul class="tg-matadata">
-                                        <li><span class="tg-stars"><span></span></span></li>
-                                        <li>
-                                            <i class="fa fa-thumbs-o-up"></i>
-                                            <em>0% (0 votes)</em>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
-                        <div class="tg-serviceprovider tg-computermobile">
-                            <figure class="tg-featuredimg">
-                                <img src="~/Images/serviceproviders/img-06.jpg" alt="image description">
-                                <figcaption>
-                                    <a class="tg-themetag tg-categorytag" href="~/job/FindJobs?category=Comp">Computer &amp; Mobile Service</a>
-                                    <a class="tg-heart tg-liked" hhref="~/job/FindJobs?category=Comp"><i class="fa fa-heart"></i></a>
-                                </figcaption>
-                            </figure>
-                            <div class="tg-serviceprovidercontent">
-                                <div class="tg-companylogo"><a href="#"><img src="~/Images/logos/img-06.png" alt="image description"></a></div>
-                                <div class="tg-companycontent">
-                                    <ul class="tg-tags">
-                                        <li><a class="tg-tag tg-featuredtag" href="~/job/FindJobs?category=Comp">view job</a></li>
-                                        <li><a class="tg-tag tg-verifiedtag" href="#">verified</a></li>
-                                    </ul>
-                                    <div class="tg-title">
-                                        <h3><a href="~/job/FindJobs">Computer hardware expert ...</a></h3>
-                                    </div>
-                                    <ul class="tg-matadata">
-                                        <li><span class="tg-stars"><span></span></span></li>
-                                        <li>
-                                            <i class="fa fa-thumbs-o-up"></i>
-                                            <em>0% (0 votes)</em>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                            }
+                        }
+                    }
                 </div>
             </div>
         </div>

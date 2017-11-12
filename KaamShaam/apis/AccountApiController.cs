@@ -76,6 +76,17 @@ namespace KaamShaam.apis
                         var baseUrlforimg = System.Web.Hosting.HostingEnvironment.MapPath("/Images/Profiles/");
                         UserServices.CreateUserAvatar(baseUrlforimg + user.Id );
                         response.Data = user;
+
+                        var content = "Hi " + model.FullName +
+                                    "!\nYou have been successfully registered as a " + model.Type +
+                                    " at KamSham.Pk.";
+                        if (model.Type == "Contractor")
+                        {
+                            content = content + "You will be able to login once we approve your account information.";
+                        }
+                        content = content + "\n-KamSham Team\n+923084449991";
+                        KaamShaam.Services.EmailService.SendEmail(user.Email, "Registration Notification | KamSham.Pk", content);
+
                     }
                     catch (Exception excep)
                     {

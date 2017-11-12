@@ -36,7 +36,7 @@ namespace KaamShaam.Models
                 Title = source.Title,
                 Des = source.Description,
                 PostedById = source.PostedBy,
-                PostedByName = source.AspNetUser.FullName,
+                PostedByName = " ",//source.AspNetUser.FullName,
                 IsApproved = source.IsApproved,
                 Status = (bool) source.Status,
                 DateTime = source.DateTime.ToShortDateString()

@@ -27,17 +27,17 @@ namespace KaamShaam.DbEntities
         public int Fee { get; set; }
         public string Mobile { get; set; }
         public string Email { get; set; }
-        public string PostedById { get; set; }
         public string LocationName { get; set; }
         public System.DateTime PostingDate { get; set; }
         public bool UserStstus { get; set; }
         public bool IsApproved { get; set; }
         public bool AdminStatus { get; set; }
+        public string PostedById { get; set; }
         public bool IsRecycled { get; set; }
         public string FeedBack { get; set; }
     
-        public virtual Category Category { get; set; }
         public virtual AspNetUser AspNetUser { get; set; }
+        public virtual Category Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<JobHistory> JobHistories { get; set; }
     }

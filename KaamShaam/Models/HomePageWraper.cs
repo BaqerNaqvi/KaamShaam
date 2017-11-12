@@ -12,5 +12,8 @@ namespace KaamShaam.Models
         public List<ContractorIndexPageModel> ContractorCats { get; set; }
 
         public List<GeneralFeedbackModel> Feedback { get; set; }
+
+
+        public List<CustomJobModel> Jobs { get; set; }
     }
 }

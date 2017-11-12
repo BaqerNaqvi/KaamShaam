@@ -200,7 +200,7 @@ namespace KaamShaam.AdminServices
 
 
         #region FeedBack
-        public static FeedBack AddFeedback(GeneralFeedbackModel feedback)
+        public static void AddFeedback(GeneralFeedbackModel feedback)
         {
             using (var dbcontext = new KaamShaamEntities())
             {
@@ -215,7 +215,6 @@ namespace KaamShaam.AdminServices
                 };
                 dbcontext.FeedBacks.Add(obj);
                 dbcontext.SaveChanges();
-                return obj;
             }
         }
 

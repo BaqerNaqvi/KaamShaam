@@ -104,7 +104,7 @@ Inner Page Banner Start
                                     @{
                                         foreach (var item in Model.JobsList)
                                         {
-                                            var cusStyle = "";
+                                            var cusStyle = "    width: 50%;";
                                             var iApplied = "";
                                             var isAppliedClass = "";
 
@@ -125,10 +125,11 @@ Inner Page Banner Start
                                             {
                                                 item.Mobile = "NA";
                                             }
+                                            var jobimg = baseUrl+"/Images/NewCatsIcons/" + item.CategoryId + ".png";
                                             <tr style="cursor: pointer;" data-toggle="modal" data-target="#updateJob" onclick="editJob(@Json.Encode(item))">
                                                 <td style="@cusStyle">
                                                     <figure class="tg-companylogo">
-                                                        <img src="@baseUrl/Images/contractor-dashboard/small1.jpg" alt="image description">
+                                                        <img src="@jobimg" alt="image description">
                                                         <a class="tg-btndel" href="#"><i class="fa fa-close"></i></a>
 
                                                     </figure>
@@ -138,7 +139,7 @@ Inner Page Banner Start
                                                             <h3>
                                                                 <a href="#">@item.CatName Required</a> <span class="@isAppliedClass">@iApplied</span>                                                            </h3>
                                                         </div>
-                                                        <span>@item.JobTitle</span>
+                                                        <span style="width: 100%">@item.JobTitle</span>
                                                     </div>
                                                 </td>
                                                 <td style="line-height: 12px; padding-top: 29px;"><span>@item.LocationName</span></td>
@@ -198,7 +199,7 @@ Inner Page Banner Start
                 <!-- content goes here -->
                 <div class="form-group">
                     <label> Job Title & Description</label>
-                    <input type="text" class="form-control disabledAttr" disabled="" id="jobTitle">
+                    <textarea class="form-control disabledAttr" disabled="" id="jobTitle"></textarea>
                 </div>
 
                 <div class="form-group width45">

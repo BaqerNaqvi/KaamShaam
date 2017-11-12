@@ -321,6 +321,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplyJobApiModel.cs" />
     <Compile Include="Models\AppointmentEventModel.cs" />
+    <Compile Include="Models\ContacUsFormModel.cs" />
     <Compile Include="Models\ContractorIndexPageModel.cs" />
     <Compile Include="Models\ContractorRequestModel.cs" />
     <Compile Include="Models\CustomAppoinmentModel.cs" />

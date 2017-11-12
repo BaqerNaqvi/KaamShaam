@@ -223,7 +223,6 @@
                                     <span><a href="mailto:@Model.Email">@Model.Email</a></span>
                                 </li>
                                 <li>
-                                    <i class="lnr lnr-screen"></i>
                                     @*<span><a href="#" target="_blank">www.@Model.FullName. com</a></span>*@
                                 </li>
                             </ul>
@@ -394,7 +393,6 @@ Hire Modal Box End
                 RatedTo:toId,
                 TempoRating:rate+""
             };
-            debugger;
             postMydataNow(server, "../ProfileVisitor/AddNewRating", successFuncforpostReview);
         }
       
@@ -402,7 +400,7 @@ Hire Modal Box End
 
 
     function showOpps(id) {
-        $("#conInfo").show();
+        $("#conInfo").fadeIn("slow");
         postVisit(id);
     }
 
