@@ -60,6 +60,8 @@ namespace KaamShaam.LocalModels
 
         public bool CanRate { get; set; }
 
+        public List<string> Roles { get; set; }
+
     }
 
     public static class UserMapper
@@ -70,36 +72,59 @@ namespace KaamShaam.LocalModels
             {
                 return null;
             }
+
+            var userRoles = new List<string>();
+            try
+            {
+                if (source.AspNetRoles != null && source.AspNetRoles.Any())
+                {
+                    userRoles = source.AspNetRoles.Select(ro => ro.Name).ToList();
+                }
+            }
+            catch (Exception gf){}
+
             LocalCategory cat = null;
-            if (source.CategoryId!=null)
+            if (source.CategoryId!=null && source.CategoryId != 0)
             {
                 cat=CategoryService.GetCategoryById(source.CategoryId);
             }
             LocalUser contract = null;
-            if (source.ContractorId != null)
+            if (!string.IsNullOrEmpty(source.ContractorId))
             {
                 contract= UserServices.GetUserById(source.ContractorId); //company
             }
 
             var profileVists = new List<LocalProfileVisit>();
-            if (source.ProfileVisitors != null && source.ProfileVisitors.Any())
+            try
             {
-                profileVists = source.ProfileVisitors.Select(prf => prf.Mapper()).ToList();
+                if (source.ProfileVisitors != null && source.ProfileVisitors.Any())
+                {
+                    profileVists = source.ProfileVisitors.Select(prf => prf.Mapper()).ToList();
+                }
             }
+            catch (Exception sds)  {}
 
             var profileRatings = new List<LocalUserRating>();
-            if (source.YourRatings != null && source.YourRatings.Any())
+            try
             {
-                profileRatings = source.YourRatings.Where(df => df.IsApproved).Select(prf => prf.Mapper()).ToList();
+                if (source.YourRatings != null && source.YourRatings.Any())
+                {
+                    profileRatings = source.YourRatings.Where(df => df.IsApproved).Select(prf => prf.Mapper()).ToList();
+                }
             }
+            catch (Exception)  { }
 
             var score = UserRatingService.GetRatingsInFloat(source.Id);
 
             var jobHistories = new List<CustomJobHistory>();
-            if (source.JobHistories != null && source.JobHistories.Any())
+            try
             {
-                jobHistories = source.JobHistories.Select(prf => prf.Mapper()).ToList();
+                if (source.JobHistories != null && source.JobHistories.Any())
+                {
+                    jobHistories = source.JobHistories.Select(prf => prf.Mapper()).ToList();
+                }
             }
+            catch (Exception) { }
 
             var tempoLoc = " 31.476535115002306_74.32158172130585";
             if (source.LocationCord != null)
@@ -139,7 +164,7 @@ namespace KaamShaam.LocalModels
                 LocationName = source.LocationName ?? "(Not Provided)",
                 JobHistories = jobHistories,
                 CanRate = false,
-
+                Roles = userRoles
             };
         }
     }

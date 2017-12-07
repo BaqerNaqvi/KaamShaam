@@ -15,6 +15,14 @@
 
         <div class="page-header">
             <h1>Banners</h1>
+            <ol class="breadcrumb" style="margin-bottom: 8px;">
+                <li>
+                    <i class="fa fa-dashboard"></i> <a href="~/Admin/Stats">Dashboard</a>
+                </li>
+                <li class="active">
+                    <i class="fa fa-table"></i> Banners
+                </li>
+            </ol>
         </div>
         <div>
             <input type="button" class="btn btn-primary" style="margin-bottom: 9px; float: right;" data-toggle="modal" data-target="#bannerModal" value="New Banner">
@@ -64,6 +72,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
+                
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
                 <h3 class="modal-title" id="lineModalLabel">Banner</h3>
             </div>
@@ -71,8 +80,8 @@
                 <div class="form-group">
                     <form id="uploadBannerForm">
                         <label for="uploadBannerFile"> &nbsp;</label>
-                        <input id="uploadBannerFile" multiple type="file" class="btn btn-primary" style="margin-bottom: 9px; float: left;" value="Upload Banner">
-                        <input type="submit" class="btn btn-primary" value="Upload file" />
+                        <input id="uploadBannerFile" multiple type="file" accept="image/x-png,image/gif,image/jpeg" class="btn btn-primary" style="margin-bottom: 9px; float: left;" value="Upload Banner">
+                        <input type="submit" class="btn btn-primary" value="Upload Banner" />
                     </form>
                 </div>
             </div>
@@ -82,46 +91,64 @@
 </div>
 <script src="~/Scripts/jquery.js"></script>
 <script>
+    
+    var isloading = false;
     $("#banner-li").addClass('active');
     $('#uploadBannerForm').submit(function() {
 
         var formdata = new FormData(); //FormData object
         var fileInput = document.getElementById('uploadBannerFile');
-        //Iterating through each files selected in fileInput
-        for (i = 0; i < fileInput.files.length; i++) {
-            //Appending each file to FormData object
-            formdata.append(fileInput.files[i].name, fileInput.files[i]);
-        }
-        //Creating an XMLHttpRequest and sending
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', '/Banner/Upload');
-        xhr.send(formdata);
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                toastr.success('Banner(s) uploaded');
-                setTimeout(function() {
-                    location.reload();
-                },1000);
+        if (fileInput.files.length>0) {
+            //Iterating through each files selected in fileInput
+            for (i = 0; i < fileInput.files.length; i++) {
+                //Appending each file to FormData object
+                formdata.append(fileInput.files[i].name, fileInput.files[i]);
+            }
+
+            if (isloading)
+                return false;
+
+            isloading = true;
+            //Creating an XMLHttpRequest and sending
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/Banner/Upload');
+            xhr.send(formdata);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    toastr.success('Banner(s) uploaded');
+                    isloading = false;
+                    setTimeout(function() {
+                        location.reload();
+                    },1000);
+                }
             }
         }
         return false;
     });
 
     function DeleteBanner(obj) {
-        $.ajax({
-            url: 'DeleteBanner',
-            type: 'POST',
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            data: JSON.stringify(obj),
-            success: function (data) {
-                toastr.success("Banner deleted");
-                setTimeout(function() {
-                    location.reload();
-                },1000);
-            },
-            error: function (data) { }
-        });
+
+        var r = confirm("Are you sure you want to delete the banner?");
+        if (r === true) {
+            $.ajax({
+                url: 'DeleteBanner',
+                type: 'POST',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(obj),
+                success: function (data) {
+                    toastr.success("Banner deleted");
+                    setTimeout(function() {
+                        location.reload();
+                    },1000);
+                },
+                error: function (data) { }
+            });
+        } else {
+           
+        }
+
+       
     }
 
     function SuspendBanner(obj) {

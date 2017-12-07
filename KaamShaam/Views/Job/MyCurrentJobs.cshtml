@@ -51,7 +51,7 @@ Inner Page Banner Start
                         <div class="tg-joblisting tg-dashboardmanagejobs">
                             <div class="tg-dashboardhead">
                                 <div class="tg-dashboardtitle">
-                                    <h2>Available Jobs</h2>
+                                    <h2>My Current Jobs</h2>
                                 </div>
                                 @*<a href="~/job/PostJob"><button class="tg-btnaddservices" data-toggle="modal" data-target=".tg-categoryModal">Post A New Job</button></a>*@
                             </div>
@@ -118,18 +118,19 @@ Inner Page Banner Start
                                                 iApplied = "[Applied]";
                                                 isAppliedClass = "appplySpan";
                                             }
-                                            <tr style="cursor: pointer;" data-toggle="modal" data-target="#updateJob" onclick="editJob(@Json.Encode(item))">
+                                            <tr>
+                                            @*<tr style="cursor: pointer;" data-toggle="modal" data-target="#updateJob" onclick="editJob(@Json.Encode(item))">*@
                                                 <td style="@cusStyle">
                                                     <figure class="tg-companylogo">
                                                         <img src="@baseUrl/Images/contractor-dashboard/small1.jpg" alt="image description">
-                                                        <a class="tg-btndel" href="#"><i class="fa fa-close"></i></a>
+                                                        <a class="tg-btndel"><i class="fa fa-close"></i></a>
 
                                                     </figure>
                                                     <div class="tg-contentbox">
-                                                        <a class="tg-tag tg-featuredtag" href="#">@item.PostingDate</a>
+                                                        <a class="tg-tag tg-featuredtag" >@item.PostingDate</a>
                                                         <div class="tg-title">
                                                             <h3>
-                                                                <a href="#">@item.CatName Required</a> <span class="@isAppliedClass">@iApplied</span>
+                                                                <a>@item.CatName Required</a> <span class="@isAppliedClass">@iApplied</span>
                                                             </h3>
                                                         </div>
                                                         <span>@item.JobTitle</span>
@@ -199,10 +200,10 @@ Inner Page Banner Start
                     <label> Mobile</label>
                     <input type="text" class="form-control disabledAttr" id="jobMobile" disabled="">
                 </div>
-                <div class="form-group width45" style="margin-left: 29px">
+                @*<div class="form-group width45" style="margin-left: 29px">
                     <label> Email</label>
                     <input type="email" class="form-control disabledAttr" id="jobEmail" disabled="">
-                </div>
+                </div>*@
             </div>
             <div class="modal-footer">
                 <div class="btn-group btn-group-justified" role="group" aria-label="group button">

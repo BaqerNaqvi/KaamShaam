@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using KaamShaam.AdminServices;
+using KaamShaam.DbEntities;
 using KaamShaam.LocalModels;
 using KaamShaam.Models;
 using KaamShaam.Services;
@@ -62,8 +63,10 @@ namespace KaamShaam.Controllers
         [HttpPost]
         public ActionResult ChnageJobApproval(JobRequestModel model)
         {
-           var job= JobService.ChangeJobApproval(model.JobModel);
-            KaamShaam.Services.EmailService.SendEmail(job.AspNetUser.Email, "Job Status Updated - KamSham.Pk", job.AspNetUser.FullName + " we noticed that admin has updated one of your job. Please review your Jobs in manage job section.");
+           JobService.ChangeJobApproval(model.JobModel);
+
+            var job = JobService.GetJobById(model.JobModel.Id);
+           KaamShaam.Services.EmailService.SendEmail(job.JobPostedByObj.Email, "Job Status Updated - KamSham.Pk", job.JobPostedByObj.FullName + " we noticed that admin has updated one of your job. Please review your Jobs in manage job section.");
 
             var jobs = JobService.GetAllJobs(false);
             if (jobs != null && jobs.Count > 0)
@@ -158,7 +161,18 @@ namespace KaamShaam.Controllers
         public ActionResult ChnageUserApproval(LocalUser model)
         {
            var user=  UserAdminService.ApprovalStatus(model);
-            KaamShaam.Services.EmailService.SendEmail(user.Email,"User Account Status Changed - KamSham.Pk",user.FullName +" we noticed that admin has updated your account status. Please review your account.");
+            var feedback = "";
+            if (!model.IsApproved)
+            {
+                feedback = model.Feedback+". Your account has been deleted.";
+            }
+            KaamShaam.Services.EmailService.SendEmail(user.Email,"User Account Status Changed - KamSham.Pk",user.FullName +" we noticed that admin has updated your account status. Please review your account."+ feedback);
+
+            if (!model.IsApproved)
+            {
+                AdminService.DeleteUser(new AspNetUser { Id = model.Id });
+            }
+
             return Json(true, JsonRequestBehavior.AllowGet);
         }
         #endregion
@@ -172,7 +186,16 @@ namespace KaamShaam.Controllers
         public ActionResult ChnageContractorsApproval(LocalUser model)
         {
             var user = UserAdminService.ApprovalStatus(model);
-            KaamShaam.Services.EmailService.SendEmail(user.Email, "Contractor Account Status Changed - KamSham.Pk", user.FullName + " we noticed that admin has updated your account status. Please review your account.");
+            var feedback = "";
+            if (!model.IsApproved)
+            {
+                feedback = model.Feedback + ". Your account has been deleted.";
+            }
+            KaamShaam.Services.EmailService.SendEmail(user.Email, "Contractor Account Status Changed - KamSham.Pk", user.FullName + " we noticed that admin has updated your account status. Please review your account."+ feedback);
+            if (!model.IsApproved)
+            {
+                AdminService.DeleteUser(new AspNetUser { Id = model.Id });
+            }
             return Json(true, JsonRequestBehavior.AllowGet);
         }
         #endregion
@@ -180,7 +203,7 @@ namespace KaamShaam.Controllers
         #region Vendors
         public ActionResult ApproveVendors()
         {
-            var data = UserAdminService.GetNotApprovedUsers("Contractor");
+            var data = UserAdminService.GetNotApprovedUsers("Vendor");
             return View(data);
         }
         public ActionResult ChnageVendorsApproval(LocalUser model)

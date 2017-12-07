@@ -86,19 +86,25 @@ namespace KaamShaam.Controllers
         {
             if (!ModelState.IsValid) 
             {
-                return View("Login");
+                return RedirectToAction("Login", "Account");
             }
 
             if (string.IsNullOrEmpty(returnUrl))
             {
                 returnUrl = "Home/Index";
             }
-            var isApproved= UserAdminService.IsUserApproved(model.LoginViewModel.Email);
-            if (!isApproved)
+
+
+            var uid = UserManager.FindByEmail(model.LoginViewModel.Email).Id;
+            var uObj = UserServices.GetUserById(uid);
+
+            if (uObj.Roles.Any(r => r.ToLower().Contains("admin") || r.ToLower().Contains("super admin")))
             {
-                ModelState.AddModelError("", "User is not approved by admin.");
+                ModelState.AddModelError("", "Invalid login attempt.");
                 return GetLoginStuff();
             }
+
+
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.LoginViewModel.Email, model.LoginViewModel.Password, true, shouldLockout: false);
@@ -106,8 +112,15 @@ namespace KaamShaam.Controllers
             {
                 case SignInStatus.Success:
                 {
-                    var uid= UserManager.FindByEmail(model.LoginViewModel.Email).Id;
-                    var uObj = UserServices.GetUserById(uid);
+
+                        var isApproved = UserAdminService.IsUserApproved(model.LoginViewModel.Email);
+                        if (!isApproved)
+                        {
+                            ModelState.AddModelError("", "User is not approved by admin.");
+                            return GetLoginStuff();
+                        }
+
+                     
                      SetUserSession(uObj);
                         return RedirectToLocal(returnUrl);
                     }
@@ -614,6 +627,18 @@ namespace KaamShaam.Controllers
             {
                 returnUrl = "Admin/Stats";
             }
+
+
+            var uid = UserManager.FindByEmail(model.LoginViewModel.Email).Id;
+            var uObj = UserServices.GetUserById(uid);
+
+            if (uObj.Roles.Any(r => r.ToLower().Contains("user") || r.ToLower().Contains("contractor")))
+            {
+                ModelState.AddModelError("", "Invalid admin login attempt.");
+                return View("AdminLogin");
+            }
+
+
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.LoginViewModel.Email, model.LoginViewModel.Password, true, shouldLockout: false);
@@ -621,8 +646,7 @@ namespace KaamShaam.Controllers
             {
                 case SignInStatus.Success:
                     {
-                        var uid = UserManager.FindByEmail(model.LoginViewModel.Email).Id;
-                        var uObj = UserServices.GetUserById(uid);
+                        
                         SetUserSession(uObj);
                         // return RedirectToLocal(returnUrl);
                         return RedirectToAction("Stats", "Admin");

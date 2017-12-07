@@ -10,28 +10,25 @@ namespace KaamShaam.Services
 {
     public static class EmailService
     {
-        public static void SendEmail(string to, string subject, string body)
+        public static void SendEmail(string toEmail, string subject, string body)
         {
             try
             {
-                MailMessage message = new System.Net.Mail.MailMessage();
-                string fromEmail = "Support@kamsham.pk";
-                string toEmail = to;
-                message.From = new MailAddress(fromEmail);
-                message.To.Add(toEmail);
-                message.Subject = subject;
-                message.Body = body;
-                message.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
-
-                using (SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587))
+                const string fromEmail = "support@kamsham.pk";
+                var message = new MailMessage
                 {
-                    smtpClient.EnableSsl = true;
-                    smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-                    smtpClient.UseDefaultCredentials = false;
-                    smtpClient.Credentials = new NetworkCredential("link2naqvi@gmail.com", "@pacein_786");
-
-                    smtpClient.Send(message.From.ToString(), message.To.ToString(),
-                                    message.Subject, message.Body);
+                    From = new MailAddress(fromEmail),
+                    To = { toEmail },
+                    Subject = subject,
+                    Body = body,
+                    DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure
+                };
+                using (SmtpClient smtpClient = new SmtpClient("webmail.kamsham.pk"))
+                {
+                    smtpClient.Credentials = new NetworkCredential("support@kamsham.pk", "vakR69~0");
+                    smtpClient.Port = 25;
+                    smtpClient.EnableSsl = false;
+                    smtpClient.Send(message);
                 }
             }
             catch (Exception ffg)
@@ -40,4 +37,5 @@ namespace KaamShaam.Services
             }
         }
     }
+    
 }

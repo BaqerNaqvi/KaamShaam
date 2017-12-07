@@ -30,11 +30,11 @@ namespace KaamShaam.Models
                 Id = source.Id,
                 DateTime = source.DateTime,
                 CreatedBy = source.CreatedBy,
-                CreatedByName = source.CreatedByUser.FullName,
+                CreatedByName = source.CreatedByUser?.FullName,
                 Title = source.Title,
                 Type = source.Type,
                 WithId = source.WithId,
-                WithName = source.WithUser.FullName,
+                WithName = source.WithUser?.FullName,
                 IsAttended= source.IsAttended
             };
         }
@@ -47,9 +47,9 @@ namespace KaamShaam.Models
               start = source.DateTime.ToString("yyyy-MM-dd"),
 
               startDateTime = source.DateTime,
-              appointmentWithId = source.WithUser.Id,
-              appointmentWithName = source.WithUser.FullName,
-              appointmentWithPhone = source.WithUser.Mobile
+              appointmentWithId = source.WithUser?.Id,
+              appointmentWithName = source.WithUser?.FullName,
+              appointmentWithPhone = source.WithUser?.Mobile
           };
         }
     }

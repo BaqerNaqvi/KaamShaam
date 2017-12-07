@@ -18,6 +18,10 @@ Inner Page Banner Start
     li {
     list-style: none;
 }
+
+    td.fc-day-top.fc-past {
+           padding-right: 7%; 
+    }
 </style>
 
 <div class="tg-innerpagebanner">
@@ -54,7 +58,7 @@ Inner Page Banner Start
                                 <div class="tg-dashboardtitle">
                                     <h2>Manage Appointments</h2>
                                 </div>
-                                <button class="tg-btnaddservices" data-toggle="modal" data-target="#addnewevent"> New</button>
+                                <button class="tg-btnaddservices" data-toggle="modal" data-target="#addnewevent"> Add New Appointment</button>
                             </div>                            
                             <div id="calendarContainer">
                             </div>
@@ -77,11 +81,11 @@ Inner Page Banner Start
 
                 <!-- content goes here -->
                 <div class="form-group">
-                    <label> Title & Description</label>
+                    <label> Title & Description *</label>
                     <input type="text" class="form-control editJobVal" id="eventTitle">
                 </div>
                 <div class="form-group">
-                    <label> Appointment Type</label>
+                    <label> Appointment Type *</label>
                     <select id="appType" class="form-control">
                         <option value="General">General</option>
                         <option value="Business">Business</option>
@@ -90,16 +94,16 @@ Inner Page Banner Start
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Date/Time</label>
+                    <label>Date/Time *</label>
                     <div class='input-group date' id='datetimepicker1'>
-                        <input type='text' class="form-control" data-format="yyyy-MM-dd hh:mm:ss"/>
-                        <span class="input-group-addon">
-                            <span class="glyphicon glyphicon-calendar"></span>
+                        <input type='text' class="form-control" data-format="yyyy-MM-dd hh:mm:ss" onclick="calClick(true)"/>
+                        <span class="input-group-addon" onclick="calClick(false)"id="tempoCal1">
+                            <span class="glyphicon glyphicon-calendar" ></span>
                         </span>
                     </div>
                 </div>
                 <div class="form-group" style="width: 92%;">
-                    <label>Appointment With</label>
+                    <label>Appointment With *</label>
                     <input type="text" id="appwith" class="typeahead tt-query" autocomplete="off" spellcheck="false">
                 </div>
                 <img class="ajaxloader" id="adminLoading" src="~/Images/ajax-loader.gif" style="margin-top: 40px;margin-left: 14px;"/>
@@ -238,4 +242,10 @@ Inner Page Banner Start
         $(".appPage").addClass('tg-active');
     },2000);
 
+   
+    function calClick(is) {
+        if (is) {
+            $('#tempoCal1').trigger( "click" );  
+        }
+    }
 </script>

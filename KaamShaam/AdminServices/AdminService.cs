@@ -101,6 +101,54 @@ namespace KaamShaam.AdminServices
                             }
                         }
 
+
+                        var pVisits = context.ProfileVisits.Where(visit => visit.VistedBy == data.Id || visit.VistedOf == data.Id).ToList();
+                        if (pVisits.Any())
+                        {
+                            foreach (var vi in pVisits)
+                            {
+                                context.ProfileVisits.Remove(vi);
+                            }
+                        }
+
+
+                        var pRates = context.UserRatings.Where(rate => rate.RatedBy == data.Id || rate.RatedTo == data.Id).ToList();
+                        if (pRates.Any())
+                        {
+                            foreach (var vi in pRates)
+                            {
+                                context.UserRatings.Remove(vi);
+                            }
+                        }
+
+
+                        var jobs = context.Jobs.Where(rate => rate.PostedById == data.Id).ToList();
+                        if (jobs.Any())
+                        {
+                            foreach (var vi in jobs)
+                            {
+                                context.Jobs.Remove(vi);
+                            }
+                        }
+
+                        var jobHistories = context.JobHistories.Where(rate => rate.ContractorId == data.Id).ToList();
+                        if (jobHistories.Any())
+                        {
+                            foreach (var vi in jobHistories)
+                            {
+                                context.JobHistories.Remove(vi);
+                            }
+                        }
+
+                        var feedBacks = context.FeedBacks.Where(rate => rate.PostedBy == data.Id).ToList();
+                        if (feedBacks.Any())
+                        {
+                            foreach (var vi in feedBacks)
+                            {
+                                context.FeedBacks.Remove(vi);
+                            }
+                        }
+
                         context.AspNetUsers.Remove(data);
                         context.SaveChanges();
                         return true;
@@ -117,7 +165,7 @@ namespace KaamShaam.AdminServices
         {
             using (var context = new KaamShaamEntities())
             {
-                var data = context.AspNetUsers.Where(u => u.Type == type).ToList()
+                var data = context.AspNetUsers.Where(user => user.Type == type && !user.AspNetRoles.Any(role => role.Name == "Admin" || role.Name == "Super Admin")).ToList()
                    .Select(user => user.MapUser()).ToList();
                  return data;
             }

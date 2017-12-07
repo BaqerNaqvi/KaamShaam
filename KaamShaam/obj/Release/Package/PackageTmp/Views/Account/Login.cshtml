@@ -220,7 +220,7 @@
                                         @Html.PasswordFor(m => m.LoginViewModel.Password, new { name = "Password", @class = "form-control", @placeholder = "Password" })
                                     </div>
                                     <div class="form-group">
-                                        <button class="tg-btn tg-btn-lg" type="submit">Login Now</button>
+                                        <button class="tg-btn tg-btn-lg" type="button" onclick="submitLogin()">Login Now</button>
                                     </div>
                                 }
                                 @*<a style="cursor: pointer" class="tg-btnforgotpass" onclick="passforgot()">Forgot your password?</a>*@
@@ -508,13 +508,26 @@ Main End
     }
     //  $('.contractorEle').hide();
     function submitRegis() {
+
+        var FullName = $('#RegisterViewModel_FullName').val();
+        if (FullName == undefined || FullName === "") {
+            toastr.error("Please add Full Name");
+            return false;
+        }
+
+        var Email = $('#RegisterViewModel_Email').val();
+        if (Email == undefined || Email === "") {
+            toastr.error("Please add Email");
+            return false;
+        }
+
         if (!$('#terms').is(":checked")) {
-            toastr.error('Please check terms ');
+            toastr.error('Please check Terms ');
             return false;
         }
         var loc = $('#locationName').val();
         if (loc == undefined || loc === "") {
-            toastr.error("Please select location");
+            toastr.error("Please select Location");
             return false;
         }
         var typeval = $('#userTypeDd').val();
@@ -523,11 +536,26 @@ Main End
         }
         var isnum = /^\d+$/.test($('#mNumber').val());
         if (!isnum) {
-            toastr.error("Add valid phone number (0-9)");
+            toastr.error("Add valid Phone Number (0-9)");
             return false;
         }
         $("#userRegistration").submit();
     };
+
+    function submitLogin() {
+        if ($('#LoginViewModel_Email').val() == "") {
+            toastr.error("Please enter Email");
+            return false;
+        }
+
+        if ($('#LoginViewModel_Password').val() == "") {
+            toastr.error("Please enter Password");
+            return false;
+        }
+
+        $("#userloginForm").submit();
+    }
+
 
     function saveLoc() {
         if (selectedLoc == undefined) {

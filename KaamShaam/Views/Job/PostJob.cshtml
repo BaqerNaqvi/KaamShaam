@@ -160,10 +160,10 @@ Inner Page Banner Start
                                         @using (Html.BeginForm("PostJob", "Job", FormMethod.Post, new {@class = "tg-themeform tg-formlogin-register", role = "form", id = "postJobForm"}))
                                         {
                                             <div class="form-group">
-                                                @Html.TextBoxFor(m => m.JobTitle, new {name = "jobTitle", @class = "form-control", @placeholder = "Job Title & Description"})
+                                                @Html.TextBoxFor(m => m.JobTitle, new {name = "jobTitle", @class = "form-control", @placeholder = "Job Title & Description", @maxlength = "100" })
                                             </div>
                                             <div class="form-group">
-                                                @Html.TextBoxFor(m => m.LocationName, new {@readonly = "readonly", @id = "locationName", onclick = "openMap()", name = "Loc", @class = "form-control", @placeholder = "Click to pick Job Location", data_toggle = "modal", data_target = "#addressmodel"})
+                                                @Html.TextBoxFor(m => m.LocationName, new {@readonly = "readonly", @id = "locationName", onclick = "openMap()", name = "Loc",@maxlength = "100", @class = "form-control", @placeholder = "Click to pick Job Location", data_toggle = "modal", data_target = "#addressmodel"})
                                                 @Html.HiddenFor(m => m.LocationCords, new {@id = "locationCord"})
                                             </div>
 
@@ -225,7 +225,7 @@ Inner Page Banner Start
                                             </span>
                                             </div>
                                             <div class="form-group">
-                                                @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", @placeholder = "Mobile"})
+                                                @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", @placeholder = "Mobile", @maxlength = "50" })
                                             </div>
 
                                             @*<div class="form-group">
@@ -347,15 +347,15 @@ Main End
 <script>
     var infoWindow, pos, map, selectedLoc=undefined,locName=undefined;
     var markersArray = [];
-        function initAutocomplete() {
+    function initAutocomplete() {
         map = new google.maps.Map(document.getElementById('map'), {
             center: { lat: 31.476535115002306, lng: 74.32158172130585 },
-          zoom: 10,
-          mapTypeId: 'roadmap'
+            zoom: 10,
+            mapTypeId: 'roadmap'
         });
         infoWindow = new google.maps.InfoWindow;
-            // Try HTML5 geolocation.
-            debugger;
+        // Try HTML5 geolocation.
+        debugger;
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function (position) {
                 debugger;
@@ -374,79 +374,79 @@ Main End
         }
 
 
-    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-        infoWindow.setPosition(pos);
-        infoWindow.setContent(browserHasGeolocation ?
-                              'Error: The Geolocation service failed.' :
-                              'Error: Your browser doesn\'t support geolocation.');
-        infoWindow.open(map);
-    }
+        function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+            infoWindow.setPosition(pos);
+            infoWindow.setContent(browserHasGeolocation ?
+                'Error: The Geolocation service failed.' :
+                'Error: Your browser doesn\'t support geolocation.');
+            infoWindow.open(map);
+        }
 
-            // Create the search box and link it to the UI element.
+        // Create the search box and link it to the UI element.
         var input = document.getElementById('pac-input');
         var searchBox = new google.maps.places.SearchBox(input);
         map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
         // Bias the SearchBox results towards current map's viewport.
         map.addListener('bounds_changed', function () {
-          searchBox.setBounds(map.getBounds());
+            searchBox.setBounds(map.getBounds());
         });
 
         var markers = [];
         // Listen for the event fired when the user selects a prediction and retrieve
         // more details for that place.
         searchBox.addListener('places_changed', function () {
-          var places = searchBox.getPlaces();
+            var places = searchBox.getPlaces();
 
-          if (places.length == 0) {
-              return;
-          } else {
-              selectedLoc = {};
-              selectedLoc.lat = places[0].geometry.location.lat();
-              selectedLoc.lng = places[0].geometry.location.lng();
-              locName = places[0].formatted_address;
-          }
-
-          // Clear out the old markers.
-          markers.forEach(function(marker) {
-            marker.setMap(null);
-          });
-          markers = [];
-
-          // For each place, get the icon, name and location.
-          var bounds = new google.maps.LatLngBounds();
-          places.forEach(function(place) {
-            if (!place.geometry) {
-              console.log("Returned place contains no geometry");
-              return;
-            }
-            var icon = {
-              url: place.icon,
-              size: new google.maps.Size(71, 71),
-              origin: new google.maps.Point(0, 0),
-              anchor: new google.maps.Point(17, 34),
-              scaledSize: new google.maps.Size(25, 25)
-            };
-
-            // Create a marker for each place.
-            markers.push(new google.maps.Marker({
-              map: map,
-              icon: icon,
-              title: place.name,
-              position: place.geometry.location
-            }));
-
-            if (place.geometry.viewport) {
-              // Only geocodes have viewport.
-              bounds.union(place.geometry.viewport);
+            if (places.length == 0) {
+                return;
             } else {
-              bounds.extend(place.geometry.location);
+                selectedLoc = {};
+                selectedLoc.lat = places[0].geometry.location.lat();
+                selectedLoc.lng = places[0].geometry.location.lng();
+                locName = places[0].formatted_address;
             }
-          });
-          map.fitBounds(bounds);
+
+            // Clear out the old markers.
+            markers.forEach(function(marker) {
+                marker.setMap(null);
+            });
+            markers = [];
+
+            // For each place, get the icon, name and location.
+            var bounds = new google.maps.LatLngBounds();
+            places.forEach(function(place) {
+                if (!place.geometry) {
+                    console.log("Returned place contains no geometry");
+                    return;
+                }
+                var icon = {
+                    url: place.icon,
+                    size: new google.maps.Size(71, 71),
+                    origin: new google.maps.Point(0, 0),
+                    anchor: new google.maps.Point(17, 34),
+                    scaledSize: new google.maps.Size(25, 25)
+                };
+
+                // Create a marker for each place.
+                markers.push(new google.maps.Marker({
+                    map: map,
+                    icon: icon,
+                    title: place.name,
+                    position: place.geometry.location
+                }));
+
+                if (place.geometry.viewport) {
+                    // Only geocodes have viewport.
+                    bounds.union(place.geometry.viewport);
+                } else {
+                    bounds.extend(place.geometry.location);
+                }
+            });
+            map.fitBounds(bounds);
         });
 
-            //Add listener
+        //Add listener
         google.maps.event.addListener(map, 'click', function (event) {
             clearOverlays();
             var marker = new google.maps.Marker({ position: event.latLng, map: map });
@@ -455,25 +455,49 @@ Main End
             selectedLoc.lng = event.latLng.lng();
             markersArray.push(marker);
         });
-      }
-        function clearOverlays() {
-            for (var i = 0; i < markersArray.length; i++) {
-                markersArray[i].setMap(null);
-            }
-            markersArray.length = 0;
+    }
+    function clearOverlays() {
+        for (var i = 0; i < markersArray.length; i++) {
+            markersArray[i].setMap(null);
         }
+        markersArray.length = 0;
+    }
 
 </script>   
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnRflqywXFgknXTzSG-BP3MmM8N1ZyOrQ&libraries=places&callback=initAutocomplete"></script>
 <script src="~/Scripts/vendor/jquery-library.js"></script>
+<script src="~/Scripts/jquery-mask.min.js"></script>
+
 <Script>
+    
+    $(document).ready(function ($) {
+        setTimeout(function () {
+            $("#Mobile").mask("0399-9999999");
+        }, 2000);
+
+    });
     function submitRegis() {
+       
+
+        if ($("#JobTitle").val() === '') {
+            toastr.warning("Please add title");
+            return false;
+        }
+
+        if ($("#Mobile").val() === '') {
+            toastr.warning("Please add mobile");
+            return false;
+        }
         if (!$('#terms').is(":checked")) {
             toastr.warning('Please check terms ');
             return false;
         }
         if (selectedLoc == undefined) {
             toastr.warning("Please select location");
+            return false;
+        }
+        if ($("#Mobile").val() === '') {
+            toastr.warning("Please add mobile");
             return false;
         }
         $("#postjobform").submit();

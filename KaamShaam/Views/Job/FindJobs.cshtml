@@ -17,6 +17,7 @@ Inner Page Banner Start
     border-radius: 5px !important;
     }
 </style>
+@using Microsoft.AspNet.Identity
 @model KaamShaam.Models.ManageJobModel
 <div class="tg-innerpagebanner">
     <div class="container">
@@ -215,21 +216,27 @@ Inner Page Banner Start
                     <label> Mobile</label>
                     <input type="text" class="form-control disabledAttr" id="jobMobile" disabled="">
                 </div>
-                <div class="form-group width45" style="margin-left: 29px">
+                @*<div class="form-group width45" style="margin-left: 29px">
                     <label> Email</label>
                     <input type="email" class="form-control disabledAttr" id="jobEmail" disabled="">
-                </div>
+                </div>*@
             </div>
             @{
-                    var attr = "disabled=''";
+                var attr = "style=display:none;";
                 if (User.IsInRole("Contractor"))
                 {
                     attr = "";
                 }
+                var loogedinId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+
+                if (User.IsInRole("User") && !string.IsNullOrEmpty(loogedinId))
+                {
+                    attr = "style=display:none;";
+                }
                 <div class="modal-footer">
                     <div class="btn-group btn-group-justified" role="group" aria-label="group button">
                         <div class="btn-group" role="group">
-                            <button type="button" id="save-Basic-info-btn" @attr class="btn btn-primary btn-hover-green" data-action="save" role="button" onclick="applyJob()">Apply</button>
+                            <button type="button" id="save-Basic-info-btn"  @attr class="btn btn-primary btn-hover-green" data-action="save" role="button" onclick="applyJob()">Apply</button>
                         </div>
                     </div>
                 </div>

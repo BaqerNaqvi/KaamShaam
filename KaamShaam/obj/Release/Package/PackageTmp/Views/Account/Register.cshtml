@@ -150,56 +150,7 @@
                                         @Html.ValidationSummary("", new {@class = "text-danger"})
 
 
-                                        @*<ul class="tg-socialicons tg-socialsharewithtext" style="margin-top: 12px;">
-                                            <li class="tg-facebook">
-                                                <a class="tg-roundicontext" href="javascript:void(0);">
-                                                    <em class="tg-usericonholder">
-                                                        <i class="fa fa-facebook-f"></i>
-                                                        <span>facebook</span>
-                                                    </em>
-                                                </a>
-                                            </li>
-                                            <li class="tg-twitter">
-                                                <a class="tg-roundicontext" href="javascript:void(0);">
-                                                    <em class="tg-usericonholder">
-                                                        <i class="fa fa-twitter"></i>
-                                                        <span>twitter</span>
-                                                    </em>
-                                                </a>
-                                            </li>
-                                            <li class="tg-linkedin">
-                                                <a class="tg-roundicontext" href="javascript:void(0);">
-                                                    <em class="tg-usericonholder">
-                                                        <i class="fa fa-linkedin"></i>
-                                                        <span>linkdin</span>
-                                                    </em>
-                                                </a>
-                                            </li>
-                                            <li class="tg-googleplus">
-                                                <a class="tg-roundicontext" href="javascript:void(0);">
-                                                    <em class="tg-usericonholder">
-                                                        <i class="fa fa-google-plus"></i>
-                                                        <span>googl+</span>
-                                                    </em>
-                                                </a>
-                                            </li>
-                                            <li class="tg-tumblr">
-                                                <a class="tg-roundicontext" href="javascript:void(0);">
-                                                    <em class="tg-usericonholder">
-                                                        <i class="fa fa-tumblr"></i>
-                                                        <span>tumblr</span>
-                                                    </em>
-                                                </a>
-                                            </li>
-                                            <li class="tg-vimeo">
-                                                <a class="tg-roundicontext" href="javascript:void(0);">
-                                                    <em class="tg-usericonholder">
-                                                        <i class="fa fa-vimeo"></i>
-                                                        <span>vimeo</span>
-                                                    </em>
-                                                </a>
-                                            </li>
-                                        </ul>*@
+                                       
                                     </div>
 
                                 </div>
@@ -221,7 +172,7 @@
                                         @Html.PasswordFor(m => m.LoginViewModel.Password, new {name = "Password", @class = "form-control", @placeholder = "Password"})
                                     </div>
                                     <div class="form-group">
-                                        <button class="tg-btn tg-btn-lg" type="submit">Login Now</button>
+                                        <button class="tg-btn tg-btn-lg" type="button" onclick="submitLogin()">Login Now</button>
                                     </div>
                                 }
                                 @*<a style="cursor: pointer" class="tg-btnforgotpass" onclick="passforgot()">Forgot your password?</a>*@
@@ -504,47 +455,52 @@ Main End
     //  $('.contractorEle').hide();
     function submitRegis() {
 
-        var loc = $('#RegisterViewModel_FullName').val();
-        if (loc == undefined || loc === "") {
-            toastr.error("Please add Name");
+        var FullName = $('#RegisterViewModel_FullName').val();
+        if (FullName == undefined || FullName === "") {
+            toastr.error("Please add Full Name");
             return false;
         }
 
-        var loc = $('#RegisterViewModel_Email').val();
-        if (loc == undefined || loc === "") {
+        var Email = $('#RegisterViewModel_Email').val();
+        if (Email == undefined || Email === "") {
             toastr.error("Please add Email");
             return false;
         }
 
         if (!$('#terms').is(":checked")) {
-            toastr.error('Please check terms ');
+            toastr.error('Please check Terms ');
             return false;
-        } 
+        }
         var loc = $('#locationName').val();
         if (loc == undefined || loc === "") {
-            toastr.error("Please select location");
+            toastr.error("Please select Location");
             return false;
         }
         var typeval = $('#userTypeDd').val();
         if (typeval === "Contractor") {
-            var cnic = $('#myCnic').val();
-            if (cnic === "" || cnic === undefined) {
-                toastr.error("Add valid CNIC (0-9)");
-                return false;
-                }
-            
+
         }
         var isnum = /^\d+$/.test($('#mNumber').val());
         if (!isnum) {
-            toastr.error("Add valid phone number (0-9)");
+            toastr.error("Add valid Phone Number (0-9)");
+            return false;
+        }
+        $("#userRegistration").submit();
+    };
+
+    function submitLogin() {
+        if ($('#LoginViewModel_Email').val() == "") {
+            toastr.error("Please enter Email");
             return false;
         }
 
-       
-       
+        if ($('#LoginViewModel_Password').val() == "") {
+            toastr.error("Please enter Password");
+            return false;
+        }
 
-        $("#userRegistration").submit();
-    };
+        $("#userloginForm").submit();
+    }
 
     function saveLoc() {
         if (selectedLoc == undefined) {

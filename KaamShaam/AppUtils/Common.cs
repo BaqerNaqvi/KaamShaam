@@ -52,7 +52,7 @@ namespace KaamShaam.AppUtils
             }
             catch
             {
-                return "http://via.placeholder.com/"+size;
+                return "https://via.placeholder.com/"+size;
             }
         }
     }

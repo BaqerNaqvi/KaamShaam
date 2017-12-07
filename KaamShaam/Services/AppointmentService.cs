@@ -66,6 +66,9 @@ namespace KaamShaam.Services
                 && (app.WithId == postedById || app.CreatedBy == postedById) && !app.IsAttended).ToList();
                 if (apps.Any())
                 {
+                    foreach (var df in apps.Select(ap => ap.CreatedByUser))
+                    {
+                    }
                     return apps.Select(hmm => hmm.Mapper()).ToList();
                 }
             }
@@ -76,7 +79,7 @@ namespace KaamShaam.Services
         {
             using (var db = new KaamShaamEntities())
             {
-                var apps = db.Appointments.Where(app=>(app.WithId == postedById || app.CreatedBy == postedById) && !app.IsAttended).ToList();
+                var apps = db.Appointments.Where(app=>(app.WithId == postedById || app.CreatedBy == postedById) && !app.IsAttended && app.CreatedBy!="").ToList();
                 if (apps.Any())
                 {
                     return apps.Select(hmm => hmm.MapperEvent()).ToList();

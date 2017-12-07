@@ -288,20 +288,20 @@ Main Start
                 <!-- content goes here -->
                 <div class="form-group">
                     <label> Full Name</label>
-                    <input type="text" class="form-control binfoVal" id="bi-fullname">
+                    <input maxlength="100" type="text" class="form-control binfoVal" id="bi-fullname">
                 </div>
 
                 <div class="form-group">
                     <label > CNIC</label>
-                    <input type="text" class="form-control binfoVal" id="bi-cnic">
+                    <input  maxlength="100" type="text" class="form-control binfoVal" id="bi-cnic">
                 </div>
                 <div class="form-group">
                     <label > Mobile</label>
-                    <input type="text" class="form-control binfoVal" id="bi-mobile">
+                    <input  maxlength="100" type="text" class="form-control binfoVal" id="bi-mobile">
                 </div>
                 <div class="form-group">
                     <label > Email</label>
-                    <input type="email" class="form-control binfoVal" id="bi-email" readonly="">
+                    <input  maxlength="100" type="email" class="form-control binfoVal" id="bi-email" readonly="">
                 </div>
 
             </div>
@@ -398,13 +398,13 @@ Main Start
                 <!-- content goes here -->
                 <div class="form-group">
                     <label>About Yourself</label>
-                   <textarea class="form-control otherInfoVal" id="intro-textarea"></textarea>
+                   <textarea maxlength="200" class="form-control otherInfoVal" id="intro-textarea"></textarea>
                 </div>
                 <!-- content goes here -->
                 <div class="form-group">
                     <label> Language</label>
                     <select id="ai-lang">
-                        <option value="Urdu">Urdu</option>
+                        <option value="Urdu" selected="selected">Urdu</option>
                         <option value="English" selected="">English</option>
                     </select>
                 </div>
@@ -487,10 +487,10 @@ Main Start
             <div class="modal-body" style="padding-top: 0px;height: 140px;">
                 <div class="form-group">
                     <form id="profilePicUploaderForm">
-                        <img class="avatarThumb" width="100" height="100" style="margin-bottom: 5px;margin-top: 12px;" id="profile-pic-thumb" src="http://via.placeholder.com/50x60"/>
+                        <img class="avatarThumb" width="100" height="100" style="margin-bottom: 5px;margin-top: 12px;" id="profile-pic-thumb" src="https://via.placeholder.com/50x60"/>
                         <div style="margin-top: 8px">
-                            <input id="profilePicUploader" type="file" class="btn btn-default" style="margin-top: 14%; display: inline-block;margin-bottom: 9px;" value="Upload Banner">
-                        <input type="submit" class="btn btn-rounded" style="margin-top: 80px;margin-left: 36px;margin-bottom: 9px;" value="Upload file" />
+                            <input id="profilePicUploader" type="file" class="btn btn-default" style="margin-top: 14%; display: inline-block;margin-bottom: 9px;" value="Upload Avatar">
+                        <input type="submit" class="btn btn-rounded" style="margin-top: 80px;margin-left: 36px;margin-bottom: 9px;" value="Upload Avatar" />
                         </div>
                     </form>
                 </div>
@@ -548,7 +548,7 @@ Main End
         // more details for that place.
         searchBox.addListener('places_changed', function () {
             var places = searchBox.getPlaces();
-
+            debugger
             if (places.length == 0) {
                 return;
             } else {
@@ -556,6 +556,7 @@ Main End
                 selectedLoc.lat = places[0].geometry.location.lat();
                 selectedLoc.lng = places[0].geometry.location.lng();
                 locName = places[0].formatted_address;
+                $('#lc-address').val(locName);
             }
 
             // Clear out the old markers.
@@ -675,6 +676,7 @@ Main End
     }
 
     function getAddress(lat, lng) {
+        debugger;
         var geocoder = new google.maps.Geocoder(); // create a geocoder object
         var location = new google.maps.LatLng(lat, lng); // turn coordinates into an object
         geocoder.geocode({ 'latLng': location }, function(results, status) {
@@ -814,6 +816,9 @@ Main End
         var intro = $("#td-intro").text();
         var lang = $("#td-lang").text().replace(/\s/g, '');
 
+        if (lang === "(NotProvided)")
+            lang = 'Urdu';
+        debugger;
         $("#intro-textarea").val(intro);
         $("#ai-lang").val(lang);
     }
@@ -909,25 +914,30 @@ Main End
         
     }
     $('#profilePicUploaderForm').submit(function() {
-       
+
+
         var formdata = new FormData(); //FormData object
         var fileInput = document.getElementById('profilePicUploader');
         //Iterating through each files selected in fileInput
-        for (i = 0; i < fileInput.files.length; i++) {
-            //Appending each file to FormData object
-            formdata.append(fileInput.files[i].name, fileInput.files[i]);
-        }
-        //Creating an XMLHttpRequest and sending
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'Upload');
-        xhr.send(formdata);
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                toastr.success('Profile picture uploaded');
-                setTimeout(function() {
-                    location.reload();
-                },1000);
+        if (fileInput.files.length > 0) {
+            for (i = 0; i < fileInput.files.length; i++) {
+                //Appending each file to FormData object
+                formdata.append(fileInput.files[i].name, fileInput.files[i]);
             }
+            //Creating an XMLHttpRequest and sending
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'Upload');
+            xhr.send(formdata);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    toastr.success('Profile picture uploaded');
+                    setTimeout(function() {
+                        location.reload();
+                    }, 1000);
+                }
+            }
+        } else {
+            toastr.error('Please select profile picture');
         }
         return false;
     });

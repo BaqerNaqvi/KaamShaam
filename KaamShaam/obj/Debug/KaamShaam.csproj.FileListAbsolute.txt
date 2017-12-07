@@ -186,6 +186,6 @@ D:\GitHub\KaamShaam\KaamShaam\bin\Microsoft.Owin.Security.OAuth.xml
 D:\GitHub\KaamShaam\KaamShaam\bin\Microsoft.Owin.Security.Google.xml
 D:\GitHub\KaamShaam\KaamShaam\bin\Microsoft.Owin.Security.Twitter.xml
 D:\GitHub\KaamShaam\KaamShaam\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-D:\GitHub\KaamShaam\KaamShaam\obj\Debug\KaamShaam.csprojResolveAssemblyReference.cache
 D:\GitHub\KaamShaam\KaamShaam\obj\Debug\KaamShaam.dll
 D:\GitHub\KaamShaam\KaamShaam\obj\Debug\KaamShaam.pdb
+D:\GitHub\KaamShaam\KaamShaam\obj\Debug\KaamShaam.csprojResolveAssemblyReference.cache

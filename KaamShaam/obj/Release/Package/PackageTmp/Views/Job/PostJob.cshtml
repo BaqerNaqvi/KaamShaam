@@ -476,6 +476,16 @@ Main End
             toastr.warning("Please select location");
             return false;
         }
+
+        if ($("#JobTitle").val() === '') {
+            toastr.warning("Please add title");
+            return false;
+        }
+
+        if ($("#Mobile").val() === '') {
+            toastr.warning("Please add mobile");
+            return false;
+        }
         $("#postjobform").submit();
     }
     function saveLoc() {

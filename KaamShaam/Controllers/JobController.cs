@@ -21,7 +21,7 @@ namespace KaamShaam.Controllers
             var page = new PaggingClass
             {
                 CurrentPage = 0,
-                ItemsPerPage = 2,
+                ItemsPerPage = 15,
                 TotalItems = allJobs.Count,
                 SortBy = "Date",
                 SortOrder = "Des"
@@ -153,7 +153,7 @@ namespace KaamShaam.Controllers
             var page = new PaggingClass
             {
                 CurrentPage = 0,
-                ItemsPerPage = 2,
+                ItemsPerPage = 15,
                 TotalItems = jobs.Count,
                 SortBy = "Date",
                 SortOrder = "Des"
@@ -286,7 +286,7 @@ namespace KaamShaam.Controllers
             var page = new PaggingClass
             {
                 CurrentPage = 0,
-                ItemsPerPage = 2,
+                ItemsPerPage = 15,
                 TotalItems = jobs.Count,
                 SortBy = "Date",
                 SortOrder = "Des"
@@ -374,7 +374,7 @@ namespace KaamShaam.Controllers
             var page = new PaggingClass
             {
                 CurrentPage = 0,
-                ItemsPerPage = 2,
+                ItemsPerPage = 15,
                 TotalItems = jobs.Count,
                 SortBy = "Date",
                 SortOrder = "Des"
@@ -462,7 +462,7 @@ namespace KaamShaam.Controllers
             var page = new PaggingClass
             {
                 CurrentPage = 0,
-                ItemsPerPage = 2,
+                ItemsPerPage = 15,
                 TotalItems = jobs.Count,
                 SortBy = "Date",
                 SortOrder = "Des"
@@ -508,7 +508,7 @@ namespace KaamShaam.Controllers
             var page = new PaggingClass
             {
                 CurrentPage = 0,
-                ItemsPerPage = 2,
+                ItemsPerPage = 15,
                 TotalItems = jobs.Count,
                 SortBy = "Date",
                 SortOrder = "Des"
@@ -590,10 +590,14 @@ namespace KaamShaam.Controllers
             {
                 jobs = jobs.Where(j => j.CategoryId == page.CategoryId).ToList();
             }
+
+            // i did it
+
             page.TotalItems = jobs.Count;
             if (page.SortBy == "Title")
             {
-                jobs = page.SortOrder == "Des" ? jobs.OrderByDescending(o => o.JobTitle).ToList() : jobs.OrderBy(o => o.JobTitle).ToList();
+               // jobs = page.SortOrder == "Des" ? jobs.OrderByDescending(o => o.JobTitle).ToList() : jobs.OrderBy(o => o.JobTitle).ToList();
+               jobs= jobs.OrderBy(o => o.JobTitle).ToList();
             }
             else if (page.SortBy == "Category")
             {

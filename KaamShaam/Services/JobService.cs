@@ -109,6 +109,10 @@ namespace KaamShaam.Services
                 var dbObj = dbcontext.Jobs.FirstOrDefault(j => j.Id == job.Id);
                 if (dbObj != null)
                 {
+                    var postedByUser = dbObj.AspNetUser;
+                    KaamShaam.Services.EmailService.SendEmail(postedByUser.Email, "Job Status Changed - KamSham.Pk", postedByUser.FullName + " We noticed some changes in your job '" + dbObj.JobTitle + "'. Please review your jobs.");
+
+
                     if (loggedInUserid == dbObj.PostedById)
                     {
                         dbObj.UserStstus = !dbObj.UserStstus;
@@ -176,6 +180,11 @@ namespace KaamShaam.Services
                         JobStatus = (int)KaamShaam.Commons.Enums.JobHistoryStatus.Applying,
                     });
                     dbcontext.SaveChanges();
+
+                    var jobobj = JobService.GetJobById(job.JobId);
+                    var posterUser = UserServices.GetUserById(job.PostedById);
+                    KaamShaam.Services.EmailService.SendEmail(posterUser.Email, "Job Activity","There is a new job proposal on your job '"+jobobj.JobTitle+"'. Visit https://kamsham.pk");
+
                 }
                 catch (Exception dfdf)
                 {
@@ -299,6 +308,10 @@ namespace KaamShaam.Services
                         }
                         dbcontext.SaveChanges();
                     }
+
+                    var conractUser = UserServices.GetUserById(contractorId);
+                    KaamShaam.Services.EmailService.SendEmail(conractUser.Email, "Job Assignment", "You have been assigned a new job '" + dbjob.JobTitle + "'. Visit https://kamsham.pk");
+
                 }
                 catch (Exception dfdf)
                 {
