@@ -106,7 +106,7 @@
                                 </li>
                                 <li>
                                     <i class="lnr lnr-phone-handset"></i>
-                                    <span>+92 3084449991</span>
+                                    <span>+92 3214458064</span>
                                 </li>
                             </ul>
                             <div class="tg-themedropdown tg-languagesdropdown">
@@ -122,12 +122,12 @@
                                             <span>eng</span>
                                         </a>
                                     </li>
-                                    <li>
+                                    @*<li>
                                         <a href="#">
                                             <em><img src="~/Images/flags/img-04.jpg" alt="image description"></em>
                                             <span>urdu</span>
                                         </a>
-                                    </li>
+                                    </li>*@
                                 </ul>
                             </div>
                             @{
@@ -336,6 +336,7 @@
                                         <ul>
                                             <li><a href="@baseUrl/Home/Index">Home</a></li>
                                             <li><a href="@baseUrl/Home/About">About Us</a></li>
+                                            @*<li><a href="@baseUrl/Home/About">Blog</a></li>*@
                                             @*<li><a href="#">How It Works</a></li>*@
                                             @if (Request.IsAuthenticated && (User.IsInRole("User") || User.IsInRole("Contractor")))
                                             {
@@ -381,15 +382,16 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <!--18 December 2017 Changes by Usama Ikram-->
                         <ul class="tg-features">
                             <li>
                                 <div class="tg-feature">
                                     <span class="tg-featureicon">
-                                        <i class="lnr lnr-diamond"></i>
+                                        <i class="lnr lnr-screen"></i>
                                     </span>
                                     <div class="tg-featurecontent">
-                                        <h3>Best Sevices Award</h3>
-                                        <span>Earned best service award in 2016</span>
+                                        <h3>Online Portal</h3>
+                                        <span>Technicians can provide services on weekdays, weekends and during the odd hours</span>
                                     </div>
                                 </div>
                             </li>
@@ -399,23 +401,24 @@
                                         <i class="lnr lnr-users"></i>
                                     </span>
                                     <div class="tg-featurecontent">
-                                        <h3>Verified Service Providers</h3>
-                                        <span>More than 35000 service providers</span>
+                                        <h3>Verified Technicians</h3>
+                                        <span>Taken an extra step and verified their background and skills</span>
                                     </div>
                                 </div>
                             </li>
                             <li>
                                 <div class="tg-feature">
                                     <span class="tg-featureicon">
-                                        <i class="lnr lnr-diamond"></i>
+                                        <i class="lnr lnr-laptop-phone"></i>
                                     </span>
                                     <div class="tg-featurecontent">
                                         <h3>User Friendly Focused</h3>
-                                        <span>Given attention to rich user experience</span>
+                                        <span>Attention to detail for rich user experience</span>
                                     </div>
                                 </div>
                             </li>
                         </ul>
+                        <!--18 December 2017 Changes by Usama Ikram-->
                     </div>
                     <div class="tg-fourcolumns">
                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3">
@@ -467,11 +470,11 @@
                                             <a href="http://www.domainurl.com ">http://www.kaamshaam.pk</a>
                                             <time datetime="2016-08-08">2 hours ago</time>
                                         </li>
-                                        <li>
+                                        @*<li>
                                             <div class="tg-description"><p>Get Special Discount on Independence Day...</p></div>
                                             <a href="http://www.domainurl.com ">http://www.kaamshaam.pk</a>
                                             <time datetime="2016-08-08">3 hours ago</time>
-                                        </li>
+                                        </li>*@
                                         @*<li><a class="tg-btn tg-btnviewall" href="https://twitter.com">view all</a></li>*@
                                     </ul>
                                 </div>
@@ -484,12 +487,13 @@
                                 </div>
                                 <div class="tg-widgetcontent">
                                     <ul>
-                                        <li><a href="#">News</a></li>
-                                        <li><a href="#">Carriers</a></li>
+                                        <li><a href="~/Job/findJobs">Find Jobs</a></li>
+                                        <li><a href="~/Contractor/FindContractor">Hire Contractors</a></li>
+                                        @*<li><a href="#">Carriers</a></li>
                                         <li><a href="#">Gallery</a></li>
                                         <li><a href="#">KaamShaam Org</a></li>
                                         <li><a href="#">Press Releases</a></li>
-                                        <li><a href="#">Summit 2016</a></li>
+                                        <li><a href="#">Summit 2016</a></li>*@
 
                                     </ul>
                                 </div>
@@ -503,18 +507,18 @@
                                         <h3>Let Us Know</h3>
                                     </div>
                                     <div class="tg-widgetcontent">
-                                            <h5 style="color: #aaa;">Over All Experience</h5>
-                                            <select id="feedbackDd" style="background-color: #3c3c3c; color: white;">
-                                                <option value="Amazing Experience">Amazing Experience</option>
-                                                <option value="Great People, Great Experience">Great People, Great Experience</option>
-                                                <option value="Satisfactory Services">Satisfactory Services</option>
-                                                <option value="Need Improvements">Need Improvements</option>
-                                                <option value="Complaint">Complaint</option>
+                                        <h5 style="color: #aaa;">Over All Experience</h5>
+                                        <select id="feedbackDd" style="background-color: #3c3c3c; color: white;">
+                                            <option value="Amazing Experience">Amazing Experience</option>
+                                            <option value="Great People, Great Experience">Great People, Great Experience</option>
+                                            <option value="Satisfactory Services">Satisfactory Services</option>
+                                            <option value="Need Improvements">Need Improvements</option>
+                                            <option value="Complaint">Complaint</option>
 
 
-                                            </select>
-                                            <textarea id="feedbackDsc"style="background-color: #3c3c3c; color: white; height: 165px; width: 263px; margin-top: 9px" cols="20" rows="50"></textarea>
-                                        <button onclick=" sendFeedback() " class="btn btn-primary"style="background-color: #3c3c3c; color: white; margin-top: 9px" id="feedBtn">SEND FEEDBACK</button>
+                                        </select>
+                                        <textarea id="feedbackDsc" style="background-color: #3c3c3c; color: white; height: 165px; width: 263px; margin-top: 9px" cols="20" rows="50"></textarea>
+                                        <button onclick="sendFeedback()" class="btn btn-primary" style="background-color: #3c3c3c; color: white; margin-top: 9px" id="feedBtn">SEND FEEDBACK</button>
 
                                     </div>
                                 }
@@ -573,7 +577,7 @@
                                             @*<li><a href="javascript:void(0);">view all</a></li>*@
                                         </ul>
                                     </div>
-                                }
+                                                    }
                             </div>
                         </div>
                     </div>

@@ -29,7 +29,7 @@
                     </li>
                 </ol>
                 <div>
-                    <button id="tempo" class="btn btn-primary" style="margin-bottom: 9px;float: right;" data-toggle="modal" data-target="#addAdmin" onclick="addNewAdmin()">Add New Admin</button>
+                    @*<button id="tempo" class="btn btn-primary" style="margin-bottom: 9px;float: right;" data-toggle="modal" data-target="#addAdmin" onclick="addNewAdmin()">Add New Admin</button>*@
                 </div>
             </div>
         </div>
@@ -186,7 +186,7 @@
     function FindUser() {
         var email = $('#NewuserEmail').val();
         if (email === "" || email == undefined) {
-            toastr.warning("Please search person by email first");
+            toastr.error("Please search person by email first");
             return;
         }
         $("#adminLoading").show();
@@ -223,7 +223,7 @@
         var adminType = $('#adminTypeDd').val();
         var userId = $('#NewuserEmail').data('userId');
         if (userId === "" || userId == undefined) {
-            toastr.warning("Please search person by email first");
+            toastr.error("Please search person by email first");
             return;
         }
 

@@ -655,8 +655,8 @@
           <Property Name="VistedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="VistedOf" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="AspNetUser" Relationship="KaamShaamModel.FK_ProfileVisits_AspNetUsers" FromRole="ProfileVisit" ToRole="AspNetUser" />
-          <NavigationProperty Name="AspNetUser1" Relationship="KaamShaamModel.FK_ProfileVisits_AspNetUsers1" FromRole="ProfileVisit" ToRole="AspNetUser" />
+          <NavigationProperty Name="Vistor" Relationship="KaamShaamModel.FK_ProfileVisits_AspNetUsers" FromRole="ProfileVisit" ToRole="AspNetUser" />
+          <NavigationProperty Name="Owner" Relationship="KaamShaamModel.FK_ProfileVisits_AspNetUsers1" FromRole="ProfileVisit" ToRole="AspNetUser" />
         </EntityType>
         <EntityType Name="UserRating">
           <Key>

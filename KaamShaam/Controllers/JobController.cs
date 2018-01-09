@@ -135,7 +135,7 @@ namespace KaamShaam.Controllers
                     var id = System.Web.HttpContext.Current.User.Identity.GetUserId();
                     model.PostedById = id;
                 }
-                model.Email = "NA";
+                model.Email = " ";
                 JobService.AddJob(model);
             }
             return RedirectToAction("ManageJobs", "Job");

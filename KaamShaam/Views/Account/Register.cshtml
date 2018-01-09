@@ -142,11 +142,11 @@
                                         <div class="form-group" style="margin-left: 32px; margin-bottom: 0px;">
                                             <div class="tg-checkbox" style="margin-top: -28px;">
                                                 <input type="checkbox" id="terms">
-                                                <label for="terms">I have read the <a href="#">Terms &amp; Conditions</a> and accept them</label>
+                                                <label for="terms">I have read the <a href="~/Home/TermsAndCondition">Terms &amp; Conditions</a> and accept them</label>
                                             </div>
                                         </div>
                                        
-                                        <button class="tg-btn" style="" type="button" onclick="submitRegis()">Register Now</button>
+                                        <button class="tg-btn" style="" id="regNow" type="button" onclick="submitRegis()">Register Now</button>
                                         @Html.ValidationSummary("", new {@class = "text-danger"})
 
 
@@ -172,7 +172,7 @@
                                         @Html.PasswordFor(m => m.LoginViewModel.Password, new {name = "Password", @class = "form-control", @placeholder = "Password"})
                                     </div>
                                     <div class="form-group">
-                                        <button class="tg-btn tg-btn-lg" type="button" onclick="submitLogin()">Login Now</button>
+                                        <button class="tg-btn tg-btn-lg" id="loginBtn"type="button" onclick="submitLogin()">Login Now</button>
                                     </div>
                                 }
                                 @*<a style="cursor: pointer" class="tg-btnforgotpass" onclick="passforgot()">Forgot your password?</a>*@
@@ -505,9 +505,12 @@ Main End
             toastr.error("Password & Confirm-Password length should be greater than 5 ");
             return false;
         }
-
+        $("#regNow").text("Loading...");
         $("#userRegistration").submit();
     };
+
+    $("#loginBtn").text("Login Now");
+    $("#regNow").text("Register Now");
 
     function submitLogin() {
         if ($('#LoginViewModel_Email').val() == "") {
@@ -519,6 +522,8 @@ Main End
             toastr.error("Please enter Password");
             return false;
         }
+
+        $("#loginBtn").text("Loading...");
 
         $("#userloginForm").submit();
     }

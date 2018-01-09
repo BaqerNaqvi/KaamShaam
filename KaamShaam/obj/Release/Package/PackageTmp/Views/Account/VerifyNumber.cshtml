@@ -1,0 +1,108 @@
+﻿@model KaamShaam.Models.VarifyNumberModel
+@{
+    ViewBag.Title = "Welcome";
+
+}
+
+
+<!--************************************
+        Inner Page Banner Start
+*************************************-->
+<!--************************************
+        Inner Page Banner End
+*************************************-->
+<!--************************************
+        Main Start
+*************************************-->
+<main id="tg-main" class="tg-main tg-paddingzero tg-haslayout" style="">
+    <!--************************************
+    Login Register Start
+    *************************************-->
+    <div class="tg-main-section tg-haslayout">
+        <div class="container">
+            <div class="row">
+                <div id="tg-content" class="tg-content">
+                    <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
+                    </div>
+                    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+                        <div class="tg-loginarea">
+                            <div class="tg-bordertitle">
+                                <a href="~/home/index"><img src="~/Images/logo.png" style="height: 113px"/></a>
+                                <h3 style="">You need to verify your number before we proceed any further. 
+                                Verification code has been sent to your number @Model.Phone. Please verify. </h3>
+
+                                <input class="form-control" id="code" style="width: 40%; margin-left: 2%; margin-top: 10px;" type="text"/>
+                               <input onclick="varifyNumber()" style="margin-left: 10px;margin-top: 10px;width: 12%;" type="button" class="form-control btn btn-primary" value="Verify"/>
+
+                                <a href="#" onclick=" resendCode() " style="display: inherit; margin-left: 17px; margin-top: 8px;">Re-send code</a>
+                                <p style="margin-left: 17px; ">* If you are not receiving the verification code then call us on 03214458064 between 9:00 AM to 6:00PM or send us a SMS with your name, CNIC and e-mail.</p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--************************************
+    Login Register End
+    *************************************-->
+</main>
+
+<script src="~/Scripts/vendor/jquery-library.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#tg-header').hide();
+        $('#tg-footer').hide();
+    });
+
+    var model = @Html.Raw(Json.Encode(Model));
+
+
+    function varifyNumber() {
+        var code = $('#code').val();
+        if (code === "" || code === undefined) {
+            toastr.error("Please enter code");
+            return;
+        }
+
+        model.Code = code;
+
+        $.ajax({
+            url: 'VerifyNumberAjax',
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify(model),
+            success: function (data) {
+                if (data === null || data === undefined || !data.status) {
+                    toastr.error(data.message);
+                    return;  
+                }
+
+                toastr.success("Phone number varified. Please log in");
+                window.location.href = "../Account/Login";;
+            },
+            error: function(data) {
+                toastr.error("Something bad happended");
+            }
+        });
+    }
+
+    function resendCode (){
+        $.ajax({
+            url: 'ReGeneratePhoneCode',
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify(model),
+            success: function (data) {
+                toastr.success("Varification code has been sent.");
+            },
+            error: function(data) {
+                toastr.error("Something bad happended");
+            }
+        });
+    }
+</script>

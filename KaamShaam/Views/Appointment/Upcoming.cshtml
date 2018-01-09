@@ -32,7 +32,7 @@ Inner Page Banner Start
                     <h1>Appointments</h1>
                 </div>
                 <ol class="tg-breadcrumb">
-                    <li><a href="#">Home</a></li>
+                    <li><a href="~/home/index">Home</a></li>
                     <li class="tg-active">Appointments</li>
                 </ol>
             </div>
@@ -199,7 +199,7 @@ Inner Page Banner Start
         var text = $('#eventTitle').val();
         var dobj = $("#datetimepicker1").find("input").val();
         if (text === "" || dobj === "") {
-            toastr.warning("Enter mandatory data");
+            toastr.error("Enter mandatory data");
             return false;
         }
         $('#adminLoading').show();

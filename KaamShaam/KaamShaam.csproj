@@ -332,11 +332,13 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\JobFeeModel.cs" />
     <Compile Include="Models\JobPartialPageModel.cs" />
+    <Compile Include="Models\JobProposalModel.cs" />
     <Compile Include="Models\JobRequestModel.cs" />
     <Compile Include="Models\ManageJobModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\CustomJobModel.cs" />
     <Compile Include="Models\PaggingClass.cs" />
+    <Compile Include="Models\VarifyNumberModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AdminServices\AdminService.cs" />
     <Compile Include="Services\AppointmentService.cs" />
@@ -363,6 +365,24 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\jquery.countdown.css" />
+    <Content Include="Content\KamshamFlexSlider\css\style.css" />
+    <Content Include="Content\KamshamFlexSlider\img\001.jpg" />
+    <Content Include="Content\KamshamFlexSlider\img\002.jpg" />
+    <Content Include="Content\KamshamFlexSlider\img\003.jpg" />
+    <Content Include="Content\KamshamFlexSlider\img\004.jpg" />
+    <Content Include="Content\KamshamFlexSlider\img\005.jpg" />
+    <Content Include="Content\KamshamFlexSlider\img\006.jpg" />
+    <Content Include="Content\KamshamFlexSlider\img\007.jpg" />
+    <Content Include="Content\KamshamFlexSlider\img\008.jpg" />
+    <Content Include="Content\KamshamFlexSlider\img\009.jpg" />
+    <Content Include="Content\KamshamFlexSlider\img\010.jpg" />
+    <Content Include="Content\KamshamFlexSlider\img\icon_chrome.png" />
+    <Content Include="Content\KamshamFlexSlider\img\shutterstock_390171571.jpg" />
+    <Content Include="Content\KamshamFlexSlider\img\shutterstock_744955711.jpg" />
+    <Content Include="Content\KamshamFlexSlider\img\shutterstock_748701859.jpg" />
+    <Content Include="Content\KamshamFlexSlider\img\spin.svg" />
+    <Content Include="Content\KamshamFlexSlider\img\t1.jpg" />
+    <Content Include="Content\KamshamFlexSlider\js\jssor.slider-26.7.0.min.js" />
     <Content Include="Content\linearicons.css" />
     <Content Include="Content\main.css" />
     <Content Include="Content\morris.css" />
@@ -679,10 +699,6 @@
     <Content Include="Images\prettyPhoto\light_square\default_thumbnail.gif" />
     <Content Include="Images\prettyPhoto\light_square\loader.gif" />
     <Content Include="Images\prettyPhoto\light_square\sprite.png" />
-    <Content Include="Images\Profiles\5d56d50d-d8ac-4e7b-a459-a1802ac30cc2_110.png" />
-    <Content Include="Images\Profiles\5d56d50d-d8ac-4e7b-a459-a1802ac30cc2_35.png" />
-    <Content Include="Images\Profiles\b2967b25-5aa5-48a8-bb06-574cc2596b2f_110.png" />
-    <Content Include="Images\Profiles\b2967b25-5aa5-48a8-bb06-574cc2596b2f_35.png" />
     <Content Include="Images\serviceproviders\img-01.jpg" />
     <Content Include="Images\serviceproviders\img-02.jpg" />
     <Content Include="Images\serviceproviders\img-03.jpg" />
@@ -1046,6 +1062,7 @@
     <Folder Include="Images\Banners\" />
     <Folder Include="Images\NewCatsIcons\" />
     <Folder Include="Images\NewCatsImages\" />
+    <Folder Include="Images\Profiles\" />
     <Folder Include="Views\Aappointment\" />
     <Folder Include="Views\GeneralAdmin\" />
     <Folder Include="Views\UserApi\" />
@@ -1261,6 +1278,9 @@
     <Content Include="Scripts\rating.min.js" />
     <None Include="Properties\PublishProfiles\KamSham New.pubxml" />
     <Content Include="Views\ProfileVisitor\UserReviews.cshtml" />
+    <Content Include="Views\Account\Oops.cshtml" />
+    <Content Include="Views\Account\NotFound.cshtml" />
+    <Content Include="Views\Account\VerifyNumber.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

@@ -37,8 +37,7 @@ Inner Page Banner Start
                             <h2>Get In Touch</h2>
                         </div>
                         <div class="tg-description">
-                            <p>Let visitors know you really want to hear from them and include a call to action to ‘Say Hello.’ This call to action is well suited to Hello Innovation since the word is in the name, but the company has gone that one step further by including ‘hi’ in the email address. Can you resist saying hello?</p>
-                        </div>
+                            <p>If you have any questions regarding the details of service providers or would like to discuss anything, you can contact us anytime by completing this form.</p>                        </div>
                     </div>
                 </div>
                 <div class="tg-contactusarea">
@@ -84,8 +83,11 @@ Inner Page Banner Start
         Main End
 *************************************-->
 <script src="~/Scripts/jquery-3.2.1.js"></script>
+<script src="~/Scripts/jquery-mask.min.js"></script>
+
 <script>
-   
+    $("#phoneNum").mask("0399-9999999");
+
 
     var isfeedsent = false;
     function sendContactForm() {

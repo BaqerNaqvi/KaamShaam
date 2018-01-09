@@ -49,7 +49,7 @@ namespace KaamShaam.Controllers
         [HttpPost]
         public JsonResult DeleteUser(AspNetUser obj)
         {
-           var resp= AdminService.DeleteUser(obj);
+           var resp= AdminService.DeleteUser(obj,"Technical issues.");
             return Json(resp, JsonRequestBehavior.AllowGet);
         }
     }

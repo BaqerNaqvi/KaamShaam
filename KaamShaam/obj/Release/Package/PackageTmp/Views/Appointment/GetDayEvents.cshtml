@@ -25,7 +25,7 @@
                     <h1>Appointments</h1>
                 </div>
                 <ol class="tg-breadcrumb">
-                    <li><a href="index.php">Home</a></li>
+                    <li><a href="~/home/index">Home</a></li>
                     <li class="tg-active">Appointments</li>
                 </ol>
             </div>
@@ -128,11 +128,11 @@
 
                 <!-- content goes here -->
                 <div class="form-group">
-                    <label> Title & Description *</label>
+                    <label> Title & Description <span style="color: red">*</span></label>
                     <input type="text" class="form-control editJobVal" id="eventTitle">
                 </div>
                 <div class="form-group">
-                    <label> Appointment Type *</label>
+                    <label> Appointment Type <span style="color: red">*</span></label>
                     <select id="appType" class="form-control">
                         <option value="General">General</option>
                         <option value="Business">Business</option>
@@ -141,7 +141,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Date/Time *</label>
+                    <label>Date/Time <span style="color: red">*</span></label>
                     <div class='input-group date' id='datetimepicker1'>
                         <input type='text' class="form-control" data-format="yyyy-MM-dd hh:mm:ss" onclick="calClickObj(true)"/>
                         <span class="input-group-addon" onclick="calClickObj(false)"id="tempoCal">
@@ -150,7 +150,7 @@
                     </div>
                 </div>
                 <div class="form-group" style="width: 92%;">
-                    <label>Appointment With *</label>
+                    <label>Appointment With </label>
                     <input type="text" id="appwith" class="typeahead tt-query" autocomplete="off" spellcheck="false">
                 </div>
             </div>
@@ -263,7 +263,7 @@
         var text = $('#eventTitle').val();
         var dobj = $("#datetimepicker1").find("input").val();
         if (text === "" || dobj === "") {
-            toastr.warning("Enter mandatory data marked with '*'");
+            toastr.error("Enter mandatory data marked with '*'");
             return false;
         }
         $('#adminLoading').show();

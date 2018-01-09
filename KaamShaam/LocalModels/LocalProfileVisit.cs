@@ -32,7 +32,7 @@ namespace KaamShaam.LocalModels
              //   Owner = source.Owner.MapUser(),
                VistedOf = source.VistedOf,
              //   Vistor = source.Vistor.MapUser()
-            // VisitorName = source.Vistor.FullName
+             VisitorName = source.Vistor?.FullName
             };
             return obj;
         }

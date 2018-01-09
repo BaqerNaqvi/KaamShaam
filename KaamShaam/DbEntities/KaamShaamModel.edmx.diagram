@@ -13,10 +13,10 @@
         <EntityTypeShape EntityType="KaamShaamModel.Banner" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="KaamShaamModel.Category" Width="1.5" PointX="4.75" PointY="0.75" />
         <EntityTypeShape EntityType="KaamShaamModel.FeedBack" Width="1.5" PointX="2.75" PointY="0.75" />
-        <EntityTypeShape EntityType="KaamShaamModel.JobHistory" Width="1.5" PointX="6.625" PointY="12.25" />
+        <EntityTypeShape EntityType="KaamShaamModel.JobHistory" Width="1.5" PointX="0.5" PointY="9.875" />
         <EntityTypeShape EntityType="KaamShaamModel.Job" Width="1.5" PointX="8.25" PointY="11.625" />
-        <EntityTypeShape EntityType="KaamShaamModel.ProfileVisit" Width="1.5" PointX="5.125" PointY="14.375" />
-        <EntityTypeShape EntityType="KaamShaamModel.UserRating" Width="1.5" PointX="5.125" PointY="16" />
+        <EntityTypeShape EntityType="KaamShaamModel.ProfileVisit" Width="1.5" PointX="5.75" PointY="16.75" />
+        <EntityTypeShape EntityType="KaamShaamModel.UserRating" Width="1.5" PointX="11.625" PointY="17.5" />
         <AssociationConnector Association="KaamShaamModel.FK_Appointment_AspNetUsers" />
         <AssociationConnector Association="KaamShaamModel.FK_Appointment_AspNetUsers1" />
         <AssociationConnector Association="KaamShaamModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />

@@ -5,8 +5,8 @@ Inner Page Banner Start
     string baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority +
                                    Request.ApplicationPath.TrimEnd('/');
 }
-@model List<KaamShaam.Models.AppointmentEventModel> 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css"/>
+@model List<KaamShaam.Models.AppointmentEventModel>
+<link href="~/Content/fullcalendar.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css"/>
 <style>
     .fc-day-grid-container {
@@ -20,7 +20,7 @@ Inner Page Banner Start
 }
 
     td.fc-day-top.fc-past {
-           padding-right: 7%; 
+           
     }
 </style>
 
@@ -32,7 +32,7 @@ Inner Page Banner Start
                     <h1>Appointments</h1>
                 </div>
                 <ol class="tg-breadcrumb">
-                    <li><a href="#">Home</a></li>
+                    <li><a href="~/home/index">Home</a></li>
                     <li class="tg-active">Appointments</li>
                 </ol>
             </div>
@@ -81,11 +81,11 @@ Inner Page Banner Start
 
                 <!-- content goes here -->
                 <div class="form-group">
-                    <label> Title & Description *</label>
+                    <label> Title & Description <span style="color: red">*</span></label>
                     <input type="text" class="form-control editJobVal" id="eventTitle">
                 </div>
                 <div class="form-group">
-                    <label> Appointment Type *</label>
+                    <label> Appointment Type <span style="color: red">*</span></label>
                     <select id="appType" class="form-control">
                         <option value="General">General</option>
                         <option value="Business">Business</option>
@@ -94,7 +94,7 @@ Inner Page Banner Start
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Date/Time *</label>
+                    <label>Date/Time <span style="color: red">*</span></label>
                     <div class='input-group date' id='datetimepicker1'>
                         <input type='text' class="form-control" data-format="yyyy-MM-dd hh:mm:ss" onclick="calClick(true)"/>
                         <span class="input-group-addon" onclick="calClick(false)"id="tempoCal1">
@@ -103,7 +103,7 @@ Inner Page Banner Start
                     </div>
                 </div>
                 <div class="form-group" style="width: 92%;">
-                    <label>Appointment With *</label>
+                    <label>Appointment With </label>
                     <input type="text" id="appwith" class="typeahead tt-query" autocomplete="off" spellcheck="false">
                 </div>
                 <img class="ajaxloader" id="adminLoading" src="~/Images/ajax-loader.gif" style="margin-top: 40px;margin-left: 14px;"/>
@@ -199,7 +199,7 @@ Inner Page Banner Start
         var text = $('#eventTitle').val();
         var dobj = $("#datetimepicker1").find("input").val();
         if (text === "" || dobj === "") {
-            toastr.warning("Enter mandatory data");
+            toastr.error("Enter mandatory data");
             return false;
         }
         $('#adminLoading').show();

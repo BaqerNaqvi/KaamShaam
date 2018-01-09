@@ -296,5 +296,111 @@ namespace KaamShaam.apis
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, response);
             }
         }
+
+        [HttpPost]
+        [Route("api/Job/Start")]
+        public HttpResponseMessage AcceptProposal(AcceptProposalApiModel model)
+        {
+            try
+            {
+                #region not mapped
+                if (model == null || string.IsNullOrEmpty(model.ContractorId) || model.JobId < 0.0)
+                {
+                    var response = new ApiResponseModel
+                    {
+                        Data = null,
+                        Message = "Data is not mapped",
+                        Success = false
+                    };
+                    return Request.CreateResponse(HttpStatusCode.InternalServerError, response);
+                }
+                #endregion
+                JobService.AcceptJobProposal(new CustomJobHistory
+                {
+                    JobId = model.JobId,
+                    PurposalText = "Api job started",
+                    ContractorId = model.ContractorId
+                }, model.ContractorId);
+
+                var res = new ApiResponseModel
+                {
+                    Data = model,
+                    Message = "Job Started.",
+                    Success = true
+                };
+                return Request.CreateResponse(HttpStatusCode.OK, res);
+            }
+            catch (Exception excep)
+            {
+                var response = new ApiResponseModel
+                {
+                    Data = null,
+                    Message = excep.InnerException.Message,
+                    Success = false
+                };
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, response);
+            }
+        }
+
+
+        [HttpPost]
+        [Route("api/Job/Close")]
+        public HttpResponseMessage CloseJob(CloseJobApiModel model)
+        {
+            try
+            {
+                #region not mapped
+                if (model == null || string.IsNullOrEmpty(model.Comments) || string.IsNullOrEmpty(model.RatedBy)
+                    || string.IsNullOrEmpty(model.RatedTo)
+                     || model.Rating < 0.0
+                    || model.JobId < 0.0)
+                {
+                    var response = new ApiResponseModel
+                    {
+                        Data = null,
+                        Message = "Data is not mapped",
+                        Success = false
+                    };
+                    return Request.CreateResponse(HttpStatusCode.InternalServerError, response);
+                }
+                #endregion
+
+                #region obj
+                var rating = new LocalUserRating
+                {
+                    DateTime = DateTime.Now,
+                    IsApproved = false,
+                    JobId = model.JobId,
+                    Comments = model.Comments,
+                    RatedBy = model.RatedBy,
+                    RatedTo = model.RatedTo,
+                    Rating = model.Rating
+                }; 
+                #endregion
+              
+                UserRatingService.AddRating(rating);
+                if (rating.JobId > 0)
+                {
+                    JobService.MarkJobDone(rating.JobId, rating.RatedTo);
+                }
+                var res = new ApiResponseModel
+                {
+                    Data = model,
+                    Message = "Job Closed.",
+                    Success = true
+                };
+                return Request.CreateResponse(HttpStatusCode.OK, res);
+            }
+            catch (Exception excep)
+            {
+                var response = new ApiResponseModel
+                {
+                    Data = null,
+                    Message = excep.InnerException.Message,
+                    Success = false
+                };
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, response);
+            }
+        }
     }
 }

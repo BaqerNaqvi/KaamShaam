@@ -41,18 +41,36 @@ Inner Page Banner Start
         Main Start
 *************************************-->
 <main id="tg-main" class="tg-main tg-haslayout">
-    <div class="container">
+    <div class="container" style="margin-left: 4%;width: 96%;">
         <div class="row">
             <div id="tg-twocolumns" class="tg-twocolumns">
 
-                @{ Html.RenderPartial("LeftMenu");}
-                <div class="col-xs-12 col-sm-7 col-md-8 col-lg-9">
+
+                 @{
+                     var tgConclass = "col-xs-12 col-sm-7 col-md-8 col-lg-9";
+                 }
+                @if (!Request.IsAuthenticated)
+                {
+                    tgConclass = "col-xs-12 col-sm-12 col-md-12 col-lg-12";
+                }
+                else
+                {
+                   // Html.RenderPartial("LeftMenu");
+                }
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <div id="tg-content" class="tg-content">
                         <div class="tg-joblisting tg-dashboardmanagejobs">
                             <div class="tg-dashboardhead">
                                 <div class="tg-dashboardtitle">
                                     <h2>Available Jobs</h2>
-                                </div>
+                                    <p style="padding: 2px; border: 1px solid black; color: red; border-radius: 5px;">Note: Please click any job to view details and apply</p>
+                                    @if (!Request.IsAuthenticated)
+                                    {
+                                        <p style="padding: 2px;border: 1px solid black;color: red;border-radius: 5px;">You need to login to apply on the jobs.</p>
+                                    }
+
+                              
+                                  </div>
                                 @*<a href="~/job/PostJob"><button class="tg-btnaddservices" data-toggle="modal" data-target=".tg-categoryModal">Post A New Job</button></a>*@
                             </div>
                             <div class="tg-sortfilters">
@@ -128,10 +146,10 @@ Inner Page Banner Start
                                             }
                                             var jobimg = baseUrl+"/Images/NewCatsIcons/" + item.CategoryId + ".png";
                                             <tr style="cursor: pointer;" data-toggle="modal" data-target="#updateJob" onclick="editJob(@Json.Encode(item))">
-                                                <td style="@cusStyle">
+                                                <td class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                                     <figure class="tg-companylogo">
                                                         <img src="@jobimg" alt="image description">
-                                                        <a class="tg-btndel" href="#"><i class="fa fa-close"></i></a>
+                                                        <a class="tg-btndel" href="#"></a>
 
                                                     </figure>
                                                     <div class="tg-contentbox">
@@ -140,11 +158,17 @@ Inner Page Banner Start
                                                             <h3>
                                                                 <a href="#">@item.CatName Required</a> <span class="@isAppliedClass">@iApplied</span>                                                            </h3>
                                                         </div>
-                                                        <span style="width: 100%">@item.JobTitle</span>
+                                                        <p style="display: inline-block; text-align: left; float: left">@item.JobTitle </p>
+                                                       @{
+                                                           if (item.IsApproved)
+                                                           {
+                                                            <a style='background-color: #ff7a36; color: white; margin-left: 10px;' class="tg-tag tg-featuredtag" href="#">Approved</a>
+                                                           }
+                                                    }
                                                     </div>
                                                 </td>
-                                                <td style="line-height: 12px; padding-top: 29px;"><span>@item.LocationName</span></td>
-                                                <td style="line-height: 18px; padding-top: 27px;">
+                                                <td class="col-xs-3 col-sm-3 col-md-3 col-lg-3"><p>@item.LocationName</p></td>
+                                                <td class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                                                     @if (User.IsInRole("Contractor"))
                                                     {
                                                         <span>@item.Mobile</span>
@@ -157,7 +181,7 @@ Inner Page Banner Start
                                                     }
                                                     <span>@item.Email</span>
                                                 </td>
-                                                <td><span>Rs. @item.Fee</span></td>
+                                                <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1"><span>Rs. @item.Fee</span></td>
                                             </tr>
                                         }
                                     }
@@ -236,7 +260,8 @@ Inner Page Banner Start
                 <div class="modal-footer">
                     <div class="btn-group btn-group-justified" role="group" aria-label="group button">
                         <div class="btn-group" role="group">
-                            <button type="button" id="save-Basic-info-btn"  @attr class="btn btn-primary btn-hover-green" data-action="save" role="button" onclick="applyJob()">Apply</button>
+                            <button type="button" id="save-Basic-info-btn" @attr class="btn btn-primary btn-hover-green" data-action="save" role="button" onclick=" applyJob() ">Apply</button>
+
                         </div>
                     </div>
                 </div>

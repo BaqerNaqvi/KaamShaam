@@ -147,7 +147,7 @@
     function rejectApproval() {
         var fVal = $('#jobRejFeedback').val();
         if (fVal === "") {
-            toastr.warning("Feedback can not be empty");
+            toastr.error("Feedback can not be empty");
             return false;
         }
         sendResponse(fVal, false);

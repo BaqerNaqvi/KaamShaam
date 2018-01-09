@@ -186,7 +186,7 @@
     function FindUser() {
         var email = $('#NewuserEmail').val();
         if (email === "" || email == undefined) {
-            toastr.warning("Please search person by email first");
+            toastr.error("Please search person by email first");
             return;
         }
         $("#adminLoading").show();
@@ -223,7 +223,7 @@
         var adminType = $('#adminTypeDd').val();
         var userId = $('#NewuserEmail').data('userId');
         if (userId === "" || userId == undefined) {
-            toastr.warning("Please search person by email first");
+            toastr.error("Please search person by email first");
             return;
         }
 

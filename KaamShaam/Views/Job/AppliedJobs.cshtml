@@ -24,11 +24,11 @@ Inner Page Banner Start
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <div class="tg-pagetitle">
-                    <h1>Find Jobs</h1>
+                    <h1>Applied Jobs</h1>
                 </div>
                 <ol class="tg-breadcrumb">
                     <li><a href="#">Home</a></li>
-                    <li class="tg-active">Available Jobs</li>
+                    <li class="tg-active">Applied Jobs</li>
                 </ol>
             </div>
         </div>
@@ -51,7 +51,7 @@ Inner Page Banner Start
                         <div class="tg-joblisting tg-dashboardmanagejobs">
                             <div class="tg-dashboardhead">
                                 <div class="tg-dashboardtitle">
-                                    <h2>Available Jobs</h2>
+                                    <h2>Applied Jobs</h2>
                                 </div>
                                 @*<a href="~/job/PostJob"><button class="tg-btnaddservices" data-toggle="modal" data-target=".tg-categoryModal">Post A New Job</button></a>*@
                             </div>
@@ -105,7 +105,7 @@ Inner Page Banner Start
                                     @{
                                         foreach (var item in Model.JobsList)
                                         {
-                                            var cusStyle = "";
+                                            var cusStyle = "    width: 50%;";
                                             var iApplied = "";
                                             var isAppliedClass = "";
 
@@ -132,10 +132,10 @@ Inner Page Banner Start
                                                                 <a href="#">@item.CatName Required</a> <span class="@isAppliedClass">@iApplied</span>
                                                             </h3>
                                                         </div>
-                                                        <span>@item.JobTitle</span>
+                                                        <p style="display: inline-block; text-align: left; float: left">@item.JobTitle </p>
                                                     </div>
                                                 </td>
-                                                <td style="line-height: 12px; padding-top: 29px;"><span>@item.LocationName</span></td>
+                                                <td style="line-height: 12px; padding-top: 29px;"><p>@item.LocationName</p></td>
                                                 <td style="line-height: 18px; padding-top: 27px;">
                                                     <span>@item.Mobile</span>
                                                     <span>@item.Email</span>

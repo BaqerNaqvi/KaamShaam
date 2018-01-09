@@ -140,12 +140,14 @@
         $('#uemail').val(obj.Email);
         $('#uphone').val(obj.Mobile);
         $('#uaddress').val(obj.LocationName);
+
+        $('#jobRejFeedback').val(obj.Feedback);
         objtoedit = obj;
     }
     function rejectApproval() {
         var fVal = $('#jobRejFeedback').val();
         if (fVal === "") {
-            toastr.warning("Feedback can not be empty");
+            toastr.error("Feedback can not be empty");
             return false;
         }
         sendResponse(fVal, false);

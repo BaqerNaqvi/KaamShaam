@@ -117,7 +117,7 @@ namespace KaamShaam.AdminModels
                 CategoryId = source.CategoryId??0,
                 RoleName = roleName?? "(Not Provided)",
                 IsApproved = (bool) source.IsApproved,
-                Feedback = source.Feedback?? "(Not Provided)",
+                Feedback = source.Feedback?? " - ",
                 LocationName= source.LocationName?? "(Not Provided)",
                 lat = (source.LocationCord.Latitude).ToString(),
                 lng = (source.LocationCord.Longitude).ToString(),

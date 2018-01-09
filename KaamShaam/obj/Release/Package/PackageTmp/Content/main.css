@@ -391,6 +391,16 @@ table {
 	margin-bottom: 15px;
 	width: 100%;
 }
+.tg-bglight .tg-sectiontitle:after{background: #f7f7f7;}
+.tg-sectiontitle h2 {
+    margin: 0;
+    font-size: 26px;
+    font-weight: 400;
+    line-height: 30px;
+    color: #093d60;
+}
+
+
 table > thead > tr > th,
 table > tbody > tr > th,
 table > tfoot > tr > th,
@@ -5945,7 +5955,7 @@ blockquote q span{
 /*==============================================
 			Dashboard manage Jobs Style			
 ==============================================*/
-.tg-dashboardmanagejobs .tg-tablejoblidting tr td{padding:30px 13px;}
+.tg-dashboardmanagejobs .tg-tablejoblidting tr td{padding:15px 13px;}
 .tg-tablejoblidting .tg-companylogo .tg-btndel{
 	top:0;
 	left:0;

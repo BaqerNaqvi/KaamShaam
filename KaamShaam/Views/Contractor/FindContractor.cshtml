@@ -185,7 +185,7 @@
                                 </li>
                                 <li>
                                     <i class="lnr lnr-phone-handset"></i>
-                                    <span>+92 3084449991</span>
+                                    <span>+92 3214458064</span>
                                 </li>
                             </ul>
                             <div class="tg-themedropdown tg-languagesdropdown">
@@ -647,7 +647,7 @@
                                                                     <li><a class="tg-tag tg-verifiedtag" >verified</a></li>
                                                                 </ul>
                                                                 <div class="tg-title">
-                                                                    <h3><a href="">@item.title</a></h3>
+                                                                    <h3><a href="~/Contractor/ViewProfile?userId=@item.id">@item.title</a></h3>
                                                                 </div>
                                                                 <ul class="tg-matadata">
                                                                     <li><span class="tg-stars"><span></span></span></li>
@@ -663,7 +663,7 @@
 
 
                                                                 </div>
-                                                                <button style="margin-top: 4px;margin-left: 0px !important;" class="tg-btn btn-margin-left"><a href="~/Contractor/ViewProfile?userId=@item.id">View Profile</a></button>
+                                                                <a style="margin-top: 4px;margin-left: 0px !important;" class="tg-btn btn-margin-left" href="~/Contractor/ViewProfile?userId=@item.id">View Profile</a>
                                                                 @*<button class="tg-btn" type="buttton" data-toggle="modal" data-target=".tg-appointmentModal">Contact</button>*@
                                                                 <button style="margin-top: 4px;" class="tg-btn btn-margin-left" onclick="showOpps(@Json.Encode(item.id))">Hire</button>
 
@@ -904,7 +904,7 @@
         
         function saveLoc() {
             if (selectedLoc == undefined) {
-                toastr.warning("Please select location");
+                toastr.error("Please select location");
             } else {
                 $('#addressmodel').modal('hide');
                 $('#locationCord').val((selectedLoc.lat + "_" + selectedLoc.lng));
@@ -975,7 +975,7 @@
                                     </li>
                                     <li>
                                         <i class="lnr lnr-phone-handset"></i>
-                                        <span>+92 30844991</span>
+                                        <span>+92 3214458064</span>
                                     </li>
                                     <li>
                                         <i class="lnr lnr-envelope"></i>
@@ -1260,6 +1260,7 @@
 
     function showOpps(id) {
         $("#op_"+id).fadeIn("slow");
+        toastr.success("Please cotact this contractor to apply on your job if you want to hire.");
         postVisit(id);
     }
 

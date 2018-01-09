@@ -9,6 +9,7 @@ Header End
 }
 <head>
     <title>Home</title>
+    <link href="~/fonts/css/font-awesome.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/Scripts/masterslider/style/masterslider.css" />
     <style>
         #masterslider {
@@ -62,29 +63,218 @@ Header End
 
         .jobDiv {
             border-style: outset !important;
-             border-radius: 10px !important;
+            border-radius: 10px !important;
             border-width: 2px !important;
             padding: 12px;
             box-shadow: 3px 3px 0px #888888;
         }
     </style>
+    <link href="~/Content/KamshamFlexSlider/css/style.css" rel="stylesheet" />
+    <script src="~/Content/KamshamFlexSlider/js/jssor.slider-26.7.0.min.js"></script>
+    <script type="text/javascript">
+        jssor_1_slider_init = function () {
+
+            var jssor_1_SlideoTransitions = [
+                [{ b: 0, d: 600, y: -290, e: { y: 27 } }],
+                [{ b: 0, d: 1000, y: 185 }, { b: 1000, d: 500, o: -1 }, { b: 1500, d: 500, o: 1 }, { b: 2000, d: 1500, r: 360 }, { b: 3500, d: 1000, rX: 30 }, { b: 4500, d: 500, rX: -30 }, { b: 5000, d: 1000, rY: 30 }, { b: 6000, d: 500, rY: -30 }, { b: 6500, d: 500, sX: 1 }, { b: 7000, d: 500, sX: -1 }, { b: 7500, d: 500, sY: 1 }, { b: 8000, d: 500, sY: -1 }, { b: 8500, d: 500, kX: 30 }, { b: 9000, d: 500, kX: -30 }, { b: 9500, d: 500, kY: 30 }, { b: 10000, d: 500, kY: -30 }, { b: 10500, d: 500, c: { x: 125.00, t: -125.00 } }, { b: 11000, d: 500, c: { x: -125.00, t: 125.00 } }],
+                [{ b: 0, d: 600, x: 535, e: { x: 27 } }],
+                [{ b: -1, d: 1, o: -1 }, { b: 0, d: 600, o: 1, e: { o: 5 } }],
+                [{ b: -1, d: 1, c: { x: 250.0, t: -250.0 } }, { b: 0, d: 800, c: { x: -250.0, t: 250.0 }, e: { c: { x: 7, t: 7 } } }],
+                [{ b: -1, d: 1, o: -1 }, { b: 0, d: 600, x: -570, o: 1, e: { x: 6 } }],
+                [{ b: -1, d: 1, o: -1, r: -180 }, { b: 0, d: 800, o: 1, r: 180, e: { r: 7 } }],
+                [{ b: 0, d: 1000, y: 80, e: { y: 24 } }, { b: 1000, d: 1100, x: 570, y: 170, o: -1, r: 30, sX: 9, sY: 9, e: { x: 2, y: 6, r: 1, sX: 5, sY: 5 } }],
+                [{ b: 2000, d: 600, rY: 30 }],
+                [{ b: 0, d: 500, x: -105 }, { b: 500, d: 500, x: 230 }, { b: 1000, d: 500, y: -120 }, { b: 1500, d: 500, x: -70, y: 120 }, { b: 2600, d: 500, y: -80 }, { b: 3100, d: 900, y: 160, e: { y: 24 } }],
+                [{ b: 0, d: 1000, o: -0.4, rX: 2, rY: 1 }, { b: 1000, d: 1000, rY: 1 }, { b: 2000, d: 1000, rX: -1 }, { b: 3000, d: 1000, rY: -1 }, { b: 4000, d: 1000, o: 0.4, rX: -1, rY: -1 }]
+            ];
+
+            var jssor_1_options = {
+                $AutoPlay:0,
+                $Idle: 2000,
+                $Cols: 1,
+                $Align: 0,
+                $CaptionSliderOptions: {
+                    $Class: $JssorCaptionSlideo$,
+                    $Transitions: jssor_1_SlideoTransitions,
+                    $Breaks: [
+                        [{ d: 2000, b: 1000 }]
+                    ]
+                },
+                $ArrowNavigatorOptions: {
+                    $Class: $JssorArrowNavigator$
+                },
+                $BulletNavigatorOptions: {
+                    $Class: $JssorBulletNavigator$
+                }
+            };
+
+            var jssor_1_slider = new $JssorSlider$("jssor_1", jssor_1_options);
+
+            /*#region responsive code begin*/
+
+            var MAX_WIDTH = 1366;
+
+            function ScaleSlider() {
+                var containerElement = jssor_1_slider.$Elmt.parentNode;
+                var containerWidth = containerElement.clientWidth;
+
+                if (containerWidth) {
+
+                    var expectedWidth = Math.min(MAX_WIDTH || containerWidth, containerWidth);
+
+                    jssor_1_slider.$ScaleWidth(expectedWidth);
+                }
+                else {
+                    window.setTimeout(ScaleSlider, 30);
+                }
+            }
+
+            ScaleSlider();
+
+            $Jssor$.$AddEvent(window, "load", ScaleSlider);
+            $Jssor$.$AddEvent(window, "resize", ScaleSlider);
+            $Jssor$.$AddEvent(window, "orientationchange", ScaleSlider);
+            /*#endregion responsive code end*/
+        };
+    </script>
+    <link href="https://fonts.googleapis.com/css?family=Oswald:200,300,regular,500,600,700&subset=latin-ext,vietnamese,latin,cyrillic" rel="stylesheet" type="text/css" />
+
+
+
 </head>
 <!--************************-->
 <!-- masterslider -->
-<div class="master-slider ms-skin-default" id="masterslider" style="display:table;">
+<div id="jssor_1" style="position:relative;margin:0 auto;top:0px;left:0px;width:1366px;height:455px;overflow:hidden;visibility:hidden;">
+    <!-- Loading Screen -->
 
-    @{
-        foreach (var img in Model.BannersList)
-        {
-            <!-- slide 1 -->
-            <div class="ms-slide slide-1" data-delay="9">
-                <img src="@baseUrl/Images/Banners/@img" alt="" />
+
+
+
+    <div data-u="loading" class="jssorl-009-spin" style="position:absolute;top:0px;left:0px;width:100%;height:100%;text-align:center;background-color:rgba(0,0,0,0.7);">
+        <img style="margin-top:-19px;position:relative;top:50%;width:38px;height:38px;" src="../../Content/KamshamFlexSlider/img/spin.svg" />
+    </div>
+    <div data-u="slides" style="cursor:default;position:relative;top:0px;left:0px;width:1366px;height:455px;overflow:hidden;">
+        @*<div data-p="170.00">
+                <img data-u="image" src="../../Content/KamshamFlexSlider/img/001.jpg" />
+                <div data-u="caption" data-t="0" style="position:absolute;top:320px;left:30px;width:500px;height:40px;background-color:rgba(255,188,5,0.8);font-family:Oswald,sans-serif;font-size:32px;font-weight:200;line-height:1.2;text-align:center;">Mobile ready, touch swipe</div>
             </div>
-    <!-- end slide 1 -->
-        }
-    }
+            <div data-p="170.00">
+                <img data-u="image" src="../../Content/KamshamFlexSlider/img/002.jpg" />
+                <div data-u="caption" data-t="1" style="position:absolute;top:-50px;left:125px;width:500px;height:40px;background-color:rgba(255,188,5,0.8);font-family:Oswald,sans-serif;font-size:32px;font-weight:200;line-height:1.2;text-align:center;">Time lined layer animation</div>
+            </div>*@
 
+        @*@{
+                foreach (var img in Model.BannersList)
+                {
+                    <div data-p="170.00">
+                        <img data-u="image" src="@baseUrl/Images/Banners/@img" />
+                        <div data-u="caption" data-t="2" style="position:absolute;top:30px;left:-505px;width:500px;height:40px;background-color:rgba(255,188,5,0.8);font-family:Oswald,sans-serif;font-size:32px;font-weight:200;line-height:1.2;text-align:center;">Finger catchable right to left</div>
+                    </div>
+                <!-- slide 1 -->
+                    <div class="ms-slide slide-1" data-delay="9">
+                        <img src="@baseUrl/Images/Banners/@img" alt="" />
+                    </div>
+                 <!-- end slide 1 -->
+                }
+            }*@
+
+        <div data-p="170.00">
+            <img data-u="image" src="../../Content/KamshamFlexSlider/img/t1.jpg" />
+            <div data-u="caption" data-t="2" style="position: absolute;color: white;top: 15px;left: 320px;width: 500px;height: 60px;background-color: rgb(60, 143, 206);font-family: Oswald, sans-serif;font-size: 28px;font-weight: 200;line-height: 1.9;text-align: center;z-index: 1;">Register a Free Account and Start Earning Money</div>
+            <div data-u="caption" data-t="5" style="position: absolute;color: black;top: 80px;left: 1425px;width: 500px;height: 40px;background-color: rgb(248, 151, 30);font-family: Oswald, sans-serif;font-size: 22px;font-weight: 400;line-height: 1.8;text-align: center;z-index:1;">Mufat account khulwain aur apnay hunar se paisay kamain</div>
+        </div>
+
+        <div data-p="170.00">
+            <img data-u="image" src="../../Content/KamshamFlexSlider/img/shutterstock_390171571.jpg" />
+            <div data-u="caption" data-t="4" style="position: absolute;color: white;top: 140px;left: 1045px;width: 300px;height: 60px;background-color: rgb(15, 55, 82);font-family: Oswald, sans-serif;font-size: 28px;font-weight: 200;line-height: 1.9;text-align: left;z-index: 2;padding: 0px 10px;">Honorable Livelihood</div>
+            <div data-u="caption" data-t="4" style="position: absolute;color: black;top: 205px;left: 1045px;width: 300px;height: 65px;background-color: rgb(248, 151, 30);font-family: Oswald, sans-serif;font-size: 18px;font-weight: 400;line-height: 2;text-align: left;z-index: 2;padding: 0px 10px;"><ul><li><i class="fa fa-arrow-right" aria-hidden="true"></i> Ease of use</li><li><i class="fa fa-arrow-right" aria-hidden="true"></i> Mobile as a source of income</li></ul></div>
+        </div>
+        <div data-p="170.00">
+            <img data-u="image" src="../../Content/KamshamFlexSlider/img/shutterstock_744955711.jpg" />
+            <div data-u="caption" data-t="3" style="position: absolute;color: white;top: 60px;left: 897px;width: 181px;height: 40px;background-color: rgb(60, 143, 206);font-family: calbri;font-size: 25px;font-weight: 200;line-height: 1.6;text-align: left;padding: 0px 10px;z-index: 1;">Security</div>
+            <div data-u="caption" data-t="3" style=" position absolute;color white;top 104px;left 897px;width 181px;height 140px;background-color rgb(79, 154, 65);font-family calbri;font-size 16px;font-weight 400;line-height 2;text-align left;padding 0px 10px;z-index 1;"><ul><li><i class="fa fa-arrow-right" aria-hidden="true"></i> Skill verified</li><li><i class="fa fa-arrow-right" aria-hidden="true"></i> Personal background checked</li> <li><i class="fa fa-arrow-right" aria-hidden="true"></i> Apki security hamari zamanat</li></ul></div>
+        </div>
+        <div data-p="170.00">
+            <img data-u="image" src="../../Content/KamshamFlexSlider/img/shutterstock_748701859.jpg" />
+            <div data-u="caption" data-t="2" style="position: absolute;color: white;bottom: 75px;left: 309px;width: 500px;height: 60px;background-color: rgb(15, 55, 82);font-family: Oswald, sans-serif;font-size: 28px;font-weight: 200;line-height: 1.9;text-align: center;z-index: 1;">Pakistan's first portal for technicians</div>
+            <div data-u="caption" data-t="5" style="position: absolute;color: black;bottom: 25px;left: 1415px;width: 500px;height: 40px;background-color: rgb(248, 151, 30);font-family: Oswald, sans-serif;font-size: 22px;font-weight: 400;line-height: 1.8;text-align: center;z-index: 2;">Pakistan ke pahli hunarmandon ke website</div>
+        </div>
+
+
+        @*<div data-p="170.00">
+                <img data-u="image" src="../../Content/KamshamFlexSlider/img/004.jpg" />
+                <div data-u="caption" data-t="3" style="position:absolute;top:30px;left:30px;width:500px;height:40px;background-color:rgba(255,188,5,0.8);font-family:Oswald,sans-serif;font-size:32px;font-weight:200;line-height:1.2;text-align:center;">responsive, scale smoothly</div>
+            </div>
+            <div data-p="170.00">
+                <img data-u="image" src="../../Content/KamshamFlexSlider/img/005.jpg" />
+                <div data-u="caption" data-t="4" style="position:absolute;top:30px;left:30px;width:500px;height:40px;background-color:rgba(255,188,5,0.8);font-family:Oswald,sans-serif;font-size:32px;font-weight:200;line-height:1.2;text-align:center;">image, text, and custom layers</div>
+            </div>
+            <div data-p="170.00">
+                <img data-u="image" src="../../Content/KamshamFlexSlider/img/006.jpg" />
+                <div data-u="caption" data-t="5" style="position:absolute;top:30px;left:600px;width:500px;height:40px;background-color:rgba(255,188,5,0.8);font-family:Oswald,sans-serif;font-size:32px;font-weight:200;line-height:1.2;text-align:center;">tons of transition type</div>
+            </div>
+            <div data-p="170.00">
+                <img data-u="image" src="../../Content/KamshamFlexSlider/img/007.jpg" />
+                <div data-u="caption" data-t="6" style="position:absolute;top:30px;left:30px;width:500px;height:40px;background-color:rgba(255,188,5,0.8);font-family:Oswald,sans-serif;font-size:32px;font-weight:200;line-height:1.2;text-align:center;">visual slider maker</div>
+            </div>
+            <div data-b="0" data-p="170.00">
+                <img data-u="image" src="../../Content/KamshamFlexSlider/img/008.jpg" />
+                <div data-u="caption" data-t="7" style="position:absolute;top:-50px;left:30px;width:500px;height:40px;background-color:rgba(255,188,5,0.8);font-family:Oswald,sans-serif;font-size:32px;font-weight:200;line-height:1.2;text-align:center;">play in and play out</div>
+            </div>
+            <div data-p="170.00">
+                <img data-u="image" src="../../Content/KamshamFlexSlider/img/009.jpg" />
+                <div data-u="caption" data-t="8" style="position:absolute;top:25px;left:150px;width:250px;height:250px;background-color:rgba(40,177,255,0.6);overflow:hidden;">
+                    <div data-u="caption" data-t="9" style="position:absolute;top:100px;left:25px;width:200px;height:50px;font-family:Oswald,sans-serif;font-size:24px;font-weight:200;line-height:2.08;">A Child Layer</div>
+                </div>
+            </div>
+            <div data-p="170.00">
+                <img data-u="image" src="../../Content/KamshamFlexSlider/img/010.jpg" />
+                <div data-u="caption" data-t="10" style="position:absolute;top:25px;left:100px;width:300px;height:260px;background-color:rgba(40,177,255,0.6);font-family:Oswald,sans-serif;font-size:24px;font-weight:200;line-height:1.25;padding:15px 15px 15px 15px;box-sizing:border-box;">
+                    This is full customized content layer.<br />​<br />
+                    Everything is allowed.<br />​<br />You can insert
+
+                    <a href="http://wwww.jssor.com">
+                        a link
+                    </a> or an image
+
+                    <img src="../../Content/KamshamFlexSlider/img/icon_chrome.png" /> here.
+                </div>
+            </div>*@
+    </div>
+    <!-- Bullet Navigator -->
+    <div data-u="navigator" class="jssorb052" style="position:absolute;bottom:12px;right:12px;" data-autocenter="1" data-scale="0.5" data-scale-bottom="0.75">
+        <div data-u="prototype" class="i" style="width:16px;height:16px;">
+            <svg viewbox="0 0 16000 16000" style="position:absolute;top:0;left:0;width:100%;height:100%;">
+                <circle class="b" cx="8000" cy="8000" r="5800"></circle>
+            </svg>
+        </div>
+    </div>
+    <!-- Arrow Navigator -->
+    <div data-u="arrowleft" class="jssora053" style="width:55px;height:55px;top:0px;left:25px;" data-autocenter="2" data-scale="0.75" data-scale-left="0.75">
+        <svg viewbox="0 0 16000 16000" style="position:absolute;top:0;left:0;width:100%;height:100%;">
+            <polyline class="a" points="11040,1920 4960,8000 11040,14080 "></polyline>
+        </svg>
+    </div>
+    <div data-u="arrowright" class="jssora053" style="width:55px;height:55px;top:0px;right:25px;" data-autocenter="2" data-scale="0.75" data-scale-right="0.75">
+        <svg viewbox="0 0 16000 16000" style="position:absolute;top:0;left:0;width:100%;height:100%;">
+            <polyline class="a" points="4960,1920 11040,8000 4960,14080 "></polyline>
+        </svg>
+    </div>
 </div>
+@*<div class="master-slider ms-skin-default" id="masterslider" style="display:table;">
+
+        @{
+            foreach (var img in Model.BannersList)
+            {
+                <!-- slide 1 -->
+                <div class="ms-slide slide-1" data-delay="9">
+                    <img src="@baseUrl/Images/Banners/@img" alt="" />
+                </div>
+        <!-- end slide 1 -->
+            }
+        }
+
+    </div>*@
 <!-- end of masterslider -->
 <!--******************************-->
 <!--************************************
@@ -408,8 +598,8 @@ Header End
                                                 <div class="tg-companylogo"><a href="#"><img src="@baseUrl/Images/logos/img-01.png" alt="image description"></a></div>
                                                 <div class="tg-companycontent">
                                                     <ul class="tg-tags">
-                                                        <li><a class="tg-tag tg-featuredtag" href="#">featured</a></li>
-                                                        <li><a class="tg-tag tg-verifiedtag" href="#">verified</a></li>
+                                                        <li><a class="tg-tag tg-featuredtag" href="javascript:void(0)">featured</a></li>
+                                                        <li><a class="tg-tag tg-verifiedtag" href="javascript:void(0)">verified</a></li>
                                                     </ul>
                                                     <div class="tg-title">
                                                         <h3><a href="#">Walton Area Lahore</a></h3>
@@ -437,8 +627,8 @@ Header End
                                                 <div class="tg-companylogo"><a href="#"><img src="@baseUrl/Images/logos/img-01.png" alt="image description"></a></div>
                                                 <div class="tg-companycontent">
                                                     <ul class="tg-tags">
-                                                        <li><a class="tg-tag tg-featuredtag" href="#">featured</a></li>
-                                                        <li><a class="tg-tag tg-verifiedtag" href="#">verified</a></li>
+                                                        <li><a class="tg-tag tg-featuredtag" href="javascript:void(0)">featured</a></li>
+                                                        <li><a class="tg-tag tg-verifiedtag" href="javascript:void(0)">verified</a></li>
                                                     </ul>
                                                     <div class="tg-title">
                                                         <h3><a href="#">Bright Future Group &amp; Company</a></h3>
@@ -466,8 +656,8 @@ Header End
                                                 <div class="tg-companylogo"><a href="#"><img src="@baseUrl/Images/logos/img-01.png" alt="image description"></a></div>
                                                 <div class="tg-companycontent">
                                                     <ul class="tg-tags">
-                                                        <li><a class="tg-tag tg-featuredtag" href="#">featured</a></li>
-                                                        <li><a class="tg-tag tg-verifiedtag" href="#">verified</a></li>
+                                                        <li><a class="tg-tag tg-featuredtag" href="javascript:void(0)">featured</a></li>
+                                                        <li><a class="tg-tag tg-verifiedtag" href="javascript:void(0)">verified</a></li>
                                                     </ul>
                                                     <div class="tg-title">
                                                         <h3><a href="#">Bright Future Group &amp; Company</a></h3>
@@ -518,11 +708,12 @@ Header End
                 <div class="col-xs-12 col-sm-12 col-md-10 col-md-push-1 col-lg-8 col-lg-push-2">
                     <div class="tg-sectionhead">
                         <div class="tg-sectiontitle">
-                            <h2>Contractors</h2>
+                            <h2 style="line-height: 1.08;">A one stop solution for your house cleaning, electric, plumbing and carpentry needs</h2>
                             <img class="ajaxloader" id="myloader" src="~/Images/ajax-loader.gif" style="margin-top: -309px;margin-left: 64%;display: inline;" />
                         </div>
                         <div class="tg-description">
-                            <p>Now you can reach more than 5000 service providers in your area using our platform. Find contractors in your area or do post the job to let the contractrs reach you. </p>
+                            <p>Kamsham is an online portal for electricians, plumbers, cleaners, carpenters and other home professionals. Through our website, homeowners can easily find home professionals for their day-to-day regular and urgent needs.</p>
+                            @*<p>Now you can reach more than 5000 service providers in your area using our platform. Find contractors in your area or do post the job to let the contractrs reach you. </p>*@
                         </div>
                     </div>
                 </div>
@@ -579,7 +770,7 @@ Header End
                                     content = "KamSham.pk is your one stop for all your ‘ghareelo’ needs. It is a platform consisting of a wide range of services aimed to ensure customer satisfaction. We offer contractor’s categories like technicians, Electricians, Plumbers, Carpenters, A/C mechanics to our end customers with complete security and safety ensured. Let try KamSham.Pk.";
                                 }
                                 var clear = "";
-                                if (counter==4)
+                                if (counter == 4)
                                 {
                                     clear = "clear:left;";
                                 }
@@ -592,14 +783,14 @@ Header End
                                     hideClass = "hidemeCon";
                                 }
 
-                                <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 @hideClass" style="@clear; cursor: pointer;@hideCon" onclick="gotoCat(@Json.Encode(cat))" >
+                                <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 @hideClass" style="@clear; cursor: pointer;@hideCon" onclick="gotoCat(@Json.Encode(cat))">
                                     <div class="tg-category">
                                         <figure>
                                             <img src="@(baseUrl + cat.BgURL)" alt="image description">
                                             <figcaption class="tg-automotive">
                                                 @*<span class="lnr lnr-car tg-categoryicon"></span>*@
                                                 <a href="">
-                                                    <span style=""class="tg-categoryname">@cat.CatName</span>
+                                                    <span style="" class="tg-categoryname">@cat.CatName</span>
                                                     <img src="@(baseUrl + cat.IconURL)" style="height: 90px; width: 90px; opacity: 1" onclick="return stoprefresh()">
                                                 </a>
                                                 <a href="" class="tg-themetag tg-tagjobcount">
@@ -618,7 +809,7 @@ Header End
                 </div>
                 <div class="tg-btnbox">
                     <a class="tg-btn tg-btnviewall" onclick="showMoreContractors()">
-                        <span  id="viewAllCon">View all</span>
+                        <span id="viewAllCon">View all</span>
                     </a>
                 </div>
             </div>
@@ -630,12 +821,12 @@ Header End
     <!--************************************
             Advantagies Start
     *************************************-->
-    <section class="tg-main-section tg-haslayout tg-bglight" >
+    <section class="tg-main-section tg-haslayout tg-bglight">
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-10 col-md-push-1 col-lg-8 col-lg-push-2">
                     <div class="tg-sectiontitle">
-                        <h2>Easiest Way To Get Services</h2>
+                        <h2 style="line-height: 1.08;">How to choose an exceptional service at your doorstep</h2>
                     </div>
                 </div>
                 <div class="tg-advantagies">
@@ -646,10 +837,10 @@ Header End
                                 <em><img src="~/Images/advantagies/img-01.png" alt="image description"></em>
                             </span>
                             <div class="tg-title">
-                                <h3><a href="#">Plan Your Task</a></h3>
+                                <h3><a >Plan Your Task</a></h3>
                             </div>
                             <div class="tg-description">
-                                <p>Plan your services & enjoy the comfort.</p>
+                                <p>Plan your required services and make everything in order.</p>
                             </div>
                         </div>
                     </div>
@@ -660,10 +851,10 @@ Header End
                                 <em><img src="~/Images/advantagies/img-02.png" alt="image description"></em>
                             </span>
                             <div class="tg-title">
-                                <h3><a href="#">Choose Best Service</a></h3>
+                                <h3><a >Choose Best Service Provider</a></h3>
                             </div>
                             <div class="tg-description">
-                                <p>Pick best services from market that suit you.</p>
+                                <p>Pick a best service provider, adhere to the highest standards of quality.</p>
                             </div>
                         </div>
                     </div>
@@ -674,10 +865,10 @@ Header End
                                 <em><img src="~/Images/advantagies/img-03.png" alt="image description"></em>
                             </span>
                             <div class="tg-title">
-                                <h3><a href="#">Live Stress Free</a></h3>
+                                <h3><a>Contact a skilled technician</a></h3>
                             </div>
                             <div class="tg-description">
-                                <p>Assign task to service provider & no more stress</p>
+                                <p>Contact experienced technician to work or resolve any problem that arises in your home.</p>
                             </div>
                         </div>
                     </div>
@@ -688,10 +879,10 @@ Header End
                                 <em><img src="~/Images/advantagies/img-04.png" alt="image description"></em>
                             </span>
                             <div class="tg-title">
-                                <h3><a href="#">Share Your Experience</a></h3>
+                                <h3><a>Share Your Experience</a></h3>
                             </div>
                             <div class="tg-description">
-                                <p>Evaluate service provider on job ending</p>
+                                <p>Evaluate technician and share your experience with the suggestions.</p>
                             </div>
                         </div>
                     </div>
@@ -714,7 +905,7 @@ Header End
                             <h2>Recent Jobs</h2>
                         </div>
                         <div class="tg-description">
-                            <p>Skilled person and want to earn some money? Do better use of your smart phone and find thousands of related jobs at your mobile phone. </p>
+                            <p>Are you a skilled technician? Want to earn money for a good living? Do better use of our APP on your smartphone and find thousands of related jobs</p>
                         </div>
                     </div>
                 </div>
@@ -724,23 +915,25 @@ Header End
                         {
                             foreach (var job in Model.Jobs)
                             {
-                                var imgcatjob = baseUrl+ "/Images/NewCatsIcons/"+job.CategoryId+".png";
+                                var imgcatjob = baseUrl + "/Images/NewCatsIcons/" + job.CategoryId + ".png";
                                 <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4" title="Intrested As a @job.CatName ? Click to apply">
                                     <div class="tg-serviceprovider tg-automotive">
                                         <div class="tg-serviceprovidercontent jobDiv">
-                                            <div class="tg-companylogo"><a><img src="@imgcatjob" alt="Intrested As a @job.CatName ?"></a></div>
+                                            <div class="tg-companylogo"><a><img src="@imgcatjob" alt="Intrested As a @job.CatName ?"></a>
+                                            </div>
                                             <div class="tg-companycontent">
                                                 <ul class="tg-tags">
-                                                    <li><a class="tg-tag tg-featuredtag" href="~/job/FindJobs?jobId=@job.Id" style="color: white;background-color: rgba(0, 0, 255, 0.68);">view job</a></li>
-                                                    <li><a class="tg-tag tg-verifiedtag" href="#" style="color: white;background-color: rgba(0, 128, 0, 0.68);">verified</a></li>
+                                                    <li><a class="tg-tag tg-featuredtag" href="~/job/FindJobs?jobId=@job.Id" style="color: white; background-color: rgba(0, 0, 255, 0.68);">view job</a></li>
+                                                    <li><a class="tg-tag tg-verifiedtag" href="javascript:void(0)" style="color: white; background-color: rgba(0, 128, 0, 0.68);">verified</a></li>
                                                 </ul>
                                                 <div class="tg-title">
-                                                    <h3><a href="~/job/FindJobs?jobId=@job.Id">@job.JobTitle</a></h3>
+                                                    <h3><a href="~/job/FindJobs?jobId=@job.Id">@job.JobTitle</a>
+                                                    </h3>
                                                 </div>
                                                 <ul class="tg-matadata" style="margin-bottom: 2px;">
                                                     <li>By <span style="color: black;">@job.JobPostedBy</span><span>&nbsp;at&nbsp;</span> <span style="color: black;">@job.PostingDate</span></li>
                                                 </ul>
-                                                <p style="    margin-bottom: 0px;">@job.LocationName</p>
+                                                <p style="margin-bottom 0px;">@job.LocationName</p>
                                             </div>
                                         </div>
                                     </div>
@@ -750,6 +943,9 @@ Header End
                     }
                 </div>
             </div>
+        </div>
+        <div class="tg-btnbox">
+            <a class="tg-btn tg-btnviewall" href="~/job/FindJobs">view all</a>
         </div>
     </section>
     <!--************************************
@@ -763,50 +959,50 @@ Header End
             <div class="row">
                 <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                     <figure class="tg-clientlargedp">
-                       @{
-                           if (Model != null && Model.Feedback.Any())
-                           {
-                               var imgh = baseUrl + "/Images/Profiles/" + Model.Feedback[0].PostedById + "_110.png";
+                        @{
+                            if (Model != null && Model.Feedback.Any())
+                            {
+                                var imgh = baseUrl + "/Images/Profiles/" + Model.Feedback[0].PostedById + "_110.png";
 
                                 <img src="@imgh" alt="image description">
-                                <span class="tg-quotes"><i class="fa fa-quote-right"></i></span>                              
-                           }
-                    }
+                                <span class="tg-quotes"><i class="fa fa-quote-right"></i></span>
+                            }
+                        }
                     </figure>
                 </div>
                 <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
                     <div class="tg-testimonials">
                         <div id="tg-testimonialcontentslider" class="owl-carousel tg-testimonialcontentslider">
-                           @{
-                               if (Model != null && Model.Feedback.Any())
-                               {
-                                   foreach (var fd in Model.Feedback)
-                                   {
-                                    <div class="item">
-                                        <div class="tg-testimonial">
-                                            <h2>@fd.PostedByName</h2>
-                                            <h3>@fd.Title</h3>
-                                            <blockquote><q>@fd.Des</q></blockquote>
+                            @{
+                                if (Model != null && Model.Feedback.Any())
+                                {
+                                    foreach (var fd in Model.Feedback)
+                                    {
+                                        <div class="item">
+                                            <div class="tg-testimonial">
+                                                <h2>@fd.PostedByName</h2>
+                                                <h3>@fd.Title</h3>
+                                                <blockquote><q>@fd.Des</q></blockquote>
+                                            </div>
                                         </div>
-                                    </div>
-                                   }
-                               }
-                        }                                                 
+                                    }
+                                }
+                            }
                         </div>
                         <div id="tg-testimonialnavigationslider" class="owl-carousel tg-testimonialnavigationslider">
-                           @{
-                               if (Model != null && Model.Feedback.Any())
-                               {
-                                   foreach (var fd in Model.Feedback)
-                                   {
-                                       var imgh = baseUrl + "/Images/Profiles/" + fd.PostedById + "_110.png";
+                            @{
+                                if (Model != null && Model.Feedback.Any())
+                                {
+                                    foreach (var fd in Model.Feedback)
+                                    {
+                                        var imgh = baseUrl + "/Images/Profiles/" + fd.PostedById + "_110.png";
 
-                                       <div class="item">
-                                           <figure><img src="@imgh" alt="image description"></figure>
-                                       </div>
-                                   }
-                               }
-                           }
+                                        <div class="item">
+                                            <figure><img src="@imgh" alt="image description"></figure>
+                                        </div>
+                                    }
+                                }
+                            }
                         </div>
                     </div>
                 </div>
@@ -956,6 +1152,7 @@ Header End
         Main End
 *************************************-->
 <script src="~/Scripts/vendor/jquery-library.js"></script>
+<script type="text/javascript">jssor_1_slider_init();</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.js"></script>
 
 <Script>

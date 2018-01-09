@@ -31,12 +31,16 @@ namespace KaamShaam.AdminServices
                 if (data != null)
                 {
                     data.Status = obj.Status;
+                    KaamShaam.Services.EmailService.SendEmail(data.Email,"Account Status Changed","Admin has changed your account status. Please review https://kamsham.pk");
+                    KaamShaam.Services.EmailService.SendSms(data.PhoneNumber,
+                        "Your account status has been updated at https://kamsham.pk");
+
                 }
                 context.AspNetUsers.AddOrUpdate(data);
                 context.SaveChanges();
             }
         }
-        public static bool DeleteUser(AspNetUser userObj)
+        public static bool DeleteUser(AspNetUser userObj, string feedback )
         {
             AspNetUser tempo=null;
             using (var context = new KaamShaamEntities())
@@ -151,6 +155,10 @@ namespace KaamShaam.AdminServices
 
                         context.AspNetUsers.Remove(data);
                         context.SaveChanges();
+
+                        KaamShaam.Services.EmailService.SendEmail(data.Email, "Account Deleted", "Admin has deleted your account from https://kamsham.pk");
+                        KaamShaam.Services.EmailService.SendSms(data.PhoneNumber,
+                            "Your account has been deleted from  https://kamsham.pk.\n Feedback: "+ feedback);
                         return true;
                     }
                 }
@@ -165,7 +173,9 @@ namespace KaamShaam.AdminServices
         {
             using (var context = new KaamShaamEntities())
             {
-                var data = context.AspNetUsers.Where(user => user.Type == type && !user.AspNetRoles.Any(role => role.Name == "Admin" || role.Name == "Super Admin")).ToList()
+                var data = context.AspNetUsers
+                    .Where(user => user.Type == type && (bool) (user.IsApproved) && (bool)(user.Status) &&
+                    !user.AspNetRoles.Any(role => role.Name == "Admin" || role.Name == "Super Admin")).ToList()
                    .Select(user => user.MapUser()).ToList();
                  return data;
             }
@@ -236,7 +246,7 @@ namespace KaamShaam.AdminServices
                     if (!string.IsNullOrEmpty(user.Mobile))
                     {
                         dbuser.Mobile = user.Mobile;
-                        dbuser.Feedback = null;
+                        dbuser.Feedback = "Your account is suspended by admin. Contact admin.";
                         dbuser.IsApproved = false;
                         dbuser.EditedAt = DateTime.Now;
 

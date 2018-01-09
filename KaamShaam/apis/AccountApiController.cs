@@ -4,6 +4,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -133,7 +134,7 @@ namespace KaamShaam.apis
             {
                 HttpResponseMessage endResponse;
                 var response = new ApiResponseModel {Data = model};
-                if (model == null)
+                if (model == null || string.IsNullOrEmpty(model.Password) || string.IsNullOrEmpty(model.Email))
                 {
                     response.Success = false;
                     response.Message = "Mandatory data fields are missing/not mapped or not in right format";
@@ -146,6 +147,22 @@ namespace KaamShaam.apis
                     response.Message = "Account is not approved by Admin.";
                     response.Success = false;
 
+                    #region Check credential of unapproved user
+                    var signInManager = HttpContext.Current.GetOwinContext().Get<ApplicationSignInManager>();
+                    var result =
+                        await
+                            signInManager.PasswordSignInAsync(model.Email, model.Password,
+                                true,
+                                shouldLockout: false);
+                    switch (result)
+                    {
+                        case SignInStatus.Failure:
+                        {
+                            response.Message = "Invalid Username/Password.";
+                            break;
+                        }
+                    } 
+                    #endregion
                 }
                 else
                 {
@@ -196,7 +213,7 @@ namespace KaamShaam.apis
         [Route("api/User/UploadImage")]
         public HttpResponseMessage PostImage(ApiRequestModel model)
         {
-            if (model == null || model.UserId == null)
+            if (model == null ||  string.IsNullOrEmpty(model.UserId) ||  string.IsNullOrEmpty(model.ProfilePic))
             {
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, new ApiResponseModel
                 {
@@ -207,20 +224,34 @@ namespace KaamShaam.apis
             }
             try
             {
-                for (int i = 0; i < HttpContext.Current.Request.Files.Count; i++)
+                string Pic_Path = System.Web.HttpContext.Current.Server.MapPath("~\\Images\\Profiles\\" + model.UserId + ".png");
+                using (FileStream fs = new FileStream(Pic_Path, FileMode.Create))
                 {
-                    var file = HttpContext.Current.Request.Files[i]; //Uploaded file
-                                                                     //To save file, use SaveAs method
-                    var pathForProfileImage = System.Web.Hosting.HostingEnvironment.MapPath("/Images/Profiles/");
-                    file.SaveAs(pathForProfileImage + model.UserId + ".png");
-                    AppUtils.Common.GenerateImages(model.UserId, pathForProfileImage);
-
+                    using (BinaryWriter bw = new BinaryWriter(fs))
+                    {
+                        byte[] data = Convert.FromBase64String(model.ProfilePic);
+                        bw.Write(data);
+                        bw.Close();
+                    }
                 }
+
+                var baseUrl = System.Web.HttpContext.Current.Server.MapPath("~/Images/Profiles/");
+                AppUtils.Common.GenerateImages(model.UserId, baseUrl);
+
+                //for (int i = 0; i < HttpContext.Current.Request.Files.Count; i++)
+                //{
+                //    var file = HttpContext.Current.Request.Files[i]; //Uploaded file
+                //                                                     //To save file, use SaveAs method
+                //    var pathForProfileImage = System.Web.Hosting.HostingEnvironment.MapPath("/Images/Profiles/");
+                //    file.SaveAs(pathForProfileImage + model.UserId + ".png");
+                //    AppUtils.Common.GenerateImages(model.UserId, pathForProfileImage);
+
+                //}
                 return Request.CreateResponse(HttpStatusCode.OK, new ApiResponseModel
                 {
                     Success = true,
                     Message = "Successfully User avatar updated",
-                    Data = model
+                    Data = null
                 });
             }
             catch (Exception excep)
@@ -269,6 +300,48 @@ namespace KaamShaam.apis
                 };
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, response);
             }
+        }
+
+        [Route("api/User/ChangePassword")]
+        public HttpResponseMessage ChangePassword(KaamShaam.AdminModels.LocalUser usermodel)
+        {
+            if (usermodel == null || usermodel.Id == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, new ApiResponseModel
+                {
+                    Success = false,
+                    Message = "Data not mapped",
+                    Data = usermodel
+                });
+            }
+            var localUsermanager = Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            ApplicationUser user = localUsermanager.FindById(usermodel.Id);
+            if (user == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, new ApiResponseModel
+                {
+                    Success = false,
+                    Message = "User not found!",
+                    Data = usermodel
+                });
+            }
+            user.PasswordHash = localUsermanager.PasswordHasher.HashPassword(usermodel.Password);
+            var result = localUsermanager.Update(user);
+            if (!result.Succeeded)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, new ApiResponseModel
+                {
+                    Success = false,
+                    Message = "Failed to update password",
+                    Data = usermodel
+                });
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, new ApiResponseModel
+            {
+                Success = true,
+                Message = "Password updated",
+                Data = usermodel
+            });
         }
     }
 }

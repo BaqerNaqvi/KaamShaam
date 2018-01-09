@@ -52,7 +52,7 @@ namespace KaamShaam.Services
             using (var dbcontext = new KaamShaamEntities())
             {
                 double newRatings = 0.0;
-                var ratnigs = dbcontext.UserRatings.Where(rate => rate.RatedTo == ofUserId).ToList();
+                var ratnigs = dbcontext.UserRatings.Where(rate => rate.RatedTo == ofUserId && rate.IsApproved).ToList();
                 if (ratnigs.Any())
                 {
                     newRatings = ratnigs.Sum(rrr => rrr.Rating)/ratnigs.Count;                   

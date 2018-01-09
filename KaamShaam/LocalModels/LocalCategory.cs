@@ -14,6 +14,8 @@ namespace KaamShaam.LocalModels
         public bool IsApproved { get; set; }
         public string Feedback { get; set; }
         public int JobCount { get; set; }
+
+        public int ContractorCount { get; set; }
         public string Image { get; set; }
         public string Icon { get; set; }
         public string EditedAt { get; set; }

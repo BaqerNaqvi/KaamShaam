@@ -160,10 +160,10 @@ Inner Page Banner Start
                                         @using (Html.BeginForm("PostJob", "Job", FormMethod.Post, new {@class = "tg-themeform tg-formlogin-register", role = "form", id = "postJobForm"}))
                                         {
                                             <div class="form-group">
-                                                @Html.TextBoxFor(m => m.JobTitle, new {name = "jobTitle", @class = "form-control", @placeholder = "Job Title & Description", @maxlength = "100" })
+                                                @Html.TextBoxFor(m => m.JobTitle, new {name = "jobTitle", @class = "form-control", @placeholder = "Job Title & Description", @maxlength = "150" })
                                             </div>
                                             <div class="form-group">
-                                                @Html.TextBoxFor(m => m.LocationName, new {@readonly = "readonly", @id = "locationName", onclick = "openMap()", name = "Loc",@maxlength = "100", @class = "form-control", @placeholder = "Click to pick Job Location", data_toggle = "modal", data_target = "#addressmodel"})
+                                                @Html.TextBoxFor(m => m.LocationName, new {@readonly = "readonly", @id = "locationName", onclick = "openMap()", name = "Loc",@maxlength = "150", @class = "form-control", @placeholder = "Click to pick Job Location", data_toggle = "modal", data_target = "#addressmodel"})
                                                 @Html.HiddenFor(m => m.LocationCords, new {@id = "locationCord"})
                                             </div>
 
@@ -180,38 +180,41 @@ Inner Page Banner Start
                                                 @Html.DropDownListFor(m => m.CategoryId, cats, new {@class = "form-control"})
                                             </span>
                                             </div>
-                                            var wages = new List<JobFeeModel>(new JobFeeModel[] {
+                                            var wages = new List<JobFeeModel>(new JobFeeModel[]
+                                            {
 
-                                                   new JobFeeModel
-                                            {
-                                               Fee = 0,
-                                               Title = "Open Rates"
-                                            },
                                                 new JobFeeModel
-                                            {
-                                               Fee = 250,
-                                               Title = "Less than 250"
-                                            },new JobFeeModel
-                                            {
-                                               Fee = 500,
-                                               Title = "Less than 500"
-                                            },new JobFeeModel
-                                            {
-                                               Fee = 750,
-                                               Title = "Less than 750"
-                                            },new JobFeeModel
-                                            {
-                                               Fee = 1000,
-                                               Title = "Less than 1000"
-                                            },new JobFeeModel
-                                            {
-                                               Fee = 1250,
-                                               Title = "Less than 1250"
-                                            },new JobFeeModel
-                                            {
-                                               Fee = 1500,
-                                               Title = "Less than 1500"
-                                            }});
+                                                {
+                                                    Fee = 0,
+                                                    Title = "Open Rates"
+                                                },
+                                                new JobFeeModel
+                                                {
+                                                    Fee = 1000,
+                                                    Title = "Max 1,000"
+                                                },
+                                                new JobFeeModel
+                                                {
+                                                    Fee = 3000,
+                                                    Title = " Max 3,000"
+                                                },
+                                                new JobFeeModel
+                                                {
+                                                    Fee = 6000,
+                                                    Title = "Max 6,000"
+                                                },
+                                                new JobFeeModel
+                                                {
+                                                    Fee = 8000,
+                                                    Title = "Max 8,000"
+                                                },
+                                                new JobFeeModel
+                                                {
+                                                    Fee = 10000,
+                                                    Title = "Max 10,000"
+                                                }
+                                            });
+                                            
                                             var wagesList = new List<SelectListItem>();
 
                                             foreach (var obj in wages)
@@ -236,7 +239,8 @@ Inner Page Banner Start
                                             <div class="form-group">
                                                 <div class="tg-checkbox" style="padding-top: 12px;">
                                                     <input type="checkbox" id="terms">
-                                                    <label for="terms">I have read the <a href="#">Terms &amp; Conditions</a> and accept them</label>
+                                                    <label for="terms">I have read the <a href="~/Home/TermsAndCondition">Terms &amp; Conditions</a> and accept them</label>
+
                                                 </div>
                                             </div>
                                             <button class="tg-btn" onclick="return submitRegis()" style="margin-left: 11px;">Post Job</button>

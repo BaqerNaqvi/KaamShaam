@@ -97,5 +97,6 @@ namespace KaamShaam.Controllers
             Session["Photo"] = AppUtils.Common.ReturnImage(img, "110x110");
             #endregion
         }
+      
     }
 } 

@@ -62,6 +62,10 @@ namespace KaamShaam.LocalModels
 
         public List<string> Roles { get; set; }
 
+        public bool PhoneNumberConfirmed { get; set; }
+
+        public string Feedback { get; set; }
+
     }
 
     public static class UserMapper
@@ -131,7 +135,6 @@ namespace KaamShaam.LocalModels
             {
                 tempoLoc = source.LocationCord.Latitude + "_" + source.LocationCord.Longitude;
             }
-
             return new LocalUser
             {
                 
@@ -164,7 +167,9 @@ namespace KaamShaam.LocalModels
                 LocationName = source.LocationName ?? "(Not Provided)",
                 JobHistories = jobHistories,
                 CanRate = false,
-                Roles = userRoles
+                Roles = userRoles,
+                PhoneNumberConfirmed = source.PhoneNumberConfirmed,
+                Feedback = source.Feedback
             };
         }
     }

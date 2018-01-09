@@ -27,7 +27,11 @@ namespace KaamShaam.ApiModels
         public double Rating { get; set; }
         public string Comments { get; set; }
         public string RatedTo { get; set; }
-        public string RatedBy { get; set; } 
+        public string RatedBy { get; set; }
+        #endregion
+
+        #region Profile Picture
+        public string ProfilePic { get; set; } 
         #endregion
 
     }

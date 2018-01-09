@@ -22,12 +22,12 @@ namespace KaamShaam.Controllers
             var jobs = JobService.GetAllJobs(false);
             if (jobs != null && jobs.Count > 0)
             {
-                jobs = jobs.Where(j => string.IsNullOrEmpty(j.Feedback)).ToList();
+                //jobs = jobs.Where(j => string.IsNullOrEmpty(j.Feedback)).ToList();
             }
             var page = new PaggingClass
             {
                 CurrentPage = 0,
-                ItemsPerPage = 2,
+                ItemsPerPage = 15,
                 TotalItems = jobs?.Count ?? 0,
                 SortBy = "Date",
                 SortOrder = "Des"
@@ -67,6 +67,9 @@ namespace KaamShaam.Controllers
 
             var job = JobService.GetJobById(model.JobModel.Id);
            KaamShaam.Services.EmailService.SendEmail(job.JobPostedByObj.Email, "Job Status Updated - KamSham.Pk", job.JobPostedByObj.FullName + " we noticed that admin has updated one of your job. Please review your Jobs in manage job section.");
+            KaamShaam.Services.EmailService.SendSms(job.JobPostedByObj.Mobile, "One of your job status has been changed. Please visit https://kamsham.pk");
+
+
 
             var jobs = JobService.GetAllJobs(false);
             if (jobs != null && jobs.Count > 0)
@@ -164,13 +167,19 @@ namespace KaamShaam.Controllers
             var feedback = "";
             if (!model.IsApproved)
             {
-                feedback = model.Feedback+". Your account has been deleted.";
+                KaamShaam.Services.EmailService.SendEmail(user.Email, "User Account Status Changed - KamSham.Pk", user.FullName + " admin has deleted your account. Please review your account.\n Feedback : " + feedback);
+                // sms is in DeleteUser method
             }
-            KaamShaam.Services.EmailService.SendEmail(user.Email,"User Account Status Changed - KamSham.Pk",user.FullName +" we noticed that admin has updated your account status. Please review your account."+ feedback);
+            else
+            {
+                KaamShaam.Services.EmailService.SendEmail(user.Email, "User Account Status Changed - KamSham.Pk", user.FullName + " we noticed that admin has updated your account status. Please review your account." + feedback);
+                KaamShaam.Services.EmailService.SendSms(user.Mobile, "Your account status has been changed. Please visit https://kamsham.pk");
+            }
+
 
             if (!model.IsApproved)
             {
-                AdminService.DeleteUser(new AspNetUser { Id = model.Id });
+                AdminService.DeleteUser(new AspNetUser { Id = model.Id }, model.Feedback);
             }
 
             return Json(true, JsonRequestBehavior.AllowGet);
@@ -189,12 +198,18 @@ namespace KaamShaam.Controllers
             var feedback = "";
             if (!model.IsApproved)
             {
-                feedback = model.Feedback + ". Your account has been deleted.";
+                KaamShaam.Services.EmailService.SendEmail(user.Email, "Contractor Account Status Changed - KamSham.Pk", user.FullName + " admin has deleted your account. Please review your account.\n Feedback : " + feedback);
+                // sms is in DeleteUser method
             }
-            KaamShaam.Services.EmailService.SendEmail(user.Email, "Contractor Account Status Changed - KamSham.Pk", user.FullName + " we noticed that admin has updated your account status. Please review your account."+ feedback);
+            else
+            {
+                KaamShaam.Services.EmailService.SendEmail(user.Email, "Contractor Account Status Changed - KamSham.Pk", user.FullName + " we noticed that admin has updated your account status. Please review your account." + feedback);
+                KaamShaam.Services.EmailService.SendSms(user.Mobile, "Your account status has been changed. Please visit https://kamsham.pk");
+            }
+
             if (!model.IsApproved)
             {
-                AdminService.DeleteUser(new AspNetUser { Id = model.Id });
+                AdminService.DeleteUser(new AspNetUser { Id = model.Id }, model.Feedback);
             }
             return Json(true, JsonRequestBehavior.AllowGet);
         }

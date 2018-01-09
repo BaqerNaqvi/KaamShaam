@@ -95,7 +95,16 @@ namespace KaamShaam.Controllers
             }
 
 
-            var uid = UserManager.FindByEmail(model.LoginViewModel.Email).Id;
+            var findByEmail = UserManager.FindByEmail(model.LoginViewModel.Email);
+            if (findByEmail == null)
+            {
+                ModelState.AddModelError("", "Invalid login attempt or user does not exist");
+                return GetLoginStuff();
+            }
+
+           
+
+            var uid = findByEmail.Id;
             var uObj = UserServices.GetUserById(uid);
 
             if (uObj.Roles.Any(r => r.ToLower().Contains("admin") || r.ToLower().Contains("super admin")))
@@ -105,6 +114,13 @@ namespace KaamShaam.Controllers
             }
 
 
+            if (!uObj.PhoneNumberConfirmed)
+            {
+                TempData.Add("userId", uObj.Id);
+                TempData.Add("userNumber", uObj.Mobile);
+                return RedirectToAction("VerifyNumber", "Account");
+            }
+
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.LoginViewModel.Email, model.LoginViewModel.Password, true, shouldLockout: false);
@@ -113,16 +129,18 @@ namespace KaamShaam.Controllers
                 case SignInStatus.Success:
                 {
 
-                        var isApproved = UserAdminService.IsUserApproved(model.LoginViewModel.Email);
-                        if (!isApproved)
-                        {
-                            ModelState.AddModelError("", "User is not approved by admin.");
-                            return GetLoginStuff();
-                        }
-
-                     
-                     SetUserSession(uObj);
-                        return RedirectToLocal(returnUrl);
+                    var isApproved = UserAdminService.IsUserApproved(model.LoginViewModel.Email);
+                    if (!isApproved)
+                    {
+                        var mesge = string.IsNullOrEmpty(uObj.Feedback)
+                            ? "User is not approved by admin."
+                            : uObj.Feedback;
+                        ModelState.AddModelError("", mesge);
+                        return GetLoginStuff();
+                    }
+                    SetUserSession(uObj);
+                    returnUrl = uObj.Type == "User" ? "/Job/ManageJobs" : "/Job/findJobs";
+                     return RedirectToLocal(returnUrl);
                     }
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -200,17 +218,21 @@ namespace KaamShaam.Controllers
         //[ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterPageWraper model)
         {
-            if (ModelState.IsValid)
+           if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.RegisterViewModel.Email, Email = model.RegisterViewModel.Email };
                 var result = await UserManager.CreateAsync(user, model.RegisterViewModel.Password);
                 if (result.Succeeded)
                 {
+                    // mobile number 
+                    var mobile = model.RegisterViewModel.Mobile;
+                    mobile = mobile.Substring(1).Replace("-", "");
+                    model.RegisterViewModel.Mobile = "92" + mobile;
+
                     UserServices.AddUserProperties(model.RegisterViewModel,user.Id);
                     var uObj = UserServices.GetUserById(user.Id);
                     SetUserSession(uObj, true);
-                    
-                    
+
                         var content = "Hi " + model.RegisterViewModel.FullName +
                                       "!\nYou have been successfully registered as a " + model.RegisterViewModel.Type +
                                       " at KamSham.Pk.";
@@ -221,20 +243,25 @@ namespace KaamShaam.Controllers
                         content = content + "\n-KamSham Team\n+923084449991";
                         KaamShaam.Services.EmailService.SendEmail(user.Email,"Registration Notification | KamSham.Pk",content);
 
-                    if (model.RegisterViewModel.Type == "Contractor")
-                    {
-                        return RedirectToAction("Welcome", "Account");
-                    }
+                    TempData.Add("userId", user.Id);
+                    TempData.Add("userNumber", model.RegisterViewModel.Mobile);
 
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    return RedirectToAction("VerifyNumber", "Account");
+
+                    //if (model.RegisterViewModel.Type == "Contractor")
+                    //{
+                    //    return RedirectToAction("Welcome", "Account");
+                    //}
+
+                    //   await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    //   return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
             }
@@ -629,7 +656,13 @@ namespace KaamShaam.Controllers
             }
 
 
-            var uid = UserManager.FindByEmail(model.LoginViewModel.Email).Id;
+            var findByEmail = UserManager.FindByEmail(model.LoginViewModel.Email);
+            if (findByEmail == null)
+            {
+                ModelState.AddModelError("", "Invalid login attempt or admin does not exist");
+                return GetLoginStuff();
+            }
+            var uid = findByEmail.Id;
             var uObj = UserServices.GetUserById(uid);
 
             if (uObj.Roles.Any(r => r.ToLower().Contains("user") || r.ToLower().Contains("contractor")))
@@ -698,6 +731,72 @@ namespace KaamShaam.Controllers
 
             }
             return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        [System.Web.Mvc.AllowAnonymous]
+        public ActionResult Oops()
+        {
+            return View();
+        }
+
+        [System.Web.Mvc.AllowAnonymous]
+        public ActionResult NotFound()
+        {
+            return View();
+        }
+
+        [System.Web.Mvc.AllowAnonymous]
+        public ActionResult VerifyNumber()
+        {
+            var userId = TempData["userId"].ToString();
+            var mobile = TempData["userNumber"].ToString();
+            GeneratePhoneCode(userId, mobile);
+
+            var model = new VarifyNumberModel
+            {
+                UserId = userId,
+                Phone = mobile
+            };
+                return View(model);
+        }
+
+        [System.Web.Mvc.HttpPost]
+        [System.Web.Mvc.AllowAnonymous]
+        public JsonResult VerifyNumberAjax(VarifyNumberModel model)
+        {
+            if (string.IsNullOrEmpty(model?.Code) || string.IsNullOrEmpty(model.UserId) || string.IsNullOrEmpty(model.Phone))
+            {
+                return Json(new {status=false, message = "Bad Request"}, JsonRequestBehavior.AllowGet);
+            }
+            var status = UserManager.ChangePhoneNumber(model.UserId, model.Phone, model.Code);
+            if (!status.Succeeded)
+            {
+                return Json(new { status = false, message = "Unable to verify mobile number" }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { status = true, message = "success" }, JsonRequestBehavior.AllowGet);
+        }
+
+        private string GeneratePhoneCode(string userId, string mobile)
+        {
+            var phoneCode = UserManager.GenerateChangePhoneNumberToken(userId, mobile);
+            KaamShaam.Services.EmailService.SendSms(mobile, "Your verification code is : " + phoneCode);
+            return phoneCode;
+        }
+
+
+        [System.Web.Mvc.HttpPost]
+        [System.Web.Mvc.AllowAnonymous]
+        public JsonResult ReGeneratePhoneCode(VarifyNumberModel model)
+        {
+            GeneratePhoneCode(model.UserId, model.Phone);
+            return Json(new { status = true, message = "success" }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult UpdateSelfPassword(KaamShaam.AdminModels.LocalUser user)
+        {
+            var id = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            user.Id = id;
+            var result = ChangePassword(user);
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -30,12 +30,12 @@ Inner Page Banner Start
         Main Start
 *************************************-->
 <main id="tg-main" class="tg-main tg-haslayout">
-    <div class="container">
+    <div class="container" style="margin-left: 4%;width: 96%;">
         <div class="row">
             <div id="tg-twocolumns" class="tg-twocolumns">
 
-                @{ Html.RenderPartial("LeftMenu");}
-                <div class="col-xs-12 col-sm-7 col-md-8 col-lg-9">
+                @*@{ Html.RenderPartial("LeftMenu");}*@
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <div id="tg-content" class="tg-content">
                         <div class="tg-joblisting tg-dashboardmanagejobs">
                             <div class="tg-dashboardhead">
@@ -59,12 +59,12 @@ Inner Page Banner Start
                                 <div class="tg-sortfilter tg-arrange">
                                     <input type="text" class="form-control" placeholder="Search Jobs..." id="searchJob" />
                                     @*<span>Arrange:</span>
-                                    <div class="tg-select">
-                                        <select id="sortOrderDd" onchange="sortOrderByChanged()">
-                                            <option value="Aes">Ascending</option>
-                                            <option value="Des">Descending</option>
-                                        </select>
-                                    </div>*@
+                                        <div class="tg-select">
+                                            <select id="sortOrderDd" onchange="sortOrderByChanged()">
+                                                <option value="Aes">Ascending</option>
+                                                <option value="Des">Descending</option>
+                                            </select>
+                                        </div>*@
                                 </div>
                                 <div class="tg-sortfilter tg-show">
                                     <span style="margin-top: 5px;">Jobs/Page: </span>
@@ -81,62 +81,113 @@ Inner Page Banner Start
                                 </div>
                                 <div class="tg-sortfilter tg-show" style="margin-left: 3px;margin-top: 5px;">
                                     <strong><span id="currentPage" style="margin-left: -6px;">15</span></strong>
-                                    <span style="margin-left: 17px">of</span> 
-                                   <strong><span id="totalPage" style="margin-left: 42px;">30</span></strong>
+                                    <span style="margin-left: 17px">of</span>
+                                    <strong><span id="totalPage" style="margin-left: 42px;">30</span></strong>
                                 </div>
                                 <div class="tg-sortfilter" style="margin-left: 10%;">
                                     <button id="jobNext" class="btn btn-default" style="height: 39px;">></button>
                                 </div>
                                 <img class="displayNone" src="~/Images/ajax-loader.gif" id="adminLoading" style="display: none;margin-left: 21px;margin-top: 10px;" />
-                            </div> 
+                            </div>
                             <table class="tg-tablejoblidting">
                                 <tbody id="manage-Job-Body">
-                                @{
-                                    foreach (var item in Model.JobsList)
-                                    {
-                                        var cusStyle = "";
-                                        if (!item.UserStatus)
+                                    @{
+                                        foreach (var item in Model.JobsList)
                                         {
-                                            cusStyle = cusStyle+" background-color: #ffeb99;";
-                                        }
-                                        var showStartedText = false;
-                                        var jhistory = item.JobHistory.FirstOrDefault();
-                                        if (jhistory != null)
-                                        {
-                                            if (jhistory.JobStatus == (int)Enums.JobHistoryStatus.Continue)
-                                            {
-                                                showStartedText = true;
-                                            }
-                                        }
-                                        <tr style="cursor: pointer;" data-toggle="modal" data-target="#updateJob" onclick="editJob(@Json.Encode(item))">
-                                            <td style="@cusStyle">
-                                                @*<figure class="tg-companylogo">
-                                                    <img src="@baseUrl/Images/contractor-dashboard/small1.jpg" alt="image description">
-                                                    <a class="tg-btndel" href="#"><i class="fa fa-close"></i></a>
+                                            var cusStyle = "    width: 50%;";
+                                            var adminsus = "";
+                                            var iApplied = "";
+                                            var isAppliedClass = "";
 
-                                                </figure>*@
-                                                <div class="tg-contentbox">
-                                                    <a class="tg-tag tg-featuredtag" href="#">@item.PostingDate</a>
-                                                    <div class="tg-title">
-                                                        <h3>
-                                                            <a href="#">@item.CatName Required</a>
-                                                        </h3>
+                                            if (!item.UserStatus)
+                                            {
+                                                cusStyle = cusStyle + " background-color: #ffeb99;";
+                                            }
+                                            if (item.IfIApplied)
+                                            {
+                                                iApplied = "[Applied]";
+                                                isAppliedClass = "appplySpan";
+                                            }
+
+                                            var showStartedText = false;
+                                            var jhistory = item.JobHistory.FirstOrDefault();
+                                            if (jhistory != null)
+                                            {
+                                                if (jhistory.JobStatus == (int)Enums.JobHistoryStatus.Continue)
+                                                {
+                                                    showStartedText = true;
+                                                }
+                                            }
+
+                                            var completed = false;
+                                            var modelSmn = "data-toggle=modal data-target=#updateJob";
+                                            if (jhistory != null && jhistory.JobStatus == (int)Enums.JobHistoryStatus.End)
+                                            {
+                                                modelSmn = "";
+                                                completed = true;
+                                            }
+
+                                            var jobimg = baseUrl + "/Images/NewCatsIcons/" + item.CategoryId + ".png";
+                                            <tr style='cursor: pointer;' @modelSmn onclick="editJob(@Json.Encode(item))">
+                                                <td class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                                    <figure class="tg-companylogo">
+                                                        <img src="@jobimg" alt="image description">
+                                                        <a class="tg-btndel" href="#"></a>
+                                                    </figure>
+                                                    <div class="tg-contentbox" style="">
+                                                        <a class="tg-tag tg-featuredtag" href="#">@item.PostingDate</a>
+                                                        @{
+                                                            if (!item.AdminStatus)
+                                                            {
+                                                                <a style='background-color: red; color:white' class="tg-tag tg-featuredtag" href="#">Admin Suspended</a>
+                                                            }
+                                                        }
+                                                        <a href="#"><span style="visibility: hidden;">tempo text to show we exist dfdf dfd fd fd sdfsdf sdfsdf dsf sdf df sdfsd</span></a>
+                                                        <div class="tg-title" style="margin-top: -20px;">
+                                                            <h3>
+                                                                <a href="#">@item.CatName Required</a> <span class="@isAppliedClass">@iApplied</span>
+                                                            </h3>
+                                                        </div>
+                                                        <p style="display: inline-block;text-align: left;float: left;">@item.JobTitle </p>
+                                                        @if (showStartedText)
+                                                        {
+                                                            <span class="jobstartedspan">[started]</span>
+                                                        }
+                                                        @{
+                                                            if (completed)
+                                                            {
+                                                                <a style='background-color: #2196F3;; color: white; margin-left: 2px;' class="tg-tag tg-featuredtag" href="#">Closed</a>
+                                                            }
+                                                            if (item.IsApproved)
+                                                            {
+                                                                <a style='background-color: #ff7a36; color: white; margin-left: 2px;' class="tg-tag tg-featuredtag" href="#">Approved</a>
+                                                            }
+                                                            else
+                                                            {
+                                                                if (!string.IsNullOrEmpty(item.Feedback))
+                                                                {
+                                                                    <a style='background-color: red; color: white' class="tg-tag tg-featuredtag" href="#">Rejected</a>
+                                                                    <span>[Admin Feedback]</span>
+                                                                    <span>@item.Feedback</span>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <a style='background-color: red; color: white; margin-left: 2px;' class="tg-tag tg-featuredtag" href="#">Approval pending</a>
+                                                                }
+                                                            }
+
+                                                        }
                                                     </div>
-                                                    <span>@item.JobTitle </span>
-                                                     @if (showStartedText)
-                                                     {
-                                                        <span class="jobstartedspan">[started]</span>
-                                                     }
-                                                </div>
-                                            </td>
-                                            <td style="line-height: 12px; padding-top: 29px;"><span>@item.LocationName</span></td>
-                                            <td style="line-height: 18px; padding-top: 27px;"><span>@item.Mobile</span>
-                                                <span>@item.Email</span>
-                                            </td>
-                                            <td><span>Rs. @item.Fee</span></td>
-                                        </tr>
+                                                </td>
+                                                <td class="col-xs-3 col-sm-3 col-md-3 col-lg-3"><p>@item.LocationName</p></td>
+                                                <td class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                                                    <span>@item.Mobile</span>
+                                                    <span>@item.Email</span>
+                                                </td>
+                                                <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1"><span>Rs. @item.Fee</span></td>
+                                            </tr>
+                                                            }
                                     }
-                                }
 
 
                                 </tbody>
@@ -184,7 +235,7 @@ Inner Page Banner Start
                 <!-- content goes here -->
                 <div class="form-group">
                     <label> Job Title & Description</label>
-                    <input type="text" class="form-control editJobVal" id="jobTitle">
+                    <input type="text" class="form-control editJobVal" maxlength="150" id="jobTitle">
                 </div>
 
                 <div class="form-group width45">
@@ -193,11 +244,11 @@ Inner Page Banner Start
                 </div>
                 <div class="form-group width45" style="margin-left: 29px">
                     <label> Fee</label>
-                    <input type="text" class="form-control editJobVal" id="jobFee">
+                    <input type="text" class="form-control editJobVal" maxlength="5" id="jobFee">
                 </div>
                 <div class="form-group width45">
                     <label> Mobile</label>
-                    <input type="text" class="form-control editJobVal" id="jobMobile">
+                    <input type="text" max="15" class="form-control editJobVal" id="jobMobile">
                 </div>
                 @*<div class="form-group width45" style="margin-left: 29px">
                     <label> Email</label>
@@ -252,7 +303,7 @@ Inner Page Banner Start
 
     function saveJob() {
         if (!ValidateByClassName('editJobVal')) {
-            toastr.warning("Please fill-up data");
+            toastr.error("Please fill-up data");
             return false;
         }
         var serverObj = {};
@@ -275,6 +326,8 @@ Inner Page Banner Start
         $('#manage-Job-Body').html(data);
         $('#updateJob').modal('hide');
         $('#adminLoading').hide();
+
+        location.reload();
     }
 
     function postMydata(serverObj, url, successFunc) {

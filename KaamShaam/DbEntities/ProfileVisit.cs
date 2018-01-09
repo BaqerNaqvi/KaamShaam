@@ -19,7 +19,7 @@ namespace KaamShaam.DbEntities
         public string VistedOf { get; set; }
         public System.DateTime DateTime { get; set; }
     
-        public virtual AspNetUser AspNetUser { get; set; }
-        public virtual AspNetUser AspNetUser1 { get; set; }
+        public virtual AspNetUser Vistor { get; set; }
+        public virtual AspNetUser Owner { get; set; }
     }
 }

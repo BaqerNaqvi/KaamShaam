@@ -48,12 +48,12 @@ Inner Page Banner Start
         Main Start
 *************************************-->
 <main id="tg-main" class="tg-main tg-haslayout">
-    <div class="container">
+    <div class="container" style="margin-left: 4%;width: 96%;">
         <div class="row">
             <div id="tg-twocolumns" class="tg-twocolumns">
 
-                @{ Html.RenderPartial("LeftMenu");}
-                <div class="col-xs-12 col-sm-7 col-md-8 col-lg-9">
+                @*@{ Html.RenderPartial("LeftMenu");}*@
+                <div class="col-xs-12 col-sm-12 col-md-1 col-lg-12">
                     <div id="tg-content" class="tg-content">
                         <div class="tg-joblisting tg-dashboardmanagejobs">
                             <div class="tg-dashboardhead">
@@ -64,7 +64,7 @@ Inner Page Banner Start
                             </div>
                             <div class="tg-sortfilters">
                                 <div class="tg-sortfilter tg-sortby">
-                                    <span style="    margin-top: 5px;">Sort By:</span>
+                                    <span style=" margin-top 5px;">Sort By:</span>
                                     <div class="tg-select">
                                         <select id="sortDd" onchange="sortByChanged()" style="height: 40px;">
                                             <option value="Title">Title</option>
@@ -85,7 +85,7 @@ Inner Page Banner Start
                                         </div>*@
                                 </div>
                                 <div class="tg-sortfilter tg-show">
-                                    <span style="    margin-top: 5px;">Jobs/Page: </span>
+                                    <span style=" margin-top 5px;">Jobs/Page: </span>
                                     <div class="tg-select" style="height: 40px;">
                                         <select onchange="itemsPerPageChanged()" id="itemsPerPageDd" style="padding-left: 95px;    margin-top: 5px;">
                                             <option value="2">2</option>
@@ -118,16 +118,21 @@ Inner Page Banner Start
 
                                             if (!item.UserStatus)
                                             {
-                                                cusStyle = cusStyle + " background-color: #ffeb99;";
+                                                cusStyle = cusStyle;
                                             }
                                             if (item.IfIApplied)
                                             {
                                                 iApplied = "[Applied]";
                                                 isAppliedClass = "appplySpan";
                                             }
-                                            var ccnn = item.JobHistory.FirstOrDefault();
+                                            var tdmodel = "";
+                                            if (!item.CanRate)
+                                            {
+                                                tdmodel = "data-toggle='modal' data-target='#updateJob'";
+                                            }
+                                            //var ccnn = item.JobHistory.FirstOrDefault();
                                             <tr style="">
-                                                <td style="@cusStyle; cursor: pointer;" data-toggle="modal" data-target="#updateJob" onclick="editJob(@Json.Encode(item))">
+                                                <td class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="cursor: pointer;" @tdmodel onclick="editJob(@Json.Encode(item))">
                                                     <figure class="tg-companylogo">
                                                         <img src="@baseUrl/Images/contractor-dashboard/small1.jpg" alt="image description">
                                                         <a class="tg-btndel" href="#"><i class="fa fa-close"></i></a>
@@ -140,21 +145,50 @@ Inner Page Banner Start
                                                                 <a href="#">@item.CatName Required</a>
                                                             </h3>
                                                         </div>
-                                                        <span>@item.JobTitle</span>
-                                                        <span class="appplySpan"><a href="~/Contractor/ViewProfile?userId=@item.JobHistory.FirstOrDefault().ContractorId" style="color: white">@item.JobHistory.FirstOrDefault().ContractorName</a></span><span class="appliedspan">Applied</span>
+                                                        <p style="display: inline-block; text-align: left; float: left">@item.JobTitle </p>
+                                                        @*@{
+                                                                if (item.IsApproved)
+                                                                {
+                                                                    <a style='background-color: #ff7a36; color: white; margin-left: 10px;' class="tg-tag tg-featuredtag" href="#">Approved</a>
+                                                                    <br/>
+                                                                }
+                                                            }*@
+                                                        @{
+
+                                                                {
+                                                        <span class="appplySpan" style="background-color: #ec407a !important"><a href="~/Contractor/ViewProfile?userId=@item.ContractorId" style="color: white; margin-left: 6px;">[ @item.ContractorName ]</a></span>
+                                                                }
+                                                        }
+
                                                     </div>
                                                 </td>
-                                                <td style="line-height: 12px; padding-top: 29px;">
-                                                    <span>@item.LocationName</span>
-                                                    <br/>
+                                                <td class="col-xs-3 col-sm-3 col-md-3 col-lg-3"style="padding-top: 10px;">
+                                                    <p>@item.LocationName</p>
+                                                    <br />
                                                     <span>@item.Mobile</span>
                                                 </td>
-                                                <td style="line-height: 18px; padding-top: 45px;">
+                                                <td class="col-xs-2 col-sm-2 col-md-2 col-lg-2" style="padding-top: 45px;">
                                                     <span>Rs. @item.Fee</span>
                                                 </td>
-                                                <td><input type="button" class="btn btn-primary" data-toggle="modal" onclick="openRateModel(@Json.Encode(ccnn.ContractorId),@Json.Encode(ccnn.JobId))" data-target="#addconReviewModel" value="Rate & Close"/></td>
+                                                <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1" style="padding-top: 45px;">
+                                                    @if (item.JobStatus==2)
+                                                    {
+                                                    <input type="button" class="btn btn-primary" data-toggle="modal" onclick="openRateModel(@Json.Encode(item.ContractorId), @Json.Encode(item.Id)) " data-target="#addconReviewModel" value="Rate & Close" />
+
+                                                    }
+                                                    else if (item.JobStatus == 1)
+                                                    {
+                                                    <button type="button" id="save-Basic-info-btn" class="btn btn-primary btn-hover-green" data-action="save" role="button" onclick=" acceptProposal(@Json.Encode(item.ContractorId), @Json.Encode(item.Id) )">Accept Proposal</button>
+                                                    }
+                                                    else
+                                                    {
+                                                    <a style="background-color: #2196F3;; color: white; margin-left: 2px;" class="tg-tag tg-featuredtag" href="#">
+                                                        Closed
+                                                    </a>
+                                                    }
+                                                </td>
                                             </tr>
-                                        }
+                                                            }
                                     }
 
 
@@ -219,7 +253,7 @@ Inner Page Banner Start
             <div class="modal-footer">
                 <div class="btn-group btn-group-justified" role="group" aria-label="group button">
                     <div class="btn-group" role="group">
-                        <button type="button" id="save-Basic-info-btn" class="btn btn-primary btn-hover-green" data-action="save" role="button" onclick=" acceptProposal() ">Accept Proposal & Start Job</button>
+                        <button type="button" id="save-Basic-info-btn" class="btn btn-primary btn-hover-green" data-action="save" role="button" onclick="acceptProposal() ">Accept Proposal & Start Job</button>
                     </div>
                 </div>
             </div>
@@ -306,6 +340,7 @@ Inner Page Banner Start
         $('#manage-Job-Body').html(data);
         $('#updateJob').modal('hide');
         $('#adminLoading').hide();
+        location.reload();
     }
     function postMydata(serverObj, url, successFunc) {
         $('#adminLoading').show();
@@ -322,11 +357,11 @@ Inner Page Banner Start
             }
         });
     }
-    function acceptProposal() {
+    function acceptProposal(contractId, jobId) {
         var serverObj = {};
-        serverObj.Id = objtoedit.Id;
+        serverObj.Id = jobId;//objtoedit.Id;
         serverObj.PurposalText = "I approve your job.";
-        serverObj.ContractorId = objtoedit.JobHistory[0].ContractorId;
+        serverObj.ContractorId = contractId;//objtoedit.JobHistory[0].ContractorId;
 
         var wraperObj = {};
         wraperObj.JobModel = serverObj;
@@ -448,6 +483,7 @@ Inner Page Banner Start
          $('#addconReviewModel').modal('toggle');
          $('#adminLoading').hide();
          toastr.success("Thank you for your feedback");
+         location.reload();
      }
      function PostReview() {
 

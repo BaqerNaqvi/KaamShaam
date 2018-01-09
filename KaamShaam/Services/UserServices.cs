@@ -57,7 +57,10 @@ namespace KaamShaam.Services
                         dbuser.ContractorId = null;
                         dbuser.CategoryId = null;
                         dbuser.IsApproved = true;
-
+                    }
+                    else
+                    {
+                        dbuser.Feedback = "Admin has not yet verified your account. Please contact admin.";
                     }
                     userManager.AddToRole(userId, user.Type);
                     dbContext.AspNetUsers.AddOrUpdate(dbuser);
@@ -81,14 +84,37 @@ namespace KaamShaam.Services
                 var dbuser = dbContext.AspNetUsers.FirstOrDefault(u => u.Id == user.Id);
                 if (dbuser != null)
                 {
-                    dbuser.FullName = user.FullName ?? dbuser.FullName;
-                    dbuser.Mobile = user.Mobile?? dbuser.Mobile;
-                    dbuser.CNIC = user.CNIC?? dbuser.CNIC;
+                    //dbuser.FullName = user.FullName ?? dbuser.FullName;
+                //    dbuser.Mobile = user.Mobile?? dbuser.Mobile;
+                //    dbuser.CNIC = user.CNIC?? dbuser.CNIC;
                     dbuser.Email = user?.Email?? dbuser.Email;
-                    dbuser.IsApproved = false;
+                   // dbuser.IsApproved = !dbuser.AspNetRoles.Any( r=> r.Name.ToLower().Contains("contractor"));
                     dbuser.EditedAt = DateTime.Now;
-
                     dbuser.Feedback = null;
+
+
+                    if (!string.IsNullOrEmpty(user.Mobile) && dbuser.Mobile != user.Mobile)
+                    {
+                        dbuser.Mobile = user.Mobile;
+                        dbuser.PhoneNumberConfirmed = false;
+                        dbuser.Feedback = "Verify your contact number or contact admin.";
+
+                    }
+
+                    if (!string.IsNullOrEmpty(user.FullName) && dbuser.FullName != user.FullName)
+                    {
+                        dbuser.FullName = user.FullName;
+                        dbuser.IsApproved = false;
+                        dbuser.Feedback = "Your updated name is not yet verified by the admin. Contact admin";
+                    }
+
+                    if (!string.IsNullOrEmpty(user.CNIC) && dbuser.CNIC != user.CNIC)
+                    {
+                        dbuser.CNIC = user.CNIC;
+                        dbuser.IsApproved = false;
+                        dbuser.Feedback = "CNIC is not yet verified by the admin. Contact admin";
+                    }
+
                     dbContext.AspNetUsers.AddOrUpdate(dbuser);
                     dbContext.SaveChanges();
                 }
@@ -115,8 +141,7 @@ namespace KaamShaam.Services
                     dbuser.City = user.City;
                     dbuser.LocationCord = loc;
                     dbuser.LocationName = user.LocationName;
-                    dbuser.IsApproved = false;
-                    dbuser.EditedAt = DateTime.Now;
+                  //  dbuser.IsApproved = !dbuser.AspNetRoles.Any(r => r.Name.ToLower().Contains("contractor")); dbuser.EditedAt = DateTime.Now;
 
                     dbuser.Feedback = null;
                     dbContext.AspNetUsers.AddOrUpdate(dbuser);
@@ -136,7 +161,7 @@ namespace KaamShaam.Services
                 {                    
                     dbuser.Intro = user.Intro;
                     dbuser.Language = user.Language;
-                    dbuser.IsApproved = false;
+                 //   dbuser.IsApproved = !dbuser.AspNetRoles.Any(r => r.Name.ToLower().Contains("contractor"));
                     dbuser.EditedAt = DateTime.Now;
                     dbuser.Feedback = null;
                     dbContext.SaveChanges();
@@ -152,7 +177,7 @@ namespace KaamShaam.Services
                 {
                     dbuser.CategoryId = user.CategoryId;
                     dbuser.ContractorId = user.ContractorId;
-                    dbuser.IsApproved = false;
+                 //   dbuser.IsApproved =! dbuser.AspNetRoles.Any(r => r.Name.ToLower().Contains("contractor"));
                     dbuser.EditedAt = DateTime.Now;
 
                     dbuser.Feedback = null;
@@ -190,7 +215,9 @@ namespace KaamShaam.Services
             {
                 using (var dbContext = new KaamShaamEntities())
                 {
-                    var dbusers = dbContext.AspNetUsers.Where(u => u.CategoryId == catId && u.Type == "Contractor").ToList();
+                    var dbusers = dbContext.AspNetUsers
+                        .Where(u => u.CategoryId == catId && u.Type == "Contractor" && 
+                        (bool) u.Status && (bool) u.IsApproved).ToList();
                     return dbusers.Select(d=>d.MapUser()).ToList();
                 }
             }

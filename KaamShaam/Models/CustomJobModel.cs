@@ -58,11 +58,16 @@ namespace KaamShaam.Models
 
         public string ContractorId { get; set; }  // for job proposal
 
+        public string ContractorName { get; set; }  // for job proposal
+
         public double lat { get; set; }
         public double lng { get; set; }
 
         [ScriptIgnore]
         public LocalUser JobPostedByObj { get; set; }
+
+        public bool CanRate { get; set; }
+        public int JobStatus { get; set; }
     }
 
     public static class JobMapper

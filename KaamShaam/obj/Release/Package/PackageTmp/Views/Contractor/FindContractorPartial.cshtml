@@ -25,7 +25,7 @@
                             <li><a class="tg-tag tg-verifiedtag" href="#">verified</a></li>
                         </ul>
                         <div class="tg-title">
-                            <h3><a href="contractor-profile.php" style="display: inline">@item.title</a><span style="font-size: x-small;">&nbsp;[@item.Distance Km away]</span></h3>
+                            <h3><a href="~/Contractor/ViewProfile?userId=@item.id" style="display: inline">@item.title</a><span style="font-size: x-small;">&nbsp;[@item.Distance Km away]</span></h3>
                         </div>
                         <ul class="tg-matadata">
                             <li><span class="tg-stars"><span></span></span></li>
@@ -41,7 +41,7 @@
 
 
                         </div>
-                        <button style="margin-top: 4px;margin-left: 0px !important;" class="tg-btn btn-margin-left"><a href="~/Contractor/ViewProfile?userId=@item.id">View Profile</a></button>
+                        <a style="margin-top: 4px;margin-left: 0px !important;" class="tg-btn btn-margin-left" href="~/Contractor/ViewProfile?userId=@item.id">View Profile</a>
                         @*<button class="tg-btn" type="buttton" data-toggle="modal" data-target=".tg-appointmentModal">Contact</button>*@
                         <button style="margin-top: 4px;" class="tg-btn btn-margin-left" onclick="showOpps(@Json.Encode(item.id))">Hire</button>
                     </div>

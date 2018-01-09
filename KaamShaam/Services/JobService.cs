@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Common.CommandTrees;
 using System.Data.Entity.Migrations;
 using System.Data.Entity.Spatial;
 using System.Linq;
@@ -19,7 +20,8 @@ namespace KaamShaam.Services
             using (var dbcontext = new KaamShaamEntities())
             {
                 var jobs = dbcontext.Jobs.Where(j=> !j.IsRecycled 
-                && j.IsApproved== isApproved &&( isApproved || j.UserStstus)).ToList();
+                && j.IsApproved== isApproved &&( isApproved || j.UserStstus)).ToList()
+                .OrderByDescending( j=> j.PostingDate).ToList();
                 return jobs.Select(j => j.Mapper()).ToList();
             }
         }       
@@ -69,18 +71,25 @@ namespace KaamShaam.Services
         {           
             using (var dbcontext = new KaamShaamEntities())
             {
-                var dbObj = dbcontext.Jobs.FirstOrDefault(j => j.Id == job.Id);
-                if (dbObj != null)
+                try
                 {
-                    dbObj.JobTitle = job.JobTitle;
-                    dbObj.Mobile = job.Mobile;
-                    dbObj.Email = job.Email;
-                    dbObj.Fee = Convert.ToInt32(job.Fee);
-                    dbObj.IsApproved = false;
-                    dbObj.FeedBack = null;
-                    dbObj.CategoryId = job.CategoryId;
+                    var dbObj = dbcontext.Jobs.FirstOrDefault(j => j.Id == job.Id);
+                    if (dbObj != null)
+                    {
+                        dbObj.JobTitle = job.JobTitle;
+                        dbObj.Mobile = job.Mobile;
+                        dbObj.Email = job.Email ?? "NA";
+                        dbObj.Fee = Convert.ToInt32(job.Fee);
+                        dbObj.IsApproved = false;
+                        dbObj.FeedBack = null;
+                        dbObj.CategoryId = job.CategoryId;
+                    }
+                    dbcontext.SaveChanges();
                 }
-                dbcontext.SaveChanges();
+                catch (Exception cxc)
+                {
+
+                }
             }
         }
         public static void DeleteJob(CustomJobModel job, string loggedInUserid)
@@ -111,6 +120,9 @@ namespace KaamShaam.Services
                 {
                     var postedByUser = dbObj.AspNetUser;
                     KaamShaam.Services.EmailService.SendEmail(postedByUser.Email, "Job Status Changed - KamSham.Pk", postedByUser.FullName + " We noticed some changes in your job '" + dbObj.JobTitle + "'. Please review your jobs.");
+                    KaamShaam.Services.EmailService.SendSms(postedByUser.Mobile, "Please review your changes in jobs at https://kamsham.pk");
+
+
 
 
                     if (loggedInUserid == dbObj.PostedById)
@@ -137,6 +149,10 @@ namespace KaamShaam.Services
                     {
                         dbJob.FeedBack = job.Feedback;
                     }
+                    else
+                    {
+                        dbJob.FeedBack = null;
+                    }
                     dbcontext.SaveChanges();
                 }
                 return dbJob;
@@ -147,8 +163,14 @@ namespace KaamShaam.Services
             using (var dbcontext = new KaamShaamEntities())
             {
                 var jobs = dbcontext.Jobs.Where(j => !j.IsRecycled
-                && j.IsApproved && j.UserStstus && !j.IsRecycled).ToList();
-                var mappedJobs= jobs.Select(j => j.Mapper()).ToList();
+                && j.IsApproved && j.UserStstus && !j.IsRecycled && j.AdminStatus).ToList();
+
+                jobs = jobs.Where(j=>
+                (j.JobHistories.Count==0 || 
+                (j.JobHistories.Count>0 &&
+                j.JobHistories.All(h => h.JobStatus == (int)Commons.Enums.JobHistoryStatus.Applying)))).ToList();              
+                var mappedJobs= jobs.Select(j => j.Mapper()).ToList().OrderByDescending( o=> o.PostingDateObj).ToList();
+
                 foreach (var obj in mappedJobs)
                 {
                     if (obj.JobHistory!=null)
@@ -156,7 +178,7 @@ namespace KaamShaam.Services
                         obj.IfIApplied = obj.JobHistory.Any
                        (his =>
                            his.ContractorId == loggedInUserId &&
-                           his.JobStatus == (int)Commons.Enums.JobHistoryStatus.Applying);
+                          his.JobStatus == (int)Commons.Enums.JobHistoryStatus.Applying);
                     }
                 }
                 return mappedJobs;
@@ -184,6 +206,7 @@ namespace KaamShaam.Services
                     var jobobj = JobService.GetJobById(job.JobId);
                     var posterUser = UserServices.GetUserById(job.PostedById);
                     KaamShaam.Services.EmailService.SendEmail(posterUser.Email, "Job Activity","There is a new job proposal on your job '"+jobobj.JobTitle+"'. Visit https://kamsham.pk");
+                    KaamShaam.Services.EmailService.SendSms(posterUser.Mobile, "New proposal at your job posted at https://kamsham.pk");
 
                 }
                 catch (Exception dfdf)
@@ -223,7 +246,7 @@ namespace KaamShaam.Services
                 var jobs = dbcontext.Jobs.Where(j => !j.IsRecycled
                 && j.IsApproved && j.UserStstus).ToList();
 
-                var mappedJobs = jobs.Select(j => j.Mapper()).ToList();
+                var mappedJobs = jobs.Select(j => j.Mapper()).ToList().OrderByDescending( o=> o.PostingDateObj).ToList();
                 List<CustomJobModel> tempo= new List<CustomJobModel>();
                 foreach (var obj in mappedJobs)
                 {
@@ -252,19 +275,42 @@ namespace KaamShaam.Services
                 var jobs = dbcontext.Jobs.Where(j => !j.IsRecycled
                 && j.IsApproved && j.UserStstus && j.PostedById==loggedInUserId).ToList();
 
-                var mappedJobs = jobs.Select(j => j.Mapper()).ToList();
+                var mappedJobs = jobs.Select(j => j.Mapper()).ToList().OrderByDescending( jo => jo.PostingDateObj).ToList();
                 List<CustomJobModel> tempo = new List<CustomJobModel>();
                 foreach (var obj in mappedJobs)
                 {
                     if (obj.JobHistory != null)
                     {
-                        var isStatus = obj.JobHistory.Any(
-                             t =>t.JobStatus == (int)Commons.Enums.JobHistoryStatus.Applying);
-
-                        if (isStatus)
+                        //var isStatus = obj.JobHistory.Any(
+                        //     t =>t.JobStatus == (int)Commons.Enums.JobHistoryStatus.Applying);
+                        var histories = obj.JobHistory;
+                        foreach (var  his in histories)
                         {
-                            tempo.Add(obj);
+                           // if(his.JobStatus != (int)Commons.Enums.JobHistoryStatus.End)
+                            {
+                                var cc = new CustomJobModel
+                                {
+                                    Id = obj.Id,
+                                    ContractorId = his.ContractorId,
+                                    CatName = obj.CatName,
+                                    PostedById = obj.PostedById,
+                                    Email = obj.Email,
+                                    Fee = obj.Fee,
+                                    JobTitle = obj.JobTitle,
+                                    ContractorName = his.ContractorName,
+                                    Mobile = obj.Mobile,
+                                    PostingDate = obj.PostingDate,
+                                    JobStatus = his.JobStatus,
+                                    CanRate = his.JobStatus == (int)Commons.Enums.JobHistoryStatus.Continue
+                                };
+                                tempo.Add(cc);
+                            }
                         }
+
+                        //if (isStatus)
+                        //{
+                        //    tempo.Add(obj);
+                        //}
                     }
                 }
                 return tempo;
@@ -279,7 +325,7 @@ namespace KaamShaam.Services
                 && j.IsApproved && j.UserStstus && j.JobHistories.Any(
                              t =>t.ContractorId==loggedInUserId &&
                              t.JobStatus == (int)Commons.Enums.JobHistoryStatus.Continue)).ToList();
-                var mappedJobs = jobs.Select(j => j.Mapper()).ToList();
+                var mappedJobs = jobs.Select(j => j.Mapper()).ToList().OrderByDescending( j=> j.PostingDateObj).ToList();
                 return mappedJobs;
             }
         }
@@ -293,7 +339,7 @@ namespace KaamShaam.Services
                     var dbjob = dbcontext.Jobs.FirstOrDefault(j => j.Id == job.JobId);
                     if (dbjob != null)
                     {
-                        var jhistory= dbjob.JobHistories;
+                        var jhistory= dbjob.JobHistories.ToList();
                         foreach (var history in jhistory)
                         {
                             if (history.ContractorId == job.ContractorId)
@@ -311,6 +357,7 @@ namespace KaamShaam.Services
 
                     var conractUser = UserServices.GetUserById(contractorId);
                     KaamShaam.Services.EmailService.SendEmail(conractUser.Email, "Job Assignment", "You have been assigned a new job '" + dbjob.JobTitle + "'. Visit https://kamsham.pk");
+                    KaamShaam.Services.EmailService.SendSms(conractUser.Mobile, "Your proposal for job has been accepted at https://kamsham.pk");
 
                 }
                 catch (Exception dfdf)
@@ -350,7 +397,7 @@ namespace KaamShaam.Services
                     dbcontext.SaveChanges();
 
                     var myjob = dbcontext.Jobs.FirstOrDefault(jhj => jhj.Id == jobid);
-                    myjob.UserStstus = false;
+                    myjob.UserStstus = true;
 
                     var otherHIstoryes = dbcontext.JobHistories.Where(jo => jo.JobId == jobid && jo.Id != his.Id);
                     if (otherHIstoryes != null && otherHIstoryes.Any())
@@ -362,7 +409,7 @@ namespace KaamShaam.Services
                     }
                     dbcontext.SaveChanges();
                     KaamShaam.Services.EmailService.SendEmail(myjob.AspNetUser.Email, "Job Status Updated - KamSham.Pk", " Your job status has been updated. Please review your jobs section.");
-
+                    KaamShaam.Services.EmailService.SendSms(myjob.AspNetUser.Mobile, "Your job status has been updated at https://kamsham.pk");
 
                 }
                 catch (Exception)

@@ -11,6 +11,8 @@ namespace KaamShaam.Models
         public PaggingClass Pagging { get; set; }
         public List<CustomJobModel> JobsList { get; set; }
 
+        public List<CustomJobModel> JobProposalModel { get; set; }
+
         public List<LocalCategory> Categories { get; set; }
 
         public string Str { get; set; }
