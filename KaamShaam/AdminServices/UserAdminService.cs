@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using KaamShaam.DbEntities;
 using KaamShaam.LocalModels;
+using LocalUser = KaamShaam.AdminModels.LocalUser;
 using UserMapper = KaamShaam.AdminModels.UserMapper;
 
 namespace KaamShaam.AdminServices
@@ -14,8 +15,15 @@ namespace KaamShaam.AdminServices
         {
             using (var dbContext = new KaamShaamEntities())
             {
-                var dbCats = dbContext.AspNetUsers.Where(cat =>cat.Type==type &&   ((bool)!cat.IsApproved || !cat.PhoneNumberConfirmed)).ToList().Select(pbj => UserMapper.MapUser(pbj)).ToList();
-                return dbCats;
+                var dbCats = dbContext.AspNetUsers.
+                    Where(cat => cat.Type == type &&
+                   ((bool) !cat.IsApproved || !cat.PhoneNumberConfirmed)).ToList();
+                if (dbCats != null && dbCats.Any())
+                {
+                   return dbCats.Select(pbj => UserMapper.MapUser(pbj)).ToList()
+                        .OrderByDescending( o => o.EditedAtObj).ToList();
+                }               
+                return new List<LocalUser>();
             }
         }
        

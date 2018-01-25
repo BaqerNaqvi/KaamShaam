@@ -160,8 +160,8 @@ namespace KaamShaam.LocalModels
                 Country = source.Country ?? "(Not Provided)",
                 City = source.City ?? "(Not Provided)",
 
-                Intro = source.Intro ?? "(Not Provided)",
-                Language = source.Language ?? "(Not Provided)",
+                Intro = source.Intro ?? " ",
+                Language = source.Language ?? " ",
                 ContractorId = source.ContractorId ?? "(Not Provided)",
                 CategoryId = source.CategoryId ?? 0,
                 LocationName = source.LocationName ?? "(Not Provided)",

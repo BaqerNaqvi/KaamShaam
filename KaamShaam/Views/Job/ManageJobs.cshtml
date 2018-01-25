@@ -44,6 +44,8 @@ Inner Page Banner Start
                                 </div>
                                 <a href="~/job/PostJob"><button class="tg-btnaddservices" data-toggle="modal" data-target=".tg-categoryModal">Post A New Job</button></a>
                             </div>
+                            <p style="padding: 2px; color: red; border-radius: 5px;">* Please Contact at admin support for job approval (IF ANY)</p>
+
                             <div class="tg-sortfilters">
                                 <div class="tg-sortfilter tg-sortby">
                                     <span style="margin-top: 5px;">Sort By:</span>
@@ -135,7 +137,7 @@ Inner Page Banner Start
                                                         <a class="tg-btndel" href="#"></a>
                                                     </figure>
                                                     <div class="tg-contentbox" style="">
-                                                        <a class="tg-tag tg-featuredtag" href="#">@item.PostingDate</a>
+                                                        <a class="tg-tag tg-featuredtag" >@item.PostingDate</a>
                                                         @{
                                                             if (!item.AdminStatus)
                                                             {
@@ -186,6 +188,12 @@ Inner Page Banner Start
                                                 </td>
                                                 <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1"><span>Rs. @item.Fee</span></td>
                                             </tr>
+                                                            }
+                                                            if (Model.JobsList == null || Model.JobsList.Count == 0)
+                                                            {
+                                                                <tr>
+                                                                    <p style="width: 100%; text-align: center;color: #ff7a36;">No Job Posted Yet</p>
+                                                                </tr>
                                                             }
                                     }
 
@@ -322,7 +330,7 @@ Inner Page Banner Start
     }
 
     function opPerformed(data) {
-        toastr.success("Operation performed");
+        toastr.success("Success");
         $('#manage-Job-Body').html(data);
         $('#updateJob').modal('hide');
         $('#adminLoading').hide();

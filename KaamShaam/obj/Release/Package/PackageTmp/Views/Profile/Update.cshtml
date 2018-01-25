@@ -291,12 +291,12 @@ Main Start
 
                 <!-- content goes here -->
                 <div class="form-group">
-                    <label> Full Name</label>
+                    <label> Full Name <span style="color:red">&nbsp; *You will need admin approval on updating Name</span></label>
                     <input maxlength="100" type="text" class="form-control binfoVal" id="bi-fullname">
                 </div>
 
                 <div class="form-group">
-                    <label > CNIC <span style="color:red">You will need approval on updating CNIC</span></label>
+                    <label > CNIC <span style="color:red">&nbsp; *You will need admin approval on updating CNIC</span></label>
                     <input  maxlength="100" type="text" class="form-control binfoVal" id="bi-cnic">
                 </div>
                 <div class="form-group">
@@ -774,6 +774,8 @@ Main End
         var cnic = $("#td-CNIC").text();
         var mobile = $("#td-mobile").text();
         var email = $("#td-email").text();
+
+        
 
         $("#bi-fullname").val(name);
         $("#bi-cnic").val(cnic);

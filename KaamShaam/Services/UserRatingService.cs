@@ -46,6 +46,21 @@ namespace KaamShaam.Services
             }
         }
 
+        public static LocalUserRating GetRatingByJobId(long jobid)
+        {
+            using (var dbcontext = new KaamShaamEntities())
+            {
+                var newRatings = new LocalUserRating();
+                var ratnigs = dbcontext.UserRatings.FirstOrDefault( r => r.JobId==jobid);
+                if (ratnigs!=null)
+                {
+                    newRatings = ratnigs.Mapper()
+                    ;
+                }
+                return newRatings;
+            }
+        }
+
 
         public static double GetRatingsInFloat(string ofUserId)
         {

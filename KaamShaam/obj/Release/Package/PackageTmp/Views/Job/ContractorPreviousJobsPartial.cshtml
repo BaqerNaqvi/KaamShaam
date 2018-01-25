@@ -1,0 +1,102 @@
+﻿
+@using KaamShaam.Commons
+@model KaamShaam.Models.JobPartialPageModel
+
+@{
+
+    string baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority +
+                                   Request.ApplicationPath.TrimEnd('/');
+    if (Model != null)
+    {
+        foreach (var item in Model.JobList.ToList())
+        {
+            var cusStyle = "    width: 50%;";
+            var adminsus = "";
+            var iApplied = "";
+            var isAppliedClass = "";
+
+            if (!item.UserStatus)
+            {
+                cusStyle = cusStyle + " background-color: #ffeb99;";
+            }
+            if (item.IfIApplied)
+            {
+                iApplied = "[Applied]";
+                isAppliedClass = "appplySpan";
+            }
+
+            var showStartedText = false;
+            var jhistory = item.JobHistory.FirstOrDefault();
+            if (jhistory != null)
+            {
+                if (jhistory.JobStatus == (int)Enums.JobHistoryStatus.Continue)
+                {
+                    showStartedText = true;
+                }
+            }
+
+            var completed = false;
+            var modelSmn = "data-toggle=modal data-target=#updateJob";
+            if (jhistory != null && jhistory.JobStatus == (int)Enums.JobHistoryStatus.End)
+            {
+                modelSmn = "";
+                completed = true;
+            }
+
+            var jobimg = baseUrl + "/Images/NewCatsIcons/" + item.CategoryId + ".png";
+            <tr>
+                @*<tr style="cursor: pointer;" data-toggle="modal" data-target="#updateJob" onclick="editJob(@Json.Encode(item))">*@
+                <td class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <figure class="tg-companylogo">
+                        <img src="@baseUrl/Images/contractor-dashboard/small1.jpg" alt="image description">
+                        <a class="tg-btndel"><i class="fa fa-close"></i></a>
+
+                    </figure>
+                    <div class="tg-contentbox">
+                        <a class="tg-tag tg-featuredtag">@item.PostingDate</a>
+                        <div class="tg-title">
+                            <h3>
+                                <a>@item.CatName Required</a>
+                                <i class="fa fa-thumbs-o-up"></i>
+                                <em>@item.RatingStarForConForPrevJob </em>
+                            </h3>
+                        </div>
+
+                        <a href="#"><span style="visibility: hidden;height: 1px;">tempo text to show we exist dfdf dfd fd fd sdfsdf sdfsdf dsf sdf df sdfsd</span></a>
+                        <p style="display: inline-block;text-align: left;float: left;">@item.JobTitle </p>
+                    </div>
+                </td>
+                <td class="col-xs-3 col-sm-3 col-md-3 col-lg-3" style="padding-top: 10px;">
+                    <em>"@item.RatingStringForConForPrevJob"</em>
+                </td>
+                <td class="col-xs-2 col-sm-2 col-md-2 col-lg-2" style="padding-top: 10px;">
+                    <i class="fa fa-thumbs-o-up"></i>
+                    <span>@item.RatingStarForConForPrevJob</span>
+                </td>
+                <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1"><span>Rs. @item.Fee</span></td>
+            </tr>
+        }
+                            <script>
+        pageDataObj=@Html.Raw(Json.Encode(Model.Page));
+                            </script>
+                            }
+}
+
+<style>
+    .appplySpan {
+        width: 26% !important;
+        color: rgb(255, 255, 255) !important;
+        background-color: green !important;
+        padding: 2px !important;
+        border-radius: 5px !important;
+    }
+
+    .jobstartedspan {
+        display: inline !important;
+        width: 24% !important;
+        background-color: green !important;
+        color: white !important;
+        padding: 2px !important;
+        border-radius: 5px !important;
+    }
+</style>

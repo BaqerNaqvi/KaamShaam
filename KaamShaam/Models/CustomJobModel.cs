@@ -68,6 +68,11 @@ namespace KaamShaam.Models
 
         public bool CanRate { get; set; }
         public int JobStatus { get; set; }
+
+
+        public string RatingStarForConForPrevJob { get; set; }
+
+        public string RatingStringForConForPrevJob { get; set; }
     }
 
     public static class JobMapper
@@ -95,7 +100,9 @@ namespace KaamShaam.Models
                 JobHistory = source.JobHistories?.Select(j => j.Mapper()).ToList(),
                 lat = (double) source.Location.Latitude,
                 lng = (double) source.Location.Longitude,
-                JobPostedByObj = source.AspNetUser.MapUser()
+                JobPostedByObj = source.AspNetUser.MapUser(),
+                RatingStarForConForPrevJob = "(NA)",
+                RatingStringForConForPrevJob="(NA)"
             };
         }
     }

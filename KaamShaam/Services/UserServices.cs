@@ -48,6 +48,7 @@ namespace KaamShaam.Services
                     dbuser.CategoryId = user.CategoryId;
 
                     dbuser.Status = true;
+                    dbuser.Language = "English";
                     dbuser.IsApproved = false;
                     dbuser.EditedAt = DateTime.Now;
 
@@ -77,6 +78,16 @@ namespace KaamShaam.Services
                 return model;
             }
         }
+
+        public static LocalUser GetUserByPhone(string phone)
+        {
+            using (var dbContext = new KaamShaamEntities())
+            {
+                var dbuser = dbContext.AspNetUsers.FirstOrDefault(u => u.Mobile == phone);
+                var model = dbuser.MapUser();
+                return model;
+            }
+        }
         public static AspNetUser UpdateBasicInfo(LocalUser user)
         {
             using (var dbContext = new KaamShaamEntities())
@@ -95,6 +106,11 @@ namespace KaamShaam.Services
 
                     if (!string.IsNullOrEmpty(user.Mobile) && dbuser.Mobile != user.Mobile)
                     {
+
+                        user.Mobile = user.Mobile.Substring(1).Replace("-", "");
+                        user.Mobile = "92" + user.Mobile;
+
+
                         dbuser.Mobile = user.Mobile;
                         dbuser.PhoneNumberConfirmed = false;
                         dbuser.Feedback = "Verify your contact number or contact admin.";
@@ -123,33 +139,39 @@ namespace KaamShaam.Services
         }
         public static AspNetUser UpdateLocInfo(LocalUser user)
         {
-            using (var dbContext = new KaamShaamEntities())
+            try
             {
-                var dbuser = dbContext.AspNetUsers.FirstOrDefault(u => u.Id == user.Id);
-                if (dbuser != null)
+                using (var dbContext = new KaamShaamEntities())
                 {
-                    DbGeography loc = null;
-                    if (!String.IsNullOrEmpty(user.LocTempo) && user.LocTempo != "")
+                    var dbuser = dbContext.AspNetUsers.FirstOrDefault(u => u.Id == user.Id);
+                    if (dbuser != null)
                     {
-                        var latlng = user.LocTempo.Split('_');
-                        if (latlng.Length == 2)
+                        DbGeography loc = null;
+                        if (!String.IsNullOrEmpty(user.LocTempo) && user.LocTempo != "")
                         {
-                            loc = Commons.Commons.ConvertLatLonToDbGeography(latlng[1], latlng[0]); // lat _ lng
+                            var latlng = user.LocTempo.Split('_');
+                            if (latlng.Length == 2)
+                            {
+                                loc = Commons.Commons.ConvertLatLonToDbGeography(latlng[1], latlng[0]); // lat _ lng
+                            }
                         }
-                    } 
-                    dbuser.Country = user.Country;
-                    dbuser.City = user.City;
-                    dbuser.LocationCord = loc;
-                    dbuser.LocationName = user.LocationName;
-                  //  dbuser.IsApproved = !dbuser.AspNetRoles.Any(r => r.Name.ToLower().Contains("contractor")); dbuser.EditedAt = DateTime.Now;
+                        dbuser.Country = user.Country ?? "NA";
+                        dbuser.City = user.City ?? "NA";
+                        dbuser.LocationCord = loc;
+                        dbuser.LocationName = user.LocationName;
+                        //  dbuser.IsApproved = !dbuser.AspNetRoles.Any(r => r.Name.ToLower().Contains("contractor")); dbuser.EditedAt = DateTime.Now;
 
-                    dbuser.Feedback = null;
-                    dbContext.AspNetUsers.AddOrUpdate(dbuser);
-                    dbContext.SaveChanges();
+                        dbuser.Feedback = null;
+                        dbContext.AspNetUsers.AddOrUpdate(dbuser);
+                        dbContext.SaveChanges();
+                        return dbuser;
+                    }
+                    return null;
                 }
-               
-
-                return dbuser;
+            }
+            catch (Exception )
+            {
+                return null;
             }
         }
         public static void UpdateOtherInfo(LocalUser user)

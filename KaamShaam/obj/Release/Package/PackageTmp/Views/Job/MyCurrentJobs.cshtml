@@ -133,6 +133,8 @@ Inner Page Banner Start
                                                                 <a>@item.CatName Required</a> <span class="@isAppliedClass">@iApplied</span>
                                                             </h3>
                                                         </div>
+
+                                                        <a href="#"><span style="visibility: hidden;height: 1px;">tempo text to show we exist dfdf dfd fd fd sdfsdf sdfsdf dsf sdf df sdfsd</span></a>
                                                         <p style="display: inline-block;text-align: left;float: left;">@item.JobTitle </p>
                                                     </div>
                                                 </td>
@@ -145,6 +147,12 @@ Inner Page Banner Start
                                                     <span>@item.Email</span>
                                                 </td>
                                                 <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1"><span>Rs. @item.Fee</span></td>
+                                            </tr>
+                                        }
+                                        if (Model.JobsList == null || Model.JobsList.Count == 0)
+                                        {
+                                            <tr>
+                                                <p style="width: 100%; text-align: center;color: #ff7a36;">No Job Found!</p>
                                             </tr>
                                         }
                                     }
@@ -247,7 +255,7 @@ Inner Page Banner Start
     }
 
     function opPerformed(data) {
-        toastr.success("Operation performed");
+        toastr.success("Success");
         $('#manage-Job-Body').html(data);
         $('#updateJob').modal('hide');
         $('#adminLoading').hide();
@@ -344,7 +352,7 @@ Inner Page Banner Start
         pageDataObj.CurrentPage++;
     }
     function getSortedJobs() {
-        postMydata(pageDataObj, "AppliedJobsSorted", upDatePage);
+        postMydata(pageDataObj, "MyCurrentJobsSorted", upDatePage);
     }
 
 

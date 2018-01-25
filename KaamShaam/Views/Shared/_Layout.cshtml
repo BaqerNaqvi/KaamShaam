@@ -90,7 +90,7 @@
         @{
             string baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority +
                                    Request.ApplicationPath.TrimEnd('/');
-            var userImg = System.Web.HttpContext.Current.User.Identity.GetUserId() + "_35.png";
+            var userImg = System.Web.HttpContext.Current.User.Identity.GetUserId() + "_35.png?v="+DateTime.Now.Millisecond;
             userImg = KaamShaam.AppUtils.Common.ReturnImage(baseUrl + "/Images/Profiles/" + userImg, "35x35");
 
         }
@@ -213,6 +213,12 @@
                                                                         <a href="~/Job/MyCurrentJobs">
                                                                             <i class="lnr lnr-map"></i>
                                                                             <span>Current Jobs</span>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li class="li-manage-jobs prevJobPage">
+                                                                        <a href="~/Job/PreviousJobs">
+                                                                            <i class="lnr lnr-map"></i>
+                                                                            <span>Previous Jobs & Reviews</span>
                                                                         </a>
                                                                     </li>
                                                                 }
@@ -434,7 +440,7 @@
                                 <ul class="tg-contactinfo">
                                     <li>
                                         <i class="lnr lnr-location"></i>
-                                        <address>292 Johar Town F-Block Lahore Pakistan</address>
+                                        <address>292 Johar Town F-Block Lahore.</address>
                                     </li>
                                     <li>
                                         <i class="lnr lnr-phone-handset"></i>
@@ -587,11 +593,11 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                            <span>Copyright &copy; 2017 All Rights Reserved - Kaam Sham</span>
+                            <span>Copyright &copy; 2018 All Rights Reserved - KamSham.Pk</span>
                             <nav class="tg-footernav">
                                 <ul>
-                                    <li><a href="#">Privacy Policy</a></li>
-                                    <li><a href="#">Term and Conditions</a></li>
+                                    <li><a href="~/Home/TermsAndCondition">Privacy Policy</a></li>
+                                    <li><a href="~/Home/TermsAndCondition">Term and Conditions</a></li>
                                     <li><a href="@baseUrl/Home/Contact">Contact</a></li>
                                 </ul>
                             </nav>

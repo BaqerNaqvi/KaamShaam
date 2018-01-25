@@ -63,13 +63,17 @@ Inner Page Banner Start
                             <div class="tg-dashboardhead">
                                 <div class="tg-dashboardtitle">
                                     <h2>Available Jobs</h2>
-                                    <p style="padding: 2px; border: 1px solid black; color: red; border-radius: 5px;">Note: Please click any job to view details and apply</p>
-                                    @if (!Request.IsAuthenticated)
+                                    @if (Request.IsAuthenticated)
+                                    {
+                                        <p style="padding: 2px; border: 1px solid black; color: red; border-radius: 5px;">Note: Please click any job to view details and apply</p>
+                                    }
+                                    else
                                     {
                                         <p style="padding: 2px;border: 1px solid black;color: red;border-radius: 5px;">You need to login to apply on the jobs.</p>
+
                                     }
 
-                              
+
                                   </div>
                                 @*<a href="~/job/PostJob"><button class="tg-btnaddservices" data-toggle="modal" data-target=".tg-categoryModal">Post A New Job</button></a>*@
                             </div>
@@ -153,11 +157,13 @@ Inner Page Banner Start
 
                                                     </figure>
                                                     <div class="tg-contentbox">
-                                                        <a class="tg-tag tg-featuredtag" href="#">@item.PostingDate</a>
+                                                        <a class="tg-tag tg-featuredtag" >@item.PostingDate</a>
                                                         <div class="tg-title">
                                                             <h3>
                                                                 <a href="#">@item.CatName Required</a> <span class="@isAppliedClass">@iApplied</span>                                                            </h3>
                                                         </div>
+                                                        <a href="#"><span style="visibility: hidden;height: 1px;">tempo text to show we exist dfdf dfd fd fd sdfsdf sdfsdf dsf sdf df sdfsd</span></a>
+
                                                         <p style="display: inline-block; text-align: left; float: left">@item.JobTitle </p>
                                                        @{
                                                            if (item.IsApproved)
@@ -172,7 +178,6 @@ Inner Page Banner Start
                                                     @if (User.IsInRole("Contractor"))
                                                     {
                                                         <span>@item.Mobile</span>
-
                                                     }
                                                     else
                                                     {
@@ -183,7 +188,11 @@ Inner Page Banner Start
                                                 </td>
                                                 <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1"><span>Rs. @item.Fee</span></td>
                                             </tr>
-                                        }
+                                           }
+                                            if (Model.JobsList==null || Model.JobsList.Count==0)
+                                            {
+                                                <tr><td>No Jobs Found. Try Later.</td></tr> 
+                                            }
                                     }
 
 
@@ -299,7 +308,7 @@ Inner Page Banner Start
     }
    
     function opPerformed(data) {
-        toastr.success("Operation performed");
+        toastr.success("Success");
         $('#manage-Job-Body').html(data);
         $('#updateJob').modal('hide');
         $('#adminLoading').hide();

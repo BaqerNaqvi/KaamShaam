@@ -18,6 +18,8 @@
         </div>
     </div>
 </div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
 <style>
     .avatarThumb {
         min-width: 90px;
@@ -291,12 +293,12 @@ Main Start
 
                 <!-- content goes here -->
                 <div class="form-group">
-                    <label> Full Name</label>
+                    <label> Full Name <span style="color:red">&nbsp; *You will need admin approval on updating Name</span></label>
                     <input maxlength="100" type="text" class="form-control binfoVal" id="bi-fullname">
                 </div>
 
                 <div class="form-group">
-                    <label > CNIC <span style="color:red">You will need approval on updating CNIC</span></label>
+                    <label > CNIC <span style="color:red">&nbsp; *You will need admin approval on updating CNIC</span></label>
                     <input  maxlength="100" type="text" class="form-control binfoVal" id="bi-cnic">
                 </div>
                 <div class="form-group">
@@ -439,13 +441,13 @@ Main Start
                 <!-- content goes here -->
                 <div class="form-group">
                     <label>About Yourself</label>
-                   <textarea maxlength="200" class="form-control otherInfoVal" id="intro-textarea"></textarea>
+                   <textarea maxlength="200" class="form-control " id="intro-textarea"></textarea>
                 </div>
                 <!-- content goes here -->
                 <div class="form-group">
                     <label> Language</label>
                     <select id="ai-lang">
-                        <option value="Urdu" selected="selected">Urdu</option>
+                        <option value="Urdu">Urdu</option>
                         <option value="English" selected="">English</option>
                     </select>
                 </div>
@@ -661,7 +663,19 @@ Main End
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnRflqywXFgknXTzSG-BP3MmM8N1ZyOrQ&libraries=places&callback=initAutocomplete"></script>
 <script src="~/Scripts/vendor/jquery-library.js"></script>
 <script src="~/Scripts/Common.js"></script>
+<script src="~/Scripts/jquery-mask.min.js"></script>
+
+
 <script>
+    
+    $(document).ready(function ($) {
+        setTimeout(function () {
+          
+            $("#bi-mobile").mask("0399-9999999");
+        }, 2000);
+
+    });
+
     function updateProfile() {
         if (!ValidateByClassName("val-required-contact")) {
             toastr.error("Please fill up data");
@@ -717,7 +731,6 @@ Main End
     }
 
     function getAddress(lat, lng) {
-        debugger;
         var geocoder = new google.maps.Geocoder(); // create a geocoder object
         var location = new google.maps.LatLng(lat, lng); // turn coordinates into an object
         geocoder.geocode({ 'latLng': location }, function(results, status) {
@@ -774,6 +787,7 @@ Main End
         var cnic = $("#td-CNIC").text();
         var mobile = $("#td-mobile").text();
         var email = $("#td-email").text();
+
 
         $("#bi-fullname").val(name);
         $("#bi-cnic").val(cnic);
@@ -901,7 +915,15 @@ Main End
 
         var dbuser = {};
         dbuser.Intro = $("#intro-textarea").val();
-        dbuser.Language = $("#ai-lang").val().replace(/\s/g, '');
+
+        var lang = $("#ai-lang").val();
+        if (lang != null && lang !== undefined && lang != "") {
+            dbuser.Language = $("#ai-lang").val().replace(/\s/g, '');
+        } else {
+            dbuser.Language = "";
+        }
+
+        
 
         postMydata(dbuser, 'UpdateOtherInfo', setBackOtherInfo);
     }
@@ -978,7 +1000,18 @@ Main End
 </script>
 
 @*Profile Pic*@
+
+<script src="~/Scripts/rating.min.js"></script>
+
 <script>
+
+    $("#profileRating").rateYo({
+        rating: @Session["Score"],
+        readOnly: true,
+        starWidth: "15px"
+
+    });
+    
 
     function openProfilePicDialoge() {
         
@@ -999,7 +1032,7 @@ Main End
             xhr.open('POST', 'Upload');
             xhr.send(formdata);
             xhr.onreadystatechange = function() {
-                if (xhr.readyState == 4 && xhr.status == 200) {
+                if (xhr.readyState === 4 && xhr.status === 200) {
                     toastr.success('Profile picture uploaded');
                     setTimeout(function() {
                         location.reload();

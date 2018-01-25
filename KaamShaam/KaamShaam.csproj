@@ -1041,7 +1041,7 @@
     <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ResetUserPassword.cshtml" />
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\SendCode.cshtml" />
     <Content Include="Views\Account\VerifyCode.cshtml" />
@@ -1281,6 +1281,8 @@
     <Content Include="Views\Account\Oops.cshtml" />
     <Content Include="Views\Account\NotFound.cshtml" />
     <Content Include="Views\Account\VerifyNumber.cshtml" />
+    <Content Include="Views\Job\ContractorPreviousJobsPartial.cshtml" />
+    <Content Include="Views\Job\PreviousJobs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

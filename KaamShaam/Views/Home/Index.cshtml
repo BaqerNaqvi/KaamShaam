@@ -687,21 +687,29 @@ Header End
         Home Slider End
 *************************************-->
 <!--************************************
-        Main Start
+Main Start
 *************************************-->
-<main id="tg-main" class="tg-main tg-haslayout" style="padding-top: 19px;">
+
+@{
+    var disCatStyle = "";
+    if (Request.IsAuthenticated && User.IsInRole("Contractor"))
+    {
+        disCatStyle = "display:none";
+    }
+}
+
+<main id="tg-main" class="tg-main tg-haslayout" style="padding-top: 19px; ">
     <!--************************************
             Top Categories Start
     *************************************-->
 
-    <div class="searchSection">
-        <div class="searchInnerContainer">
-            <input id="mysearch" type="search" class="form-control" placeholder="Search Contractor Categories ..." style="width: 87%; margin-top: 12px;float: left;" />
-            <input onclick="gotocatsearch()" type="button" value="Search" class="form-control btn btn-primary" style="width: 11%; margin-top: 12px;" />
-
-        </div>
-
+<div class="searchSection" style="">
+    <div class="searchInnerContainer" style="@disCatStyle">
+        <input id="mysearch" type="search" class="form-control" placeholder="Search Contractor Categories ..." style="width: 87%; margin-top: 12px; float: left;"/>
+        <input onclick="gotocatsearch()" type="button" value="Search" class="form-control btn btn-primary" style="width: 11%; margin-top: 12px;"/>
     </div>
+</div>
+
     <section class="tg-main-section tg-haslayout" style="padding-top: 19px;">
         <div class="container">
             <div class="row">
@@ -709,7 +717,7 @@ Header End
                     <div class="tg-sectionhead">
                         <div class="tg-sectiontitle">
                             <h2 style="line-height: 1.08;">A one stop solution for your house cleaning, electric, plumbing and carpentry needs</h2>
-                            <img class="ajaxloader" id="myloader" src="~/Images/ajax-loader.gif" style="margin-top: -309px;margin-left: 64%;display: inline;" />
+                            <img class="ajaxloader" id="myloader" src="~/Images/ajax-loader.gif" style="margin-top: -309px; margin-left: 64%; display: inline;"/>
                         </div>
                         <div class="tg-description">
                             <p>Kamsham is an online portal for electricians, plumbers, cleaners, carpenters and other home professionals. Through our website, homeowners can easily find home professionals for their day-to-day regular and urgent needs.</p>
@@ -717,7 +725,8 @@ Header End
                         </div>
                     </div>
                 </div>
-                <div class="tg-topcategories">
+               
+                <div class="tg-topcategories" style="@disCatStyle">
                     @{
                         if (Model != null)
                         {
@@ -726,7 +735,7 @@ Header End
                             foreach (var cat in Model.ContractorCats)
                             {
                                 var content = "";
-                                var img = "";
+                            var img = "";
                                 if (cat.CatName == "Plumber")
                                 {
                                     img = "plumber.png";
@@ -776,7 +785,7 @@ Header End
                                 }
 
                                 var hideCon = "";
-                                var hideClass = "";
+                    var hideClass = "";
                                 if (counter > 6)
                                 {
                                     hideCon = "display: none;";
@@ -789,10 +798,10 @@ Header End
                                             <img src="@(baseUrl + cat.BgURL)" alt="image description">
                                             <figcaption class="tg-automotive">
                                                 @*<span class="lnr lnr-car tg-categoryicon"></span>*@
-                                                <a href="">
+                                              
                                                     <span style="" class="tg-categoryname">@cat.CatName</span>
-                                                    <img src="@(baseUrl + cat.IconURL)" style="height: 90px; width: 90px; opacity: 1" onclick="return stoprefresh()">
-                                                </a>
+                                                    <img src="@(baseUrl + cat.IconURL)" style="height: 90px; width: 90px; opacity: 1;margin-top: 5px;" onclick="return stoprefresh()">
+                                               
                                                 <a href="" class="tg-themetag tg-tagjobcount">
                                                     <i class="fa fa-clone"></i>
                                                     <em>@cat.CatCount</em>
@@ -807,7 +816,7 @@ Header End
                     }
 
                 </div>
-                <div class="tg-btnbox">
+                <div class="tg-btnbox" style="@disCatStyle">
                     <a class="tg-btn tg-btnviewall" onclick="showMoreContractors()">
                         <span id="viewAllCon">View all</span>
                     </a>
@@ -893,11 +902,20 @@ Header End
     <!--************************************
             Advantagies End
     *************************************-->
-    <!--************************************
-        Latest Services Provider Start
-    *************************************-->
-    <section class="tg-main-section tg-haslayout">
-        <div class="container">
+<!--************************************
+Latest Services Provider Start
+*************************************-->
+
+    @{
+        var disJobStyle = "";
+        if (Request.IsAuthenticated && User.IsInRole("User"))
+        {
+            disJobStyle = "display:none";
+        }
+    }
+
+<section class="tg-main-section tg-haslayout" style="@disJobStyle">
+        <div class="container" style="width: 90%;">
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-10 col-md-push-1 col-lg-8 col-lg-push-2">
                     <div class="tg-sectionhead">
@@ -916,7 +934,7 @@ Header End
                             foreach (var job in Model.Jobs)
                             {
                                 var imgcatjob = baseUrl + "/Images/NewCatsIcons/" + job.CategoryId + ".png";
-                                <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4" title="Intrested As a @job.CatName ? Click to apply">
+                                <div style="height: 152px;" class="col-xs-6 col-sm-6 col-md-4 col-lg-4" title="Interested As a @job.CatName ? Click to apply">
                                     <div class="tg-serviceprovider tg-automotive">
                                         <div class="tg-serviceprovidercontent jobDiv">
                                             <div class="tg-companylogo"><a><img src="@imgcatjob" alt="Intrested As a @job.CatName ?"></a>
@@ -933,7 +951,12 @@ Header End
                                                 <ul class="tg-matadata" style="margin-bottom: 2px;">
                                                     <li>By <span style="color: black;">@job.JobPostedBy</span><span>&nbsp;at&nbsp;</span> <span style="color: black;">@job.PostingDate</span></li>
                                                 </ul>
-                                                <p style="margin-bottom 0px;">@job.LocationName</p>
+                                                @{
+                                                    var countLen = job.LocationName.Length >30?30: job.LocationName.Length;
+
+                                                    var loco = job.LocationName.Substring(0, countLen) + "...";
+                                                }
+                                                <p style="margin-bottom:0px;">@loco</p>
                                             </div>
                                         </div>
                                     </div>

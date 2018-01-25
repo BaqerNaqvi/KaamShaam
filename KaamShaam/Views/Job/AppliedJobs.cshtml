@@ -45,8 +45,8 @@ Inner Page Banner Start
         <div class="row">
             <div id="tg-twocolumns" class="tg-twocolumns">
 
-                @{ Html.RenderPartial("LeftMenu");}
-                <div class="col-xs-12 col-sm-7 col-md-8 col-lg-9">
+                @*@{ Html.RenderPartial("LeftMenu");}*@
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <div id="tg-content" class="tg-content">
                         <div class="tg-joblisting tg-dashboardmanagejobs">
                             <div class="tg-dashboardhead">
@@ -119,7 +119,7 @@ Inner Page Banner Start
                                                 isAppliedClass = "appplySpan";
                                             }
                                             <tr style="cursor: pointer;" data-toggle="modal" data-target="#updateJob" onclick="editJob(@Json.Encode(item))">
-                                                <td style="@cusStyle">
+                                                <td class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                                     <figure class="tg-companylogo">
                                                         <img src="@baseUrl/Images/contractor-dashboard/small1.jpg" alt="image description">
                                                         <a class="tg-btndel" href="#"><i class="fa fa-close"></i></a>
@@ -132,15 +132,23 @@ Inner Page Banner Start
                                                                 <a href="#">@item.CatName Required</a> <span class="@isAppliedClass">@iApplied</span>
                                                             </h3>
                                                         </div>
+                                                        <a href="#"><span style="visibility: hidden;height: 1px;">tempo text to show we exist dfdf dfd fd fd sdfsdf sdfsdf dsf sdf df sdfsd</span></a>
+
                                                         <p style="display: inline-block; text-align: left; float: left">@item.JobTitle </p>
                                                     </div>
                                                 </td>
-                                                <td style="line-height: 12px; padding-top: 29px;"><p>@item.LocationName</p></td>
-                                                <td style="line-height: 18px; padding-top: 27px;">
+                                                <td class="col-xs-3 col-sm-3 col-md-3 col-lg-3"><p>@item.LocationName</p></td>
+                                                <td class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                                                     <span>@item.Mobile</span>
                                                     <span>@item.Email</span>
                                                 </td>
-                                                <td><span>Rs. @item.Fee</span></td>
+                                                <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1"><span>Rs. @item.Fee</span></td>
+                                            </tr>
+                                        }
+                                        if (Model.JobsList == null || Model.JobsList.Count == 0)
+                                        {
+                                            <tr>
+                                                <p style="width: 100%; text-align: center;color: #ff7a36;">No Job Applied!</p>
                                             </tr>
                                         }
                                     }
@@ -243,7 +251,7 @@ Inner Page Banner Start
     }
 
     function opPerformed(data) {
-        toastr.success("Operation performed");
+        toastr.success("Success");
         $('#manage-Job-Body').html(data);
         $('#updateJob').modal('hide');
         $('#adminLoading').hide();

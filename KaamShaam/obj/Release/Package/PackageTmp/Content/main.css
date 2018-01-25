@@ -8283,6 +8283,10 @@ input[type=file].tg-fileinput{display: none;}
 	}
 }
 
+p {
+    word-break: break-word;
+}
+
 
 /*-----Loader---*/
 div.provider-loader-wrap {

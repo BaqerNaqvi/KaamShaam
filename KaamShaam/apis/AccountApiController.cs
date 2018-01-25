@@ -302,10 +302,59 @@ namespace KaamShaam.apis
             }
         }
 
+
+        [Route("api/User/UpdateLocation")]
+        public HttpResponseMessage UpdateLocation(LocalUser model)
+        {
+            if (model == null || string.IsNullOrEmpty(model.Id)
+                || string.IsNullOrEmpty(model.LocTempo) || string.IsNullOrEmpty(model.LocationName))
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, new ApiResponseModel
+                {
+                    Success = false,
+                    Message = "Data not mapped",
+                    Data = model
+                });
+            }
+
+            var latlng = model.LocTempo.Split('_');
+            if (latlng.Length != 2)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, new ApiResponseModel
+                {
+                    Success = false,
+                    Message = "LocTempo is not in correct format .i.e. lat_lng",
+                    Data = model
+                });
+            }
+
+            try
+            {
+                var updatedUser = UserServices.UpdateLocInfo(model);
+                return Request.CreateResponse(HttpStatusCode.OK, new ApiResponseModel
+                {
+                    Success = updatedUser!=null,
+                    Message = updatedUser != null ? "Successfully User location updated": "User does not exist or error occurred",
+                    Data = model
+                });
+            }
+            catch (Exception excep)
+            {
+                var response = new ApiResponseModel
+                {
+                    Data = null,
+                    Message = excep.InnerException.Message,
+                    Success = false
+                };
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, response);
+            }
+        }
+
         [Route("api/User/ChangePassword")]
         public HttpResponseMessage ChangePassword(KaamShaam.AdminModels.LocalUser usermodel)
         {
-            if (usermodel == null || usermodel.Id == null)
+            #region check
+            if (usermodel == null || string.IsNullOrEmpty(usermodel.Id) || string.IsNullOrEmpty(usermodel.Password))
             {
                 return Request.CreateResponse(HttpStatusCode.OK, new ApiResponseModel
                 {
@@ -314,6 +363,19 @@ namespace KaamShaam.apis
                     Data = usermodel
                 });
             }
+
+
+            if (usermodel.Password.Length < 5)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, new ApiResponseModel
+                {
+                    Success = false,
+                    Message = "Password minimum length must be 5",
+                    Data = usermodel
+                });
+            } 
+            #endregion
+
             var localUsermanager = Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
             ApplicationUser user = localUsermanager.FindById(usermodel.Id);
             if (user == null)
@@ -343,5 +405,116 @@ namespace KaamShaam.apis
                 Data = usermodel
             });
         }
+
+        #region Forgot Password
+        [Route("api/User/RequestResetPassword")]
+        public HttpResponseMessage RequestResetPassword(ApiRequestModel usermodel)
+        {
+            if (usermodel == null || string.IsNullOrEmpty(usermodel.PhoneNumber))
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, new ApiResponseModel
+                {
+                    Success = false,
+                    Message = "Data not mapped",
+                    Data = usermodel
+                });
+            }
+            usermodel.PhoneNumber = usermodel.PhoneNumber.Substring(1).Replace("-", "");
+            usermodel.PhoneNumber = "92" + usermodel.PhoneNumber;
+
+            var user = UserServices.GetUserByPhone(usermodel.PhoneNumber);
+            if (user == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, new ApiResponseModel
+                {
+                    Success = false,
+                    Message = "Invalid Phone number or user does not exist",
+                    Data = usermodel
+                });
+
+            }
+            GeneratePhoneCodeApiMethod(user.Id, user.Mobile);
+            var model = new ChnageUserPasswordModel
+            {
+                UserId = user.Id,
+                Phone = user.Mobile
+            };
+
+            return Request.CreateResponse(HttpStatusCode.OK, new ApiResponseModel
+            {
+                Success = true,
+                Message = "Verification Code has been sent at " + usermodel.PhoneNumber,
+                Data = model
+            });
+        }
+
+
+
+        [Route("api/User/RequestResetPasswordWithCode")]
+        public HttpResponseMessage RequestResetPasswordWithCode(ChnageUserPasswordModel usermodel)
+        {
+            if (string.IsNullOrEmpty(usermodel?.Code) || string.IsNullOrEmpty(usermodel.UserId)
+                 || string.IsNullOrEmpty(usermodel.Password))
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, new ApiResponseModel
+                {
+                    Success = false,
+                    Message = "Data not mapped",
+                    Data = usermodel
+                });
+            }
+            var user = UserServices.GetUserById(usermodel.UserId);
+            if (user == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, new ApiResponseModel
+                {
+                    Success = false,
+                    Message = "User does not exist with UserId " + usermodel.UserId,
+                    Data = usermodel
+                });
+
+            }
+
+            var localUsermanager = Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            var status = localUsermanager.ChangePhoneNumber(user.Id, user.Mobile, usermodel.Code);
+            if (!status.Succeeded)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, new ApiResponseModel
+                {
+                    Success = false,
+                    Message = "Invalid/Expired verification code. Try new code",
+                    Data = usermodel
+                });
+            }
+            ApplicationUser appuser = localUsermanager.FindById(user.Id);
+            appuser.PasswordHash = localUsermanager.PasswordHasher.HashPassword(usermodel.Password);
+            var result = localUsermanager.Update(appuser);
+            if (!result.Succeeded)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, new ApiResponseModel
+                {
+                    Success = false,
+                    Message = "Failed to update password",
+                    Data = usermodel
+                });
+            }
+
+            return Request.CreateResponse(HttpStatusCode.OK, new ApiResponseModel
+            {
+                Success = true,
+                Message = "Password reset successfully",
+                Data = usermodel
+            });
+        }
+
+
+        public string GeneratePhoneCodeApiMethod(string userId, string mobile)
+        {
+            var localUsermanager = Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            var phoneCode = localUsermanager.GenerateChangePhoneNumberToken(userId, mobile);
+            KaamShaam.Services.EmailService.SendSms(mobile, "Your verification code is : " + phoneCode);
+            return phoneCode;
+        } 
+        #endregion
     }
 }

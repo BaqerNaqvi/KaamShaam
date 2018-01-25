@@ -5,6 +5,9 @@
     string baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority +
                                    Request.ApplicationPath.TrimEnd('/');
 }
+
+
+
 <div class="col-xs-12 col-sm-5 col-md-4 col-lg-3">
     <aside id="tg-sidebar" class="tg-sidebar">
         <div class="tg-widgetprofile">
@@ -17,21 +20,21 @@
                     @{
                         if (Request.Url.AbsolutePath.ToLower().Contains("profile/update"))
                         {
-                            <a id="editPicPen" class="tg-btnedite" href="#" data-toggle="modal" data-target="#profilePicModal" onclick="openProfilePicDialoge()">
+                            <a id="editPicPen" class="tg-btnedite" href="#" data-toggle="modal" data-target="#profilePicModal" onclick=" openProfilePicDialoge() ">
                                 <i class="lnr lnr-pencil"></i>
                             </a>
                         }
                     }
-                  
+
                 </figure>
                 <div class="tg-admininfo">
                     <h3 id="ud-profile-name"> @Session["UserName"]</h3>
-                    <h4 id="ud-profile-address">@Session["Address"] </h4>
+                    <h4 style="word-break: break-word;" id="ud-profile-address">@Session["Address"] </h4>
                     <h4>(@Session["Type"]) </h4>
                     <ul class="tg-matadata">
-                        <li><span class="tg-stars"><span></span></span></li>
                         <li>
-                            <i class="fa fa-star"></i>
+                            <div id="profileRating"></div></li>
+                        <li>
                             <em>@Session["Score"] (@Session["Votes"] votes)</em>
                         </li>
 
@@ -69,18 +72,18 @@
                                     <span>Manage Jobs</span>
                                 </a>
                             </li>
-                                                                    <li class="li-manage-jobs jobProposalPage">
-                                                                        <a href="~/Job/jobProposals">
-                                                                            <i class="lnr lnr-map"></i>
-                                                                            <span>Job Proposals & Rating</span>
-                                                                        </a>
-                                                                    </li>
-                                                                    <li class="li-manage-jobs">
-                                                                        <a href="~/Contractor/FindContractor">
-                                                                            <i class="lnr lnr-map"></i>
-                                                                            <span>Find Contractors</span>
-                                                                        </a>
-                                                                    </li>
+                            <li class="li-manage-jobs jobProposalPage">
+                                <a href="~/Job/jobProposals">
+                                    <i class="lnr lnr-map"></i>
+                                    <span>Job Proposals & Rating</span>
+                                </a>
+                            </li>
+                            <li class="li-manage-jobs">
+                                <a href="~/Contractor/FindContractor">
+                                    <i class="lnr lnr-map"></i>
+                                    <span>Find Contractors</span>
+                                </a>
+                            </li>
                         }
                     }
                     @{
@@ -92,18 +95,24 @@
                                     <span>Find Jobs</span>
                                 </a>
                             </li>
-                                                                    <li class="li-manage-jobs appliedJobpage">
-                                                                        <a href="~/Job/appliedJobs">
-                                                                            <i class="lnr lnr-map"></i>
-                                                                            <span>Applied Jobs</span>
-                                                                        </a>
-                                                                    </li>
-                                                                    <li class="li-manage-jobs currentJobPage">
-                                                                        <a href="~/Job/MyCurrentJobs">
-                                                                            <i class="lnr lnr-map"></i>
-                                                                            <span>Current Jobs</span>
-                                                                        </a>
-                                                                    </li>
+                            <li class="li-manage-jobs appliedJobpage">
+                                <a href="~/Job/appliedJobs">
+                                    <i class="lnr lnr-map"></i>
+                                    <span>Applied Jobs</span>
+                                </a>
+                            </li>
+                            <li class="li-manage-jobs currentJobPage">
+                                <a href="~/Job/MyCurrentJobs">
+                                    <i class="lnr lnr-map"></i>
+                                    <span>Current Jobs</span>
+                                </a>
+                            </li>
+                            <li class="li-manage-jobs prevJobPage">
+                                <a href="~/Job/PreviousJobs">
+                                    <i class="lnr lnr-map"></i>
+                                    <span>Previous Jobs & Reviews</span>
+                                </a>
+                            </li>
                         }
                     }
                     @*<li>

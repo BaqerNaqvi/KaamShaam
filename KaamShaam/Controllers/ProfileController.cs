@@ -24,6 +24,8 @@ namespace KaamShaam.Controllers
         {            
             var id = System.Web.HttpContext.Current.User.Identity.GetUserId();
             var user = UserServices.GetUserById(id);
+
+            user.Mobile = "0" + user.Mobile.Substring(2);
             var cats = CategoryService.GetAllCategories();
             var companies = UserServices.GetUserTypeDd("Vendor");
             return View(new ProfileWraperModel {BasicInfo = user, Categoreis= cats, Companies = companies});
@@ -77,7 +79,7 @@ namespace KaamShaam.Controllers
                        Request.ApplicationPath.TrimEnd('/') + "/Images/";
 
 
-                Session["Photo"] = imgbaseUrl + "Profiles/" + uid + "_110.png";
+                Session["Photo"] = imgbaseUrl + "Profiles/" + uid + "_110.png?v=" + DateTime.Now.Second;
 
             }
             return Json(true, JsonRequestBehavior.AllowGet);

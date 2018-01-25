@@ -7,6 +7,14 @@
     @{
         var imgg = Model.Id + "_110.png";
     }
+
+@{
+    var disCatStyle = "";
+    if (Request.IsAuthenticated && User.IsInRole("Contractor"))
+    {
+        disCatStyle = "display:none";
+    }
+}
 <head>
     <title>Contractor Profile</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
@@ -50,8 +58,8 @@
                             </div>
                             <div class="tg-companycontent">
                                 <ul class="tg-tags">
-                                    <li><a class="tg-tag tg-featuredtag" href="#">featured</a></li>
-                                    <li><a class="tg-tag tg-verifiedtag" href="#">verified</a></li>
+                                    <li><a class="tg-tag tg-featuredtag" href="#">@Model.CategoryName</a></li>
+                                    @*<li><a class="tg-tag tg-verifiedtag" href="#">verified</a></li>*@
                                 </ul>
                                 <div class="tg-title">
                                     <h1>@Model.FullName</h1>
@@ -204,9 +212,9 @@
                     <div class="tg-widget tg-widgetlocationandcontactinfo" >
 
                         <div class="tg-contactinfobox">
-                            <button class="tg-btn btn-margin-left" data-toggle="modal" dis data-target="#addconReviewModel">Rate & Review</button>
+                            <button class="tg-btn btn-margin-left" style="@disCatStyle" data-toggle="modal" dis data-target="#addconReviewModel">Rate & Review</button>
 
-                            <button class="tg-btn btn-margin-left" onclick="showOpps(@Json.Encode(Model.Id))">Hire Now</button>
+                            <button style="@disCatStyle" class="tg-btn btn-margin-left" onclick="showOpps(@Json.Encode(Model.Id))">Hire Now</button>
                             <ul class="tg-contactinfo" style="margin-top: 14px; display: none" id="conInfo">
                                 <li>
                                     <i class="lnr lnr-location"></i>
@@ -400,8 +408,16 @@ Hire Modal Box End
 
 
     function showOpps(id) {
-        $("#conInfo").fadeIn("slow");
-        postVisit(id);
+      
+        var isAuth = @Json.Encode(Request.IsAuthenticated);
+        if (isAuth) {
+            $("#conInfo").fadeIn("slow");
+            toastr.success("Please cotact this contractor to apply on your job if you want to hire.");
+            postVisit(id);
+        } else {
+            toastr.error("You need to login to contact this contractor. Please read the policies.");
+        }
+
     }
 
 
@@ -415,4 +431,6 @@ Hire Modal Box End
     function successProfileVisit() {
         
     }
+
+  
 </script>

@@ -55,7 +55,7 @@ namespace KaamShaam.AdminModels
         public double DistanceFromOrigin { get; set; }
         [ScriptIgnore]
         public string EditedAt { get; set; }
-
+        public DateTime? EditedAtObj { get; set; }
         public List<LocalProfileVisit> ProfileVisits { get; set; }
         public List<LocalUserRating> UserRatings { get; set; }
         public double Score { get; set; }
@@ -125,6 +125,7 @@ namespace KaamShaam.AdminModels
                 Location = source.LocationCord,
                 Password = source.PasswordHash,
                 EditedAt = Convert.ToDateTime(source.EditedAt).ToLongDateString(),
+                EditedAtObj = Convert.ToDateTime(source.EditedAt),
                 ProfileVisits = profileVists,
                 Score = score,
                 UserRatings = profileRatings,

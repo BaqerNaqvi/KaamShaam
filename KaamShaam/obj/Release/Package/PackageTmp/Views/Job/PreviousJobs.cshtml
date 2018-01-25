@@ -24,11 +24,11 @@ Inner Page Banner Start
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <div class="tg-pagetitle">
-                    <h1>Current Jobs</h1>
+                    <h1>Previous Jobs</h1>
                 </div>
                 <ol class="tg-breadcrumb">
                     <li><a href="#">Home</a></li>
-                    <li class="tg-active">Available Jobs</li>
+                    <li class="tg-active">Closed Jobs</li>
                 </ol>
             </div>
         </div>
@@ -51,7 +51,7 @@ Inner Page Banner Start
                         <div class="tg-joblisting tg-dashboardmanagejobs">
                             <div class="tg-dashboardhead">
                                 <div class="tg-dashboardtitle">
-                                    <h2>My Current Jobs</h2>
+                                    <h2>My Previous Jobs</h2>
                                 </div>
                                 @*<a href="~/job/PostJob"><button class="tg-btnaddservices" data-toggle="modal" data-target=".tg-categoryModal">Post A New Job</button></a>*@
                             </div>
@@ -120,7 +120,7 @@ Inner Page Banner Start
                                             }
                                             <tr>
                                                 @*<tr style="cursor: pointer;" data-toggle="modal" data-target="#updateJob" onclick="editJob(@Json.Encode(item))">*@
-                                                <td class="col-xs-6 col-sm-6 col-md-6 col-lg-6" >
+                                                <td class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                                     <figure class="tg-companylogo">
                                                         <img src="@baseUrl/Images/contractor-dashboard/small1.jpg" alt="image description">
                                                         <a class="tg-btndel"><i class="fa fa-close"></i></a>
@@ -130,7 +130,9 @@ Inner Page Banner Start
                                                         <a class="tg-tag tg-featuredtag">@item.PostingDate</a>
                                                         <div class="tg-title">
                                                             <h3>
-                                                                <a>@item.CatName Required</a> <span class="@isAppliedClass">@iApplied</span>
+                                                                <a>@item.CatName Required</a>
+                                                                <i class="fa fa-thumbs-o-up"></i>
+                                                                <em>@item.RatingStarForConForPrevJob </em>
                                                             </h3>
                                                         </div>
 
@@ -139,12 +141,11 @@ Inner Page Banner Start
                                                     </div>
                                                 </td>
                                                 <td class="col-xs-3 col-sm-3 col-md-3 col-lg-3" style="padding-top: 10px;">
-
-                                                    <p>@item.LocationName</p>
+                                                    <em>"@item.RatingStringForConForPrevJob"</em>
                                                 </td>
                                                 <td class="col-xs-2 col-sm-2 col-md-2 col-lg-2" style="padding-top: 10px;">
-                                                    <span>@item.Mobile</span>
-                                                    <span>@item.Email</span>
+                                                    <i class="fa fa-thumbs-o-up"></i>
+                                                    <span>@item.RatingStarForConForPrevJob</span>
                                                 </td>
                                                 <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1"><span>Rs. @item.Fee</span></td>
                                             </tr>
@@ -167,69 +168,6 @@ Inner Page Banner Start
         </div>
     </div>
 </main>
-<style>
-    .width45 {
-        width: 47%;
-    }
-</style>
-@{
-    var cats = new List<SelectListItem>();
-    if (Model.Categories != null && Model.Categories.Any())
-    {
-        foreach (var cat in Model.Categories)
-        {
-            cats.Add(new SelectListItem { Text = cat.Name, Value = cat.Id.ToString() });
-        }
-    }
-}
-<!-- basic info -->
-<div class="modal fade" id="updateJob" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                <h3 class="modal-title">Job Details</h3>
-            </div>
-            <div class="modal-body" style="height:300px; padding: 4%;">
-
-                <!-- content goes here -->
-                <div class="form-group">
-                    <label> Job Title & Description</label>
-                    <input type="text" class="form-control disabledAttr" disabled="" id="jobTitle">
-                </div>
-
-                <div class="form-group width45">
-                    <label> Category</label>
-                    <input type="text" class="form-control disabledAttr" disabled="" id="jobCat">
-                    @*@Html.DropDownList("selection", cats, new { @class = "form-control disabledAttr", @id = "jobCat" })*@
-                </div>
-                <div class="form-group width45" style="margin-left: 29px">
-                    <label> Fee</label>
-                    <input type="text" class="form-control disabledAttr" id="jobFee" disabled="">
-                </div>
-                <div class="form-group width45">
-                    <label> Mobile</label>
-                    <input type="text" class="form-control disabledAttr" id="jobMobile" disabled="">
-                </div>
-                @*<div class="form-group width45" style="margin-left: 29px">
-                    <label> Email</label>
-                    <input type="email" class="form-control disabledAttr" id="jobEmail" disabled="">
-                </div>*@
-            </div>
-            <div class="modal-footer">
-                <div class="btn-group btn-group-justified" role="group" aria-label="group button">
-                    <div class="btn-group" role="group">
-                        <button type="button" id="save-Basic-info-btn" class="btn btn-primary btn-hover-green" data-action="save" role="button" onclick="applyJob()">Apply</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!--************************************
-        Main End
-*************************************-->
 <script src="~/Scripts/vendor/jquery-library.js"></script>
 
 <script>
@@ -260,33 +198,8 @@ Inner Page Banner Start
         $('#updateJob').modal('hide');
         $('#adminLoading').hide();
     }
-    function postMydata(serverObj, url, successFunc) {
-        $('#adminLoading').show();
-        $.ajax({
-            url: url,
-            type: 'POST',
-            contentType: "application/json; charset=utf-8",
-            dataType: "html",
-            data: JSON.stringify(serverObj),
-            success: successFunc,
-            error: function (data) {
-                $('#adminLoading').hide();
-                toastr.error("Job failed to update");
-            }
-        });
-    }
-    function applyJob() {
-        var serverObj = {};
-        serverObj.Id = objtoedit.Id;
-        serverObj.PurposalText = "I am intrested in your posted job.";
-        serverObj.IfIApplied = !objtoedit.IfIApplied;
-        var wraperObj = {};
-        wraperObj.JobModel = serverObj;
-        wraperObj.PageObj = pageDataObj;
-        postMydata(wraperObj, "CancelJob", opPerformed);
-        pageDataObj.TotalItems --;
-        setPage(pageDataObj);
-    }
+    
+   
 
     function setPage(pageObj) {
         $("#sortDd").val(pageObj.SortBy);
@@ -352,11 +265,12 @@ Inner Page Banner Start
         pageDataObj.CurrentPage++;
     }
     function getSortedJobs() {
-        postMydata(pageDataObj, "MyCurrentJobsSorted", upDatePage);
+        postMydata(pageDataObj, "PreviousJobsSorted", upDatePage);
     }
 
 
     $('#searchJob').keyup(function() {
+        debugger
         pageDataObj.CurrentPage = 0;
         pageDataObj.SearchTerm = $(this).val();
         pageDataObj.CategoryId = $('#jobCatList').val();
@@ -365,6 +279,22 @@ Inner Page Banner Start
     });
 
     setTimeout(function() {
-        $(".currentJobPage").addClass('tg-active');
+        $(".prevJobPage").addClass('tg-active');
     },2000);
+
+    function postMydata(serverObj, url, successFunc) {
+        $('#adminLoading').show();
+        $.ajax({
+            url: url,
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            dataType: "html",
+            data: JSON.stringify(serverObj),
+            success: successFunc,
+            error: function (data) {
+                $('#adminLoading').hide();
+                toastr.error("Job failed to update");
+            }
+        });
+    }
 </script>

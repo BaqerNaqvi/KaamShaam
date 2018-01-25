@@ -31,7 +31,11 @@ namespace KaamShaam.ApiModels
         #endregion
 
         #region Profile Picture
-        public string ProfilePic { get; set; } 
+        public string ProfilePic { get; set; }
+        #endregion
+
+        #region ForGotPAss
+        public string PhoneNumber { get; set; } 
         #endregion
 
     }

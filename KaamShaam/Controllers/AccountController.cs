@@ -605,7 +605,7 @@ namespace KaamShaam.Controllers
 
             }
 
-            var img = baseUrl + "Profiles/" + user.Id + "_110.png";
+            var img = baseUrl + "Profiles/" + user.Id + "_110.png?v="+DateTime.Now.Second;
             Session["Photo"] = AppUtils.Common.ReturnImage(img, "110x110");
             #endregion
         }
@@ -775,7 +775,7 @@ namespace KaamShaam.Controllers
             return Json(new { status = true, message = "success" }, JsonRequestBehavior.AllowGet);
         }
 
-        private string GeneratePhoneCode(string userId, string mobile)
+        public string GeneratePhoneCode(string userId, string mobile)
         {
             var phoneCode = UserManager.GenerateChangePhoneNumberToken(userId, mobile);
             KaamShaam.Services.EmailService.SendSms(mobile, "Your verification code is : " + phoneCode);
@@ -797,6 +797,53 @@ namespace KaamShaam.Controllers
             user.Id = id;
             var result = ChangePassword(user);
             return Json(true, JsonRequestBehavior.AllowGet);
+        }
+
+
+        [System.Web.Mvc.HttpGet]
+        [System.Web.Mvc.AllowAnonymous]
+        public ActionResult ResetUserPassword(string PhoneNumber)
+        {
+            // mobile number 
+            PhoneNumber = PhoneNumber.Substring(1).Replace("-", "");
+            PhoneNumber = "92" + PhoneNumber;
+
+            var user = UserServices.GetUserByPhone(PhoneNumber);
+
+            if (user == null)
+            {
+                ModelState.AddModelError("", "Invalid Phone number or user does not exist");
+                return RedirectToAction("Login", "Account");
+
+            }
+            GeneratePhoneCode(user.Id, user.Mobile);
+            var model = new ChnageUserPasswordModel
+            {
+                UserId = user.Id,
+                Phone = user.Mobile
+            };
+            return View(model);
+        }
+
+        [System.Web.Mvc.AllowAnonymous]
+        [System.Web.Mvc.HttpPost]
+        public JsonResult ResetUserPasswordAjax(ChnageUserPasswordModel model)
+        {
+            if (string.IsNullOrEmpty(model?.Code) || string.IsNullOrEmpty(model.UserId)
+                || string.IsNullOrEmpty(model.Password))
+            {
+                return Json(new { status = false, message = "Bad Request" }, JsonRequestBehavior.AllowGet);
+            }
+
+            var user = UserServices.GetUserById(model.UserId);
+
+            var status = UserManager.ChangePhoneNumber(user.Id, user.Mobile, model.Code);
+            if (!status.Succeeded)
+            {
+                return Json(new { status = false, message = "Invalid/Expired verification code. Try new code" }, JsonRequestBehavior.AllowGet);
+            }
+            var isPass = ChangePassword(new AdminModels.LocalUser {Id = user.Id, Password = model.Password});
+            return Json(new { status = isPass, message = "success" }, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -282,6 +282,12 @@ namespace KaamShaam.Controllers
             if (jobId != null && jobs.Count>0)
             {
                 jobs = jobs.Where(j => j.Id==Convert.ToDouble(jobId)).ToList();
+               
+            }
+
+            foreach (var jo in jobs)
+            {
+                jo.Mobile = "03xx-xxxxxxx";
             }
             var page = new PaggingClass
             {
@@ -301,6 +307,10 @@ namespace KaamShaam.Controllers
         {
             var id = System.Web.HttpContext.Current.User.Identity.GetUserId();
             var jobs = JobService.GetReadyJobs(id);
+            foreach (var jo in jobs)
+            {
+                jo.Mobile = "03xx-xxxxxxx";
+            }
             var newPage = CalculateJobsWithPaging(ref jobs, page);
             var modelnew = new JobPartialPageModel
             {
@@ -576,6 +586,56 @@ namespace KaamShaam.Controllers
         }
 
         #endregion
+
+
+        #region Previous Jobs For Contractor
+
+        public ActionResult PreviousJobs()
+        {
+            var id = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            var cats = CategoryService.GetAllCategories();
+            var jobs = JobService.GetPreviousJobsForContractor(id);
+            
+            var page = new PaggingClass
+            {
+                CurrentPage = 0,
+                ItemsPerPage = 15,
+                TotalItems = jobs.Count,
+                SortBy = "Date",
+                SortOrder = "Des"
+            };
+            page = CalculateJobsWithPaging(ref jobs, page);
+            page.CurrentPage = 1;
+            return View(new ManageJobModel { Categories = cats, JobsList = jobs, Pagging = page });
+        }
+
+        [HttpPost]
+        public ActionResult PreviousJobsSorted(PaggingClass page)
+        {
+            var id = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            var jobs = JobService.GetPreviousJobsForContractor(id);
+            var newPage = CalculateJobsWithPaging(ref jobs, page);
+           
+            var modelnew = new JobPartialPageModel
+            {
+                JobList = jobs,
+                Page = new PaggingClass
+                {
+                    TotalPages = newPage.TotalPages,
+                    TotalItems = newPage.TotalItems,
+                    CurrentPage = page.CurrentPage + 1,
+                    ItemsPerPage = page.ItemsPerPage,
+                    SortBy = page.SortBy,
+                    SortOrder = page.SortOrder,
+                    CategoryId = page.CategoryId,
+                    SearchTerm = page.SearchTerm
+                }
+            };
+            return PartialView("~/Views/Job/ContractorPreviousJobsPartial.cshtml", modelnew);
+        }
+
+        #endregion
+
         private PaggingClass CalculateJobsWithPaging(ref List<CustomJobModel> jobs,PaggingClass page)
         {
             if (!string.IsNullOrEmpty(page.SearchTerm))

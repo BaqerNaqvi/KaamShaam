@@ -160,7 +160,7 @@
                     <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                         <div class="tg-loginarea">
                             <div class="tg-bordertitle">
-                                <h3>Login Now</h3>
+                                <h3 id="loginheaderin">Login Now</h3>
                             </div>
                             <fieldset>
                                 @using (Html.BeginForm("Login", "Account", FormMethod.Post, new {@class = "form-horizontal", role = "form", id = "userloginForm" }))
@@ -170,12 +170,17 @@
                                     </div>
                                     <div class="form-group">
                                         @Html.PasswordFor(m => m.LoginViewModel.Password, new {name = "Password", @class = "form-control", @placeholder = "Password"})
+                                        <input placeholder="Enter Mobile Number" type="text" class="form-control" style="display: none" id="phForPass"/>
                                     </div>
                                     <div class="form-group">
-                                        <button class="tg-btn tg-btn-lg" id="loginBtn"type="button" onclick="submitLogin()">Login Now</button>
+                                        <button class="tg-btn tg-btn-lg" id="loginBtn"type="button" onclick="submitLogin() ">Login Now</button>
+                                        <button style="display:none" class="tg-btn tg-btn-lg" id="resetPassbtn" type="button" onclick="submitLogin() ">Reset Password</button>
+
                                     </div>
+
+
                                 }
-                                @*<a style="cursor: pointer" class="tg-btnforgotpass" onclick="passforgot()">Forgot your password?</a>*@
+                                <a style="cursor: pointer" id="forgotpass" class="tg-btnforgotpass" onclick="passforgot()">Forgot your password?</a>
                             </fieldset>
 
 
@@ -454,13 +459,39 @@ Main End
         setTimeout(function () {
             $("#myCnic").mask("99999-9999999-9");
             $("#mNumber").mask("0399-9999999");
+            $("#phForPass").mask("0399-9999999");
         }, 2000);
 
     });
-
+    var ispassrest = false;
     function passforgot() {
-        toastr.success("Email has been sent to you containing instructions.");
+
+        if (ispassrest) {
+            ispassrest = false;
+            $('#resetPassbtn').hide();
+            $('#loginBtn').show();
+            $('#forgotpass').text("Forgot your password?");
+
+            $('#LoginViewModel_Password').show();
+            $('#LoginViewModel_Email').show();
+            $('#phForPass').hide();
+            $('#loginheaderin').text('Login Now');
+        } else {
+
+            toastr.success("Please Enter Your Phone number");
+            ispassrest = true;           
+            $('#forgotpass').text("Back To Login");
+
+            $('#LoginViewModel_Password').hide();
+            $('#LoginViewModel_Email').hide();
+            $('#phForPass').show();
+            $('#resetPassbtn').show();
+            $('#loginBtn').hide();
+
+            $('#loginheaderin').text('Reset Password');
+        }
     }
+
     //  $('.contractorEle').hide();
     function submitRegis() {
 
@@ -513,7 +544,24 @@ Main End
     $("#regNow").text("Register Now");
 
     function submitLogin() {
-        if ($('#LoginViewModel_Email').val() == "") {
+
+        if (ispassrest) {
+            var ph = $('#phForPass').val();
+            if (ph.trim() === "") {
+                toastr.error("Please enter Phone Number");
+                return false;
+            }
+
+            $("#resetPassbtn").text("Loading...");
+            setTimeout(function () {
+                window.location = "ResetUserPassword?PhoneNumber=" + ph;
+            }, 500);
+            ispassrest = false;
+            return false;
+        }
+
+
+        if ($('#LoginViewModel_Email').val() === "") {
             toastr.error("Please enter Email");
             return false;
         }

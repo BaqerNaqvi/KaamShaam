@@ -580,7 +580,7 @@
                                         </fieldset>
                                     </form>
                                 </div>
-                                <div class="tg-filters">
+                                <div class="tg-filters" style="padding: 5px;">
                                     @{
                                         var resCOunt=0;
                                         if (Model.listing!=null && Model.listing.Count >0)
@@ -624,7 +624,7 @@
                                 <div id="tg-themescrollbar" class="tg-themescrollbar tg-listingscrollbar" style="overflow-y: auto;height: 500px;">
                                     <div class="row" id="contractorsLeftList">
                                         @{
-                                            if (Model != null && Model.listing!=null)
+                                            if (Model != null && Model.listing != null)
                                             {
                                                 foreach (var item in Model.listing)
                                                 {
@@ -632,25 +632,25 @@
                                                     {
                                                         continue;
                                                     }
-                                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                                        <div class="tg-serviceprovider tg-automotive">
+                                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="border-bottom: 1px solid #00000038;padding-top: 5px;padding-bottom: 5px;">
+                                                        <div class="tg-serviceprovider tg-automotive" style="margin-bottom: 0px;">
                                                             <figure class="tg-featuredimg" style="width: 110px">
                                                                 <img src="@item.image" alt="image description">
-                                                                <figcaption>
-                                                                    <a class="tg-themetag tg-categorytag" href="">@item.CatName</a>
-                                                                    <a class="tg-heart tg-liked" href="javascript:void(0);"></a>
-                                                                </figcaption>
+                                                                @*<figcaption>
+                                        <a class="tg-themetag tg-categorytag" href="">@item.CatName</a>
+                                        <a class="tg-heart tg-liked" href="javascript:void(0);"></a>
+                                    </figcaption>*@
                                                             </figure>
                                                             <div class="tg-companycontent">
                                                                 <ul class="tg-tags">
-                                                                    <li><a class="tg-tag tg-featuredtag">featured</a></li>
-                                                                    <li><a class="tg-tag tg-verifiedtag" >verified</a></li>
+                                                                    <li><a class="tg-tag tg-featuredtag">@item.CatName</a></li>
+                                                                    @*<li><a class="tg-tag tg-verifiedtag" >verified</a></li>*@
                                                                 </ul>
                                                                 <div class="tg-title">
                                                                     <h3><a href="~/Contractor/ViewProfile?userId=@item.id">@item.title</a></h3>
                                                                 </div>
                                                                 <ul class="tg-matadata">
-                                                                    <li><span class="tg-stars"><span></span></span></li>
+                                                                    @*<li><span class="tg-stars"><span></span></span></li>*@
                                                                     <li>
                                                                         <i class="fa fa-thumbs-o-up"></i>
                                                                         <em>@item.score% (@item.votes votes)</em>
@@ -672,7 +672,7 @@
                                                     </div>
                                                 }
                                             }
-                                        }                                     
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -921,19 +921,20 @@
 
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnRflqywXFgknXTzSG-BP3MmM8N1ZyOrQ&libraries=places&callback=initAutocomplete"></script>
-    <footer id="tg-footer" class="tg-footer tg-haslayout">
+        <footer id="tg-footer" class="tg-footer tg-haslayout">
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <!--18 December 2017 Changes by Usama Ikram-->
                         <ul class="tg-features">
                             <li>
                                 <div class="tg-feature">
                                     <span class="tg-featureicon">
-                                        <i class="lnr lnr-diamond"></i>
+                                        <i class="lnr lnr-screen"></i>
                                     </span>
                                     <div class="tg-featurecontent">
-                                        <h3>Best Sevices Award</h3>
-                                        <span>Earned best service award in 2016</span>
+                                        <h3>Online Portal</h3>
+                                        <span>Technicians can provide services on weekdays, weekends and during the odd hours</span>
                                     </div>
                                 </div>
                             </li>
@@ -943,56 +944,61 @@
                                         <i class="lnr lnr-users"></i>
                                     </span>
                                     <div class="tg-featurecontent">
-                                        <h3>Verified Service Providers</h3>
-                                        <span>More than 35000 service providers</span>
+                                        <h3>Verified Technicians</h3>
+                                        <span>Taken an extra step and verified their background and skills</span>
                                     </div>
                                 </div>
                             </li>
                             <li>
                                 <div class="tg-feature">
                                     <span class="tg-featureicon">
-                                        <i class="lnr lnr-diamond"></i>
+                                        <i class="lnr lnr-laptop-phone"></i>
                                     </span>
                                     <div class="tg-featurecontent">
                                         <h3>User Friendly Focused</h3>
-                                        <span>Given attention to rich user experience</span>
+                                        <span>Attention to detail for rich user experience</span>
                                     </div>
                                 </div>
                             </li>
                         </ul>
+                        <!--18 December 2017 Changes by Usama Ikram-->
                     </div>
                     <div class="tg-fourcolumns">
                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3">
                             <div class="tg-footercolumn">
-                                <strong class="tg-logo"><a href="~/home/index"><img src="@baseUrl/Images/logo.png" alt="image description"></a></strong>
+                                @{
+                                    <strong class="tg-logo"><a href="~/home/index"><img src="@baseUrl/Images/logo.png" alt="image description"></a></strong>
+
+                                }
+
                                 <div class="tg-description">
-                                    <p>Conseetur elit sed eiumod  apor incidunt ut lbore et dolore <a>more...</a></p>
+                                    <p>We offer our services at your door step without <a href="">more...</a></p>
                                 </div>
                                 <ul class="tg-contactinfo">
                                     <li>
                                         <i class="lnr lnr-location"></i>
-                                        <address>Abc tower, xyz street UK, HG521A</address>
+                                        <address>292 Johar Town F-Block Lahore Pakistan</address>
                                     </li>
                                     <li>
                                         <i class="lnr lnr-phone-handset"></i>
-                                        <span>+92 3214458064</span>
+                                        <span>+92 30844991</span>
                                     </li>
                                     <li>
                                         <i class="lnr lnr-envelope"></i>
-                                        <span><a href="mailto:contact@kamsham.com">contact@kamsham.pk</a></span>
+                                        <span><a href="mailto:admin@kamsham.com">admin@kamsham.com</a></span>
                                     </li>
                                     <li>
                                         <i class="lnr lnr-construction"></i>
-                                        <span><a href="mailto:complaints@kamsham.pk">complaints@kamsham.pk</a></span>
+                                        <span><a href="mailto:complaints@kamsham.com">complaints@kamsham.pk</a></span>
                                     </li>
                                 </ul>
-                                @*<ul class="tg-socialicons">
+                                <ul class="tg-socialicons">
                                     <li class="tg-facebook"><a href="#"><i class="fa fa-facebook"></i></a></li>
                                     <li class="tg-twitter"><a href="#"><i class="fa fa-twitter"></i></a></li>
                                     <li class="tg-linkedin"><a href="#"><i class="fa fa-linkedin"></i></a></li>
                                     <li class="tg-googleplus"><a href="#"><i class="fa fa-google-plus"></i></a></li>
                                     <li class="tg-rss"><a href="#"><i class="fa fa-rss"></i></a></li>
-                                </ul>*@
+                                </ul>
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3">
@@ -1003,16 +1009,16 @@
                                 <div class="tg-widgetcontent">
                                     <ul>
                                         <li>
-                                            <div class="tg-description"><p>Sed ut perspiciatis unde omnis isteat natus error sit voluptatem</p></div>
+                                            <div class="tg-description"><p>Another milestone achieved. We just launched our Mobile app..</p></div>
                                             <a href="http://www.domainurl.com ">http://www.kaamshaam.pk</a>
                                             <time datetime="2016-08-08">2 hours ago</time>
                                         </li>
-                                        <li>
-                                            <div class="tg-description"><p>Sed ut perspiciatis unde omnis isteat natus error sit voluptatem</p></div>
+                                        @*<li>
+                                            <div class="tg-description"><p>Get Special Discount on Independence Day...</p></div>
                                             <a href="http://www.domainurl.com ">http://www.kaamshaam.pk</a>
                                             <time datetime="2016-08-08">3 hours ago</time>
-                                        </li>
-                                        <li><a href="javascript:void(0);">view all</a></li>
+                                        </li>*@
+                                        @*<li><a class="tg-btn tg-btnviewall" href="https://twitter.com">view all</a></li>*@
                                     </ul>
                                 </div>
                             </div>
@@ -1024,75 +1030,97 @@
                                 </div>
                                 <div class="tg-widgetcontent">
                                     <ul>
-                                        <li><a href="#">Perspiciatis ate</a></li>
-                                        <li><a href="#">Aomnis isteat</a></li>
-                                        <li><a href="#">Canatus error</a></li>
-                                        <li><a href="#">Voluptatem clu</a></li>
-                                        <li><a href="#">Commodo</a></li>
-                                        <li><a href="#">Consequat</a></li>
-                                        <li><a href="#">Duis aute</a></li>
-                                        <li><a href="#">Aincididunt</a></li>
-                                        <li><a href="#">Alter veritatis</a></li>
-                                        <li><a href="#">Tempora Incid</a></li>
-                                        <li><a href="#">Dolore Magnam</a></li>
-                                        <li><a href="#">Aliquam Quaerat</a></li>
-                                        <li><a href="#">Quisquam</a></li>
-                                        <li><a href="#">Voluptatem</a></li>
-                                        <li><a href="#">Aliquip</a></li>
-                                        <li><a href="#">Adipisicing</a></li>
+                                        <li><a href="~/Job/findJobs">Find Jobs</a></li>
+                                        <li><a href="~/Contractor/FindContractor">Hire Contractors</a></li>
+                                        @*<li><a href="#">Carriers</a></li>
+                                        <li><a href="#">Gallery</a></li>
+                                        <li><a href="#">KaamShaam Org</a></li>
+                                        <li><a href="#">Press Releases</a></li>
+                                        <li><a href="#">Summit 2016</a></li>*@
+
                                     </ul>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3">
                             <div class="tg-footercolumn tg-widget tg-widgetfreeinspection">
-                                <div class="tg-widgettitle">
-                                    <h3>Offer Free Inspection</h3>
-                                </div>
-                                <div class="tg-widgetcontent">
-                                    <ul>
-                                        <li>
-                                            <figure><a href="#"><img src="@baseUrl/Images/logos/img-01.png" alt="image description"></a></figure>
-                                            <div class="tg-contentbox">
-                                                <h4><a href="#">Lahore Cleaning Service</a></h4>
-                                                <ul class="tg-matadata">
-                                                    <li><span class="tg-stars"><span></span></span></li>
-                                                    <li>
-                                                        <i class="fa fa-thumbs-o-up"></i>
-                                                        <em>99% (1009 votes)</em>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <figure><a href="#"><img src="@baseUrl/Images/logos/img-02.png" alt="image description"></a></figure>
-                                            <div class="tg-contentbox">
-                                                <h4><a href="#">Karachi Cleaning Service</a></h4>
-                                                <ul class="tg-matadata">
-                                                    <li><span class="tg-stars"><span></span></span></li>
-                                                    <li>
-                                                        <i class="fa fa-thumbs-o-up"></i>
-                                                        <em>99% (1009 votes)</em>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <figure><a href="#"><img src="@baseUrl/Images/logos/img-03.png" alt="image description"></a></figure>
-                                            <div class="tg-contentbox">
-                                                <h4><a href="#">Islamabad Cleaning Service</a></h4>
-                                                <ul class="tg-matadata">
-                                                    <li><span class="tg-stars"><span></span></span></li>
-                                                    <li>
-                                                        <i class="fa fa-thumbs-o-up"></i>
-                                                        <em>99% (1009 votes)</em>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </li>
-                                        <li><a href="javascript:void(0);">view all</a></li>
-                                    </ul>
-                                </div>
+                                @if (Request.IsAuthenticated)
+                                {
+                                    <div class="tg-widgettitle">
+                                        <h3>Let Us Know</h3>
+                                    </div>
+                                    <div class="tg-widgetcontent">
+                                        <h5 style="color: #aaa;">Over All Experience</h5>
+                                        <select id="feedbackDd" style="background-color: #3c3c3c; color: white;">
+                                            <option value="Amazing Experience">Amazing Experience</option>
+                                            <option value="Great People, Great Experience">Great People, Great Experience</option>
+                                            <option value="Satisfactory Services">Satisfactory Services</option>
+                                            <option value="Need Improvements">Need Improvements</option>
+                                            <option value="Complaint">Complaint</option>
+
+
+                                        </select>
+                                        <textarea id="feedbackDsc" style="background-color: #3c3c3c; color: white; height: 165px; width: 263px; margin-top: 9px" cols="20" rows="50"></textarea>
+                                        <button onclick="sendFeedback()" class="btn btn-primary" style="background-color: #3c3c3c; color: white; margin-top: 9px" id="feedBtn">SEND FEEDBACK</button>
+
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="tg-widgettitle">
+                                        <h3>Offer Free Inspection</h3>
+                                    </div>
+                                    <div class="tg-widgetcontent">
+                                        <ul>
+                                            <li>
+                                                @{
+                                                    <figure><a href="#"><img src="@baseUrl/Images/logos/img-01.png" alt="image description"></a></figure>
+
+                                                }
+                                                <div class="tg-contentbox">
+                                                    <h4><a href="#">Lahore Cleaning Service</a></h4>
+                                                    <ul class="tg-matadata">
+                                                        <li><span class="tg-stars"><span></span></span></li>
+                                                        <li>
+                                                            <i class="fa fa-thumbs-o-up"></i>
+                                                            <em>0% (0 votes)</em>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                @{
+                                                    <figure><a href="#"><img src="@baseUrl/Images/logos/img-02.png" alt="image description"></a></figure>
+
+                                                }
+                                                <div class="tg-contentbox">
+                                                    <h4><a href="#">Karachi Hardwares</a></h4>
+                                                    <ul class="tg-matadata">
+                                                        <li><span class="tg-stars"><span></span></span></li>
+                                                        <li>
+                                                            <i class="fa fa-thumbs-o-up"></i>
+                                                            <em>99% (0 votes)</em>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <figure><a href="#"><img src="@baseUrl/Images/logos/img-03.png" alt="image description"></a></figure>
+                                                <div class="tg-contentbox">
+                                                    <h4><a href="#">Humayio Computer Works</a></h4>
+                                                    <ul class="tg-matadata">
+                                                        <li><span class="tg-stars"><span></span></span></li>
+                                                        <li>
+                                                            <i class="fa fa-thumbs-o-up"></i>
+                                                            <em>0% (0 votes)</em>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                            @*<li><a href="javascript:void(0);">view all</a></li>*@
+                                        </ul>
+                                    </div>
+                                                    }
                             </div>
                         </div>
                     </div>
@@ -1107,7 +1135,7 @@
                                 <ul>
                                     <li><a href="#">Privacy Policy</a></li>
                                     <li><a href="#">Term and Conditions</a></li>
-                                    <li><a href="#">Contact</a></li>
+                                    <li><a href="@baseUrl/Home/Contact">Contact</a></li>
                                 </ul>
                             </nav>
                         </div>
@@ -1141,6 +1169,7 @@
     <script src="~/Scripts/jquery-ui.js"></script>
     <script src="~/Scripts/gmap3.js"></script>
     <script src="~/Scripts/main.js"></script>
+    <script src="~/Scripts/toastr.js"></script>
 
 
 </body>

@@ -57,6 +57,7 @@ Inner Page Banner Start
                             <div class="tg-dashboardhead">
                                 <div class="tg-dashboardtitle">
                                     <h2>Manage Appointments</h2>
+                                    <p style="color: red">Click on the DAY to view appointments </p>
                                 </div>
                                 <button class="tg-btnaddservices" data-toggle="modal" data-target="#addnewevent"> Add New Appointment</button>
                             </div>                            
@@ -136,16 +137,22 @@ Inner Page Banner Start
             eventLimit: 2, // If you set a number it will hide the itens
             eventLimitText: "More...", // Default is `more` (or "more" in the lang you pick in the option)
             dayClick: function (date, jsEvent, view) {
-                var m = (date._d.getMonth() + 1);
-                var d = date._d.getDate();
-                if ( m< 10) {
-                    m = "0"+m;
+
+                debugger;
+                if (IsDateHasEvent(date)) {
+                    var m = (date._d.getMonth() + 1);
+                    var d = date._d.getDate();
+                    if ( m< 10) {
+                        m = "0"+m;
+                    }
+                    if ( d< 10) {
+                        d = "0" +d;
+                    }
+                    var dateObj = date._d.getFullYear() + "-" + m + "-" + d;
+                    window.location = "/Appointment/GetDayEvents?dateObj=" + dateObj;
                 }
-                if ( d< 10) {
-                    d = "0" +d;
-                }
-                var dateObj = date._d.getFullYear() + "-" + m + "-" + d;
-                window.location = "/Appointment/GetDayEvents?dateObj=" + dateObj;
+
+              
             },
             header: {
                 left: 'prev, next today',
@@ -247,5 +254,15 @@ Inner Page Banner Start
         if (is) {
             $('#tempoCal1').trigger( "click" );  
         }
+    }
+
+    // check if this day has an event before
+    function IsDateHasEvent(date) {
+        var allEvents = [];
+        allEvents = $('#calendarContainer').fullCalendar('clientEvents');
+        var event = $.grep(allEvents, function (v) {
+            return +v.start === +date;
+        });
+        return event.length > 0;
     }
 </script>

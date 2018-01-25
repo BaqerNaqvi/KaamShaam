@@ -20,7 +20,7 @@ namespace KaamShaam.apis
         {
             try
             {
-                var allJobs = JobService.GetAllJobs(true);
+                var allJobs = JobService.GetReadyJobs(null).ToList();
                 return Request.CreateResponse(HttpStatusCode.OK, new ApiResponseModel
                 {
                     Success = true,
@@ -390,6 +390,46 @@ namespace KaamShaam.apis
                     Success = true
                 };
                 return Request.CreateResponse(HttpStatusCode.OK, res);
+            }
+            catch (Exception excep)
+            {
+                var response = new ApiResponseModel
+                {
+                    Data = null,
+                    Message = excep.InnerException.Message,
+                    Success = false
+                };
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, response);
+            }
+        }
+
+
+        [HttpPost]
+        [Route("api/Job/Contractor/Previous")]
+        public HttpResponseMessage GetContractorPreviousJobs(ApiRequestModel model)
+        {
+            try
+            {
+                #region not mapped
+                if (model==null || string.IsNullOrEmpty(model.ContractorId))
+                {
+                    var response = new ApiResponseModel
+                    {
+                        Data = null,
+                        Message = "Data is not mapped",
+                        Success = false
+                    };
+                    return Request.CreateResponse(HttpStatusCode.OK, response);
+                }
+                #endregion
+
+                var allJobs = JobService.GetPreviousJobsForContractor(model.ContractorId);
+                return Request.CreateResponse(HttpStatusCode.OK, new ApiResponseModel
+                {
+                    Success = true,
+                    Message = "Successfully fetched previous jobs for contractor",
+                    Data = allJobs
+                });
             }
             catch (Exception excep)
             {

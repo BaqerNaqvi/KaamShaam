@@ -330,6 +330,28 @@ namespace KaamShaam.Services
             }
         }
 
+        public static List<CustomJobModel> GetPreviousJobsForContractor(string loggedInContractorId)
+        {
+            using (var dbcontext = new KaamShaamEntities())
+            {
+                var jobs = dbcontext.Jobs.Where(j => !j.IsRecycled
+                && j.IsApproved && j.UserStstus && j.JobHistories.Any(
+                             t => t.ContractorId == loggedInContractorId &&
+                             t.JobStatus == (int)Commons.Enums.JobHistoryStatus.End)).ToList();
+                var mappedJobs = jobs.Select(j => j.Mapper()).ToList().OrderByDescending(j => j.PostingDateObj).ToList();
+                foreach (var job in mappedJobs)
+                {
+                    var rate = UserRatingService.GetRatingByJobId(job.Id);
+                    if (rate!=null)
+                    {
+                        job.RatingStarForConForPrevJob = rate.Rating.ToString();
+                        job.RatingStringForConForPrevJob = rate.Comments; 
+                    }
+                }
+                return mappedJobs;
+            }
+        }
+
         public static void AcceptJobProposal(CustomJobHistory job, string contractorId)
         {
             using (var dbcontext = new KaamShaamEntities())

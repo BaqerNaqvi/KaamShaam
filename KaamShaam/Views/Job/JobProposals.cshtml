@@ -145,6 +145,8 @@ Inner Page Banner Start
                                                                 <a href="#">@item.CatName Required</a>
                                                             </h3>
                                                         </div>
+
+                                                        <a href="#"><span style="visibility: hidden;height: 1px;">tempo text to show we exist dfdf dfd fd fd sdfsdf sdfsdf dsf sdf df sdfsd</span></a>
                                                         <p style="display: inline-block; text-align: left; float: left">@item.JobTitle </p>
                                                         @*@{
                                                                 if (item.IsApproved)
@@ -189,6 +191,13 @@ Inner Page Banner Start
                                                 </td>
                                             </tr>
                                                             }
+                                                            if (Model.JobsList == null || Model.JobsList.Count == 0)
+                                                            {
+                                                                <tr>
+                                                                    <p style="width: 100%; text-align: center;color: #ff7a36;">No Proposal Found!</p>
+                                                                </tr>
+                                                            }
+
                                     }
 
 
@@ -336,7 +345,7 @@ Inner Page Banner Start
     }
 
     function opPerformed(data) {
-        toastr.success("Operation performed");
+        toastr.success("Success");
         $('#manage-Job-Body').html(data);
         $('#updateJob').modal('hide');
         $('#adminLoading').hide();

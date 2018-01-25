@@ -10,25 +10,25 @@
             {
                 continue;
             }
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <div class="tg-serviceprovider tg-automotive">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="border-bottom: 1px solid #00000038;padding-top: 5px;padding-bottom: 5px;">
+                <div class="tg-serviceprovider tg-automotive" style="margin-bottom: 0px;">
                     <figure class="tg-featuredimg" style="width: 110px">
                         <img src="@item.image" alt="image description">
-                        <figcaption>
+                        @*<figcaption>
                             <a class="tg-themetag tg-categorytag" href="contractor-profile.php">@item.CatName</a>
                             <a class="tg-heart tg-liked" href="javascript:void(0);"></a>
-                        </figcaption>
+                        </figcaption>*@
                     </figure>
                     <div class="tg-companycontent">
                         <ul class="tg-tags">
-                            <li><a class="tg-tag tg-featuredtag" href="#">featured</a></li>
-                            <li><a class="tg-tag tg-verifiedtag" href="#">verified</a></li>
+                            <li><a class="tg-tag tg-featuredtag">@item.CatName</a></li>
+                            @*<li><a class="tg-tag tg-verifiedtag" >verified</a></li>*@
                         </ul>
                         <div class="tg-title">
                             <h3><a href="~/Contractor/ViewProfile?userId=@item.id" style="display: inline">@item.title</a><span style="font-size: x-small;">&nbsp;[@item.Distance Km away]</span></h3>
                         </div>
                         <ul class="tg-matadata">
-                            <li><span class="tg-stars"><span></span></span></li>
+                            @*<li><span class="tg-stars"><span></span></span></li>*@
                             <li>
                                 <i class="fa fa-thumbs-o-up"></i>
                                 <em>@item.score% (@item.votes votes)</em>
